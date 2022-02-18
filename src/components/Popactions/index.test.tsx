@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Popactions from '.';
-import { Button } from '@mui/material';
 
 const OpenButton = ({ children }) => <button data-testid="openButton" >{children}</button>;
 
