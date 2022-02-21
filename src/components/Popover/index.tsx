@@ -60,7 +60,7 @@ const PopoverRoot: React.FC<TooltipProps> = styled((inProps) => {
   )
 })(({ theme, arrow }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.common.white,
+    // backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',
     boxShadow: '0px 1px 10px 0px rgb(0 0 0 / 12%)',
     padding: 0,
