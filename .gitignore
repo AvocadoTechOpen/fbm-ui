@@ -27,4 +27,3 @@ yarn.lock
 
 src/.umi-production
 lib
-./package.json
