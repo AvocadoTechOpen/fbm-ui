@@ -6,6 +6,7 @@
 .pnp.js
 /src/.umi
 
+
 # testing
 /coverage
 
@@ -26,3 +27,4 @@ yarn.lock
 
 src/.umi-production
 lib
+./package.json
