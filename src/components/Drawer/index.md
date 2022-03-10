@@ -33,7 +33,12 @@ export default () => {
     <Layout>
       <Button onClick={() => setOpen(true)}>open</Button>
       
-      <Drawer open={open} onOk={handleOk} onClose={handleClose}>
+      <Drawer
+        title={'人才详情'}
+        open={open}
+        onOk={handleOk}
+        onClose={handleClose}
+      >
         <Typography variant="h4"> 招聘管理 面面俱到</Typography>
         <Typography variant="body1">
           从简历筛选到offer管理的招聘流程线上自动化，各模块100%可
