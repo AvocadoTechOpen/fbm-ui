@@ -5,7 +5,8 @@ import Box from '../../Box'
 
 const DrawerContent: React.FC = styled(Box)({
   height: 'calc(100vh - 80px)',
-  overflowY: 'auto'
+  overflowY: 'auto',
+  padding: '0 16px'
 })
 
 export default DrawerContent
