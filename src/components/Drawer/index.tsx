@@ -9,6 +9,7 @@ import { FbmConfirmFooterProps } from '../ConfirmFooter'
 export interface FbmDrawerProps extends FbmConfirmFooterProps {
   open: boolean;
   footer?: React.ReactNode | null;
+  header?: React.ReactNode | null;
   anchor?: FbmDrawerRootProps['anchor'];
   title?: React.ReactNode;
   isShowClose: boolean;
@@ -29,6 +30,7 @@ const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
     okProps,
     closeProps,
     footer,
+    header,
     isShowClose,
     BackdropProps,
     isBackdrop,
@@ -46,6 +48,7 @@ const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
     >
       <Content>
         <Header
+          header={header}
           title={title}
           isShowClose={isShowClose}
           onClose={onClose}

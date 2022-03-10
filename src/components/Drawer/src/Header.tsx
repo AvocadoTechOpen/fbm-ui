@@ -7,6 +7,7 @@ interface HeaderProps {
   title?: React.ReactNode;
   isShowClose?: boolean;
   onClose: FbmConfirmFooterProps['onClose']
+  header?:  React.ReactNode | null;
 }
 
 const HeaderBox = styled(Box)({
@@ -26,7 +27,13 @@ const Header: React.FC<HeaderProps> = ({
   title,
   isShowClose,
   onClose,
+  header,
 }) => {
+  // checkout null
+  if (header === null || (!title && !isShowClose)) {
+    return null
+  }
+
   let closeBtn = null
   if (isShowClose) {
     closeBtn = (
