@@ -58,15 +58,17 @@ const FbmConfirmFooter: React.FC<FbmConfirmFooterProps> = React.forwardRef((prop
       }
     }
   }
-  const closeButtonProps = {
-    onClick: handleClose,
-    sx: { mr: '8px' },
-    ...closeProps
-  }
+
   const CloseButton: React.FC = () => {
     if (!isCloseButton) return null
     return (
-      <Button variant='text'  {...closeButtonProps}>
+      <Button
+        variant='text'
+        onClick={handleClose}
+        sx={{ mr: '8px' }}
+        color='secondary'
+        {...closeProps}
+      >
         {closeText}
       </Button>
     )
@@ -83,14 +85,13 @@ const FbmConfirmFooter: React.FC<FbmConfirmFooterProps> = React.forwardRef((prop
       }
     }
   }
-  const okButtonProps = {
-    loading,
-    disabled: okDisabled,
-    onClick: handleOk,
-    ...okProps
-  }
   const OkButton: React.FC = () => (
-    <Button {...okButtonProps}>
+    <Button
+      loading={loading}
+      disabled={okDisabled}
+      onClick={handleOk}
+      {...okProps}
+    >
       {okText}
     </Button>
   )

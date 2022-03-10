@@ -12,6 +12,8 @@ export interface FbmDrawerProps extends FbmConfirmFooterProps {
   anchor?: FbmDrawerRootProps['anchor'];
   title?: React.ReactNode;
   isShowClose: boolean;
+  BackdropProps?: FbmDrawerRootProps['BackdropProps'];
+  isBackdrop?: boolean;
 }
 
 const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
@@ -28,6 +30,8 @@ const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
     closeProps,
     footer,
     isShowClose,
+    BackdropProps,
+    isBackdrop,
   } = props
 
   return (
@@ -35,6 +39,10 @@ const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
       open={open}
       anchor={anchor}
       onClose={onClose}
+      BackdropProps={{
+        open: isBackdrop === true,
+        ...BackdropProps,
+      }}
     >
       <Content>
         <Header
@@ -42,7 +50,7 @@ const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
           isShowClose={isShowClose}
           onClose={onClose}
         />
-        
+
         {children}
       </Content>
       <Footer
@@ -62,6 +70,7 @@ FbmDrawer.defaultProps = {
   open: false,
   anchor: 'right',
   isShowClose: true,
+  isBackdrop: true,
 }
 
 export default FbmDrawer
