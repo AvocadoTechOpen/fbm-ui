@@ -56,7 +56,7 @@ import { Layout, TextField, rules, useTextField, Button, SearchIcon, DatePicker,
 
 export default () => {
   const [value, setValue] = React.useState(null)
-  const [time, setTime] = React.useState(null)
+  const [time, setTime] = React.useState('22:12')
 
   const handleChange = (event) => {
     setValue(event)
@@ -93,7 +93,7 @@ export default () => {
 
   return (
     <Layout>
-      <TextField size='small' label='日历' error={dateFieldProps.error}>
+      <TextField size='small' label='时间' error={dateFieldProps.error}>
         <DatePicker {...dateFieldProps.InputProps} />
       </TextField>
 

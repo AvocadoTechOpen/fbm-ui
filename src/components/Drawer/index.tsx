@@ -12,7 +12,7 @@ export interface FbmDrawerProps extends FbmConfirmFooterProps {
   header?: React.ReactNode | null;
   anchor?: FbmDrawerRootProps['anchor'];
   title?: React.ReactNode;
-  isShowClose: boolean;
+  isShowClose?: boolean;
   BackdropProps?: FbmDrawerRootProps['BackdropProps'];
   isBackdrop?: boolean;
 }
