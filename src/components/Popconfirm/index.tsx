@@ -53,7 +53,7 @@ const PopTitle: React.FC<PopTitleProps> = styled((props) => {
 
 const Popconfirm: React.FC<FbmPopconfirmProps> = ({
   title,
-  content,
+  content: contentProp,
   children,
   onOk,
   onClose,
@@ -68,6 +68,11 @@ const Popconfirm: React.FC<FbmPopconfirmProps> = ({
       if (isFunction(onClose)) {
         onClose()
       }
+    }
+
+    let content = contentProp;
+    if (isFunction(contentProp)) {
+      content = contentProp(popover)
     }
 
     return (
