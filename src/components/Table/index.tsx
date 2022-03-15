@@ -18,6 +18,7 @@ const FbmTable: React.FC<FbmTableProps> = ({
   loading,
   data,
   emptyText,
+  emptyUrl,
   columns,
   batchActions,
   nameText,
@@ -41,6 +42,7 @@ const FbmTable: React.FC<FbmTableProps> = ({
           data={data}
           columns={columns}
           emptyText={emptyText}
+          emptyUrl={emptyUrl}
           loading={loading}
         />
       </Table>

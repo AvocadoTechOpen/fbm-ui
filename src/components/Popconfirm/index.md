@@ -93,3 +93,34 @@ export default () => {
   )
 }
 ```
+
+
+```tsx
+/**
+ * title: 自定义content
+ * desc: content的高级使用
+ */
+import * as React from 'react';
+import {Popconfirm, Button, Demo} from 'fbm-ui'
+
+export default () =>{
+  const content = <div style={{height: 300, width: 400}}><h1>hell world</h1></div>
+  const handleOk = ()=> new Promise((r) => setTimeout(r, 1500))
+
+  return (
+    <Demo>
+      <Popconfirm 
+        content={(popover) => {
+          return (<Button size="medium" onClick={() => popover.handleClose()} >关闭</Button>)
+        }}
+        onOk={handleOk}
+        onClickAway={(e) => {
+          console.log(e)
+        }}
+      >
+        <Button >Popconfirm</Button>
+      </Popconfirm>
+    </Demo>
+  )
+}
+```
