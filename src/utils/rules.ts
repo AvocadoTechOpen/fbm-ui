@@ -71,7 +71,7 @@ export const email = (message?: string) => {
 export const date = (message?: string) => {
   return (value) => {
     if (!isDate(value)) {
-      return message || '请输入正确的日历格式'
+      return message || '请输入正确的日期格式'
     }
   }
 }

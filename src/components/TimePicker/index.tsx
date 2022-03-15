@@ -28,6 +28,9 @@ const AutocompleteRoot = styled(Autocomplete)({
   },
   '& label.MuiInputLabel-root': {
     top: '3px'
+  },
+  '& div.MuiOutlinedInput-root.MuiInputBase-sizeSmall': {
+    paddingRight: 25,
   }
 })
 
@@ -69,12 +72,7 @@ const TimePicker: React.FC<TimePickerProps> = React.forwardRef((props, ref) => {
       forcePopupIcon={true}
       popupIcon={<ArrowDropDownIcon style={{ color: 'rgba(0, 0, 0, 0.56)' }} />}
       disabled={disabled}
-      filterOptions={(options, { inputValue }) => {
-        const filteredOptions = options.filter(option => {
-          return (option as string).indexOf(inputValue) > -1
-        })
-        return filteredOptions.length > 0 ? filteredOptions : options
-      }}
+      filterOptions={(options) => options}
       renderInput={(params) => {
         return (
           <TextField

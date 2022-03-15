@@ -58,10 +58,11 @@ const FbmDateRangePicker: React.FC<FbmDateRangePickerProps> = props => {
   } = useMergeProps(props)
 
   const handleChange = (newValue) => {
+    if (newValue === null) return
     onChange?.(newValue)
   }
 
-  const handleBlur = () => {
+  const handleBlur = (newValue) => {
     onBlur?.(value)
   }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   FormControlLabel,
   FormControlLabelProps,
+  formControlLabelClasses,
   Switch,
   SwitchProps,
   switchClasses,
@@ -14,15 +15,15 @@ interface FbmSwitchProps extends SwitchProps {
 
 const CustomSwitch = styled(Switch)(({ theme }) => {
   return {
-    width: 42,
-    height: 26,
+    width: 35,
+    height: 22,
     padding: 0,
     [`& .${switchClasses.switchBase}`]: {
       padding: 0,
-      margin: 2,
+      margin: 1,
       transitionDuration: '300ms',
       [`&.${switchClasses.checked}`]: {
-        transform: 'translateX(16px)',
+        transform: 'translateX(13px)',
         color: '#fff',
         [`& + .${switchClasses.track}`]: {
           backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
@@ -49,8 +50,8 @@ const CustomSwitch = styled(Switch)(({ theme }) => {
     },
     '& .MuiSwitch-thumb': {
       boxSizing: 'border-box',
-      width: 22,
-      height: 22,
+      width: 20,
+      height: 20,
     },
     '& .MuiSwitch-track': {
       borderRadius: 26 / 2,
@@ -63,11 +64,22 @@ const CustomSwitch = styled(Switch)(({ theme }) => {
   }
 })
 
-const FbmSwitch: React.FC<FbmSwitchProps> = React.forwardRef((props, ref) => {
-  const { children, label, ...SwitchProps } = props
+const ControlLabel = styled(FormControlLabel)({
+  margin: 0,
+  [`& .${formControlLabelClasses.label}`]: {
+    fontSize: 14,
+    marginLeft: 8,
+  }
+})
 
+const FbmSwitch: React.FC<FbmSwitchProps> = React.forwardRef((props, ref) => {
+  const { children, label, sx, ...SwitchProps } = props
   return (
-    <FormControlLabel control={<CustomSwitch {...SwitchProps} />} label={label} />
+    <ControlLabel
+      sx={sx}
+      control={<CustomSwitch {...SwitchProps} />}
+      label={label}
+    />
   )
 })
 

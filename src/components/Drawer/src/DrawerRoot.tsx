@@ -1,14 +1,12 @@
 import React from 'react';
-import { Drawer, DrawerProps, drawerClasses} from '@mui/material'
+import { Drawer, DrawerProps, drawerClasses } from '@mui/material'
 import styled from '@mui/material/styles/styled'
 
-export interface FbmDrawerRootProps extends DrawerProps{
+export interface FbmDrawerRootProps extends DrawerProps {
   zIndex?: number
 }
 
-const FbmDrawerRoot: React.FC<FbmDrawerRootProps> = styled(Drawer)(({
-  zIndex,
-}) => {
+const FbmDrawerRoot: React.FC<FbmDrawerRootProps> = styled(Drawer)(({ zIndex }) => {
   return {
     zIndex,
     [`& .${drawerClasses.paperAnchorRight}`]: {
