@@ -58,12 +58,13 @@ const weightTransformations = {
 
 const transformDeprecatedWeight = weight => weightTransformations[weight] || weight
 
-const FbmTypographyProps: React.FC<FbmTypographyProps> = ({ children, color, weight, ...props }) => {
+const FbmTypographyProps: React.FC<FbmTypographyProps> = React.forwardRef(({ children, color, weight, ...props }, ref) => {
   const textColor = transformDeprecatedColors(color)
   const textWeight = transformDeprecatedWeight(weight)
 
   return (
     <Typography
+      ref={ref}
       color={textColor}
       fontWeight={textWeight}
       {...props}
@@ -71,7 +72,7 @@ const FbmTypographyProps: React.FC<FbmTypographyProps> = ({ children, color, wei
       {children}
     </Typography>
   )
-}
+})
 
 FbmTypographyProps.defaultProps = {
   weight: 'regular', // font-weight 500
