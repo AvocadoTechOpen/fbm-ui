@@ -20,6 +20,10 @@ export function isString(value: unknown): Boolean {
   return Object.prototype.toString.call(value) === '[object String]';
 }
 
+export function isNumber(value: unknown): Boolean {
+  return Object.prototype.toString.call(value) === '[object Number]';
+}
+
 export function isDate(value: any): Boolean {
   return Object.prototype.toString.call(value) === '[object Date]' && !isNaN(value?.getTime?.())
 }
@@ -39,4 +43,11 @@ export function isEmpty(value: any): Boolean {
   }
 
   return false
+}
+
+export function prefixZero(value): string {
+  const num = parseInt(value)
+  if (num === NaN) return ''
+  if (num >= 10) return num.toString()
+  return `0${num}`
 }
