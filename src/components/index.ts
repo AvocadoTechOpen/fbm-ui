@@ -95,3 +95,4 @@ export { default as ListItem } from './ListItem'
 export { default as TimePicker } from './TimePicker'
 
 export { default as Switch } from './Switch'
+export * from './Switch'

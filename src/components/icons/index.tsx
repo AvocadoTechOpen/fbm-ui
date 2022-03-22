@@ -141,3 +141,7 @@ export { default as RobotIcon } from './src/RobotIcon';
 export { default as Qrcode } from './src/Qrcode';
 export { default as ClockCircle } from './src/ClockCircle';
 export { default as HelpIcon } from './src/HelpIcon';
+export { default as CarouselIcon } from './src/CarouselIcon';
+export { default as TitleIcon } from './src/TitleIcon';
+export { default as RichTextIcon } from './src/RichTextIcon';
+export { default as SpaceDashboardIcon } from './src/SpaceDashboardIcon';
