@@ -8,6 +8,7 @@ import Input, { FbmInputProps } from '../Input'
 import LocalizationProvider from '../LocalizationProvider'
 import useFormItemContext from '../FormItem/useFormItemContext';
 import { DateIcon } from '../icons'
+import { isDate, prefixZero } from '../../utils'
 
 export interface FbmDateRangePickerProps extends DesktopDatePickerProps {
   value: DesktopDatePickerProps['value'];
@@ -57,18 +58,17 @@ const FbmDateRangePicker: React.FC<FbmDateRangePickerProps> = props => {
     ...DesktopDatePickerProps
   } = useMergeProps(props)
 
+  const inputRef = React.useRef(null)
+
   const handleChange = (newValue) => {
-    if (newValue === null) return
+    // if (newValue === null) return
     onChange?.(newValue)
   }
 
-  const handleBlur = (newValue) => {
-    onBlur?.(value)
-  }
 
   const renderInput = (props) => {
     const {
-      inputRef,
+      inputRef: inputRefProp,
       inputProps,
       disabled,
       InputProps
@@ -78,14 +78,28 @@ const FbmDateRangePicker: React.FC<FbmDateRangePickerProps> = props => {
       inputProps.value = ''
     }
 
+    const handleBlur = (event) => {
+      onBlur?.(value)
+      if (isDate(value)) {
+        const [yyyy, mm, dd] = inputProps.value.split('/')
+        const dateStr = [yyyy, prefixZero(mm), prefixZero(dd)].join('/')
+        setTimeout(() => {
+          inputRef.current.value = dateStr
+        }, 100)
+      }
+    }
+
     return (
       <Input
         disabled={disabled}
-        inputRef={inputRef}
-        inputProps={inputProps}
+        inputRef={inputRefProp}
+        inputProps={{
+          ...inputProps,
+          ref: inputRef,
+        }}
         {...InputProps}
         onBlur={handleBlur}
-        onChange={() => {}}
+        onChange={() => { }}
       />
     )
   }
@@ -107,7 +121,8 @@ const FbmDateRangePicker: React.FC<FbmDateRangePickerProps> = props => {
 
 FbmDateRangePicker.defaultProps = {
   inputFormat: 'yyyy/MM/dd',
-  disableMaskedInput: true,
+  // mask: '____/__/__',
+  // disableMaskedInput: true,
   components: {
     OpenPickerIcon: DateIcon,
   }

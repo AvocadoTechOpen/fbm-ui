@@ -9,7 +9,7 @@ import {
   styled
 } from '@mui/material'
 
-interface FbmSwitchProps extends SwitchProps {
+export interface FbmSwitchProps extends SwitchProps {
   label?: FormControlLabelProps['label'];
 }
 
