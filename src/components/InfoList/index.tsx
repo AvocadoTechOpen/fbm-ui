@@ -9,7 +9,7 @@ export interface InfoListProps {
   /** 标题 */
   title?: InfoTitleProps['title'];
   /** 数据源 */
-  data: any;
+  data?: any;
   /** 行格式要求 */
   rows: Array<Row>;
   /** 是否显示loading */
@@ -28,7 +28,7 @@ const InfoList: FC<InfoListProps> = (props) => {
       {title && <InfoTitle title={title} {...titleProps} />}
       <Box>
       {
-        (rows || []).map((n) => (
+        (rows || [])?.map((n) => (
           <InfoItem
             key={n.id}
             row={n}
