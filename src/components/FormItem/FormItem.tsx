@@ -16,7 +16,6 @@ import {
   FormHelperTextProps
 } from '@mui/material'
 
-import FormItemContext from './FormItemContext'
 import Input, { FbmInputProps } from '../Input'
 import { isEmpty } from '../../utils'
 
@@ -64,7 +63,7 @@ const FormItemRoot: React.FC<FormControlProps> = styled(FormControl)({
   height: '84px',
 });
 
-const LabelRoot: React.FC<FbmInputLabelProps> = styled(InputLabel)(({ variant, size }) => {
+const LabelRoot: React.FC<FbmInputLabelProps> = styled(InputLabel)(({ variant, size }: any) => {
   return {
     lineHeight: 1,
     zIndex: 1,
@@ -80,7 +79,6 @@ const LabelRoot: React.FC<FbmInputLabelProps> = styled(InputLabel)(({ variant, s
         transform: 'translate(14px, -7px) scale(0.75)',
       }
     })
-
   }
 });
 
@@ -134,7 +132,7 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
     max,
     extra,
     length,
-    InputLabelProps: labelPropsProp,
+    InputLabelProps: LabelPropsProp,
     children: childrenProp,
     variant,
     value,
@@ -159,35 +157,12 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
     readOnly,
     size,
     type,
-    ...other
+    ...FormControlProps
   } = props
 
   // status
   const statusError: boolean = error && !isEmpty(error)
-
-  const labelProps = {
-    size,
-    variant: (variant as InputLabelProps['variant']),
-    id: `${name}-label`,
-    htmlFor: name,
-    children: label,
-    ...labelPropsProp,
-  }
-
-  const helperTextProps = {
-    extra,
-    error: statusError,
-    id: `${name}-helper-text`,
-    children: (error as ErrorType)?.isBeyond ? extra : error,
-    max: max,
-    length: length
-  }
-
-  const formItemProps = {
-    variant: (variant as FormControlProps['variant']),
-    error: statusError,
-    ...(other as any),
-  };
+  const htmlFor = `${name||id}-htmlFor`;
 
   let children = null
   if (childrenProp) {
@@ -204,7 +179,7 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
         error={statusError}
         value={value}
         variant={variant}
-        aria-describedby={helperTextProps.id}
+        aria-describedby={htmlFor}
         autoComplete={autoComplete}
         autoFocus={autoFocus}
         defaultValue={defaultValue}
@@ -229,31 +204,33 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
     )
   }
 
-  const formikValue = meta ? {
-    meta,
-    helpers,
-    onBlur,
-    onChange,
-  }: {}
-
-  // 如果调用了Form组件 则获取useFormItem 返回值，给formItem子组件用
-  const childContext = {
-    name,
-    label,
-    value,
-    length,
-    size,
-    ...formikValue,
-  }
-
   return (
-    <FormItemContext.Provider value={childContext}>
-      <FormItemRoot {...formItemProps} ref={ref}>
-        <Label {...labelProps} />
-        {children}
-        <Helper {...helperTextProps} />
-      </FormItemRoot>
-    </FormItemContext.Provider>
+    <FormItemRoot
+      variant={(variant as FormControlProps['variant'])}
+      error={statusError}
+      {...(FormControlProps as any)}
+    >
+      <Label
+        variant={(variant as InputLabelProps['variant'])}
+        id={id}
+        htmlFor={htmlFor}
+        {...LabelPropsProp}
+      >
+        {label}
+      </Label>
+
+      {children}
+
+      <Helper
+        extra={extra}
+        id={id}
+        error={statusError}
+        max={max}
+        length={length}
+      >
+        {(error as ErrorType)?.isBeyond ? extra : error}
+      </Helper>
+    </FormItemRoot>
   )
 })
 

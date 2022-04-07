@@ -49,7 +49,7 @@ const PopTitle: React.FC<PopTitleProps> = styled((props) => {
   height: '56px',
   alignItems: 'center',
   display: 'flex',
-})
+}) as any
 
 const Popconfirm: React.FC<FbmPopconfirmProps> = ({
   title,

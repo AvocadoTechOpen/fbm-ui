@@ -37,20 +37,20 @@ const FbmInput: React.FC<FbmInputProps> = React.forwardRef((props, ref) => {
     variant,
     clear,
     onClear,
-    helpers,
-    meta,
+    // helpers,
+    // meta,
     ...InputProps
-  } = useInputProps(props)
+  } = props
 
   const handleClear = (e) => {
     e.stopPropagation()
     if (isFunction(onClear)) {
       onClear()
     }
-    if (helpers?.setValue) {
-      const setValue = helpers?.setValue
-      setValue(meta?.initialValue)
-    }
+    // if (helpers?.setValue) {
+    //   const setValue = helpers?.setValue
+    //   setValue(meta?.initialValue)
+    // }
   }
 
   const InputComponent = variantComponent[variant]

@@ -30,7 +30,8 @@ export default function useFormItem(params: UseFormItemParams): UseFormItemRetur
   const {
     name,
     max,
-    value
+    value,
+    rules
   } = params
 
   const formik = useFormikContext()
@@ -50,17 +51,22 @@ export default function useFormItem(params: UseFormItemParams): UseFormItemRetur
 
   // 处理验证
   const { registerField, unregisterField } = formik;
+
   React.useEffect(() => {
-    registerField(name, {
-      validate: async (value) => {
-        const error: any = await validate(value, params)
-        return error
-      }
-    });
+    if (name) {
+      registerField(name, {
+        validate: async (value) => {
+          const error: any = await validate(value, params)
+          return error
+        }
+      });
+    }
     return () => {
-      unregisterField(name);
+      if (name) {
+        unregisterField(name);
+      }
     };
-  }, [name, formik.values]);
+  }, [registerField, unregisterField, name, rules]);
 
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<any>) => {

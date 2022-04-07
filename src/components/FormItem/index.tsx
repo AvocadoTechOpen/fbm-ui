@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import FormItem, { FbmFormItemProps } from './FormItem'
 import { FbmInputProps } from '../Input'
@@ -21,23 +21,31 @@ const FormItemIndex: React.FC<FbmFormItemProps & FbmInputProps> = ({
   ...otherProps
 }) => {
 
-  let label = labelProp
-  if (required && (label && typeof label === 'string' && !label.endsWith('*'))) {
-    label = `${label}*`
-  }
-
-  let rules = rulesProp
-  if (required) {
-    const requiredRule = ([{ required: true }] as any)
-    if (isEmpty(rules)) {
-      rules = requiredRule
-    } else {
-      const { required } = (rules[0] as any)
-      if (required === undefined) {
-        rules = requiredRule.concat(rules)
-      }
+  // 给label加*
+  const label = useMemo(() => {
+    if (required && (labelProp && typeof labelProp === 'string' && !labelProp.endsWith('*'))) {
+      return `${labelProp}*`
     }
-  }
+    return labelProp
+  }, [labelProp])
+
+  // 如果required为true， 给rules添加必填项的规则
+  const rules = useMemo(() => {
+    if (required) {
+      const requiredRule = ([{ required: true }] as any)
+      if (isEmpty(rulesProp)) {
+        return requiredRule
+      }
+
+      const { required } = (rulesProp[0] as any)
+      if (required === undefined) {
+        return requiredRule.concat(rulesProp)
+      }
+      return rulesProp
+    }
+
+    return rulesProp
+  }, [required, rulesProp])
 
   const {
     name,

@@ -9,9 +9,8 @@ import { RuleItemType } from './FormItem'
  * @param {*} value 输入框值
  * @param {*} props useFormItemParams
  */
-export default async function validate(value, props: UseFormItemParams): Promise<string | GetValueLengthReturn | undefined> {
+export default async function validate(value, formItem: UseFormItemParams): Promise<string | GetValueLengthReturn | undefined> {
   // this => formItem
-  const formItem = props
   const { rules, max } = (formItem || {})
 
   return new Promise(async (resolve) => {

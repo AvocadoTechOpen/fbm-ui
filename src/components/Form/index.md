@@ -59,20 +59,22 @@ export default () => {
           label="性别"
           required
         >
-          <Select options={[
-            {
-              label: '未知',
-              value: '',
-            },
-            {
-              label: '男',
-              value: 1,
-            },
-            {
-              label: '女',
-              value: 2,
-            }
-          ]} />
+          <Select 
+            options={[
+              {
+                label: '未知',
+                value: '',
+              },
+              {
+                label: '男',
+                value: 1,
+              },
+              {
+                label: '女',
+                value: 2,
+              }
+            ]} 
+          />
         </FormItem>
 
          <FormItem
@@ -98,14 +100,13 @@ export default () => {
             }
           ]}
         />
-
          <FormItem
           name="password"
           type='password'
           label="密码"
           required
         />
-        
+
         <FormItem
           name="rePassword"
           type='password'
