@@ -167,8 +167,6 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
   let children = null
   if (childrenProp) {
     children = childrenProp
-  } else if (typeof childrenProp === 'function') {
-    children = childrenProp(props)
   } else {
     children = (
       <Input

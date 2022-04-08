@@ -6,14 +6,14 @@ import styled from '@mui/material/styles/styled'
 
 import Outlined, { FbmOutlinedProps } from './Outlined'
 import Standard, { FbmStandardProps } from './Standard'
-import useInputProps from './useInputProps'
+import Calendar from '../Calendar'
 import { CloseIcon } from '../icons'
 import { isFunction } from '../../utils'
 
 const variantComponent = {
   standard: Standard,
-  // filled: FilledInput,
   outlined: Outlined,
+  calendar: Calendar
 };
 
 export interface BaseInputProps {
@@ -37,8 +37,6 @@ const FbmInput: React.FC<FbmInputProps> = React.forwardRef((props, ref) => {
     variant,
     clear,
     onClear,
-    // helpers,
-    // meta,
     ...InputProps
   } = props
 
@@ -47,10 +45,6 @@ const FbmInput: React.FC<FbmInputProps> = React.forwardRef((props, ref) => {
     if (isFunction(onClear)) {
       onClear()
     }
-    // if (helpers?.setValue) {
-    //   const setValue = helpers?.setValue
-    //   setValue(meta?.initialValue)
-    // }
   }
 
   const InputComponent = variantComponent[variant]

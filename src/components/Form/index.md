@@ -55,30 +55,8 @@ export default () => {
          />
         
         <FormItem
-          name="sex"
-          label="性别"
-          required
-        >
-          <Select 
-            options={[
-              {
-                label: '未知',
-                value: '',
-              },
-              {
-                label: '男',
-                value: 1,
-              },
-              {
-                label: '女',
-                value: 2,
-              }
-            ]} 
-          />
-        </FormItem>
-
-         <FormItem
           name="date"
+          type="date"
           label="日期"
           required
           rules={[
@@ -86,40 +64,8 @@ export default () => {
               type: 'date'
             }
           ]}
-        >
-          <DatePicker />
-        </FormItem>
-
-        <FormItem
-          name="email"
-          label="邮箱"
-          required
-          rules={[
-            {
-              type: 'email'
-            }
-          ]}
-        />
-         <FormItem
-          name="password"
-          type='password'
-          label="密码"
-          required
         />
 
-        <FormItem
-          name="rePassword"
-          type='password'
-          label="确认密码"
-          required
-          rules={[
-            (value) => {
-              if (value !== form?.values?.password) {
-                return '两次密码不一致'
-              }
-            }
-          ]}
-        />
 
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
