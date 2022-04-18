@@ -56,7 +56,11 @@ const Popconfirm: React.FC<FbmPopconfirmProps> = ({
   content: contentProp,
   children,
   onOk,
+  okText,
+  okProps,
   onClose,
+  closeText,
+  closeProps,
   ...popoverProps
 }) => {
 
@@ -83,7 +87,11 @@ const Popconfirm: React.FC<FbmPopconfirmProps> = ({
         {content}
         <ConfirmFooter
           onOk={onOk}
+          okText={okText}
+          okProps={okProps}
           onClose={handleClose}
+          closeText={closeText}
+          closeProps={closeProps}
         />
       </PopContent>
     )

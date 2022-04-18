@@ -47,6 +47,13 @@ const FbmConfirmFooter: React.FC<FbmConfirmFooterProps> = React.forwardRef((prop
     footer,
     ...otherProps
   } = props
+
+  if (footer === null) return null
+
+  if (typeof footer === 'function') {
+    return footer(props)
+  }
+
   const [loading, setLoading] = React.useState(false)
 
   const handleClose = async () => {
