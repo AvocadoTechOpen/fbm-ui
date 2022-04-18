@@ -46,8 +46,10 @@ interface ClickWrapProps extends ClickAwayListenerProps {
 interface UseOpen {
   ({
     open,
+    trigger,
   }: {
     open: FbmPopoverProps['open'];
+    trigger: TriggerMap;
   }): [boolean, (open: boolean) => void]
 };
 
@@ -112,11 +114,12 @@ const ClickWrap: React.FC<ClickWrapProps> = ({
 }
 
 const useOpen: UseOpen = ({
+  trigger,
   open: openProp,
 }) => {
   // 如果open是undefined则交给mui Tooltip 处理
   const isAutomaticOpen = openProp === undefined
-  if (!isAutomaticOpen) {
+  if (!isAutomaticOpen || trigger === 'hover') {
     return [openProp, () => undefined]
   }
 
@@ -147,6 +150,7 @@ const FmbPopover: React.FC<FbmPopoverProps> = React.forwardRef((props, ref) => {
 
   const [open, setOpen] = useOpen({
     open: openProp,
+    trigger,
   })
 
   const handleClose = (event: Event) => {
