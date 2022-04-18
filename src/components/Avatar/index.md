@@ -56,7 +56,7 @@ import { Avatar, Demo} from 'fbm-ui'
 const imgurl = 'https://joeschmoe.io/api/v1/random'
 export default () =>(
   <Demo white>
-    <Avatar  src={imgurl} size={'small'} />
+    <Avatar showNewTip src={imgurl} size={'small'} />
     <Avatar  src={imgurl} size={'middle'} />
     <Avatar  src={imgurl} size={'large'} />
     <Avatar  src={imgurl} size={100} />

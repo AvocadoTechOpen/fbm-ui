@@ -6,10 +6,29 @@ import Avatar from '../Avatar'
 import Box from '../Box'
 import Typography from '../Typography'
 import Chip from '../Chip'
+import { EduExperience, WorkExperience } from './Experience'
 
 type AgeMap = 1 | 2
 type ChipsProps = {
   chips?: ChipProps[]
+}
+
+export type ExperienceDate = {
+  start: Date | string;
+  end: Date | string;
+}
+
+export type EduExperience = {
+  school?: string;
+  major?: string;
+  eduBackground?: string;
+  eduDate?: ExperienceDate
+}
+
+export type WorkExperience = {
+  companyName?: string;
+  positionName?: string;
+  workDate?: ExperienceDate;
 }
 
 export interface FbmUserInfoProps {
@@ -22,7 +41,11 @@ export interface FbmUserInfoProps {
   /** 个人信息 */
   desc?: string;
   /** 标签 */
-  chips?: ChipsProps['chips']
+  chips?: ChipsProps['chips'];
+  /** 教育经历 */
+  eduExperience?: EduExperience;
+  /** 工作经历 */
+  workExperience: WorkExperience;
 }
 
 const FbmUserInfoRoot = styled(Box)({
@@ -40,9 +63,8 @@ const NameText = styled(Typography)({
   marginBottom: '4px',
 })
 
-const DescTetx = styled(Typography)({
+export const DescTetx = styled(Typography)({
   height: 22,
-  marginBottom: '4px',
   fontSize: 14,
   color: 'rgba(0, 0, 0, 0.56)',
 })
@@ -73,7 +95,9 @@ const FbmUserInfo: React.FC<FbmUserInfoProps> = ({
   sex,
   name,
   desc,
-  chips
+  chips,
+  eduExperience,
+  workExperience,
 }) => {
 
   const avatarProps = {
@@ -92,6 +116,8 @@ const FbmUserInfo: React.FC<FbmUserInfoProps> = ({
         <NameText >{name}</NameText>
         <DescTetx>{desc}</DescTetx>
         <Chips chips={chips} />
+        <EduExperience data={eduExperience} />
+        <WorkExperience data={workExperience} />
       </InfoRoot>
     </FbmUserInfoRoot>
   )
