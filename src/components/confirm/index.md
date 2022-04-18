@@ -59,6 +59,7 @@ export default () =>(
           color: 'error',
           variant: 'contained',
         },
+        onOk: ({onClose}) => onClose()
       })
     }}  color="error"> 告警 </Button>
 
