@@ -1,13 +1,14 @@
 import React from 'react';
 
 import DrawerRoot, { FbmDrawerRootProps } from './src/DrawerRoot'
-import Header from './src/Header'
+import Header, { HeaderProps } from './src/Header'
 import Content from './src/Content'
 import Footer from './src/Footer'
 import { FbmConfirmFooterProps } from '../ConfirmFooter'
 
 export interface FbmDrawerProps extends FbmConfirmFooterProps {
   open: boolean;
+  onBack?: HeaderProps['onBack'];
   footer?: React.ReactNode | null;
   header?: React.ReactNode | null;
   anchor?: FbmDrawerRootProps['anchor'];
@@ -15,6 +16,7 @@ export interface FbmDrawerProps extends FbmConfirmFooterProps {
   isShowClose?: boolean;
   BackdropProps?: FbmDrawerRootProps['BackdropProps'];
   isBackdrop?: boolean;
+  
 }
 
 const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
@@ -25,6 +27,7 @@ const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
     children,
     onOk,
     onClose,
+    onBack,
     okText,
     closeText,
     okProps,
@@ -51,6 +54,7 @@ const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
           header={header}
           title={title}
           isShowClose={isShowClose}
+          onBack={onBack}
           onClose={onClose}
         />
 
