@@ -7,6 +7,7 @@ import Box from '../Box'
 import Typography from '../Typography'
 import Chip from '../Chip'
 import { EduExperience, WorkExperience } from './Experience'
+import { textAlign } from '@mui/lab/node_modules/@mui/system';
 
 type AgeMap = 1 | 2
 type ChipsProps = {
@@ -14,8 +15,8 @@ type ChipsProps = {
 }
 
 export type ExperienceDate = {
-  start: Date | string;
-  end: Date | string;
+  start: Date | string | number;
+  end: Date | string | number;
 }
 
 export type EduExperience = {
@@ -38,6 +39,12 @@ export interface FbmUserInfoProps {
   avatar?: string;
   /** 名称 */
   name?: string;
+  /** 年龄 */
+  age?: string | number;
+  /** 参与职位数 */
+  positionCount?: number | string;
+  /** 其他信息 */
+  otherInfo?: React.ReactNode;
   /** 个人信息 */
   desc?: string;
   /** 标签 */
@@ -58,9 +65,26 @@ const InfoRoot = styled(Box)({
   top: '-5px',
 })
 
+const NameRoot = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  marginBottom: '4px',
+})
+
+const PositionCountContainer = styled(Box)({
+  width: '20px',
+  height: '18px',
+  background: '#E3F2FD',
+  borderRadius: '4px',
+  fontSize: 12,
+  color: '#03A9F4',
+  textAlign: 'center',
+  lineHeight: '18px',
+})
+
 const NameText = styled(Typography)({
   height: 22,
-  marginBottom: '4px',
 })
 
 export const DescTetx = styled(Typography)({
@@ -96,6 +120,9 @@ const FbmUserInfo: React.FC<FbmUserInfoProps> = ({
   name,
   desc,
   chips,
+  age,
+  positionCount,
+  otherInfo,
   eduExperience,
   workExperience,
 }) => {
@@ -113,7 +140,12 @@ const FbmUserInfo: React.FC<FbmUserInfoProps> = ({
         />
       </Box>
       <InfoRoot>
-        <NameText >{name}</NameText>
+        <NameRoot>
+          { name && <NameText mr={2}>{name}</NameText> }
+          { age && <DescTetx mr={2}>{age}岁</DescTetx>}
+          { positionCount &&  <PositionCountContainer>{positionCount}</PositionCountContainer> }
+          { otherInfo }
+        </NameRoot>
         <DescTetx>{desc}</DescTetx>
         <Chips chips={chips} />
         <EduExperience data={eduExperience} />
@@ -122,7 +154,6 @@ const FbmUserInfo: React.FC<FbmUserInfoProps> = ({
     </FbmUserInfoRoot>
   )
 }
-
 
 FbmUserInfo.defaultProps = {
   name: '',

@@ -35,6 +35,8 @@ export default () =>{
         name={'马云'}
         desc={'19岁 初中 18841889422'}
         chips={chips}
+        age={12}
+        positionCount={12}
         eduExperience={{
             school: '北京大学',
             major: '计算机科学与技术',
