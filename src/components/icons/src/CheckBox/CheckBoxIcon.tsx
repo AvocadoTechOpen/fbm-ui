@@ -1,7 +1,8 @@
-import React from 'react';
-import SvgIcon from '@mui/material/SvgIcon';
+import React from "react";
+import SvgIcon from "@mui/material/SvgIcon";
+import type { SvgIconProps } from "@mui/material/SvgIcon";
 
-const RadioIcon = (props) => (
+const RadioIcon: React.FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
     <g fillRule="evenodd">
       <rect width="16" height="16" x="4" y="4" fill="#FFF" rx="2" />

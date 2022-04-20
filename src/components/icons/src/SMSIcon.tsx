@@ -1,7 +1,8 @@
 import React from "react";
 import SvgIcon from "@mui/material/SvgIcon";
+import type { SvgIconProps } from "@mui/material/SvgIcon";
 
-const SMSIcon = (props) => (
+const SMSIcon: React.FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
     <path
       fill="#44B2FF"

@@ -1,7 +1,8 @@
-import React from 'react';
-import SvgIcon from '@mui/material/SvgIcon';
+import React from "react";
+import SvgIcon from "@mui/material/SvgIcon";
+import type { SvgIconProps } from "@mui/material/SvgIcon";
 
-const ArrowLeftIcon = (props) => (
+const ArrowLeftIcon: React.FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
     <path
       fillOpacity=".86"
