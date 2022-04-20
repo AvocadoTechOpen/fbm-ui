@@ -1,7 +1,8 @@
-import React from 'react';
-import SvgIcon from '@mui/material/SvgIcon';
+import React from "react";
+import SvgIcon from "@mui/material/SvgIcon";
+import type { SvgIconProps } from "@mui/material/SvgIcon";
 
-const FemaleIIcon = (props) => (
+const FemaleIIcon: React.FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
     <path
       fillRule="evenodd"

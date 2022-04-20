@@ -1,7 +1,8 @@
 import React from "react";
 import SvgIcon from "@mui/material/SvgIcon";
+import type { SvgIconProps } from "@mui/material/SvgIcon";
 
-const DingDingIcon = (props) => (
+const DingDingIcon:React.FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
     <path
       fill="#25A7FE"
