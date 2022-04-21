@@ -6,13 +6,17 @@ import Box from '../Box'
 import { MaleIcon, FemaleIIcon } from '../icons'
 
 type SizeType = 'small' | 'middle' | 'large';
+
 export interface FbmAvatarPropos extends AvatarProps {
   /** 尺寸 */
   size?: SizeType | string | number;
   /** 是否为禁用状态 */
-  disabled?: boolean,
+  disabled?: boolean;
   /** 性别 */
-  sex?: number | string
+  sex?: number | string;
+  /** 是否是新添加的 */
+  showNewTip?: boolean;
+  newTipColor?: string
 }
 
 const BoxRoot = styled(Box)({
@@ -20,6 +24,19 @@ const BoxRoot = styled(Box)({
   borderRadius: '50%',
   position: 'relative',
 })
+
+const NewTip: React.FC<{ color: string | undefined }> = ({ color }) => {
+  const NewTipRoot = styled(Box)({
+    position: 'absolute',
+    left: '-4px',
+    width: '6px',
+    height: '6px',
+    display: 'inline-block',
+    backgroundColor: color || '#4CAF50',
+    borderRadius: '6px',
+  })
+  return <NewTipRoot />
+};
 
 const SexRoot: React.FC<{
   sex: FbmAvatarPropos['sex']
@@ -30,9 +47,9 @@ const SexRoot: React.FC<{
   }
   return {
     position: 'absolute',
-    width: 14,
-    height: 14,
-    right: 0,
+    width: 12,
+    height: 12,
+    right: '-2px',
     bottom: 0,
     display: 'flex',
     alignItems: 'center',
@@ -58,9 +75,11 @@ const FbmAvatar: React.FC<FbmAvatarPropos> = ({
   size,
   disabled,
   sex,
+  showNewTip,
+  newTipColor,
   ...otherProps
 }) => {
-
+  
   const SexRender = () => {
     const icons = {
       1: MaleIcon,
@@ -89,6 +108,7 @@ const FbmAvatar: React.FC<FbmAvatarPropos> = ({
         }
       }}
     >
+      {showNewTip &&  <NewTip color={newTipColor} />}
       <AvatarRoot
         size={size}
         {...otherProps}
