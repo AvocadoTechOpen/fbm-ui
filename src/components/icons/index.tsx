@@ -166,3 +166,4 @@ export { default as RichEditorUlIcon } from './src/RichEditor/RichEditorUlIcon';
 export { default as RichEditorUnderlineIcon } from './src/RichEditor/RichEditorUnderlineIcon';
 export { default as KeyIcon } from './src/KeyIcon';
 export { default as WorkReverseIcon } from './src/WorkReverseIcon';
+export { default as EvaluateIcon } from './src/EvaluateIcon';
