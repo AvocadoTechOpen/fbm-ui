@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = props => {
   if (onBack && typeof onBack === 'function') {
     backButton = (
       <IconButton
-        onClick={onClose}
+        onClick={onBack}
         style={{ padding: 0 }}>
         <KeyboardArrowLeftIcon />
       </IconButton>
