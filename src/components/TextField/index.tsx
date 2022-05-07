@@ -1,7 +1,6 @@
 import React from 'react'
 import FormItem, { FbmFormItemProps } from '../FormItem/FormItem'
 import { FbmInputProps } from '../Input'
-import DatePicker from '../DatePicker'
 
 export { default as useTextField } from './useTextField'
 export { default as useInput } from './useInput'

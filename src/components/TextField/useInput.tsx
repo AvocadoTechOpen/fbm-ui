@@ -19,7 +19,6 @@ export default function useValidate(props) {
   }, [valueProp])
 
   const validate = async () => {
-    console.log(value)
     const error = await validateFn(value, {
       rules,
       max,
@@ -32,7 +31,6 @@ export default function useValidate(props) {
 
   const handleValue = (newValue) => {
     setValue(newValue)
-    console.log(value)
   }
 
 
