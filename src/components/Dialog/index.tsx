@@ -187,6 +187,7 @@ const FbmDialog: React.FC<FbmDialogProps> = React.forwardRef((inProps, ref) => {
       open={open}
       TransitionComponent={Fade}
       {...otherProps}
+      onClose={onClose}
       ref={ref}
     >
       <DialogContainer

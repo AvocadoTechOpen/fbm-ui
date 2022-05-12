@@ -4,9 +4,9 @@ import styled from '@mui/material/styles/styled'
 import ConfirmFooter, { FbmConfirmFooterProps } from '../../ConfirmFooter'
 
 const DrawerFooterRoot: React.FC<FbmConfirmFooterProps> = styled(ConfirmFooter)({
-  height: '80px',
+  height: '56',
   boxSizing: 'border-box',
-  padding: '24px',
+  padding: '0 24px',
 })
 
 

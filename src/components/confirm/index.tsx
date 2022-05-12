@@ -41,9 +41,6 @@ const fbmConfirm = (props: FbmConfirmProps) => {
     }
     const dialogProps = {
       open,
-      BackdropProps: {
-        open: false,
-      },
       ...props,
       onClose: handleClose,
     }
