@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { Pagination, PaginationProps, Box } from '@mui/material';
 import styled from '@mui/material/styles/styled'
 
@@ -26,10 +26,14 @@ const FbmPagination: React.FC<FbmPaginationProps> = ({
   ...otherProps
 }) => {
   if (!total || total <= 0) return null;
-  const [pageNum, setPageNum] = React.useState(page)
+  const [pageNum, setPageNum] = React.useState<number>(page)
+
+  useEffect(() => {
+    setPageNum(page)
+  }, [page])
 
   // 总页数
-  const count = Math.ceil(total / pageSize)
+  const count = useMemo(() => Math.ceil(total / pageSize), [total, pageSize])
 
   const handleChange = async (_, pageNum: number) => {
     if (onPageChange) {

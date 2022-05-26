@@ -51,8 +51,7 @@ const Header: React.FC<HeaderProps> = props => {
   if (isShowClose) {
     closeButton = (
       <IconButton
-        onClick={onClose}
-        style={{ padding: 0 }}>
+        onClick={onClose}>
         <CloseIcon />
       </IconButton>
     )
@@ -62,8 +61,7 @@ const Header: React.FC<HeaderProps> = props => {
   if (onBack && typeof onBack === 'function') {
     backButton = (
       <IconButton
-        onClick={onBack}
-        style={{ padding: 0 }}>
+        onClick={onBack}>
         <KeyboardArrowLeftIcon />
       </IconButton>
     )

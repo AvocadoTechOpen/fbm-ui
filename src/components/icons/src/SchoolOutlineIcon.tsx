@@ -1,0 +1,11 @@
+import React from "react";
+import SvgIcon from "@mui/material/SvgIcon";
+import type { SvgIconProps } from "@mui/material/SvgIcon";
+
+const Icon: React.FC<SvgIconProps> = (props) => (
+  <SvgIcon {...props}>
+    <path fill-opacity=".86" fill-rule="evenodd" d="M12,5 L3,9.90909091 L6.27272727,11.6927273 L6.27272727,16.6018182 L12,19.7272727 L17.7272727,16.6018182 L17.7272727,11.6927273 L19.3636364,10.8009091 L19.3636364,16.4545455 L21,16.4545455 L21,9.90909091 L12,5 Z M17.58,9.90909091 L12,12.9527273 L6.42,9.90909091 L12,6.86545455 L17.58,9.90909091 Z M16.0909091,15.6281818 L12,17.8618182 L7.90909091,15.6281818 L7.90909091,12.5845455 L12,14.8181818 L16.0909091,12.5845455 L16.0909091,15.6281818 Z" />
+  </SvgIcon>
+);
+
+export default Icon;
