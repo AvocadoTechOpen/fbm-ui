@@ -5,7 +5,7 @@ nav:
 group:
   title: 通用
 ---
-# 图片裁剪
+# ImageCrop 图片裁剪
 ## 代码演示
 
 ```tsx
@@ -41,7 +41,7 @@ export default () =>{
         onClose()
       },
       onClose: () => {
-        reject()
+        resolve(false)
       }
     })
   })
