@@ -24,7 +24,8 @@
     "clean": "rimraf ./lib",
     "docs": "dumi dev",
     "docs:build": "dumi build",
-    "test": "umi-test"
+    "test": "umi-test",
+    "prepublishOnly": "npm run clean && tsc"
   },
   "jest": {
     "setupFilesAfterEnv": [
@@ -62,8 +63,8 @@
     "@mui/lab": "5.0.0-alpha.53",
     "@mui/material": "5.1.1",
     "date-fns": "2.20.3",
-    "react": ">=17.0.0",
-    "react-dom": ">=17.0.0"
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "dependencies": {
     "@emotion/react": "^11.5.0",
@@ -74,9 +75,11 @@
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.28.0",
     "draft-js": "^0.11.7",
+    "fbm-image-crop": "^0.0.3",
     "formik": "2.2.9",
     "material-ui-popup-state": "^2.0.0",
     "moment": "2.29.1",
+    "npm": "^8.11.0",
     "rc-upload": "4.3.3",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"

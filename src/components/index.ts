@@ -96,3 +96,7 @@ export { default as TimePicker } from './TimePicker'
 
 export { default as Switch } from './Switch'
 export * from './Switch'
+
+
+export { default as ImageCrop } from './ImageCrop'
+export * from './ImageCrop'
