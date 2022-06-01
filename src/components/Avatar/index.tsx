@@ -1,22 +1,39 @@
 import * as React from 'react';
-import { Avatar, AvatarProps, avatarClasses } from '@mui/material'
+import { Avatar as MuiAvatar, AvatarProps as MuiAvatarProps, svgIconClasses } from '@mui/material'
 import styled from '@mui/material/styles/styled'
 
 import Box from '../Box'
 import { MaleIcon, FemaleIIcon } from '../icons'
 
+/** 尺寸 */
 type SizeType = 'small' | 'middle' | 'large';
 
-export interface FbmAvatarPropos extends AvatarProps {
+/** 性别 */
+type Sex = number | string
+
+export interface AvatarProps extends MuiAvatarProps {
   /** 尺寸 */
   size?: SizeType | string | number;
   /** 是否为禁用状态 */
   disabled?: boolean;
   /** 性别 */
-  sex?: number | string;
+  sex?: Sex;
   /** 是否是新添加的 */
   showNewTip?: boolean;
   newTipColor?: string
+}
+
+const defaultSizes = {
+  small: 24,
+  middle: 36,
+  large: 48
+}
+
+const SexIcons = {
+  // 男 icon
+  1: MaleIcon,
+  // 女 icon
+  2: FemaleIIcon
 }
 
 const BoxRoot = styled(Box)({
@@ -25,22 +42,25 @@ const BoxRoot = styled(Box)({
   position: 'relative',
 })
 
-const NewTip: React.FC<{ color: string | undefined }> = ({ color }) => {
-  const NewTipRoot = styled(Box)({
-    position: 'absolute',
-    left: '-4px',
-    width: '6px',
-    height: '6px',
-    display: 'inline-block',
-    backgroundColor: color || '#4CAF50',
-    borderRadius: '6px',
-  })
-  return <NewTipRoot />
-};
+interface INewTipRootProps {
+  color?: string
+}
+const NewTipRoot = styled(Box)(({ color }: INewTipRootProps) => ({
+  position: 'absolute',
+  left: '-4px',
+  width: '6px',
+  height: '6px',
+  display: 'inline-block',
+  backgroundColor: color || '#4CAF50',
+  borderRadius: '6px',
+}))
 
-const SexRoot: React.FC<{
-  sex: FbmAvatarPropos['sex']
-}> = styled(Box)(({ sex }) => {
+
+interface ISexProps {
+  sex: Sex
+}
+
+const SexRoot = styled(Box)(({ sex }: ISexProps) => {
   const bgColor = {
     1: 'rgb(75, 132, 255)',
     2: 'rgb(255, 79, 123)'
@@ -56,22 +76,23 @@ const SexRoot: React.FC<{
     borderRadius: '50%',
     border: '1px solid #fff',
     background: bgColor[sex],
+    [`.${svgIconClasses.root}`]: {
+      color: '#fff',
+      fontSize: 12,
+      width: 'auto',
+      height: 'auto',
+    }
   }
 })
 
-const defaultSizes = {
-  small: 24,
-  middle: 36,
-  large: 48
-}
-const AvatarRoot: React.FC<FbmAvatarPropos> = styled(Avatar)(({ size }) => {
+const AvatarRoot: React.FC<AvatarProps> = styled(MuiAvatar)(({ size }: AvatarProps) => {
   return {
     width: defaultSizes[size] || size,
     height: defaultSizes[size] || size,
   }
 })
 
-const FbmAvatar: React.FC<FbmAvatarPropos> = ({
+const Avatar: React.FC<AvatarProps> = ({
   size,
   disabled,
   sex,
@@ -79,25 +100,7 @@ const FbmAvatar: React.FC<FbmAvatarPropos> = ({
   newTipColor,
   ...otherProps
 }) => {
-  
-  const SexRender = () => {
-    const icons = {
-      1: MaleIcon,
-      2: FemaleIIcon
-    }
-
-    if (!sex || !icons[sex]) return null
-
-    const Icon = styled(icons[sex])({
-      fontSize: 12,
-      color: '#ffffff'
-    })
-    return (
-      <SexRoot sex={sex}>
-        <Icon />
-      </SexRoot>
-    )
-  }
+  const SexIcon = SexIcons[sex]
 
   return (
     <BoxRoot
@@ -108,19 +111,25 @@ const FbmAvatar: React.FC<FbmAvatarPropos> = ({
         }
       }}
     >
-      {showNewTip &&  <NewTip color={newTipColor} />}
+      {showNewTip && <NewTipRoot color={newTipColor} />}
       <AvatarRoot
         size={size}
         {...otherProps}
       />
-      <SexRender />
+      {
+        SexIcon ? (
+          <SexRoot sex={sex}>
+            <SexIcon />
+          </SexRoot>
+        ) : null
+      }
     </BoxRoot>
   )
 }
 
-FbmAvatar.defaultProps = {
+Avatar.defaultProps = {
   size: 'middle',
   disabled: false,
 }
 
-export default FbmAvatar
+export default Avatar

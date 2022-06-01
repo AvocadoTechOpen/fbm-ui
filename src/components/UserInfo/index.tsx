@@ -7,7 +7,6 @@ import Box from '../Box'
 import Typography from '../Typography'
 import Chip from '../Chip'
 import { EduExperience, WorkExperience } from './Experience'
-import { textAlign } from '@mui/lab/node_modules/@mui/system';
 
 type AgeMap = 1 | 2
 type ChipsProps = {
@@ -38,7 +37,7 @@ export interface FbmUserInfoProps {
   /** 头像 */
   avatar?: string;
   /** 名称 */
-  name?: string;
+  name?: React.ReactNode;
   /** 年龄 */
   age?: string | number;
   /** 参与职位数 */
@@ -46,7 +45,7 @@ export interface FbmUserInfoProps {
   /** 其他信息 */
   otherInfo?: React.ReactNode;
   /** 个人信息 */
-  desc?: string;
+  desc?: React.ReactNode;
   /** 标签 */
   chips?: ChipsProps['chips'];
   /** 教育经历 */
@@ -126,25 +125,20 @@ const FbmUserInfo: React.FC<FbmUserInfoProps> = ({
   eduExperience,
   workExperience,
 }) => {
-
-  const avatarProps = {
-    avatar,
-    sex,
-  }
-
   return (
     <FbmUserInfoRoot>
       <Box>
         <Avatar
-          {...avatarProps}
+          src={avatar}
+          sex={sex}
         />
       </Box>
       <InfoRoot>
         <NameRoot>
-          { name && <NameText mr={2}>{name}</NameText> }
-          { age && <DescTetx mr={2}>{age}岁</DescTetx>}
-          { positionCount &&  <PositionCountContainer>{positionCount}</PositionCountContainer> }
-          { otherInfo }
+          {name && <NameText mr={2}>{name}</NameText>}
+          {age && <DescTetx mr={2}>{age}岁</DescTetx>}
+          {positionCount && <PositionCountContainer>{positionCount}</PositionCountContainer>}
+          {otherInfo}
         </NameRoot>
         <DescTetx>{desc}</DescTetx>
         <Chips chips={chips} />
