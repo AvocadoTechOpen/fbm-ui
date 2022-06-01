@@ -1,69 +1,23 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from '@mui/material/styles/styled'
-import {
-  FieldMetaProps,
-  FieldHelperProps
-} from 'formik'
-
 import {
   FormControl,
   InputLabel,
   FormHelperText,
   inputLabelClasses,
   FormControlProps,
-  BaseTextFieldProps,
-  InputLabelProps,
-  FormHelperTextProps
 } from '@mui/material'
 
-import Input, { FbmInputProps } from '../Input'
+import Input from '../Input'
 import { isEmpty } from '../../utils'
-
-type ErrorType = {
-  isBeyond?: boolean
-}
-
-export type RuleItemType = ((value: any, formItem: object) => void | string) | {
-  type?: string;
-  message?: string;
-  required?: boolean;
-};
-
-export type FbmFormItemProps = {
-  name?: string;
-  value?: any,
-  label?: BaseTextFieldProps['label'];
-  extra?: string;
-  max?: number;
-  error?: boolean | string | ErrorType;
-  length?: number;
-  rules?: RuleItemType[]
-  required?: boolean;
-  InputLabelProps?: InputLabelProps;
-  inputProps?: FbmInputProps['inputProps'];
-  InputProps?: FbmInputProps;
-  inputRef?: React.Ref<any>;
-  meta?: FieldMetaProps<any>;
-  helpers?: FieldHelperProps<any>;
-} & FbmInputProps
-
-export interface HelperProps extends FormHelperTextProps {
-  extra?: FbmFormItemProps['extra'];
-  max?: number;
-  length?: number;
-  error: boolean;
-}
-
-export interface FbmInputLabelProps extends InputLabelProps {
-  size?: FbmInputProps['size']
-}
+import { ErrorType, FormItemProps, InputLabelProps, HelperProps } from './types'
 
 const FormItemRoot: React.FC<FormControlProps> = styled(FormControl)({
   display: 'block',
   height: '84px',
 });
 
-const LabelRoot: React.FC<FbmInputLabelProps> = styled(InputLabel)(({ variant, size }: any) => {
+const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => {
   return {
     lineHeight: 1,
     zIndex: 1,
@@ -105,28 +59,33 @@ const Helper: React.FC<HelperProps> = (props) => {
     children = extra
   }
 
+  const count = useMemo<React.ReactNode>(() => {
+    if (max === undefined || typeof max !== 'number') {
+      return null;
+    }
+    return (
+      <span>
+        {length}/{max}
+      </span>
+    )
+  }, [max, length])
+
   return (
     <HelperTextRoot {...helperTextProps}>
       <span style={{ flex: 1 }}>
         {children || extra}
       </span>
-      {
-        (max && max > 0) && (
-          <span>
-            {length}/{max}
-          </span>
-        )
-      }
+      {count}
     </HelperTextRoot>
   )
 }
 
-const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) => {
+const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
   const {
+    name,
+    id,
     meta,
     helpers,
-    clear,
-    onClear,
     label,
     error,
     max,
@@ -134,20 +93,20 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
     length,
     InputLabelProps: LabelPropsProp,
     children: childrenProp,
-    variant,
     value,
     inputProps,
     InputProps,
     inputRef,
+    variant,
+    clear,
+    onClear,
     autoComplete,
     autoFocus = false,
     defaultValue,
     fullWidth = true,
-    id,
     maxRows,
     minRows,
     multiline = false,
-    name,
     onBlur,
     onChange,
     onFocus,
@@ -162,12 +121,10 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
 
   // status
   const statusError: boolean = error && !isEmpty(error)
-  const htmlFor = `${name||id}-htmlFor`;
+  const htmlFor = `${name || ''}-htmlFor`;
 
-  let children = null
-  if (childrenProp) {
-    children = childrenProp
-  } else {
+  let children = childrenProp
+  if (!childrenProp) {
     children = (
       <Input
         type={type}
@@ -204,13 +161,12 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
 
   return (
     <FormItemRoot
-      variant={(variant as FormControlProps['variant'])}
+      variant={variant}
       error={statusError}
-      {...(FormControlProps as any)}
+      {...FormControlProps}
     >
       <Label
         variant={(variant as InputLabelProps['variant'])}
-        id={id}
         htmlFor={htmlFor}
         {...LabelPropsProp}
       >
@@ -220,11 +176,10 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
       {children}
 
       <Helper
-        extra={extra}
-        id={id}
-        error={statusError}
         max={max}
         length={length}
+        extra={extra}
+        error={statusError}
       >
         {(error as ErrorType)?.isBeyond ? extra : error}
       </Helper>
@@ -232,10 +187,10 @@ const FbmFormItem: React.FC<FbmFormItemProps> = React.forwardRef((props, ref) =>
   )
 })
 
-FbmFormItem.defaultProps = {
+FormItem.defaultProps = {
   length: 0,
   variant: 'outlined',
   fullWidth: true,
 }
 
-export default FbmFormItem;
+export default FormItem;

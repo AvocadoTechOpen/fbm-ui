@@ -53,20 +53,6 @@ export default () => {
           label="名称"
           max={20}
          />
-        
-        <FormItem
-          name="date"
-          type="date"
-          label="日期"
-          required
-          rules={[
-            {
-              type: 'date'
-            }
-          ]}
-        />
-
-
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
           重置

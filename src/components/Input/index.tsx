@@ -22,7 +22,7 @@ export interface BaseInputProps {
   variant?: string;
 }
 
-export type FbmInputProps = BaseInputProps & FbmOutlinedProps & FbmStandardProps
+export type InputProps = BaseInputProps & FbmOutlinedProps & FbmStandardProps
 
 const EndButton = styled(IconButton)({
   padding: 3,
@@ -31,7 +31,7 @@ const EndButton = styled(IconButton)({
   }
 })
 
-const FbmInput: React.FC<FbmInputProps> = React.forwardRef((props, ref) => {
+const FbmInput: React.FC<InputProps> = React.forwardRef((props, ref) => {
   const {
     value,
     variant,

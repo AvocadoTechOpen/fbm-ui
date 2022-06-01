@@ -1,15 +1,13 @@
-import * as React from 'react';
+import React from 'react'
 import styled from '@mui/material/styles/styled'
 import {
-  OutlinedInput,
+  OutlinedInput as MuiOutlinedInput,
   OutlinedInputProps,
   outlinedInputClasses,
 } from '@mui/material'
 
-export interface FbmOutlinedProps extends OutlinedInputProps { }
-
-const FbmOutlinedInput = styled(OutlinedInput)(({ theme, startAdornment, endAdornment, size }) => {
-  return {
+const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ theme, startAdornment, size }) => (
+  {
     backgroundColor: '#FFF',
     [`.${outlinedInputClasses.notchedOutline}`]: {
       borderColor: 'rgba(0,0,0,0.08)',
@@ -20,11 +18,11 @@ const FbmOutlinedInput = styled(OutlinedInput)(({ theme, startAdornment, endAdor
     [`& .${outlinedInputClasses.input}`]: {
       padding: '12px 12px 13px 12px'
     },
-    ...(size === 'small' &&  {
+    ...(size === 'small' && {
       [`& .${outlinedInputClasses.input}`]: {
         padding: '6px 12px 7px 12px'
       },
-    }), 
+    }),
     [`&.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]: {
       borderColor: theme.palette.primary.main,
       borderWidth: 1,
@@ -43,12 +41,6 @@ const FbmOutlinedInput = styled(OutlinedInput)(({ theme, startAdornment, endAdor
       },
     }),
   }
-})
+))
 
-const FbmInput: React.FC<FbmOutlinedProps> = React.forwardRef((props, ref) => {
-  return (
-    <FbmOutlinedInput ref={ref} {...props} />
-  )
-})
-
-export default FbmInput
+export default OutlinedInput

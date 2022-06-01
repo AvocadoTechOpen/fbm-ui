@@ -1,25 +1,30 @@
 import React, { useMemo } from 'react'
 
-import FormItem, { FbmFormItemProps } from './FormItem'
-import { FbmInputProps } from '../Input'
+import FormItem from './FormItem'
 import useFormItem from './useFormItem'
 import { isEmpty } from '../../utils'
+import { FormItemProps } from './types'
 
-const FormItemIndex: React.FC<FbmFormItemProps & FbmInputProps> = ({
+const FormItemIndex: React.FC<FormItemProps> = ({
   name: nameProp,
   value: valueProp,
   label: labelProp,
+  required: requiredProp,
   rules: rulesProp,
   clear,
   extra,
   max,
-  required,
   children,
   autoFocus,
   inputProps,
   InputProps,
   ...otherProps
 }) => {
+
+
+  const required = useMemo<boolean>(() => {
+
+  })
 
   // 给label加*
   const label = useMemo(() => {

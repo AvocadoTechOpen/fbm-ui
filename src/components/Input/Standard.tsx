@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled from '@mui/material/styles/styled'
 import {
   Input,
@@ -6,9 +6,7 @@ import {
   inputClasses,
 } from '@mui/material'
 
-export interface FbmStandardProps extends InputProps {}
-
-const StandardInput = styled(Input)(({ theme, color }) => {
+const StandardInput: React.FC<InputProps> = styled(Input)(({ theme, color }) => {
   return {
     backgroundColor: '#FFF',
     [`&:hover:not(.${inputClasses.disabled}):before`]: {
@@ -23,15 +21,8 @@ const StandardInput = styled(Input)(({ theme, color }) => {
   }
 })
 
-const FbmStandard: React.FC<FbmStandardProps> = React.forwardRef((props, ref) => {
-  return (
-    <StandardInput ref={ref} {...props} />
-  )
-})
-
-FbmStandard.defaultProps = {
-  color: 'primary',
+StandardInput.defaultProps = {
 }
 
-export default FbmStandard
+export default StandardInput
 

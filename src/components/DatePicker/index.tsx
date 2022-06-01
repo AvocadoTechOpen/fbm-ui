@@ -6,7 +6,7 @@ import {
 
 import Input, { FbmInputProps } from '../Input'
 import LocalizationProvider from '../LocalizationProvider'
-import useFormItemContext from '../FormItem/useFormItemContext';
+// import useFormItemContext from '../FormItem/useFormItemContext';
 import { DateIcon } from '../icons'
 import { isDate, prefixZero } from '../../utils'
 
@@ -21,28 +21,28 @@ export interface FbmDateRangePickerProps extends DesktopDatePickerProps {
 }
 
 function useMergeProps(props) {
-  const formItemContext = useFormItemContext()
-  if (formItemContext && formItemContext.meta) {
-    const { meta, helpers, value } = formItemContext
-    const {
-      onChange,
-      error,
-      value: valueProp,
-      ...restProps
-    } = props
-    return {
-      value,
-      error: meta?.error,
-      onChange: (newValue) => {
-        if (meta.touched === false) {
-          helpers.setTouched(true)
-        }
-        helpers.setValue(newValue)
-        onChange?.(newValue)
-      },
-      ...restProps
-    }
-  }
+  // const formItemContext = useFormItemContext()
+  // if (formItemContext && formItemContext.meta) {
+  //   const { meta, helpers, value } = formItemContext
+  //   const {
+  //     onChange,
+  //     error,
+  //     value: valueProp,
+  //     ...restProps
+  //   } = props
+  //   return {
+  //     value,
+  //     error: meta?.error,
+  //     onChange: (newValue) => {
+  //       if (meta.touched === false) {
+  //         helpers.setTouched(true)
+  //       }
+  //       helpers.setValue(newValue)
+  //       onChange?.(newValue)
+  //     },
+  //     ...restProps
+  //   }
+  // }
 
   return props
 }
