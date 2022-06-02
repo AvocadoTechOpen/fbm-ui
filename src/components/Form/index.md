@@ -51,7 +51,7 @@ export default () => {
           required
           name='name' 
           label="名称"
-          max={20}
+          max={10}
          />
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>

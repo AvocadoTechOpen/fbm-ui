@@ -25,14 +25,12 @@ export default () => {
   return (
     <Layout>
       <FormItem
-        clear={false}
         label='名称'
         max={5}
         value={value}
         onChange={handleChange}
       />
       <FormItem
-        clear={false}
         label='名称'
         size={'small'}
         max={5}

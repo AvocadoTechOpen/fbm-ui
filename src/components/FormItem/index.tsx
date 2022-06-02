@@ -1,32 +1,60 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
+import {
+  useFormikContext,
+} from 'formik'
 
 import FormItem from './FormItem'
-import useFormItem from './useFormItem'
-import { isEmpty } from '../../utils'
-import { FormItemProps } from './types'
+import validate from './validate'
+import { FormItemProps, RuleItemObjType, RuleItemType, Error } from './types'
 
-const FormItemIndex: React.FC<FormItemProps> = ({
-  name: nameProp,
-  value: valueProp,
-  label: labelProp,
-  required: requiredProp,
-  rules: rulesProp,
-  clear,
-  extra,
-  max,
-  children,
-  autoFocus,
-  inputProps,
-  InputProps,
-  ...otherProps
-}) => {
+/**
+ * @description: 配合form组件使用
+ * @props {*} FormItemProps
+ */
+const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
+  const {
+    children,
+    max,
+    name,
+    value: valueProp,
+    label: labelProp,
+    required: requiredProp,
+    rules: rulesProp,
+    onChange,
+    onBlur,
+    ...FormItemProps
+  } = props
 
+  const rules = useMemo<RuleItemType[]>(() => {
+    const _rules = []
+    // 添加必填规则
+    if (requiredProp) {
+      _rules.push({
+        type: 'required'
+      })
+    }
+    // 添加最大长度限制
+    if (max) {
+      _rules.push({
+        type: 'max'
+      })
+    }
+
+    return _rules.concat(rulesProp)
+  }, [requiredProp, rulesProp, max])
 
   const required = useMemo<boolean>(() => {
+    if (requiredProp) {
+      return requiredProp
+    }
+    const requiredRule = rulesProp?.find((rule) => {
+      if (typeof rule === 'object') {
+        return rule.required === true
+      }
+    })
+    return (requiredRule as RuleItemObjType)?.required || false
+  }, [rules])
 
-  })
-
-  // 给label加*
   const label = useMemo(() => {
     if (required && (labelProp && typeof labelProp === 'string' && !labelProp.endsWith('*'))) {
       return `${labelProp}*`
@@ -34,69 +62,66 @@ const FormItemIndex: React.FC<FormItemProps> = ({
     return labelProp
   }, [labelProp])
 
-  // 如果required为true， 给rules添加必填项的规则
-  const rules = useMemo(() => {
-    if (required) {
-      const requiredRule = ([{ required: true }] as any)
-      if (isEmpty(rulesProp)) {
-        return requiredRule
-      }
+  const { registerField, unregisterField, getFieldProps, getFieldMeta } = useFormikContext() || {}
+  const field = getFieldProps?.({ name })
+  const meta = getFieldMeta?.(name)
 
-      const { required } = (rulesProp[0] as any)
-      if (required === undefined) {
-        return requiredRule.concat(rulesProp)
-      }
-      return rulesProp
+  useEffect(() => {
+    if (name) {
+      registerField?.(name, {
+        validate: async (value) => {
+          const error: Error = await validate({
+            value,
+            rules,
+            max,
+            label: labelProp
+          })
+          return error
+        }
+      });
     }
+    return () => {
+      if (name) {
+        unregisterField?.(name);
+      }
+    };
+  }, [registerField, unregisterField, name, rules]);
 
-    return rulesProp
-  }, [required, rulesProp])
+  const error = useMemo<string>(() => {
+    if (meta.touched) {
+      return meta.error
+    }
+  }, [meta])
 
-  const {
-    name,
-    value,
-    length, //chineseLength
-    meta,
-    helpers,
-    onChange,
-    onBlur,
-  } = useFormItem({
-    name: nameProp,
-    value: valueProp,
-    max,
-    rules,
-    label,
-  })
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    field?.onChange?.(event)
+    onChange?.(event)
+  }
 
-  let errorMsg: string = undefined
-  if (meta?.touched === true) {
-    errorMsg = meta.error
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    field?.onBlur?.(event)
+    onBlur?.(event)
   }
 
   return (
     <FormItem
       name={name}
-      value={value}
       label={label}
-      length={length}
+      value={field?.value}
       max={max}
-      extra={extra}
-      error={(errorMsg as unknown as FbmFormItemProps['error'])}
-      meta={meta}
-      helpers={helpers}
-      onChange={onChange}
-      onBlur={onBlur}
-      autoFocus={autoFocus}
-      inputProps={{
-        clear,
-        ...inputProps
-      }}
-      {...InputProps}
-      {...otherProps}
+      // @ts-ignore
+      error={error}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      {...FormItemProps}
     >
       {children}
     </FormItem>
   )
+})
+
+FormItemIndex.defaultProps = {
+  rules: []
 }
 
 export default FormItemIndex

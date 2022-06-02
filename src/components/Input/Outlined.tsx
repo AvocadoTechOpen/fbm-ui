@@ -6,6 +6,8 @@ import {
   outlinedInputClasses,
 } from '@mui/material'
 
+export { OutlinedInputProps } from '@mui/material'
+
 const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ theme, startAdornment, size }) => (
   {
     backgroundColor: '#FFF',

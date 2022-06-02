@@ -1,28 +1,30 @@
 
 import { InputLabelProps as MuiInputLabelProps } from '@mui/material'
 import { InputProps } from '../Input'
-import {
-  FieldMetaProps,
-  FieldHelperProps
-} from 'formik'
 
 
-type Extra = string;
+export type Extra = string;
 
-type Label = React.ReactNode;
+export type Label = React.ReactNode;
 
-type Size = InputProps['size'];
+export type Size = InputProps['size'];
 
-// 超长溢出错误类型
-export  type ErrorType = {
-  isBeyond?: boolean
-}
+export type Value = InputProps['value'];
 
-export type RuleItemType = ((value: any, formItem: object) => void | string) | {
+export type Error = string
+
+export type RuleItemFnParams = {
+  value: Value;
+  label: Label;
+  max?: number;
+} 
+export type RuleItemFnType = (input: RuleItemFnParams) => string | Promise<string>
+export type RuleItemObjType = {
   type?: string;
   message?: string;
   required?: boolean;
-};
+}
+export type RuleItemType = RuleItemObjType | RuleItemFnType;
 
 export interface HelperProps {
   extra?: Extra;
@@ -35,20 +37,19 @@ export interface InputLabelProps extends MuiInputLabelProps {
   size: Size
 }
 
-export interface FormItemProps extends InputProps {
-  name?: string;
-  value?: any,
+
+interface FormItemBaseProps {
   label?: Label;
   extra?: Extra;
   max?: number;
-  error?: boolean | string | ErrorType;
+  name?: string;
+  error?: ErrorType | boolean | string;
   length?: number;
   rules?: RuleItemType[]
   required?: boolean;
   InputLabelProps?: InputLabelProps;
-  inputProps?: InputProps['inputProps'];
-  InputProps?: InputProps;
-  inputRef?: React.Ref<any>;
-  meta?: FieldMetaProps<any>;
-  helpers?: FieldHelperProps<any>;
+  HelperProps?: HelperProps;
+  InputProps?: InputProps
 }
+
+export type FormItemProps = FormItemBaseProps & InputProps

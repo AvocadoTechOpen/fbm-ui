@@ -9,32 +9,30 @@ import {
 } from '@mui/material'
 
 import Input from '../Input'
-import { isEmpty } from '../../utils'
-import { ErrorType, FormItemProps, InputLabelProps, HelperProps } from './types'
+import { chineseLength } from '../../utils'
+import { FormItemProps, InputLabelProps, HelperProps } from './types'
 
 const FormItemRoot: React.FC<FormControlProps> = styled(FormControl)({
   display: 'block',
   height: '84px',
 });
 
-const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => {
-  return {
-    lineHeight: 1,
-    zIndex: 1,
-    top: '0',
-    ...(variant === 'outlined' && {
-      [`&.${inputLabelClasses.shrink}`]: {
-        transform: 'translate(14px, -5px) scale(0.75)',
-      }
-    }),
-    ...(variant === 'outlined' && size === 'small' && {
-      top: '1px',
-      [`&.${inputLabelClasses.shrink}`]: {
-        transform: 'translate(14px, -7px) scale(0.75)',
-      }
-    })
-  }
-});
+const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => ({
+  lineHeight: 1,
+  zIndex: 1,
+  top: '0',
+  ...(variant === 'outlined' && {
+    [`&.${inputLabelClasses.shrink}`]: {
+      transform: 'translate(14px, -5px) scale(0.75)',
+    }
+  }),
+  ...(variant === 'outlined' && size === 'small' && {
+    top: '1px',
+    [`&.${inputLabelClasses.shrink}`]: {
+      transform: 'translate(14px, -7px) scale(0.75)',
+    }
+  })
+}));
 
 const HelperTextRoot = styled(FormHelperText)({
   display: 'flex',
@@ -52,7 +50,7 @@ const Label: React.FC<InputLabelProps> = (props) => {
 }
 
 const Helper: React.FC<HelperProps> = (props) => {
-  const { children: childrenProp, extra, length, max, ...helperTextProps } = props
+  const { children: childrenProp, extra, max, length, ...helperTextProps } = props
 
   let children = childrenProp
   if (!children) {
@@ -83,15 +81,13 @@ const Helper: React.FC<HelperProps> = (props) => {
 const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
   const {
     name,
-    id,
-    meta,
-    helpers,
     label,
     error,
     max,
     extra,
     length,
     InputLabelProps: LabelPropsProp,
+    HelperProps: HelperPropsProp,
     children: childrenProp,
     value,
     inputProps,
@@ -119,14 +115,20 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
     ...FormControlProps
   } = props
 
-  // status
-  const statusError: boolean = error && !isEmpty(error)
   const htmlFor = `${name || ''}-htmlFor`;
+  const statusError = useMemo<boolean>(() => {
+    if (error === undefined || error === false || error === '') {
+      return false
+    }
+    // ['', 0] 都为报错状态
+    return true
+  }, [error])
 
   let children = childrenProp
   if (!childrenProp) {
     children = (
       <Input
+        name={name}
         type={type}
         size={size}
         clear={clear}
@@ -140,24 +142,36 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
         defaultValue={defaultValue}
         fullWidth={fullWidth}
         multiline={multiline}
-        name={name}
         rows={rows}
         maxRows={maxRows}
         minRows={minRows}
-        id={id}
         inputRef={inputRef}
-        onBlur={onBlur}
-        onChange={onChange}
-        onFocus={onFocus}
-        onClear={onClear}
         placeholder={placeholder}
         endAdornment={endAdornment}
         readOnly={readOnly}
         inputProps={inputProps}
+        onBlur={onBlur}
+        onChange={onChange}
+        onFocus={onFocus}
+        onClear={onClear}
         {...InputProps}
       />
     )
   }
+
+  const valLength = useMemo<number>(() => {
+    if (max > 0 && (value && typeof value === 'string')) {
+      return chineseLength(value)
+    }
+    return 0
+  }, [value])
+
+  const helperText = useMemo(() => {
+    if (typeof error === 'boolean') {
+      return extra
+    }
+    return error
+  }, [error])
 
   return (
     <FormItemRoot
@@ -172,16 +186,15 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
       >
         {label}
       </Label>
-
       {children}
-
       <Helper
         max={max}
-        length={length}
+        length={valLength}
         extra={extra}
         error={statusError}
+        {...HelperPropsProp}
       >
-        {(error as ErrorType)?.isBeyond ? extra : error}
+        {helperText}
       </Helper>
     </FormItemRoot>
   )
