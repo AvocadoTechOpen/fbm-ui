@@ -43,7 +43,7 @@ interface FormItemBaseProps {
   extra?: Extra;
   max?: number;
   name?: string;
-  error?: ErrorType | boolean | string;
+  error?: Error | boolean | string;
   length?: number;
   rules?: RuleItemType[]
   required?: boolean;
