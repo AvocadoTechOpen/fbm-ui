@@ -7,6 +7,17 @@ import FormItem from './FormItem'
 import validate from './validate'
 import { FormItemProps, RuleItemObjType, RuleItemType, Error } from './types'
 
+interface MemoInputProps {
+  value: any;
+  update: any;
+  children: React.ReactNode;
+}
+
+const MemoInput = React.memo(
+  ({ children }: MemoInputProps) => children as JSX.Element,
+  (prev, next) => prev.value === next.value && prev.update === next.update,
+);
+
 /**
  * @description: 配合form组件使用
  * @props {*} FormItemProps
@@ -102,18 +113,23 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     field?.onBlur?.(event)
     onBlur?.(event)
   }
-  
+
   let children = childrenProp
-  if(children) {
+  const childProps = {
+    name,
+    error,
+    label: labelProp,
+    value: field?.value,
+    onChange: handleChange,
+    onBlur: handleBlur,
+  }
+  if (children) {
     // 给children 传入onChange和onBlur事件
-    children = React.cloneElement(children, {
-      name,
-      error,
-      label: labelProp,
-      value: field?.value,
-      onChange: handleChange,
-      onBlur: handleBlur,
-    })
+    children = (
+      <MemoInput value={childProps?.value} update={children}>
+        {React.cloneElement(children, childProps)}
+      </MemoInput>
+    )
   } else if (typeof children === 'function') {
     children = children?.({
       name,

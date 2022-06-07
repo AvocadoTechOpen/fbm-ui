@@ -14,21 +14,11 @@ interface TextFieldProps extends FormItemProps {
   isBeyond?: boolean;
 }
 
-const TextField: React.FC<TextFieldProps> = React.forwardRef(({
-  /** useTextField生成的 无需传给FormItem   */
-  setError,
-  handleValidate,
-  isBeyond,
-  /** end  */
-  ...props
-}, ref) => {
-  
-  return (
-    <FormItem
-      inputRef={ref}
-      {...props}
-    />
-  )
-})
+const TextField: React.FC<TextFieldProps> = React.forwardRef((props,  ref) => (
+  <FormItem
+    inputRef={ref}
+    {...props}
+  />
+))
 
 export default TextField

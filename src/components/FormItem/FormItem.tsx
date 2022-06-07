@@ -118,7 +118,7 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
 
   const htmlFor = `${name || ''}-htmlFor`;
   const statusError = useMemo<boolean>(() => {
-    if (error === undefined || error === false || error === '') {
+    if (error === undefined || error === false) {
       return false
     }
     // ['', 0] 都为报错状态
@@ -173,8 +173,6 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
     }
     return error
   }, [error])
-
-  console.log(children)
 
   return (
     <FormItemRoot

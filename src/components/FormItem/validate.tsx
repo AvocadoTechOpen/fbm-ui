@@ -22,8 +22,8 @@ interface IValidateParams {
 export default async function validate(input: IValidateParams): Promise<Error> {
   const { rules } = input
 
-  const rulesLen = rules?.length
-  if (!rulesLen) {
+  const rulesLen = rules?.length || 0
+  if (rulesLen === 0) {
     return undefined
   }
 
@@ -41,8 +41,8 @@ export default async function validate(input: IValidateParams): Promise<Error> {
     if (typeof rule === 'object') {
       const { message, type } = rule
       const validateFn = ruleFuns?.[type]
+      console.log(validateFn, type)
       const error: Error = await validateFn?.(message)?.(input)
-      console.log(error, '------', input)
       if (error !== undefined) {
         return error
       }
