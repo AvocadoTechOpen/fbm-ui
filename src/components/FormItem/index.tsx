@@ -143,6 +143,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
   return (
     <FormItem
+      ref={ref}
       name={name}
       label={label}
       value={field?.value}
