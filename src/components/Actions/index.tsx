@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from '@mui/material/styles/styled'
 
-import Button, { FbmButtonProps } from '../Button'
+import Button, { ButtonProps } from '../Button'
 import Box from '../Box'
 import Popactions from '../Popactions'
 
-export interface ActionProps extends FbmButtonProps {
+export interface ActionProps extends ButtonProps {
   /** 按钮展示文字 */
   text?: string,
   /** 下拉展示更多按钮 */
@@ -16,21 +16,16 @@ export interface ActionProps extends FbmButtonProps {
   data?: any
 }
 
-interface RootProps {
-  spacing?: ActionProps['spacing']
-}
-
-const ActionsRoot = styled(Box)(({ spacing }: RootProps) => (
-  {
-    display: 'flex',
-    alignItems: 'center',
-    '&>button': {
-      marginLeft: spacing
-    },
-    '&>div': {
-      marginLeft: spacing
-    }
+const ActionsRoot = styled(Box)(({ spacing }: ActionProps) => ({
+  display: 'flex',
+  alignItems: 'center',
+  '&>button': {
+    marginLeft: spacing
+  },
+  '&>div': {
+    marginLeft: spacing
   }
+}
 ))
 
 const Action: React.FC<ActionProps> = ({

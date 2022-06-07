@@ -36,6 +36,8 @@ export default () => {
     const error:string = await nameFieldProps.handleValidate()
   }
 
+  console.log(nameFieldProps)
+
   return (
     <Layout>
       <TextField {...nameFieldProps} />

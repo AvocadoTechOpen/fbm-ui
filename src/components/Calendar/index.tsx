@@ -6,7 +6,6 @@ import {
 
 import Input, { FbmInputProps } from '../Input'
 import LocalizationProvider from '../LocalizationProvider'
-// import useFormItemContext from '../FormItem/useFormItemContext';
 import { DateIcon } from '../icons'
 import { isDate, prefixZero } from '../../utils'
 
@@ -20,50 +19,16 @@ export interface FbmDateRangePickerProps extends DesktopDatePickerProps {
   InputProps?: FbmInputProps;
 }
 
-function useMergeProps(props) {
-  // const formItemContext = useFormItemContext()
-  // if (formItemContext && formItemContext.meta) {
-  //   const { meta, helpers, value } = formItemContext
-  //   const {
-  //     onChange,
-  //     error,
-  //     value: valueProp,
-  //     ...restProps
-  //   } = props
-  //   return {
-  //     value,
-  //     error: meta?.error,
-  //     onChange: (newValue) => {
-  //       if (meta.touched === false) {
-  //         helpers.setTouched(true)
-  //       }
-  //       helpers.setValue(newValue)
-  //       onChange?.(newValue)
-  //     },
-  //     ...restProps
-  //   }
-  // }
 
-  return props
-}
-
-const FbmDateRangePicker: React.FC<FbmDateRangePickerProps> = props => {
+const Calendar: React.FC<FbmDateRangePickerProps> = props => {
   const {
     value,
     error,
     InputProps,
     onChange,
-    onBlur,
     inputFormat,
     ...DesktopDatePickerProps
-  } = useMergeProps(props)
-
-  const inputRef = React.useRef(null)
-
-  const handleChange = (newValue) => {
-    // if (newValue === null) return
-    onChange?.(newValue)
-  }
+  } = props
 
 
   const renderInput = (props) => {
@@ -71,39 +36,24 @@ const FbmDateRangePicker: React.FC<FbmDateRangePickerProps> = props => {
       inputRef: inputRefProp,
       inputProps,
       disabled,
-      InputProps
     } = props
 
     if (value === null) {
       inputProps.value = ''
     }
 
-    const handleBlur = (event) => {
-      onBlur?.(value)
-      if (isDate(value)) {
-        const [yyyy, mm, dd] = inputProps.value.split('/')
-        const dateStr = [yyyy, prefixZero(mm), prefixZero(dd)].join('/')
-        setTimeout(() => {
-          inputRef.current.value = dateStr
-        }, 100)
-      }
-    }
-
     return (
       <Input
         disabled={disabled}
         inputRef={inputRefProp}
-        inputProps={{
-          ...inputProps,
-          ref: inputRef,
-        }}
         {...InputProps}
-        onBlur={handleBlur}
-        onChange={() => { }}
       />
     )
   }
 
+  const handleChange = () => {
+
+  }
   return (
     <LocalizationProvider>
       <DesktopDatePicker
@@ -119,7 +69,7 @@ const FbmDateRangePicker: React.FC<FbmDateRangePickerProps> = props => {
 }
 
 
-FbmDateRangePicker.defaultProps = {
+Calendar.defaultProps = {
   inputFormat: 'yyyy/MM/dd',
   // mask: '____/__/__',
   // disableMaskedInput: true,
@@ -130,4 +80,4 @@ FbmDateRangePicker.defaultProps = {
 
 
 
-export default FbmDateRangePicker
+export default Calendar

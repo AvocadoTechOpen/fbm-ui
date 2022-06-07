@@ -61,7 +61,7 @@ const PopoverRoot: React.FC<TooltipProps> = styled((inProps) => {
       classes={{ popper: className }}
     />
   )
-})(({ theme, arrow }) => ({
+})(({ theme, arrow }: any) => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',

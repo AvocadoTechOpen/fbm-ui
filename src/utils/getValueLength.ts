@@ -35,7 +35,6 @@ const getValueLength = ({
 }: Params): GetValueLengthReturn => {
   const length = chineseLength(value)
   const isBeyond = validateLength(length, max)
-
   return {
     isBeyond,
     length

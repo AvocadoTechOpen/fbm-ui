@@ -1,57 +1,53 @@
-import getValueLength, { GetValueLengthReturn } from '../../utils/getValueLength'
-import { isFunction, isObject } from '../../utils'
+
+import { isFunction } from '../../utils'
 import * as ruleFuns from '../../utils/rules'
-import { UseFormItemParams } from './useFormItem'
-import { RuleItemType } from './FormItem'
+import { RuleItemType, FormItemProps, Error } from './types'
+
+interface IValidateParams {
+  /** 输入框value */
+  value: FormItemProps['value'];
+  /** FormItem Label */
+  label: FormItemProps['label']
+  /** 验证规则  */
+  rules?: RuleItemType[]
+  /** 输入框最大长度  */
+  max?: number;
+}
 
 /**
  * @description: 提供表单验证
  * @param {*} value 输入框值
  * @param {*} props useFormItemParams
  */
-export default async function validate(value, props: UseFormItemParams): Promise<string | GetValueLengthReturn | undefined> {
-  // this => formItem
-  const formItem = props
-  const { rules, max } = (formItem || {})
+export default async function validate(input: IValidateParams): Promise<Error> {
+  const { rules } = input
 
-  return new Promise(async (resolve) => {
-    if (rules && rules.length > 0) {
-      const len = rules.length
+  const rulesLen = rules?.length || 0
+  if (rulesLen === 0) {
+    return undefined
+  }
 
-      for (let i = 0; i < len; i++) {
-        const rule: RuleItemType = formItem.rules[i]
+  for (let i = 0; i < rulesLen; i++) {
+    const rule: RuleItemType = rules[i]
 
-        // 处理报错方法
-        if (isFunction(rule)) {
-          const errorMsg: string | void = await rule(value, formItem)
-          if (errorMsg) {
-            return resolve(errorMsg)
-          }
-        }
+    if (isFunction(rule)) {
+      const error: Error = await rule(input)
 
-        // 处理对象 { type: 'RuleName' ...parasm }
-        if (typeof rule === 'object') {
-          const { message, required, type } = rule
-          const key = required ? 'required' : type
-          const ruleFn = ruleFuns[key]
-
-          if (isFunction(ruleFn)) {
-            const errorMsg: string = await ruleFn(message)(value, formItem)
-            if (errorMsg) {
-              return resolve(errorMsg)
-            }
-          }
-        }
+      if (error) {
+        return error
       }
     }
 
-    if (max) {
-      const { isBeyond, length } = getValueLength({ value, max })
-      if (isBeyond) {
-        return resolve({ isBeyond, length })
+    if (typeof rule === 'object') {
+      const { message, type } = rule
+      const validateFn = ruleFuns?.[type]
+      console.log(validateFn, type)
+      const error: Error = await validateFn?.(message)?.(input)
+      if (error !== undefined) {
+        return error
       }
     }
+  }
 
-    return resolve(undefined)
-  })
+  return undefined;
 }

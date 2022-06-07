@@ -4,7 +4,7 @@ import {
   StaticDateRangePicker,
   StaticDateRangePickerProps,
   pickersDayClasses,
-  dateRangePickerDayClasses
+  DateRangePickerDayClasses
 } from '@mui/lab';
 
 import LocalizationProvider from '../LocalizationProvider'
@@ -23,12 +23,12 @@ const DateRangePicker = styled(StaticDateRangePicker)(() => {
       fontSize: '14px',
       transform: 'none',
     },
-    [`& .${dateRangePickerDayClasses.rangeIntervalPreview}`]: {
-      margin: '3px'
-    },
-    [`& .${dateRangePickerDayClasses.root}`]: {
-      margin: 0,
-    },
+    // [`& .${DateRangePickerDayClasses.rangeIntervalPreview}`]: {
+    //   margin: '3px'
+    // },
+    // [`& .${DateRangePickerDayClasses.root}`]: {
+    //   margin: 0,
+    // },
     ['& .PrivatePickersSlideTransition-root']: {
       minWidth: 260,
       minHeight: 190,

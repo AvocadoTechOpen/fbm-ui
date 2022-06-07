@@ -3,7 +3,7 @@ import styled from '@mui/material/styles/styled'
 import { MenuItem, Box, ListItemIcon, ListSubheader } from '@mui/material'
 
 import Popover, { FbmPopoverProps } from '../Popover'
-import { FbmButtonProps } from '../Button'
+import { ButtonProps } from '../Button'
 import { FbmActionProps } from '../Actions'
 
 export interface FbmPopactionsProps extends FbmPopoverProps {
@@ -13,9 +13,9 @@ export interface FbmPopactionsProps extends FbmPopoverProps {
 interface ActionMenusTitle {
   title?: string
 }
-interface ActionMenuItemProps extends FbmButtonProps {
+interface ActionMenuItemProps extends ButtonProps {
   text?: string;
-  icon?: FbmButtonProps['startIcon'];
+  icon?: ButtonProps['startIcon'];
   title?: ActionMenusTitle['title'];
   actions?: ActionMenuItemProps[];
   onClick: any

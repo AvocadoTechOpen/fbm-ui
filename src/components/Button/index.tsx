@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { Button, ButtonProps } from '@mui/material'
+import React from 'react';
+import { Button as MuiButton , ButtonProps as MuiButtonProps } from '@mui/material'
 import styled from '@mui/material/styles/styled'
 import { alpha } from '@mui/system';
 
 import Loading from '../Loading'
 
 export const componentName: string = 'Input'
-export interface FbmButtonProps extends ButtonProps {
+export interface ButtonProps extends MuiButtonProps {
   /** 按钮loading */
   loading?: boolean;
   /** 按钮禁用 */
@@ -14,7 +14,7 @@ export interface FbmButtonProps extends ButtonProps {
   /** 按钮显示文字 */
   text?: string;
   /** 按钮icon */
-  icon?: ButtonProps['startIcon']
+  icon?: MuiButtonProps['startIcon']
 }
 
 const loadingProps = {
@@ -22,7 +22,7 @@ const loadingProps = {
   size: 16,
 }
 
-const ButtonRoot = styled(Button)(({ color, theme, variant, size }) => {
+const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
   return {
     minWidth: 'auto',
     '&:hover': {
@@ -65,14 +65,14 @@ const ButtonRoot = styled(Button)(({ color, theme, variant, size }) => {
   }
 })
 
-const FbmButton: React.FC<FbmButtonProps> = (props) => {
+const Button: React.FC<ButtonProps> = (props) => {
   const { loading, children, text, icon, ...buttonProps } = props
   if (loading) {
     buttonProps.disabled = true
   }
   buttonProps['startIcon'] = buttonProps.startIcon || icon
 
-  const LoadingRender: React.FC = () => loading ? <Loading {...loadingProps} /> : null
+  const LoadingRender: React.FC<any> = () => loading ? <Loading {...loadingProps} /> : null
 
   return (
     <ButtonRoot {...buttonProps}>
@@ -82,11 +82,11 @@ const FbmButton: React.FC<FbmButtonProps> = (props) => {
   )
 }
 
-FbmButton.defaultProps = {
+Button.defaultProps = {
   variant: 'contained',
   loading: false,
   color: 'primary',
   size: 'medium',
 }
 
-export default FbmButton
+export default Button

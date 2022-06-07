@@ -23,7 +23,9 @@ import {
   Select, 
   rules,
   useForm,
-  DatePicker
+  DatePicker,
+  RadioGroup,
+  Radio,
 } from 'fbm-ui'
 
 // 测试性能
@@ -33,16 +35,26 @@ export default () => {
   const form = useForm({
     initialValues: {
       name:'',
-      sex: 2,
-      email: '',
-      date: null,
-      password: '',
-      rePassword: '',
+      sex: '',
+      type: 1,
     },
     onSubmit: (values) => {
       console.log(values)
     }
   })
+
+  console.log(form.values)
+
+  const options = [
+    {
+      label: '女',
+      value: 1
+    },
+    {
+      label: '男',
+      value: 2
+    }
+  ]
 
   return (
     <Layout>
@@ -51,75 +63,27 @@ export default () => {
           required
           name='name' 
           label="名称"
-          max={20}
+          max={10}
          />
-        
+
         <FormItem
-          name="sex"
+          required
+          name='sex' 
           label="性别"
-          required
         >
-          <Select options={[
-            {
-              label: '未知',
-              value: '',
-            },
-            {
-              label: '男',
-              value: 1,
-            },
-            {
-              label: '女',
-              value: 2,
-            }
-          ]} />
+          <Select options={options} />
         </FormItem>
-
-         <FormItem
-          name="date"
-          label="日期"
-          required
-          rules={[
-            {
-              type: 'date'
-            }
-          ]}
-        >
-          <DatePicker />
-        </FormItem>
-
-        <FormItem
-          name="email"
-          label="邮箱"
-          required
-          rules={[
-            {
-              type: 'email'
-            }
-          ]}
-        />
-
-         <FormItem
-          name="password"
-          type='password'
-          label="密码"
-          required
-        />
         
-        <FormItem
-          name="rePassword"
-          type='password'
-          label="确认密码"
-          required
-          rules={[
-            (value) => {
-              if (value !== form?.values?.password) {
-                return '两次密码不一致'
-              }
-            }
-          ]}
-        />
-
+         <FormItem
+          name='type' 
+        >
+          <RadioGroup>
+              <Radio value={1} label="A"/>
+              <Radio value={2} label="B"/>
+              <Radio value={3} label="C"/>
+              <Radio value={4} label="D"/>
+          </RadioGroup>
+        </FormItem>
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
           重置

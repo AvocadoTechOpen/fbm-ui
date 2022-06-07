@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert as MuiAlert, AlertProps as MuiAlertProps, styled, Theme, AlertColor } from '@mui/material'
+import { Alert as MuiAlert, AlertProps as MuiAlertProps, styled, AlertColor, Theme } from '@mui/material'
 
 import { FbmThemeOptions } from '../ThemeProvider'
 import {
@@ -57,7 +57,7 @@ const Icon: React.FC<IconProps> = ({ icon, type }) => {
   return <React.Fragment> {icon} </React.Fragment>
 }
 
-const FbmAlert: React.FC<AlertProps> = ({
+const Alert: React.FC<AlertProps> = ({
   type,
   children,
   message,
@@ -75,8 +75,8 @@ const FbmAlert: React.FC<AlertProps> = ({
   </AlertRoot>
 )
 
-FbmAlert.defaultProps = {
+Alert.defaultProps = {
   type: 'info',
 }
 
-export default FbmAlert
+export default Alert
