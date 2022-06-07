@@ -49,7 +49,8 @@ interface FormItemBaseProps {
   required?: boolean;
   InputLabelProps?: InputLabelProps;
   HelperProps?: HelperProps;
-  InputProps?: InputProps
+  InputProps?: InputProps;
+  children?: React.ReactElement<any, any>
 }
 
 export type FormItemProps = FormItemBaseProps & InputProps

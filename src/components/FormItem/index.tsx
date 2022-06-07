@@ -13,9 +13,9 @@ import { FormItemProps, RuleItemObjType, RuleItemType, Error } from './types'
  */
 const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
   const {
-    children,
-    max,
     name,
+    max,
+    children: childrenProp,
     value: valueProp,
     label: labelProp,
     required: requiredProp,
@@ -101,6 +101,19 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     field?.onBlur?.(event)
     onBlur?.(event)
+  }
+
+  
+  let children = childrenProp
+  if(children) {
+    // 给children 传入onChange和onBlur事件
+    children = React.cloneElement(children, {
+      name,
+      label: labelProp,
+      value: field?.value,
+      onChange: handleChange,
+      onBlur: handleBlur,
+    })
   }
 
   return (

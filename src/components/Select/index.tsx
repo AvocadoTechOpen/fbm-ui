@@ -5,7 +5,6 @@ import styled from '@mui/material/styles/styled'
 
 import Input from '../Input'
 import { ArrowDropDownIcon } from '../icons'
-import { isEmpty } from '../../utils'
 
 type OptionMap = {
   label: string;
@@ -27,14 +26,12 @@ const FbmSelect: React.FC<FbmSelectProps> = React.forwardRef((props, ref) => {
   const {
     options,
     children: childrenProp,
-    ...selectProps
+    ...SelectProps
   } = props
 
-  let children = null
-  if (childrenProp) {
-    children = childrenProp
-  } else if (!isEmpty(options)) {
-    children = options.map(({label, value}) => (
+  let children = childrenProp
+  if (children === undefined) {
+    children = options.map(({ label, value }) => (
       <MenuItem key={label} value={value}>
         {label || value}
       </MenuItem>
@@ -42,14 +39,14 @@ const FbmSelect: React.FC<FbmSelectProps> = React.forwardRef((props, ref) => {
   }
 
   return (
-    <SelectRoot {...selectProps} ref={ref}>
+    <SelectRoot ref={ref} {...SelectProps}>
       {children}
     </SelectRoot>
   )
 })
 
 FbmSelect.defaultProps = {
-  input: <Input/>,
+  input: <Input />,
   IconComponent: ArrowDropDownIcon,
   options: [],
   fullWidth: true,

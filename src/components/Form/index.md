@@ -23,7 +23,9 @@ import {
   Select, 
   rules,
   useForm,
-  DatePicker
+  DatePicker,
+  RadioGroup,
+  Radio,
 } from 'fbm-ui'
 
 // 测试性能
@@ -33,16 +35,24 @@ export default () => {
   const form = useForm({
     initialValues: {
       name:'',
-      sex: 2,
-      email: '',
-      date: null,
-      password: '',
-      rePassword: '',
+      sex: '',
+      type: 1,
     },
     onSubmit: (values) => {
       console.log(values)
     }
   })
+
+  const options = [
+    {
+      label: '女',
+      value: 1
+    },
+    {
+      label: '男',
+      value: 2
+    }
+  ]
 
   return (
     <Layout>
@@ -53,6 +63,25 @@ export default () => {
           label="名称"
           max={10}
          />
+
+        <FormItem
+          required
+          name='sex' 
+          label="性别"
+        >
+          <Select options={options} />
+        </FormItem>
+        
+         <FormItem
+          name='type' 
+        >
+          <RadioGroup>
+              <Radio value={1} label="A"/>
+              <Radio value={2} label="B"/>
+              <Radio value={3} label="C"/>
+              <Radio value={4} label="D"/>
+          </RadioGroup>
+        </FormItem>
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
           重置

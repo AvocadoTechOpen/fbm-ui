@@ -15,13 +15,15 @@ const StandardInput: React.FC<InputProps> = styled(Input)(({ theme, color }) => 
       borderBottom: `1px solid rgba(0,0,0,0.26)`,
     },
     '&:after': {
-      borderBottom: `1px solid ${theme.palette[color].main}`,
+      borderBottom: `1px solid ${theme.palette.primary.main}`,
     },
     '&:before': {
       borderBottom: `1px solid rgba(0,0,0,0.08)`,
     },
   }
 })
+
+
 
 export default StandardInput
 

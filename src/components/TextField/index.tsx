@@ -1,20 +1,20 @@
 import React from 'react'
-import FormItem, { FbmFormItemProps } from '../FormItem/FormItem'
-import { FbmInputProps } from '../Input'
+import FormItem from '../FormItem/FormItem'
+import { FormItemProps } from '../FormItem/types'
+import { InputProps } from '../Input'
 
 export { default as useTextField } from './useTextField'
-export { default as useInput } from './useInput'
 
-interface FbmTextField extends FbmFormItemProps {
+interface TextFieldProps extends FormItemProps {
   onError?: () => void;
-  onChange?: FbmInputProps['onChange']
+  onChange?: InputProps['onChange']
   component?: string;
   setError?: () => void;
   handleValidate?: () => void;
   isBeyond?: boolean;
 }
 
-const FbmTextField: React.FC<FbmTextField> = React.forwardRef(({
+const TextField: React.FC<TextFieldProps> = React.forwardRef(({
   /** useTextField生成的 无需传给FormItem   */
   setError,
   handleValidate,
@@ -31,4 +31,4 @@ const FbmTextField: React.FC<FbmTextField> = React.forwardRef(({
   )
 })
 
-export default FbmTextField
+export default TextField

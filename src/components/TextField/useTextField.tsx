@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import getValueLength from '../../utils/getValueLength'
 import validate from '../FormItem/validate'
+import { RuleItemType } from '../FormItem/types'
 import { isFunction } from '../../utils'
 
 export default function useTextField(props) {
@@ -14,35 +15,61 @@ export default function useTextField(props) {
     onChange: onChangeProp,
     onBlur: onBlurProp,
     validate: validateFn,
+    required: requiredProp,
+    rules: rulesProp
   } = props
 
   const [error, setError] = React.useState(errorProp)
 
+  const rules = useMemo<RuleItemType[]>(() => {
+    const _rules = rulesProp.map(rule => {
+      if (rule.required) {
+        return {
+          type: 'required',
+          ...rule,
+        }
+      }
+      return rule
+    })
+    // 添加必填规则
+    if (requiredProp) {
+      _rules.push({
+        type: 'required'
+      })
+    }
+    // 添加最大长度限制
+    if (max) {
+      _rules.push({
+        type: 'max'
+      })
+    }
+
+    return _rules
+  }, [requiredProp, rulesProp, max])
+
+
   const validateRules = React.useCallback(async (value = valueProp) => {
-    const ruleError = await validate(value, props)
+    const ruleError = await validate({
+      value,
+      max,
+      rules,
+      label: props.label,
+    })
+    console.log(rules, value, ruleError)
     setError(ruleError)
     return ruleError
   }, [valueProp])
 
   const handleChange = (event) => {
-    if (isFunction(onChangeProp)) {
-      onChangeProp(event)
-    }
-    if (isFunction(inputProps?.onChange)) {
-      inputProps.onChange(event)
-    }
+    onChangeProp?.(event)
+    inputProps?.onChange?.(event)
     const value = event?.target ? event?.target?.value : event
     validateRules(value)
   }
 
   const handleBlur = (event) => {
-    if (isFunction(onBlurProp)) {
-      onBlurProp(event)
-    }
-    if (isFunction(inputProps?.onBlur)) {
-      inputProps.onBlur(event)
-    }
-
+    onBlurProp?.(event)
+    inputProps?.onBlur?.(event)
     const value = event?.target ? event?.target?.value : event
     validateRules(value)
   }

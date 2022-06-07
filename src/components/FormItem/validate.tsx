@@ -42,7 +42,7 @@ export default async function validate(input: IValidateParams): Promise<Error> {
       const { message, type } = rule
       const validateFn = ruleFuns?.[type]
       const error: Error = await validateFn?.(message)?.(input)
-
+      console.log(error, '------', input)
       if (error !== undefined) {
         return error
       }

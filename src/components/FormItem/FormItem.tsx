@@ -3,6 +3,7 @@ import styled from '@mui/material/styles/styled'
 import {
   FormControl,
   InputLabel,
+  FormLabel,
   FormHelperText,
   inputLabelClasses,
   FormControlProps,
@@ -172,6 +173,8 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
     }
     return error
   }, [error])
+
+  console.log(children)
 
   return (
     <FormItemRoot
