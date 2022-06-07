@@ -36,8 +36,11 @@ export { default as Dialog } from './Dialog';
 export { default as Drawer } from './Drawer';
 
 export { default as Input } from './Input';
+export * from './Input'
 
 export { default as Button } from './Button';
+export * from './Button'
+
 
 export { default as IconButton } from './IconButton';
 

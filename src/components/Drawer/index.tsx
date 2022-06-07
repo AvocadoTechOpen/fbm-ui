@@ -6,7 +6,7 @@ import Content from './src/Content'
 import Footer from './src/Footer'
 import { FbmConfirmFooterProps } from '../ConfirmFooter'
 
-export interface FbmDrawerProps extends FbmConfirmFooterProps {
+export interface DrawerProps extends FbmConfirmFooterProps {
   open: boolean;
   footer?: React.ReactNode | null;
   header?: React.ReactNode | null;
@@ -17,7 +17,7 @@ export interface FbmDrawerProps extends FbmConfirmFooterProps {
   isBackdrop?: boolean;
 }
 
-const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
+const Drawer: React.FC<DrawerProps> = (props) => {
   const {
     open,
     title,
@@ -69,11 +69,11 @@ const FbmDrawer: React.FC<FbmDrawerProps> = (props) => {
   )
 }
 
-FbmDrawer.defaultProps = {
+Drawer.defaultProps = {
   open: false,
   anchor: 'right',
   isShowClose: true,
   isBackdrop: true,
 }
 
-export default FbmDrawer
+export default Drawer

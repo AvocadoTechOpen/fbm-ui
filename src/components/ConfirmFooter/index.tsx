@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@mui/material/styles/styled'
 
 import Box from '../Box'
-import Button, { FbmButtonProps } from '../Button'
+import Button, { ButtonProps } from '../Button'
 
 // type SizeMap = 'small' | 'medium' | 'large'
 
@@ -12,7 +12,7 @@ export interface FbmConfirmFooterProps {
   /** 确定按钮文案 */
   okText?: string;
   /** 确定按钮按钮ButtonProps  */
-  okProps?: FbmButtonProps;
+  okProps?: ButtonProps;
   /** 是否禁用确定按钮  */
   okDisabled?: boolean;
   /** 是否需要取消按钮 */
@@ -22,7 +22,7 @@ export interface FbmConfirmFooterProps {
   /** 确定按钮文案 */
   closeText?: string;
   /** 取消按钮ButtonProps  */
-  closeProps?: FbmButtonProps;
+  closeProps?: ButtonProps;
   /** 自定义Footer  */
   footer?: React.ReactNode
 }

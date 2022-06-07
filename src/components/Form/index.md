@@ -43,6 +43,8 @@ export default () => {
     }
   })
 
+  console.log(form.values)
+
   const options = [
     {
       label: '女',

@@ -1,8 +1,8 @@
 import React from 'react';
-import Button, { FbmButtonProps } from '../../Button'
+import Button, { ButtonProps } from '../../Button'
 import { DocumentUploadIcon } from '../../icons'
 
-const UploadButton: React.FC<FbmButtonProps> = ({
+const UploadButton: React.FC<ButtonProps> = ({
   children,
   ...restProps
 }) => {

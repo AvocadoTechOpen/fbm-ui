@@ -102,13 +102,22 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     field?.onBlur?.(event)
     onBlur?.(event)
   }
-
   
   let children = childrenProp
   if(children) {
     // 给children 传入onChange和onBlur事件
     children = React.cloneElement(children, {
       name,
+      error,
+      label: labelProp,
+      value: field?.value,
+      onChange: handleChange,
+      onBlur: handleBlur,
+    })
+  } else if (typeof children === 'function') {
+    children = children?.({
+      name,
+      error,
       label: labelProp,
       value: field?.value,
       onChange: handleChange,
