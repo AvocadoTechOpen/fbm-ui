@@ -22,7 +22,8 @@ const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ 
     },
     ...(size === 'small' && {
       [`& .${outlinedInputClasses.input}`]: {
-        padding: '6px 12px 7px 12px'
+        padding: '6px 12px 7px 12px',
+        fontSize: 14,
       },
     }),
     [`&.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]: {

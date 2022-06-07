@@ -49,7 +49,7 @@ interface UseOpen {
     trigger,
   }: {
     open: FbmPopoverProps['open'];
-    trigger: FbmPopoverProps['trigger'];
+    trigger: TriggerMap;
   }): [boolean, (open: boolean) => void]
 };
 
@@ -114,8 +114,8 @@ const ClickWrap: React.FC<ClickWrapProps> = ({
 }
 
 const useOpen: UseOpen = ({
-  open: openProp,
   trigger,
+  open: openProp,
 }) => {
   // 如果open是undefined则交给mui Tooltip 处理
   const isAutomaticOpen = openProp === undefined

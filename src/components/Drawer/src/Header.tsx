@@ -1,13 +1,14 @@
 import React from 'react';
 import { Box, styled, IconButton } from '@mui/material'
-import { CloseIcon } from '../../icons'
+import { CloseIcon, KeyboardArrowLeftIcon } from '../../icons'
 import { FbmConfirmFooterProps } from '../../ConfirmFooter'
 
-interface HeaderProps {
+export interface HeaderProps {
   title?: React.ReactNode;
   isShowClose?: boolean;
-  onClose: FbmConfirmFooterProps['onClose']
-  header?:  React.ReactNode | null;
+  header?: React.ReactNode | ((props: HeaderProps) => React.ReactDOM) | null;
+  onClose?: FbmConfirmFooterProps['onClose']
+  onBack?: () => void;
 }
 
 const HeaderBox = styled(Box)({
@@ -21,26 +22,47 @@ const Title = styled('div')({
   fontWeight: 500,
   color: 'rgba(0, 0, 0, 0.86)',
   flex: 1,
+  display: 'flex',
+  alignItems: 'center',
 })
 
-const Header: React.FC<HeaderProps> = ({
-  title,
-  isShowClose,
-  onClose,
-  header,
-}) => {
+const Header: React.FC<HeaderProps> = props => {
+  const {
+    title,
+    isShowClose,
+    header,
+    onClose,
+    onBack,
+  } = props
+
   // checkout null
   if (header === null || (!title && !isShowClose)) {
     return null
   }
 
-  let closeBtn = null
+  if (header) {
+    if (typeof header === 'function') {
+      return header(props)
+    }
+    return header
+  }
+
+  let closeButton = null
   if (isShowClose) {
-    closeBtn = (
+    closeButton = (
       <IconButton
-        onClick={onClose}
-        style={{ padding: 0 }}>
+        onClick={onClose}>
         <CloseIcon />
+      </IconButton>
+    )
+  }
+
+  let backButton = null
+  if (onBack && typeof onBack === 'function') {
+    backButton = (
+      <IconButton
+        onClick={onBack}>
+        <KeyboardArrowLeftIcon />
       </IconButton>
     )
   }
@@ -48,9 +70,10 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <HeaderBox>
       <Title>
+        {backButton}
         {title}
       </Title>
-      {closeBtn}
+      {closeButton}
     </HeaderBox>
   )
 }

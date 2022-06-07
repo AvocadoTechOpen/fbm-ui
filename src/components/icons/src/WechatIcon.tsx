@@ -1,7 +1,8 @@
 import React from "react";
 import SvgIcon from "@mui/material/SvgIcon";
+import type { SvgIconProps } from "@mui/material/SvgIcon";
 
-const WechatIcon = (props) => (
+const WechatIcon: React.FC<SvgIconProps> = (props) => (
   <SvgIcon {...props}>
     <g fill="none" fillRule="evenodd">
       <path

@@ -5,18 +5,18 @@ import Button, { ButtonProps } from '../Button'
 import Box from '../Box'
 import Popactions from '../Popactions'
 
-export interface FbmActionProps extends ButtonProps {
+export interface ActionProps extends ButtonProps {
   /** 按钮展示文字 */
   text?: string,
   /** 下拉展示更多按钮 */
-  actions?: FbmActionProps[]
+  actions?: ActionProps[]
   /** 按钮间距 */
   spacing?: number | string;
   /** click Params */
   data?: any
 }
 
-const ActionsRoot = styled(Box)(({ spacing }: FbmActionProps) => ({
+const ActionsRoot = styled(Box)(({ spacing }: ActionProps) => ({
   display: 'flex',
   alignItems: 'center',
   '&>button': {
@@ -28,7 +28,7 @@ const ActionsRoot = styled(Box)(({ spacing }: FbmActionProps) => ({
 }
 ))
 
-const FbmAction: React.FC<FbmActionProps> = ({
+const Action: React.FC<ActionProps> = ({
   spacing,
   actions,
   data,
@@ -72,10 +72,10 @@ const FbmAction: React.FC<FbmActionProps> = ({
   )
 }
 
-FbmAction.defaultProps = {
+Action.defaultProps = {
   actions: [],
   spacing: '7px'
 }
 
 
-export default FbmAction
+export default Action

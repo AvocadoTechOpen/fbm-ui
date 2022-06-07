@@ -38,6 +38,7 @@ export default () => {
         open={open}
         onOk={handleOk}
         onClose={handleClose}
+        onBack={() => handleClose()}
       >
         <Typography variant="h4"> 招聘管理 面面俱到</Typography>
         <Typography variant="body1">

@@ -36,18 +36,13 @@ const fbmConfirm = (props: FbmConfirmProps) => {
     const [open, setOpen] = React.useState(defaultOpen)
     const handleClose = () => {
       setOpen(false)
-      if (onClose && typeof onClose === 'function') {
-        onClose()
-      }
+      onClose?.()
       confirmDiv.delete()
     }
     const dialogProps = {
       open,
-      BackdropProps: {
-        open: false,
-      },
+      ...props,
       onClose: handleClose,
-      ...props
     }
 
     return (

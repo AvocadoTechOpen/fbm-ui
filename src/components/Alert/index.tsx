@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Alert as MuiAlert, AlertProps as MuiAlertProps, styled } from '@mui/material'
+import React from 'react';
+import { Alert as MuiAlert, AlertProps as MuiAlertProps, styled, AlertColor, Theme } from '@mui/material'
 
 import { FbmThemeOptions } from '../ThemeProvider'
 import {
@@ -9,7 +9,7 @@ import {
   InfoIcon
 } from '../icons'
 
-type AlertType = 'error' | 'warning' | 'success' | 'info'
+type AlertType = AlertColor
 
 export interface AlertProps extends MuiAlertProps {
   /** Alert类型 可选 默认为info */
@@ -25,13 +25,20 @@ interface IconProps {
   type: AlertType
 }
 
-const AlertRoot = styled(MuiAlert)(({ theme, type }: AlertProps) => ({
-  color: theme.palette.text.secondary,
-  padding: '4px 16px',
-  border: '1px solid',
-  borderColor: theme.palette[type].main,
-  backgroundColor: (theme as FbmThemeOptions).custom?.bgColor[type],
-}))
+interface AlertRootProps {
+  type?: AlertType;
+  theme: Theme
+}
+
+const AlertRoot:React.FC<AlertProps> = styled(MuiAlert)(({ theme, type }: AlertRootProps) => {
+  return {
+    color: theme.palette.text.secondary,
+    padding: '4px 16px',
+    border: '1px solid',
+    borderColor: theme.palette[type].main,
+    backgroundColor: (theme as FbmThemeOptions).custom?.bgColor[type],
+  }
+})
 
 const Icon: React.FC<IconProps> = ({ icon, type }) => {
   if (icon === null) return null
@@ -57,21 +64,16 @@ const Alert: React.FC<AlertProps> = ({
   icon,
   color: componentColor,
   ...otherProps
-}) => {
-  const color = componentColor || type
-  const AlertProps = {
-    type,
-    color,
-    icon: <Icon icon={icon} type={type} />,
-    ...otherProps
-  }
-
-  return (
-    <AlertRoot {...AlertProps}>
-      {message || children}
-    </AlertRoot>
-  )
-}
+}) => (
+  <AlertRoot
+    type={type}
+    color={componentColor || type}
+    icon={<Icon icon={icon} type={type} />}
+    {...otherProps}
+  >
+    {message || children}
+  </AlertRoot>
+)
 
 Alert.defaultProps = {
   type: 'info',

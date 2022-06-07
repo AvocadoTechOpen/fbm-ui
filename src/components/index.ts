@@ -105,3 +105,6 @@ export * from './RadioGroup'
 
 export { default as Radio } from './Radio'
 export * from './Radio'
+
+export { default as ImageCrop } from './ImageCrop'
+export * from './ImageCrop'

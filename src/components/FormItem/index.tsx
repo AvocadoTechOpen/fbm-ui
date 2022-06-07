@@ -99,8 +99,8 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [registerField, unregisterField, name, rules]);
 
   const error = useMemo<string>(() => {
-    if (meta.touched) {
-      return meta.error
+    if (meta?.touched) {
+      return meta?.error
     }
   }, [meta])
 
