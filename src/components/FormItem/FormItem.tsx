@@ -176,6 +176,7 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
 
   return (
     <FormItemRoot
+      ref={ref}
       variant={variant}
       error={statusError}
       {...FormControlProps}
