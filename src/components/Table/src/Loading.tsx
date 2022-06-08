@@ -1,14 +1,17 @@
 
 import React from 'react'
-import styled from '@mui/material/styles/styled'
+import { Theme, styled } from '@mui/material';
 import { CircularProgress } from '@mui/material'
 
 import { FbmTableLoadingProps } from '../types'
 import Typography from '../../Typography'
 
-const Root: React.FC<{
-  loading?: FbmTableLoadingProps['loading']
-}> = styled('div')(({ theme, loading }) => {
+interface RootProps {
+  loading?: FbmTableLoadingProps['loading'];
+  theme?: Theme
+}
+
+const Root: React.FC<RootProps> = styled('div')(({ theme, loading }: RootProps) => {
   const height = 54
   const s = loading ? '0.07s' : '0.15s'
   return {

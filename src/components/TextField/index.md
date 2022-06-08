@@ -300,7 +300,7 @@ export default () => {
  */
 import * as React from 'react';
 import { Demo, TextField, rules, useTextField, Button, SearchIcon} from 'fbm-ui'
-import { FbmInputProps } from '../Input';
+import { InputProps } from '../Input';
 
 class DemoForTextField extends React.Component {
   constructor() {
@@ -338,7 +338,7 @@ class DemoForTextField extends React.Component {
 export default DemoForTextField;
 
 interface ExampleProps {
-  onChange: FbmInputProps['onChange'],
+  onChange: InputProps['onChange'],
   value: string,
 }
 const Example: React.FC<ExampleProps> = React.forwardRef(({ 

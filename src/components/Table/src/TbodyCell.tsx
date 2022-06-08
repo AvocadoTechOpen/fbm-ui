@@ -1,6 +1,5 @@
 import React from 'react';
-
-import styled from '@mui/material/styles/styled'
+import { Theme, styled } from '@mui/material';
 import { TableCell } from '@mui/material'
 
 import { FbmTdColumnProps } from '../types'
@@ -10,10 +9,11 @@ import { isEmpty } from '../../../utils'
 interface RootProps {
   type?: FbmTdColumnProps['type'];
   width?: FbmTdColumnProps['width'];
-  checked: FbmTdColumnProps['checked'];
+  checked?: FbmTdColumnProps['checked'];
+  theme?: Theme
 } 
 
-const TableCellRoot: React.FC<RootProps> = styled(TableCell)(({ type, checked, theme}) => {
+const TableCellRoot: React.FC<RootProps> = styled(TableCell)(({ type, checked, theme}: RootProps) => {
   return {
     padding: '16px',
     fontSize: 14,

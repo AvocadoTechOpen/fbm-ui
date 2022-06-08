@@ -1,6 +1,6 @@
 
 import { TableCellProps, PaginationProps, TableContainerProps } from '@mui/material'
-import { FbmActionProps } from '../Actions'
+import { ActionProps } from '../Actions'
 
 export interface CellRenderProps {
   cell: any;
@@ -23,7 +23,7 @@ export interface FbmTdColumnProps extends TableCellProps {
 export interface FbmThColumnProps extends TableCellProps {
   data?: Data;
   selected?: unknown[],
-  batchActions?: FbmActionProps['actions'];
+  batchActions?: ActionProps['actions'];
   selectedText?: () => string | string;
   nameText?: NameText,
   thReader?: (props: { data: Data }) => React.ReactNode;

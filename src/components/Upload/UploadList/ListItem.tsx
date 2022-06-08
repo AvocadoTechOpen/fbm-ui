@@ -1,8 +1,5 @@
 import React from 'react'
-import styled from '@mui/material/styles/styled'
-import LinearProgress from '@mui/material/LinearProgress'
-import Box from '@mui/material/Box'
-import Tooltip from '@mui/material/Tooltip';
+import { styled, LinearProgress, Box, Tooltip, Theme } from '@mui/material'
 
 import { RefreshIcon, CancelIcon } from '../../icons'
 import Typography from '../../Typography'
@@ -50,9 +47,11 @@ const FileName = styled(Typography)({
 })
 
 interface ActionIconSpanProps {
-  status: ListItemProps['status']
+  status?: ListItemProps['status'];
+  theme?: Theme;
+
 }
-const ActionIconSpan: React.FC<ActionIconSpanProps> = styled('span')(({ status, theme }) => ({
+const ActionIconSpan: React.FC<ActionIconSpanProps> = styled('span')(({ theme, status }: ActionIconSpanProps) => ({
   color: theme.palette.secondary.main
 }))
 
@@ -71,7 +70,7 @@ const ListItem: React.FC<ListItemProps> = props => {
   } = props
 
   const fileFormat: string = getFileFormat(name)
-  const FileIcon: React.FC<any> = FileIcons[fileFormat] ||  FileIcons['undefined']
+  const FileIcon: React.FC<any> = FileIcons[fileFormat] || FileIcons['undefined']
 
   const StatusIcons = {
     uploading: (
@@ -122,6 +121,12 @@ const ListItem: React.FC<ListItemProps> = props => {
           </ActionIconBox>
         </FlexCenterBox>
         <HelperText>
+
+          {
+            /**
+              *  @Todo
+              */
+          }
 
         </HelperText>
       </FlexFill>

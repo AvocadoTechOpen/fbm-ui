@@ -3,13 +3,13 @@ import styled from '@mui/material/styles/styled'
 
 import Box from '../Box'
 import Typography from '../Typography'
-import Actions, { FbmActionProps } from '../Actions'
+import Actions, { ActionProps } from '../Actions'
 
 export interface FbmHeaderProps {
   /** 标题 */
   title?: React.ReactNode;
   /** 操作, 具体参数可查看Actions组件 */
-  actions?: FbmActionProps['actions']
+  actions?: ActionProps['actions']
   /** 自定义action组件 */
   renderAction?: () => React.ReactNode;
 }

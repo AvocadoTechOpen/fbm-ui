@@ -4,7 +4,7 @@ import {
   DesktopDatePickerProps,
 } from '@mui/lab';
 
-import Input, { FbmInputProps } from '../Input'
+import Input, { InputProps } from '../Input'
 import LocalizationProvider from '../LocalizationProvider'
 import { DateIcon } from '../icons'
 import { isDate, prefixZero } from '../../utils'
@@ -16,7 +16,7 @@ export interface FbmDateRangePickerProps extends DesktopDatePickerProps {
   disableMaskedInput: DesktopDatePickerProps['disableMaskedInput'];
   renderInput: DesktopDatePickerProps['renderInput'];
   error?: string | boolean;
-  InputProps?: FbmInputProps;
+  InputProps?: InputProps;
 }
 
 
