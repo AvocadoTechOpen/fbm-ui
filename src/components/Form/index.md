@@ -19,17 +19,14 @@ import {
   Form, 
   FormItem,
   Button,
-  DateRangePicker,
   Select, 
-  rules,
   useForm,
   DatePicker,
   RadioGroup,
   Radio,
+  Checkbox,
+  CheckboxGroup,
 } from 'fbm-ui'
-
-// 测试性能
-const KEYS =  {'a':'' ,'b':'', 'c': '', 'd':'', 'e':'', 'r':'', 't':'', 'y':'', 'u':'', 'i':'', 'p':'', 'x':'', 'v':'', 'n':'', 'm':'', 'z': ''}
 
 export default () => {
   const form = useForm({
@@ -37,13 +34,12 @@ export default () => {
       name:'',
       sex: '',
       type: 1,
+      keys: [],
     },
     onSubmit: (values) => {
       console.log(values)
     }
   })
-
-  console.log(form.values)
 
   const options = [
     {
@@ -74,15 +70,22 @@ export default () => {
           <Select options={options} />
         </FormItem>
         
-         <FormItem
-          name='type' 
-        >
+        <FormItem name='type'>
           <RadioGroup>
               <Radio value={1} label="A"/>
               <Radio value={2} label="B"/>
               <Radio value={3} label="C"/>
               <Radio value={4} label="D"/>
           </RadioGroup>
+        </FormItem>
+
+        <FormItem name='keys'>
+          <CheckboxGroup>
+            <Checkbox value={'A'} label="A"/>
+            <Checkbox value={'B'} label="B"/>
+            <Checkbox value={'C'} label="C"/>
+            <Checkbox value={'D'} label="D"/>
+          </CheckboxGroup>
         </FormItem>
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>

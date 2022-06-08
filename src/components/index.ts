@@ -108,3 +108,10 @@ export * from './Radio'
 
 export { default as ImageCrop } from './ImageCrop'
 export * from './ImageCrop'
+
+
+export { default as Checkbox } from './Checkbox'
+export * from './Checkbox'
+
+export { default as CheckboxGroup } from './CheckboxGroup'
+export * from './CheckboxGroup'

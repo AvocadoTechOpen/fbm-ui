@@ -44,7 +44,7 @@ interface FormItemBaseProps {
   label?: Label;
   extra?: Extra;
   max?: number;
-  name?: string;
+  name: string;
   error?: Error | boolean | string;
   length?: number;
   rules?: RuleItemType[]

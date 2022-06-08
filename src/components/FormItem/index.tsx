@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useCallback } from 'react'
 import {
   useFormikContext,
 } from 'formik'
@@ -17,6 +17,7 @@ const MemoInput = React.memo(
   ({ children }: MemoInputProps) => children as JSX.Element,
   (prev, next) => prev.value === next.value && prev.update === next.update,
 );
+
 
 /**
  * @description: 配合form组件使用
@@ -104,13 +105,27 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     }
   }, [meta])
 
+  const formatEvent = useCallback((event: React.FocusEvent<HTMLInputElement> | any) => {
+    if (event.target){
+      return event
+    }
+  
+    return {
+      name: name,
+      target: {
+        value: event,
+      },
+      type: props.type || 'custom',
+    }
+  }, [name])
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    field?.onChange?.(event)
+    field?.onChange?.(formatEvent(event))
     onChange?.(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    field?.onBlur?.(event)
+    field?.onBlur?.(formatEvent(event))
     onBlur?.(event)
   }
 
@@ -131,14 +146,11 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
       </MemoInput>
     )
   } else if (typeof children === 'function') {
-    children = children?.({
-      name,
-      error,
-      label: labelProp,
-      value: field?.value,
-      onChange: handleChange,
-      onBlur: handleBlur,
-    })
+    children = (
+      <MemoInput value={childProps?.value} update={children}>
+        {children?.(childProps)}
+      </MemoInput>
+    )
   }
 
   return (

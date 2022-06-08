@@ -41,7 +41,6 @@ export default async function validate(input: IValidateParams): Promise<Error> {
     if (typeof rule === 'object') {
       const { message, type } = rule
       const validateFn = ruleFuns?.[type]
-      console.log(validateFn, type)
       const error: Error = await validateFn?.(message)?.(input)
       if (error !== undefined) {
         return error

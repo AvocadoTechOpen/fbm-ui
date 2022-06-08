@@ -2,7 +2,7 @@ import React from 'react';
 import { Radio as MuiRadio, RadioProps as MuiRadioProps, FormControlLabel, FormControlLabelProps, radioClasses, styled } from '@mui/material';
 
 export interface RadioProps extends FormControlLabelProps {
-  size?: 'small' | 'medium'
+  size?: 'small' | 'medium';
 }
 
 const Radio: React.FC<RadioProps> = React.forwardRef((props, ref) => {
