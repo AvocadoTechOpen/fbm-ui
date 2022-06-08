@@ -1,19 +1,18 @@
-/**
- * @desc 仅用与demo 
- */
 import React from 'react'
+import { Theme } from '@mui/material'
 import styled from '@mui/material/styles/styled'
 
 import ThemeProvider from '../ThemeProvider'
 import Box from '../Box'
 
-interface DemoProps {
+export interface DemoProps {
   white?: boolean;
   grey?: boolean;
   bgColor?: string;
+  theme?: Theme;
 }
 
-const Root: React.FC<DemoProps> = styled(Box)(({ theme, grey, white, bgColor}) => {
+const Root: React.FC<DemoProps> = styled(Box)(({ theme, grey, white, bgColor}: DemoProps) => {
   return {
     padding: 20,
     ...(grey && {

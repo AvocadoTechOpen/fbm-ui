@@ -1,7 +1,7 @@
 import React, { ReactNode, FC } from 'react';
-import styled from '@mui/material/styles/styled';
+import { styled, Theme } from '@mui/material'
 
-import Box, { FbmBoxProps } from '../Box';
+import Box from '../Box';
 import Typography from '../Typography';
 
 export interface InfoTitleProps {
@@ -9,11 +9,12 @@ export interface InfoTitleProps {
   beforeIcon?: boolean;
 }
 
-type TitleRootProps = {
+interface TitleRootProps {
   beforeIcon: boolean;
-}  & FbmBoxProps;
+  theme?: Theme;
+};
 
-const InfoTitleRoot: FC<TitleRootProps> = styled(Box)(({ theme, beforeIcon }) =>( {
+const InfoTitleRoot: FC<TitleRootProps> = styled(Box)(({ theme, beforeIcon }: TitleRootProps) =>( {
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',

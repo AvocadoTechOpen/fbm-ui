@@ -1,5 +1,5 @@
 
-import { InputLabelProps as MuiInputLabelProps } from '@mui/material'
+import { InputLabelProps as MuiInputLabelProps, FormControlProps } from '@mui/material'
 import { InputProps } from '../Input'
 
 
@@ -34,11 +34,13 @@ export interface HelperProps {
 }
 
 export interface InputLabelProps extends MuiInputLabelProps {
-  size: Size
+  size?: Size
 }
 
+// type ChildrenType<Values = any> = RenderChildren<Values> | React.ReactNode;
 
 interface FormItemBaseProps {
+  ref?: any; 
   label?: Label;
   extra?: Extra;
   max?: number;
@@ -50,7 +52,7 @@ interface FormItemBaseProps {
   InputLabelProps?: InputLabelProps;
   HelperProps?: HelperProps;
   InputProps?: InputProps;
-  children?: React.ReactElement<any, any>
+  children?: any
 }
 
 export type FormItemProps = FormItemBaseProps & InputProps

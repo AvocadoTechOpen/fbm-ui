@@ -7,7 +7,7 @@ interface TbodyRowProps {
   index: number,
 }
 
-const TableRowRoot: React.FC<TbodyRowProps> = styled(TableRow)(({ index }) => {
+const TableRowRoot: React.FC<TbodyRowProps> = styled(TableRow)(({ index }: TbodyRowProps) => {
   return {
     position: 'relative',
     '&:hover': {

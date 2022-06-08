@@ -1,27 +1,30 @@
 import * as React from 'react';
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, Theme } from '@mui/material'
 import styled from '@mui/material/styles/styled'
 
 import { FbmThemeOptions } from '../ThemeProvider'
 import Mask from '../Mask'
 import Typography from '../Typography'
 
-export const componentName: string = 'Loading'
-
 type SizeType = 'small' | 'large'
 type ColorType = 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'inherit'
-export interface FbmLoadingProps {
+export interface LoadingProps {
   /** 尺寸 */
   size?: SizeType | number
   /** 颜色 */
-  color?: ColorType | string,
+  color?: ColorType,
   /**  Loading提示文案 */
   desc?: React.ReactNode;
   /** 是否需要遮罩 */
   isMask?: boolean;
 }
 
-const MaskRoot: React.FC<FbmLoadingProps> = styled(Mask)(({ theme, isMask }) => {
+interface MaskRootProps {
+  theme?: Theme;
+  isMask?: boolean;
+}
+
+const MaskRoot: React.FC<MaskRootProps> = styled(Mask)(({ theme, isMask }: MaskRootProps) => {
   return {
     ...(isMask && {
       backgroundColor: (theme as FbmThemeOptions).custom?.mask.white,
@@ -36,12 +39,6 @@ const MaskRoot: React.FC<FbmLoadingProps> = styled(Mask)(({ theme, isMask }) => 
 MaskRoot.defaultProps = {
   isMask: true,
 }
-
-const LoadingRoot: React.FC<FbmLoadingProps> = styled(CircularProgress, {
-  name: 'Loading',
-  slot: 'Root',
-  overridesResolver: (_, styles) => styles.root,
-})(() => ({}))
 
 
 const LoadingTextRender: React.FC<{desc?: React.ReactNode}> = ({ desc }) => {
@@ -60,11 +57,11 @@ const LoadingTextRender: React.FC<{desc?: React.ReactNode}> = ({ desc }) => {
   return <span>{desc}</span>
 }
 
-const FbmLoading: React.FC<FbmLoadingProps> = (props) => {
+const FbmLoading: React.FC<LoadingProps> = (props) => {
   const { isMask, desc,  ...loadingProps } = props
   return (
     <MaskRoot isMask={isMask}>
-      <LoadingRoot {...loadingProps} />
+      <CircularProgress {...loadingProps} />
       <LoadingTextRender desc={desc} />
     </MaskRoot>
   )

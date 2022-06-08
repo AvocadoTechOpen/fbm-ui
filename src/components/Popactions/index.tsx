@@ -4,10 +4,10 @@ import { MenuItem, Box, ListItemIcon, ListSubheader } from '@mui/material'
 
 import Popover, { FbmPopoverProps } from '../Popover'
 import { ButtonProps } from '../Button'
-import { FbmActionProps } from '../Actions'
+import { ActionProps } from '../Actions'
 
 export interface FbmPopactionsProps extends FbmPopoverProps {
-  actions?: FbmActionProps[]
+  actions?: ActionProps[]
 }
 
 interface ActionMenusTitle {

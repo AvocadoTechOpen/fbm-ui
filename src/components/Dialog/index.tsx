@@ -71,7 +71,7 @@ const DialogContainer: React.FC<DialogContainerProps> = styled(Box)(({
   width,
   isNullHeader,
   isNullFooter,
-}) => {
+}: DialogContainerProps) => {
   return {
     width: width || defaultSizes[(size as string)],
     paddingLeft: '16px',
