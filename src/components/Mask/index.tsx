@@ -5,11 +5,11 @@ import styled from '@mui/material/styles/styled'
 import { FbmThemeOptions } from '../ThemeProvider'
 
 type ColorMap = 'white' | 'dark'
-export interface FbmMaskProps extends BoxProps { 
+export interface MaskProps extends BoxProps { 
   color?: ColorMap | string
 }
 
-const MaskRoot: React.FC<FbmMaskProps> = styled(Box)(({ theme, color }) => ({
+const MaskRoot: React.FC<MaskProps> = styled(Box)(({ theme, color }) => ({
   position: 'absolute',
   top: 0,
   right: 0,
@@ -19,7 +19,7 @@ const MaskRoot: React.FC<FbmMaskProps> = styled(Box)(({ theme, color }) => ({
   backgroundColor:  (theme as FbmThemeOptions).custom?.mask[color] || color,
 }))
 
-const FbmMask: React.FC<FbmMaskProps> = ({
+const FbmMask: React.FC<MaskProps> = ({
   children,
   ...otherProps
 }) => (

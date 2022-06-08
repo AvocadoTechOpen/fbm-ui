@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import Dialog, { FbmDialogProps } from '../Dialog'
+import Dialog, { DialogProps } from '../Dialog'
 import renderIntoBody from '../../utils/renderIntoBody'
 import ThemeProvider from '../ThemeProvider'
 import Typography from '../Typography'
 
-export interface FbmConfirmProps extends FbmDialogProps{
+export interface FbmConfirmProps extends DialogProps{
   content?: string | React.ReactNode;
 }
 

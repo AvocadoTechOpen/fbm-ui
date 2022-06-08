@@ -111,8 +111,8 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     }
   
     return {
-      name: name,
       target: {
+        name,
         value: event,
       },
       type: props.type || 'custom',
