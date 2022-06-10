@@ -16,7 +16,6 @@ export interface DrawerProps extends FbmConfirmFooterProps {
   isShowClose?: boolean;
   BackdropProps?: DrawerRootProps['BackdropProps'];
   isBackdrop?: boolean;
-  
 }
 
 const Drawer: React.FC<DrawerProps> = (props) => {

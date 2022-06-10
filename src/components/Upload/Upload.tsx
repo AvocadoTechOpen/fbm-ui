@@ -2,7 +2,7 @@ import React from 'react';
 import RcUpload, { UploadProps as RcUploadProps } from 'rc-upload'
 
 import UploadList from './UploadList/index'
-import { FbmUploadProps, RcFile, UploadFile, UploadChangeParam } from './types'
+import { UploadProps, RcFile, UploadFile, UploadChangeParam } from './types'
 import { file2Obj, getFileItem, updateFileList, removeFileItem } from './utils'
 import { useMergedState } from '../../hooks'
 import UploadChildrenButton from './UploadChildren/Button'
@@ -10,7 +10,7 @@ import UploadChildrenDragger from './UploadChildren/Dragger'
 
 const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`;
 
-const FbmUpload: React.FC<FbmUploadProps> = props => {
+const FbmUpload: React.FC<UploadProps> = props => {
   const {
     type,
     accept,

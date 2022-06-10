@@ -1,5 +1,5 @@
 import Upload from './Upload';
 
-export { FbmUploadProps, UploadChangeParam, RcFile } from './types';
+export { UploadProps, UploadChangeParam, RcFile } from './types';
 
 export default Upload;

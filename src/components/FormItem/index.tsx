@@ -106,10 +106,10 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [meta])
 
   const formatEvent = useCallback((event: React.FocusEvent<HTMLInputElement> | any) => {
-    if (event.target){
+    if (event.target) {
       return event
     }
-  
+
     return {
       target: {
         name,
@@ -133,22 +133,17 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   const childProps = {
     name,
     error,
-    label: labelProp,
     value: field?.value,
     onChange: handleChange,
     onBlur: handleBlur,
   }
-  if (children) {
-    // 给children 传入onChange和onBlur事件
+
+  if (typeof children === 'function') {
+    children = children?.(childProps)
+  } else if (children) {
     children = (
       <MemoInput value={childProps?.value} update={children}>
         {React.cloneElement(children, childProps)}
-      </MemoInput>
-    )
-  } else if (typeof children === 'function') {
-    children = (
-      <MemoInput value={childProps?.value} update={children}>
-        {children?.(childProps)}
       </MemoInput>
     )
   }

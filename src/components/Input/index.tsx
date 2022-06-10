@@ -38,6 +38,8 @@ const Input: React.FC<InputProps> = React.forwardRef((props, ref) => {
   )
 })
 
+Input.conponentName = 'Input'
+
 Input.defaultProps = {
   variant: 'outlined',
   fullWidth: true,

@@ -5,7 +5,7 @@ import useCheckboxGroup from '../CheckboxGroup/useCheckboxGroup'
 export interface CheckboxProps extends FormControlLabelProps { }
 
 function areEqualValues(values, name): boolean {
-  return values?.includes(name)
+  return values?.includes?.(name)
 }
 
 const Checkbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
@@ -31,9 +31,15 @@ const Checkbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
       checked = areEqualValues(checkboxGroup.value, value);
     }
   }
+  
+  // 兼容formItem
+  if(typeof checked === 'undefined' && typeof value === 'boolean') {
+    checked = value
+  }
 
   return (
     <FormControlLabel
+      ref={ref}
       name={name}
       value={value}
       onChange={onChange}

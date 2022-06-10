@@ -51,7 +51,7 @@ export interface UploadChangeParam<T extends object = UploadFile> {
   event?: { percent: number };
 }
 
-export interface FbmUploadProps<T = any> {
+export interface UploadProps<T = any> {
   /** 上传类型 button点击上传 dragger拖拽上传*/
   type?: UploadType
   /** 接受上传的文件类型 */
@@ -96,6 +96,6 @@ export interface UploadListProps<T = any> {
   onPreview?: (file: UploadFile<T>) => void;
   onRefresh?: (file: UploadFile<T>) => void;
   onRemove?: (file: UploadFile<T>) => void | boolean;
-  itemRender?: FbmUploadProps['itemRender'];
+  itemRender?: UploadProps['itemRender'];
   items?: Array<UploadFile<T>>;
 }
