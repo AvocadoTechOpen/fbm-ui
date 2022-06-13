@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import RcUpload, { UploadProps as RcUploadProps } from 'rc-upload'
 
 import UploadList from './UploadList/index'
@@ -10,7 +10,7 @@ import UploadChildrenDragger from './UploadChildren/Dragger'
 
 const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`;
 
-const FbmUpload: React.FC<UploadProps> = props => {
+const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   const {
     type,
     accept,
@@ -245,6 +245,16 @@ const FbmUpload: React.FC<UploadProps> = props => {
     uploadFiles([file])
   }
 
+  React.useImperativeHandle(ref, () => ({
+    onBatchStart,
+    onSuccess,
+    onProgress,
+    onError,
+    fileList: mergedFileList,
+    upload: upload.current,
+    uploader: upload?.current?.uploader
+  }));
+
   let children: React.ReactNode = null;
   if (type === 'drop') {
     children = (
@@ -311,9 +321,8 @@ const FbmUpload: React.FC<UploadProps> = props => {
       {uploadList}
     </div>
   )
-}
-
-FbmUpload.defaultProps = {
+})
+Upload.defaultProps = {
   multiple: false,
   action: '',
   data: {},
@@ -322,4 +331,4 @@ FbmUpload.defaultProps = {
   showUploadList: true,
 };
 
-export default FbmUpload
+export default Upload

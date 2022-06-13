@@ -51,7 +51,7 @@ export interface FbmUserInfoProps {
   /** 教育经历 */
   eduExperience?: EduExperience;
   /** 工作经历 */
-  workExperience: WorkExperience;
+  workExperience?: WorkExperience;
 }
 
 const FbmUserInfoRoot = styled(Box)({
