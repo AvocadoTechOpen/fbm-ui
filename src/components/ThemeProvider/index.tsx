@@ -8,7 +8,6 @@ import typography from './src/typography'
 import transitions from './src/transitions'
 import shadows from './src/shadows'
 import components from './src/components'
-import custom from './src/custom'
 
 interface BgColor {
   error: string;
@@ -38,9 +37,6 @@ export const theme = createTheme(
     transitions,
     shadows: (shadows as any),
   },
-  {
-    custom
-  }
 )
 
 const FbmThemeProvider: React.FC = ({ children }) => (

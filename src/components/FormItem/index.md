@@ -20,7 +20,19 @@ export default () => {
   const [value, setValue] = React.useState('123')
   const handleChange = (e) => {
     setValue(e.target.value)
+    console.log('12312312')
   }
+
+ const options = [
+    {
+      label: '20岁',
+      value: 20
+    },
+    {
+      label: '男',
+      value: '男'
+    }
+  ]
 
   return (
     <Layout>
@@ -36,6 +48,15 @@ export default () => {
         max={5}
         value={value}
         onChange={handleChange}
+      />
+
+       <FormItem
+        label='名称'
+        size={'small'}
+        max={5}
+        value={value}
+        onChange={handleChange}
+        options={options}
       />
     </Layout>
   )

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Typography, TypographyProps } from '@mui/material'
+import { Typography, TypographyProps as MuiTypographyProps } from '@mui/material'
 
 type ColorTypeMap = 'error' | 'warning' | 'success' | 'info' | 'black' | 'white' | 'secondary' | 'disabled'
 type WeightTypeMap = 'light' | 'regular' | 'medium' | 'bold'
-export interface FbmTypographyProps extends TypographyProps {
+export interface TypographyProps extends MuiTypographyProps {
   children?: React.ReactNode;
   /** 字体颜色 */
   color?: ColorTypeMap | string;
@@ -58,7 +58,7 @@ const weightTransformations = {
 
 const transformDeprecatedWeight = weight => weightTransformations[weight] || weight
 
-const FbmTypographyProps: React.FC<FbmTypographyProps> = React.forwardRef(({ children, color, weight, ...props }, ref) => {
+const TypographyProps: React.FC<TypographyProps> = React.forwardRef(({ children, color, weight, ...props }, ref) => {
   const textColor = transformDeprecatedColors(color)
   const textWeight = transformDeprecatedWeight(weight)
 
@@ -74,9 +74,9 @@ const FbmTypographyProps: React.FC<FbmTypographyProps> = React.forwardRef(({ chi
   )
 })
 
-FbmTypographyProps.defaultProps = {
+TypographyProps.defaultProps = {
   weight: 'regular', // font-weight 500
   color: 'primary',
 }
 
-export default FbmTypographyProps
+export default TypographyProps

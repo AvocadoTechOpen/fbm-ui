@@ -265,3 +265,4 @@ export { default as VideoStopFilledIcon } from './src/VideoStopFilledIcon';
 export { default as VideocamOffOutline } from './src/VideocamOffOutline';
 export { default as WorkOutlineIcon } from './src/WorkOutlineIcon';
 export { default as VideocamOutlineFilledIcon } from './src/VideocamOutlineFilledIcon'
+export { default as MenuIcon } from './src/MenuIcon'

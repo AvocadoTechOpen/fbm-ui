@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useCallback } from 'react'
 import {
   useFormikContext,
 } from 'formik'
@@ -27,7 +27,6 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     name,
     max,
     children: childrenProp,
-    value: valueProp,
     label: labelProp,
     required: requiredProp,
     rules: rulesProp,
@@ -70,7 +69,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     if (required && (labelProp && typeof labelProp === 'string' && !labelProp.endsWith('*'))) {
       return `${labelProp}*`
     }
-    return labelProp
+    return labelProp || ''
   }, [labelProp])
 
   const { registerField, unregisterField, getFieldProps, getFieldMeta } = useFormikContext() || {}
@@ -104,41 +103,48 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     }
   }, [meta])
 
+  const formatEvent = useCallback((event: React.FocusEvent<HTMLInputElement> | any) => {
+    if (event.target) {
+      return event
+    }
+
+    return {
+      target: {
+        name,
+        value: event,
+      },
+      type: props.type || 'custom',
+    }
+  }, [name])
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    field?.onChange?.(event)
+    field?.onChange?.(formatEvent(event))
     onChange?.(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    field?.onBlur?.(event)
+    field?.onBlur?.(formatEvent(event))
     onBlur?.(event)
   }
 
   let children = childrenProp
+
   const childProps = {
     name,
     error,
-    label: labelProp,
     value: field?.value,
     onChange: handleChange,
     onBlur: handleBlur,
   }
-  if (children) {
-    // 给children 传入onChange和onBlur事件
+
+  if (typeof children === 'function') {
+    children = children?.(childProps)
+  } else if (children) {
     children = (
       <MemoInput value={childProps?.value} update={children}>
         {React.cloneElement(children, childProps)}
       </MemoInput>
     )
-  } else if (typeof children === 'function') {
-    children = children?.({
-      name,
-      error,
-      label: labelProp,
-      value: field?.value,
-      onChange: handleChange,
-      onBlur: handleBlur,
-    })
   }
 
   return (
@@ -160,7 +166,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 })
 
 FormItemIndex.defaultProps = {
-  rules: []
+  rules: [],
 }
 
 export default FormItemIndex

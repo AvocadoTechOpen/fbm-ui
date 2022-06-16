@@ -11,8 +11,6 @@ export { default as Layout } from './Layout';
 
 export { default as ThemeProvider } from './ThemeProvider';
 
-export { default as Logo } from './Logo';
-
 export { default as Image } from './Image';
 
 export { default as Typography } from './Typography';
@@ -32,8 +30,10 @@ export { default as Loading } from './Loading';
 export { default as Box } from './Box';
 
 export { default as Dialog } from './Dialog';
+export * from './Dialog'
 
 export { default as Drawer } from './Drawer';
+export * from './Drawer'
 
 export { default as Input } from './Input';
 export * from './Input'
@@ -41,8 +41,8 @@ export * from './Input'
 export { default as Button } from './Button';
 export * from './Button'
 
-
 export { default as IconButton } from './IconButton';
+export * from './IconButton';
 
 export { default as ButtonGroup } from './ButtonGroup';
 
@@ -77,6 +77,7 @@ export { default as TextField } from './TextField';
 export * from './TextField'
 
 export { default as Actions } from './Actions';
+export * from './Actions'
 
 export { default as Empty } from './Empty';
 
@@ -108,3 +109,10 @@ export * from './Radio'
 
 export { default as ImageCrop } from './ImageCrop'
 export * from './ImageCrop'
+
+
+export { default as Checkbox } from './Checkbox'
+export * from './Checkbox'
+
+export { default as CheckboxGroup } from './CheckboxGroup'
+export * from './CheckboxGroup'

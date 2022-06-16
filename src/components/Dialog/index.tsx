@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, Fade, IconButton, DialogProps, dialogClasses } from '@mui/material'
+import { Dialog, Fade, IconButton, DialogProps as MuiDialogProps, dialogClasses, BackdropProps } from '@mui/material'
 import useThemeProps from '@mui/material/styles/useThemeProps'
 import styled from '@mui/material/styles/styled'
 
@@ -12,6 +12,7 @@ import ConfirmFooter, { FbmConfirmFooterProps } from '../ConfirmFooter'
 export const componentName: string = 'ADialog'
 
 type SizeMap = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 interface HeaderProps {
   /** 标题 */
   title?: string;
@@ -28,7 +29,7 @@ export interface FooterProps extends FbmConfirmFooterProps {
   footer?: React.ReactNode | null;
 }
 
-export interface FbmDialogProps extends HeaderProps, FooterProps {
+export interface DialogProps extends HeaderProps, FooterProps {
   /** 是否显示弹框 */
   open?: boolean;
   /** 弹框宽度 */
@@ -37,7 +38,7 @@ export interface FbmDialogProps extends HeaderProps, FooterProps {
   ref?: React.Ref<HTMLDivElement>;
   /** 弹框尺寸 */
   size?: SizeMap;
-  BackdropProps?: DialogProps['BackdropProps'];
+  BackdropProps?: BackdropProps;
 }
 
 export interface DialogContainerProps {
@@ -51,7 +52,7 @@ export interface DialogContainerProps {
   size?: SizeMap
 }
 
-const DialogRoot: React.FC<DialogProps> = styled(Dialog)({
+const DialogRoot: React.FC<MuiDialogProps> = styled(Dialog)({
   [`& .${dialogClasses.paper}`]: {
     maxWidth: 'none',
     maxHeight: 'none'
@@ -87,11 +88,11 @@ const DialogContainer: React.FC<DialogContainerProps> = styled(Box)(({
 
 const Header: React.FC<HeaderProps> = (props) => {
   const { title, isShowClose, header, onClose } = props
-  if (header === null) return null
 
-  if (typeof (header) === 'function') {
-    const CustomHeader = header(props)
-    return <CustomHeader {...props} />
+  if (header === null) return null
+  
+  if (typeof header === 'function') {
+    return header(props)
   }
 
   if (!title && !isShowClose) return null
@@ -159,7 +160,7 @@ const Footer: React.FC<FooterProps> = (props) => {
   return <ConfirmFooter  {...confirmFooterProps} />
 }
 
-const FbmDialog: React.FC<FbmDialogProps> = React.forwardRef((inProps, ref) => {
+const FbmDialog: React.FC<DialogProps> = React.forwardRef((inProps, ref) => {
   const {
     open,
     size,

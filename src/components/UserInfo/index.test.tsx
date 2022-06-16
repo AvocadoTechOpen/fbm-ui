@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from '@testing-library/react';
-import UserInfo, { FbmUserInfoProps } from '.';
+import UserInfo, { UserInfoProps } from '.';
 
-const chips: FbmUserInfoProps['chips'] = [
+const chips: UserInfoProps['chips'] = [
   {
     label: '有纹身',
     color: 'error'

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Select, SelectProps, selectClasses, MenuItem, MenuItemProps } from '@mui/material'
+import { Select, SelectProps as MuiSelectProps, selectClasses, MenuItem, MenuItemProps } from '@mui/material'
 import styled from '@mui/material/styles/styled'
 
 import Input from '../Input'
@@ -11,7 +11,7 @@ type OptionMap = {
   value: MenuItemProps['value'],
 }
 
-export interface FbmSelectProps extends SelectProps {
+export interface SelectProps extends MuiSelectProps {
   name?: string;
   options?: OptionMap[];
 }
@@ -22,7 +22,7 @@ const SelectRoot = styled(Select)({
   }
 })
 
-const FbmSelect: React.FC<FbmSelectProps> = React.forwardRef((props, ref) => {
+const FbmSelect: React.FC<SelectProps> = React.forwardRef((props, ref) => {
   const {
     options,
     children: childrenProp,
@@ -30,7 +30,7 @@ const FbmSelect: React.FC<FbmSelectProps> = React.forwardRef((props, ref) => {
   } = props
 
   let children = childrenProp
-  if (children === undefined) {
+  if (children == null) {
     children = options.map(({ label, value }) => (
       <MenuItem key={label} value={value}>
         {label || value}

@@ -9,7 +9,8 @@ import {
 } from '@mui/material'
 
 import Input from '../Input'
-import { chineseLength } from '../../utils'
+import Select from '../Select'
+import { chineseLength, isArray } from '../../utils'
 import { FormItemProps, InputLabelProps, HelperProps } from './types'
 
 const FormItemRoot: React.FC<FormControlProps> = styled(FormControl)({
@@ -80,6 +81,8 @@ const Helper: React.FC<HelperProps> = (props) => {
 
 const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
   const {
+    options,
+    SelectProps,
     name,
     label,
     error,
@@ -120,13 +123,12 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
     if (error === undefined || error === false) {
       return false
     }
-    // ['', 0] 都为报错状态
     return true
   }, [error])
 
   let children = childrenProp
-  if (!childrenProp) {
-    children = (
+  if (childrenProp == null) {
+    const InputElement = (
       <Input
         name={name}
         type={type}
@@ -157,6 +159,11 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
         {...InputProps}
       />
     )
+    if (options) {
+      children = <Select input={InputElement} options={options} {...SelectProps} />
+    } else {
+      children = InputElement
+    }
   }
 
   const valLength = useMemo<number>(() => {
@@ -183,6 +190,7 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
       <Label
         variant={(variant as InputLabelProps['variant'])}
         htmlFor={htmlFor}
+        size={size}
         {...LabelPropsProp}
       >
         {label}

@@ -5,7 +5,6 @@ import { alpha } from '@mui/system';
 
 import Loading from '../Loading'
 
-export const componentName: string = 'Input'
 export interface ButtonProps extends MuiButtonProps {
   /** 按钮loading */
   loading?: boolean;

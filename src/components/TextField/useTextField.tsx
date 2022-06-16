@@ -22,15 +22,19 @@ export default function useTextField(props) {
   const [error, setError] = React.useState(errorProp)
 
   const rules = useMemo<RuleItemType[]>(() => {
-    const _rules = rulesProp.map(rule => {
-      if (rule.required) {
-        return {
-          type: 'required',
-          ...rule,
+    let _rules = []
+    if (rulesProp?.length > 0) {
+      _rules = rulesProp?.map(rule => {
+        if (rule.required) {
+          return {
+            type: 'required',
+            ...rule,
+          }
         }
-      }
-      return rule
-    })
+        return rule
+      })
+    }
+
     // 添加必填规则
     if (requiredProp) {
       _rules.push({

@@ -1,24 +1,38 @@
 import React from 'react';
-import { Radio as MuiRadio, RadioProps as MuiRadioProps, FormControlLabel, FormControlLabelProps, radioClasses, styled } from '@mui/material';
+import { Radio as MuiRadio, RadioProps as MuiRadioProps, FormControlLabel, FormControlLabelProps, styled } from '@mui/material';
 
-export interface RadioProps extends FormControlLabelProps {
-  size?: 'small' | 'medium'
+export interface RadioProps {
+  ref?: MuiRadioProps['ref'];
+  label?: string | number | React.ReactElement;
+  size?: 'small' | 'medium';
+  value?: unknown;
+  disabled?: boolean;
+  FormControlLabelProps?: FormControlLabelProps;
+  RadioProps?: MuiRadioProps;
 }
 
-const Radio: React.FC<RadioProps> = React.forwardRef((props, ref) => {
-  const { size } = props
+const Radio: React.FC<RadioProps> = React.forwardRef(({
+  size,
+  value,
+  label,
+  disabled,
+  FormControlLabelProps,
+  RadioProps,
+}, ref) => {
   return (
     <FormControlLabel
-      ref={ref}
-      control={<MuiRadio size={size} />}
-      {...props}
+      value={value}
+      label={label}
+      disabled={disabled}
+      control={<MuiRadio ref={ref} size={size} {...RadioProps} />}
+      {...FormControlLabelProps}
     />
   )
 })
 
-
 Radio.defaultProps = {
   size: 'medium',
+  label: ''
 }
 
 export default Radio;

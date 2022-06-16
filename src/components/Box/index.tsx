@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Box, BoxProps } from '@mui/material'
+import { Box as MuiBox, BoxProps as MuiBoxProps } from '@mui/material'
 import styled from '@mui/material/styles/styled'
 
 import Loading from '../Loading'
-import Mask, { FbmMaskProps } from '../Mask'
+import Mask, { MaskProps } from '../Mask'
 
 interface LoadingProps {
   /** 遮罩loading */
@@ -17,23 +17,21 @@ interface LoadingProps {
  
 }
 
-export interface FbmBoxProps extends BoxProps {
+export interface BoxProps extends MuiBoxProps {
   /** loading */
   loading?: boolean | LoadingProps;
   /** 是否禁用 */
   disabled?: boolean;
-  MaskProps?: FbmMaskProps
+   /** 遮罩组件proos */
+  MaskProps?: MaskProps
 }
 
-const BoxRoot: React.FC = styled(Box)({
+const BoxRoot: React.FC = styled(MuiBox)({
   position: 'relative',
   boxSizing: 'border-box',
 })
 
-
-const DisabledMaskRender: React.FC<{
-  disabled?: boolean
-}> = ({
+const DisabledMaskRender = ({
   disabled,
 }) => disabled ? <Mask /> : null
 
@@ -48,13 +46,14 @@ const LoadingRender: React.FC<LoadingProps> = ({
   )
 }
 
-const FbmBox: React.FC<FbmBoxProps> = ({
-  loading,
-  disabled,
-  children,
-  MaskProps,
-  ...otherProps
-}) => {
+const Box: React.FC<BoxProps> = React.forwardRef((props, ref) => {
+  const  {
+    loading,
+    disabled,
+    children,
+    MaskProps,
+    ...otherProps
+  } = props
 
   const loadingProps = {
     ...(
@@ -65,7 +64,7 @@ const FbmBox: React.FC<FbmBoxProps> = ({
   }
 
   return (
-    <BoxRoot {...otherProps}>
+    <BoxRoot ref={ref} {...otherProps}>
       <LoadingRender {...loadingProps} />
       <DisabledMaskRender
         disabled={disabled}
@@ -74,11 +73,11 @@ const FbmBox: React.FC<FbmBoxProps> = ({
       {children}
     </BoxRoot>
   )
-}
+})
 
-FbmBox.defaultProps = {
+Box.defaultProps = {
   loading: false,
   disabled: false,
 }
 
-export default FbmBox
+export default Box

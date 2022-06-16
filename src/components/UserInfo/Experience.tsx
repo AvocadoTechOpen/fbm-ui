@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 import styled from '@mui/material/styles/styled'
 
 import Box from '../Box';
-import { FbmUserInfoProps, DescTetx } from '.';
+import { UserInfoProps, DescTetx } from '.';
 
 const eduExperienceKeyArr = ['school', 'major', 'eduBackground', 'eduDate'];
 
@@ -28,7 +28,7 @@ const ExperienceRoot = styled(Box)({
   return keyArr.map(n => ({ key: n, value: obj[n] })).filter(t => t.value);
 }
 
-export const EduExperience: React.FC<{ data: FbmUserInfoProps['eduExperience'] }> = ({ data }) => {
+export const EduExperience: React.FC<{ data: UserInfoProps['eduExperience'] }> = ({ data }) => {
 
   if (isEmpty(data)) return null;
   
@@ -50,7 +50,7 @@ export const EduExperience: React.FC<{ data: FbmUserInfoProps['eduExperience'] }
   )
 };
 
-export const WorkExperience: React.FC<{ data: FbmUserInfoProps['workExperience'] }> = ({ data }) => {
+export const WorkExperience: React.FC<{ data: UserInfoProps['workExperience'] }> = ({ data }) => {
 
   if (isEmpty(data)) return null;
 

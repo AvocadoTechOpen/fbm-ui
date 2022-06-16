@@ -2,10 +2,19 @@ import React from 'react'
 import styled from '@mui/material/styles/styled'
 
 import Button, { ButtonProps } from '../Button'
+import IconButton from '../IconButton'
 import Box from '../Box'
 import Popactions from '../Popactions'
 
+const buttonComponents = {
+  'IconButton': IconButton,
+  'Button': Button,
+};
+
+type ButtonType = 'IconButton' | 'Button';
+
 export interface ActionProps extends ButtonProps {
+  buttonType?: ButtonType;
   /** 按钮展示文字 */
   text?: string,
   /** 下拉展示更多按钮 */
@@ -13,7 +22,8 @@ export interface ActionProps extends ButtonProps {
   /** 按钮间距 */
   spacing?: number | string;
   /** click Params */
-  data?: any
+  data?: any;
+
 }
 
 const ActionsRoot = styled(Box)(({ spacing }: ActionProps) => ({
@@ -34,35 +44,28 @@ const Action: React.FC<ActionProps> = ({
   data,
 }) => {
   const actionBtns = actions.map(actionsItems => {
-    const { text, actions: subActons, onClick, ...buttonProps } = actionsItems
+    const { text, actions: subActons, buttonType = 'Button', onClick, ...buttonProps } = actionsItems
 
-    const handleClick = () => {
-      if (onClick && typeof onClick === 'function') {
-        onClick(data)
-      }
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event?.stopPropagation?.()
+      onClick?.(data)
     }
+    const ButtonComponent = buttonComponents[buttonType]
+
+    const children = (
+      <ButtonComponent onClick={handleClick} {...buttonProps}>
+        {buttonType === 'Button' ? text : buttonProps?.icon}
+      </ButtonComponent>
+    )
 
     if (subActons && subActons.length > 0) {
       return (
         <Popactions key={text} actions={subActons}>
-          <Button
-            onClick={handleClick}
-            {...buttonProps}
-          >
-            {text}
-          </Button>
+          {children}
         </Popactions>
       )
     }
-    return (
-      <Button
-        key={text}
-        onClick={handleClick}
-        {...buttonProps}
-      >
-        {text}
-      </Button>
-    )
+    return children
   })
 
   return (
@@ -74,7 +77,8 @@ const Action: React.FC<ActionProps> = ({
 
 Action.defaultProps = {
   actions: [],
-  spacing: '7px'
+  spacing: '7px',
+  buttonType: 'Button',
 }
 
 

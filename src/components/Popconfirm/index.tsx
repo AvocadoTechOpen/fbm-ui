@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from '@mui/material/styles/styled'
 
-import Popover, { FbmPopoverProps } from '../Popover'
+import Popover, { PopoverProps } from '../Popover'
 import Box from '../Box'
 import Typography from '../Typography'
 import ConfirmFooter, { FbmConfirmFooterProps } from '../ConfirmFooter'
 import { isFunction } from '../../utils'
 
-export interface FbmPopconfirmProps extends FbmConfirmFooterProps {
+export interface PopconfirmProps extends FbmConfirmFooterProps {
   /** 弹框标题 */
   title?: React.ReactNode;
   /** 弹框内容 */
@@ -15,17 +15,17 @@ export interface FbmPopconfirmProps extends FbmConfirmFooterProps {
   /** 弹框显示icon */
   icon?: React.ReactNode;
   /** 弹框target */
-  children: FbmPopoverProps['children'];
+  children: PopoverProps['children'];
   /** 是否显示弹框 */
-  open?: FbmPopoverProps['open'];
+  open?: PopoverProps['open'];
   /** 是否禁用弹框 */
-  disabled?: FbmPopoverProps['disabled'];
+  disabled?: PopoverProps['disabled'];
   /** 是否需要三角▶️ */
-  arrow?: FbmPopoverProps['arrow'];
+  arrow?: PopoverProps['arrow'];
   /** 触发行为 */
-  trigger?: FbmPopoverProps['trigger'];
+  trigger?: PopoverProps['trigger'];
   /** 弹框位置 */
-  placement?: FbmPopoverProps['placement'];
+  placement?: PopoverProps['placement'];
 }
 
 interface PopTitleProps {
@@ -51,7 +51,7 @@ const PopTitle: React.FC<PopTitleProps> = styled((props) => {
   display: 'flex',
 }) as any
 
-const Popconfirm: React.FC<FbmPopconfirmProps> = ({
+const Popconfirm: React.FC<PopconfirmProps> = ({
   title,
   content: contentProp,
   children,

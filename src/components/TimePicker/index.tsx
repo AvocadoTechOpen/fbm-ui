@@ -95,8 +95,7 @@ const TimePicker: React.FC<TimePickerProps> = React.forwardRef((props, ref) => {
             label={label}
             error={error}
             onBlur={handleBlur}
-            sx={sx}
-          />
+            sx={sx} />
         )
       }}
       onInputChange={handleInputChange}

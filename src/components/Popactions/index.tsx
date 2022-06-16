@@ -2,11 +2,11 @@ import React from 'react';
 import styled from '@mui/material/styles/styled'
 import { MenuItem, Box, ListItemIcon, ListSubheader } from '@mui/material'
 
-import Popover, { FbmPopoverProps } from '../Popover'
+import Popover, { PopoverProps } from '../Popover'
 import { ButtonProps } from '../Button'
 import { ActionProps } from '../Actions'
 
-export interface FbmPopactionsProps extends FbmPopoverProps {
+export interface PopactionsProps extends PopoverProps {
   actions?: ActionProps[]
 }
 
@@ -78,7 +78,7 @@ const ActionMenu: React.FC<ActionsMenu> = (props) => {
   )
 }
 
-const Popactions: React.FC<FbmPopactionsProps> = (props) => {
+const Popactions: React.FC<PopactionsProps> = (props) => {
   const { children, actions, ...popoverProps } = props
   const content = (popupProps) => <ActionMenu {...popupProps} actions={actions} />
   return (

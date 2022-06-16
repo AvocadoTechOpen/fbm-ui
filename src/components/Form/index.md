@@ -19,17 +19,15 @@ import {
   Form, 
   FormItem,
   Button,
-  DateRangePicker,
   Select, 
-  rules,
   useForm,
   DatePicker,
   RadioGroup,
   Radio,
+  Checkbox,
+  CheckboxGroup,
+  Demo,
 } from 'fbm-ui'
-
-// 测试性能
-const KEYS =  {'a':'' ,'b':'', 'c': '', 'd':'', 'e':'', 'r':'', 't':'', 'y':'', 'u':'', 'i':'', 'p':'', 'x':'', 'v':'', 'n':'', 'm':'', 'z': ''}
 
 export default () => {
   const form = useForm({
@@ -37,13 +35,14 @@ export default () => {
       name:'',
       sex: '',
       type: 1,
+      keys: [],
+      radio: '',
+      isProgress: false,
     },
     onSubmit: (values) => {
       console.log(values)
     }
   })
-
-  console.log(form.values)
 
   const options = [
     {
@@ -56,32 +55,49 @@ export default () => {
     }
   ]
 
+  const handleChange = (e) => {
+    console.log(e)
+  }
+
   return (
     <Layout>
+    <Demo grey>
+      {JSON.stringify(form.values)}
+    </Demo>
       <Form {...form}>
         <FormItem
           required
           name='name' 
-          label="名称"
           max={10}
-         />
+          label="名称"
+          size='small'
+        />
 
         <FormItem
           required
           name='sex' 
           label="性别"
-        >
-          <Select options={options} />
+          size='small'
+          options={options}
+       />
+       
+        <FormItem name='keys' required>
+          <CheckboxGroup>
+            <Checkbox value={'A'} label="A"/>
+            <Checkbox value={'B'} label="B"/>
+            <Checkbox value={'C'} label="C"/>
+            <Checkbox value={'D'} label="D"/>
+          </CheckboxGroup>
         </FormItem>
-        
-         <FormItem
-          name='type' 
-        >
+        <FormItem name="isProgress"  >
+           <Checkbox/>
+        </FormItem>
+        <FormItem name='radio' required>
           <RadioGroup>
-              <Radio value={1} label="A"/>
-              <Radio value={2} label="B"/>
-              <Radio value={3} label="C"/>
-              <Radio value={4} label="D"/>
+            <Radio value={'A'} label="A"/>
+            <Radio value={'B'} label="B"/>
+            <Radio value={'C'} label="C"/>
+            <Radio value={'D'} label="D"/>
           </RadioGroup>
         </FormItem>
       </Form>

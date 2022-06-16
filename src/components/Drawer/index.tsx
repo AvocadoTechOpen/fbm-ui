@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DrawerRoot, { FbmDrawerRootProps } from './src/DrawerRoot'
+import DrawerRoot, { DrawerRootProps } from './src/DrawerRoot'
 import Header, { HeaderProps } from './src/Header'
 import Content from './src/Content'
 import Footer from './src/Footer'
@@ -11,12 +11,11 @@ export interface DrawerProps extends FbmConfirmFooterProps {
   onBack?: HeaderProps['onBack'];
   footer?: React.ReactNode | null;
   header?: React.ReactNode | null;
-  anchor?: FbmDrawerRootProps['anchor'];
+  anchor?: DrawerRootProps['anchor'];
   title?: React.ReactNode;
   isShowClose?: boolean;
-  BackdropProps?: FbmDrawerRootProps['BackdropProps'];
+  BackdropProps?: DrawerRootProps['BackdropProps'];
   isBackdrop?: boolean;
-  
 }
 
 const Drawer: React.FC<DrawerProps> = (props) => {

@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { ColumnProps } from '../types'
-import UserInfo, { FbmUserInfoProps } from '../../UserInfo'
+import UserInfo, { UserInfoProps } from '../../UserInfo'
 
 interface UserInfoOptions extends ColumnProps {
-  formatProps?: (props) => FbmUserInfoProps
+  formatProps?: (props) => UserInfoProps
 }
 
 const columnUserInfo = (options?: UserInfoOptions): ColumnProps => {

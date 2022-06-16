@@ -4,6 +4,8 @@ import { Box } from '@mui/material'
 import { ImageCropProps, IFile } from './types'
 import 'fbm-image-crop/dist/ReactCrop.css'
 
+export { ImageCropProps } from './types'
+ 
 const isFile = (file: File) => Object.prototype.toString.call(file) === '[object File]'
 
 const ImageCrop: React.FC<ImageCropProps> = React.forwardRef(({
@@ -16,6 +18,7 @@ const ImageCrop: React.FC<ImageCropProps> = React.forwardRef(({
   children: childrenProp,
   onChange,
 }, ref) => {
+  
   const imgRef = useRef<HTMLImageElement | null>(null)
   const [crop, setCrop] = useState<Crop>(cropProp)
   const { src, name: fileName, type: fileType } = useMemo<IFile>(() => {
