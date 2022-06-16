@@ -26,6 +26,7 @@ import {
   Radio,
   Checkbox,
   CheckboxGroup,
+  Demo,
 } from 'fbm-ui'
 
 export default () => {
@@ -55,12 +56,15 @@ export default () => {
 
   return (
     <Layout>
-     
+    <Demo grey>
+      {JSON.stringify(form.values)}
+    </Demo>
       <Form {...form}>
         <FormItem
           required
           name='name' 
           label="名称"
+          size='small'
           max={10}
          />
 
@@ -68,17 +72,10 @@ export default () => {
           required
           name='sex' 
           label="性别"
-        >
-          <Select options={options} />
-        </FormItem>
-        
-        <FormItem name='type'>
-          {({ value }) => {
-            return value
-          }}
-        </FormItem>
-
-        <FormItem name='keys'>
+          size='small'
+          options={options}
+       />
+        <FormItem name='keys' required>
           <CheckboxGroup>
             <Checkbox value={'A'} label="A"/>
             <Checkbox value={'B'} label="B"/>

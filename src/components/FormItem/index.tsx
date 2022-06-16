@@ -28,12 +28,9 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     name,
     max,
     children: childrenProp,
-    value: valueProp,
     label: labelProp,
     required: requiredProp,
     rules: rulesProp,
-    onChange,
-    onBlur,
     ...FormItemProps
   } = props
 
@@ -71,7 +68,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     if (required && (labelProp && typeof labelProp === 'string' && !labelProp.endsWith('*'))) {
       return `${labelProp}*`
     }
-    return labelProp
+    return labelProp || ''
   }, [labelProp])
 
   const { registerField, unregisterField, getFieldProps, getFieldMeta } = useFormikContext() || {}
@@ -121,15 +118,12 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     field?.onChange?.(formatEvent(event))
-    onChange?.(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     field?.onBlur?.(formatEvent(event))
-    onBlur?.(event)
   }
 
-  let children = childrenProp
   const childProps = {
     name,
     error,
@@ -138,6 +132,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     onBlur: handleBlur,
   }
 
+  let children = childrenProp
   if (typeof children === 'function') {
     children = children?.(childProps)
   } else if (children) {

@@ -58,7 +58,7 @@ import * as React from 'react';
 import { Demo, Upload, Button} from 'fbm-ui'
 
 export default () =>{
-  const ref = React.useRef(null)
+  const ref = useRef(null)
   const props = {
     name: 'file',
     action: '/v2/5cc8019d300000980a055e76',
@@ -66,8 +66,6 @@ export default () =>{
       authorization: 'authorization-text',
     },
   };
-
-  console.log(ref)
 
   return (
     <Demo>

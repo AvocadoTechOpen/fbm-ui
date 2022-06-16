@@ -256,6 +256,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   }));
 
   let children: React.ReactNode = null;
+  
   if (type === 'drop') {
     children = (
       <UploadChildrenDragger

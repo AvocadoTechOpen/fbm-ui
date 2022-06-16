@@ -1,6 +1,7 @@
 
 import { InputLabelProps as MuiInputLabelProps, FormControlProps } from '@mui/material'
 import { InputProps } from '../Input'
+import { SelectProps } from '../Select'
 
 
 export type Extra = string;
@@ -52,7 +53,9 @@ interface FormItemBaseProps {
   InputLabelProps?: InputLabelProps;
   HelperProps?: HelperProps;
   InputProps?: InputProps;
-  children?: any
+  options?: SelectProps['options']
+  SelectProps?: SelectProps;
+  children?: any;
 }
 
 export type FormItemProps = FormItemBaseProps & InputProps

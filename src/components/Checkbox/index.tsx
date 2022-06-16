@@ -12,9 +12,11 @@ const Checkbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
   const {
     label,
     value,
+    disabled,
     name: nameProp,
     checked: checkedProp,
     onChange: onChangeProp,
+    ...otherProps
   } = props
 
   const checkboxGroup = useCheckboxGroup();
@@ -45,7 +47,9 @@ const Checkbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
       onChange={onChange}
       label={label}
       checked={checked}
+      disabled={disabled}
       control={<MuiCheckbox />}
+      {...otherProps}
     />
   )
 })

@@ -19,7 +19,7 @@ import { Select, Layout } from 'fbm-ui'
 import { MenuItem, FormControl, InputLabel} from '@mui/material'
 
 export default () =>{
-  const [age, setAge] = React.useState(20)
+  const [age, setAge] = React.useState()
   const options = [
     {
       label: '20岁',
