@@ -1,8 +1,18 @@
 import React from 'react';
-import { FormControlLabel, FormControlLabelProps, Checkbox as MuiCheckbox, createChainedFunction } from '@mui/material';
+import { FormControlLabel, FormControlLabelProps as MuiFormControlLabelProps, Checkbox as MuiCheckbox, CheckboxProps as MuiCheckboxProps, createChainedFunction } from '@mui/material';
 import useCheckboxGroup from '../CheckboxGroup/useCheckboxGroup'
 
-export interface CheckboxProps extends FormControlLabelProps { }
+export interface CheckboxProps {
+  ref?: MuiCheckboxProps['ref'];
+  label?: string | number | React.ReactElement;
+  value?: unknown;
+  disabled?: boolean;
+  name?: string;
+  checked?: boolean;
+  onChange?: (event: React.SyntheticEvent, checked: boolean) => void;
+  FormControlLabelProps?: MuiFormControlLabelProps;
+  CheckboxProps?: MuiCheckboxProps;
+}
 
 function areEqualValues(values, name): boolean {
   return values?.includes?.(name)
@@ -16,6 +26,8 @@ const Checkbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
     name: nameProp,
     checked: checkedProp,
     onChange: onChangeProp,
+    FormControlLabelProps,
+    CheckboxProps,
     ...otherProps
   } = props
 
@@ -33,25 +45,29 @@ const Checkbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
       checked = areEqualValues(checkboxGroup.value, value);
     }
   }
-  
+
   // 兼容formItem
-  if(typeof checked === 'undefined' && typeof value === 'boolean') {
+  if (typeof checked === 'undefined' && typeof value === 'boolean') {
     checked = value
   }
 
   return (
     <FormControlLabel
-      ref={ref}
       name={name}
       value={value}
       onChange={onChange}
       label={label}
       checked={checked}
       disabled={disabled}
-      control={<MuiCheckbox />}
+      control={<MuiCheckbox ref={ref} {...CheckboxProps} />}
+      {...FormControlLabelProps}
       {...otherProps}
     />
   )
 })
+
+Checkbox.defaultProps = {
+  label: '',
+}
 
 export default Checkbox;

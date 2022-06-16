@@ -31,7 +31,7 @@ export type WorkExperience = {
   workDate?: ExperienceDate;
 }
 
-export interface FbmUserInfoProps {
+export interface UserInfoProps {
   /** 性别 1:男 2:女 */
   sex?: AgeMap;
   /** 头像 */
@@ -113,7 +113,7 @@ const Chips: React.FC<ChipsProps> = ({
   )
 }
 
-const FbmUserInfo: React.FC<FbmUserInfoProps> = ({
+const UserInfo: React.FC<UserInfoProps> = ({
   avatar,
   sex,
   name,
@@ -149,10 +149,9 @@ const FbmUserInfo: React.FC<FbmUserInfoProps> = ({
   )
 }
 
-FbmUserInfo.defaultProps = {
+UserInfo.defaultProps = {
   name: '',
   chips: []
 }
 
-
-export default React.memo(FbmUserInfo)
+export default UserInfo

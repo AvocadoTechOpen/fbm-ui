@@ -13,7 +13,7 @@ import {
 import { isFunction } from '../../utils'
 
 type TriggerMap = 'click' | 'hover' | 'focus'
-export interface FbmPopoverProps {
+export interface PopoverProps {
   /** 是否显示弹框 */
   open?: TooltipProps['open'];
   /** 是否禁用弹框 */
@@ -39,8 +39,8 @@ export interface FbmPopoverProps {
 }
 
 interface ClickWrapProps extends ClickAwayListenerProps {
-  trigger: FbmPopoverProps['trigger'];
-  isClickAway?: FbmPopoverProps['isClickAway'];
+  trigger: PopoverProps['trigger'];
+  isClickAway?: PopoverProps['isClickAway'];
 }
 
 interface UseOpen {
@@ -48,7 +48,7 @@ interface UseOpen {
     open,
     trigger,
   }: {
-    open: FbmPopoverProps['open'];
+    open: PopoverProps['open'];
     trigger: TriggerMap;
   }): [boolean, (open: boolean) => void]
 };
@@ -131,7 +131,7 @@ const useOpen: UseOpen = ({
   return [open, handleSetOpen]
 }
 
-const FmbPopover: React.FC<FbmPopoverProps> = React.forwardRef((props, ref) => {
+const Popover: React.FC<PopoverProps> = React.forwardRef((props, ref) => {
   const {
     open: openProp,
     disabled,
@@ -231,7 +231,7 @@ const FmbPopover: React.FC<FbmPopoverProps> = React.forwardRef((props, ref) => {
   )
 })
 
-FmbPopover.defaultProps = {
+Popover.defaultProps = {
   placement: 'bottom',
   trigger: 'click',
   onClose: undefined,
@@ -244,4 +244,4 @@ FmbPopover.defaultProps = {
   disabled: false
 }
 
-export default FmbPopover
+export default Popover

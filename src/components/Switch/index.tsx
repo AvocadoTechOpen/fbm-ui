@@ -3,17 +3,17 @@ import {
   FormControlLabel,
   FormControlLabelProps,
   formControlLabelClasses,
-  Switch,
-  SwitchProps,
+  Switch as MuiSwitch,
+  SwitchProps as MuiSwitchProps,
   switchClasses,
   styled
 } from '@mui/material'
 
-export interface FbmSwitchProps extends SwitchProps {
+export interface SwitchProps extends MuiSwitchProps {
   label?: FormControlLabelProps['label'];
 }
 
-const CustomSwitch = styled(Switch)(({ theme }) => {
+const CustomSwitch = styled(MuiSwitch)(({ theme }) => {
   return {
     width: 35,
     height: 22,
@@ -72,7 +72,7 @@ const ControlLabel = styled(FormControlLabel)({
   }
 })
 
-const FbmSwitch: React.FC<FbmSwitchProps> = React.forwardRef((props, ref) => {
+const Switch: React.FC<SwitchProps> = React.forwardRef((props, ref) => {
   const { children, label, sx, ...SwitchProps } = props
   return (
     <ControlLabel
@@ -83,8 +83,8 @@ const FbmSwitch: React.FC<FbmSwitchProps> = React.forwardRef((props, ref) => {
   )
 })
 
-FbmSwitch.defaultProps = {
+Switch.defaultProps = {
   size: 'medium',
 }
 
-export default FbmSwitch
+export default Switch

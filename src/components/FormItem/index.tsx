@@ -18,7 +18,6 @@ const MemoInput = React.memo(
   (prev, next) => prev.value === next.value && prev.update === next.update,
 );
 
-
 /**
  * @description: 配合form组件使用
  * @props {*} FormItemProps
@@ -31,6 +30,8 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     label: labelProp,
     required: requiredProp,
     rules: rulesProp,
+    onChange,
+    onBlur,
     ...FormItemProps
   } = props
 
@@ -118,11 +119,15 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     field?.onChange?.(formatEvent(event))
+    onChange?.(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     field?.onBlur?.(formatEvent(event))
+    onBlur?.(event)
   }
+
+  let children = childrenProp
 
   const childProps = {
     name,
@@ -132,7 +137,6 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     onBlur: handleBlur,
   }
 
-  let children = childrenProp
   if (typeof children === 'function') {
     children = children?.(childProps)
   } else if (children) {
@@ -162,7 +166,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 })
 
 FormItemIndex.defaultProps = {
-  rules: []
+  rules: [],
 }
 
 export default FormItemIndex

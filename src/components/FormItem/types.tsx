@@ -45,7 +45,7 @@ interface FormItemBaseProps {
   label?: Label;
   extra?: Extra;
   max?: number;
-  name: string;
+  name?: string;
   error?: Error | boolean | string;
   length?: number;
   rules?: RuleItemType[]
@@ -56,6 +56,8 @@ interface FormItemBaseProps {
   options?: SelectProps['options']
   SelectProps?: SelectProps;
   children?: any;
+  /** 触发验证的时机 @TODO */
+  trigger?: string,
 }
 
 export type FormItemProps = FormItemBaseProps & InputProps

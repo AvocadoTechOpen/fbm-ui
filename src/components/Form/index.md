@@ -36,6 +36,7 @@ export default () => {
       sex: '',
       type: 1,
       keys: [],
+      radio: '',
       isProgress: false,
     },
     onSubmit: (values) => {
@@ -54,6 +55,10 @@ export default () => {
     }
   ]
 
+  const handleChange = (e) => {
+    console.log(e)
+  }
+
   return (
     <Layout>
     <Demo grey>
@@ -63,10 +68,10 @@ export default () => {
         <FormItem
           required
           name='name' 
+          max={10}
           label="名称"
           size='small'
-          max={10}
-         />
+        />
 
         <FormItem
           required
@@ -75,6 +80,7 @@ export default () => {
           size='small'
           options={options}
        />
+       
         <FormItem name='keys' required>
           <CheckboxGroup>
             <Checkbox value={'A'} label="A"/>
@@ -84,7 +90,15 @@ export default () => {
           </CheckboxGroup>
         </FormItem>
         <FormItem name="isProgress"  >
-           <Checkbox label={'显示进度条'}/>
+           <Checkbox/>
+        </FormItem>
+        <FormItem name='radio' required>
+          <RadioGroup>
+            <Radio value={'A'} label="A"/>
+            <Radio value={'B'} label="B"/>
+            <Radio value={'C'} label="C"/>
+            <Radio value={'D'} label="D"/>
+          </RadioGroup>
         </FormItem>
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
