@@ -2,9 +2,9 @@ import React from 'react';
 import { Radio as MuiRadio, RadioProps as MuiRadioProps, FormControlLabel, FormControlLabelProps, styled } from '@mui/material';
 
 export interface RadioProps {
+  ref?: MuiRadioProps['ref'];
   label?: string | number | React.ReactElement;
   size?: 'small' | 'medium';
-  ref?: MuiRadioProps['ref'];
   value?: unknown;
   disabled?: boolean;
   FormControlLabelProps?: FormControlLabelProps;
