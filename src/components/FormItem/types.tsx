@@ -12,7 +12,7 @@ export type Size = InputProps['size'];
 
 export type Value = InputProps['value'];
 
-export type Error = string
+export type Error = string | boolean
 
 export type RuleItemFnParams = {
   value: Value;
@@ -46,7 +46,7 @@ interface FormItemBaseProps {
   extra?: Extra;
   max?: number;
   name?: string;
-  error?: Error | boolean | string;
+  error?: Error;
   length?: number;
   rules?: RuleItemType[]
   required?: boolean;
@@ -56,8 +56,8 @@ interface FormItemBaseProps {
   options?: SelectProps['options']
   SelectProps?: SelectProps;
   children?: any;
-  /** 触发验证的时机 @TODO */
-  trigger?: string,
+  /** 触发验证的时机 */
+  trigger?: 'onChange' | 'onBlur' | ('onChange' | 'onBlur')[];
 }
 
 export type FormItemProps = FormItemBaseProps & InputProps

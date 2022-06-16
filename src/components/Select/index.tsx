@@ -26,6 +26,7 @@ const FbmSelect: React.FC<SelectProps> = React.forwardRef((props, ref) => {
   const {
     options,
     children: childrenProp,
+    label,
     ...SelectProps
   } = props
 
@@ -37,16 +38,17 @@ const FbmSelect: React.FC<SelectProps> = React.forwardRef((props, ref) => {
       </MenuItem>
     ))
   }
+  
+  const input = <Input label={label}/>
 
   return (
-    <SelectRoot ref={ref} {...SelectProps}>
+    <SelectRoot ref={ref} input={input} {...SelectProps}>
       {children}
     </SelectRoot>
   )
 })
 
 FbmSelect.defaultProps = {
-  input: <Input />,
   IconComponent: ArrowDropDownIcon,
   options: [],
   fullWidth: true,
