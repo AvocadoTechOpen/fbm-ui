@@ -59,7 +59,6 @@ export default function useTextField(props) {
       rules,
       label: props.label,
     })
-    console.log(rules, value, ruleError)
     setError(ruleError)
     return ruleError
   }, [valueProp])

@@ -49,12 +49,16 @@ export { default as ButtonGroup } from './ButtonGroup';
 export { default as confirm } from './confirm';
 
 export { default as Popover } from './Popover';
+export * from './Popover'
 
 export { default as Popconfirm } from './Popconfirm';
+export * from './Popconfirm'
 
 export { default as Popactions } from './Popactions';
+export * from './Popactions'
 
 export { default as Select } from './Select';
+export * from './Select'
 
 export { default as Header } from './Header';
 export * from './Header'
