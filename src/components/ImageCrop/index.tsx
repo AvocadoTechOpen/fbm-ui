@@ -54,10 +54,7 @@ const ImageCrop: React.FC<ImageCropProps> = React.forwardRef(({
   }
 
   const handelCropChange = (crop: PixelCrop, percentageCrop: PercentCrop) => {
-    if (onChange) {
-      onChange?.(crop, percentageCrop)
-    }
-    
+    onChange?.(crop, percentageCrop)
     setCrop(percentageCrop)
   }
 

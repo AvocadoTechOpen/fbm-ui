@@ -29,12 +29,12 @@ export interface ActionProps extends ButtonProps {
 const ActionsRoot = styled(Box)(({ spacing }: ActionProps) => ({
   display: 'flex',
   alignItems: 'center',
-  '&>button': {
+  '&>*': {
     marginLeft: spacing
   },
-  '&>div': {
-    marginLeft: spacing
-  }
+  '&>*:first-child': {
+    marginLeft: 0
+  },
 }
 ))
 
