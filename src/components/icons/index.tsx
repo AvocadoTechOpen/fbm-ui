@@ -264,5 +264,12 @@ export { default as VideoPauseFilledIcon } from './src/VideoPauseFilledIcon';
 export { default as VideoStopFilledIcon } from './src/VideoStopFilledIcon';
 export { default as VideocamOffOutline } from './src/VideocamOffOutline';
 export { default as WorkOutlineIcon } from './src/WorkOutlineIcon';
-export { default as VideocamOutlineFilledIcon } from './src/VideocamOutlineFilledIcon'
+export { default as VideocamFilledIcon } from './src/VideocamFilledIcon'
 export { default as MenuIcon } from './src/MenuIcon'
+export { default as BulbOutlineIcon } from './src/BulbOutlineIcon'
+export { default as CarouselOutlineIcon } from './src/CarouselOutlineIcon'
+export { default as ImageOutlineIcon } from './src/ImageOutlineIcon'
+export { default as HeaderOutlineIcon } from './src/HeaderOutlineIcon'
+export { default as RichTextOutlineIcon } from './src/RichTextOutlineIcon'
+export { default as SpaceDashboardOutlineIcon } from './src/SpaceDashboardOutlineIcon'
+export { default as VideocamPlayOutlineIcon } from './src/VideocamPlayOutlineIcon'

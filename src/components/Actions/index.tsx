@@ -30,7 +30,7 @@ const ActionsRoot = styled(Box)(({ spacing }: ActionProps) => ({
   display: 'flex',
   alignItems: 'center',
   '&>*': {
-    marginLeft: spacing
+    marginLeft: typeof spacing === 'number' ? `${spacing}px !important` : `${spacing} !important`
   },
   '&>*:first-child': {
     marginLeft: 0

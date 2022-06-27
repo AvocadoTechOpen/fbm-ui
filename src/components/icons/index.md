@@ -9,9 +9,8 @@ group:
 ## 代码演示
 
 ```tsx
-
 import * as React from 'react';
-import {  Layout, Typography, Message }  from 'fbm-ui'
+import {  Layout, Typography, Message, Actions }  from 'fbm-ui'
 import { Grid, Paper } from '@mui/material'
 import toCopy from "copy-to-clipboard";
 
@@ -27,38 +26,66 @@ const itemStyle = {
   },
 }
 
-const handleCopy = (displayName) => {
-  const content = `<${displayName} />`
-  const msg = `${content} copied`;
-  toCopy(content)
-  Message.success(msg)
-}
 
-const mapIcon = Object.keys(icons).map((displayName, index) => {
-  const Icon = icons[displayName]
-  return (
-    <Grid
-      style={{ cursor: "pointer" }}
-      item
-      key={displayName}
-      xs={2}
-      onClick={() => handleCopy(displayName)}
-    >
-      <Paper sx={itemStyle}>
-        <Icon style={{ fontSize: 36 }} />
-        <Typography style={{ wordBreak: "break-all" }}>
-          {displayName}
-        </Typography>
-      </Paper>
-    </Grid>
-  )
-})
+export default () => {
 
-export default () => (
-  <Layout>
-     <Grid container spacing={6}>
-        {mapIcon}
+  const [iconType, setIconType] = React.useState('')
+  
+  const handleCopy = (displayName) => {
+    const content = `<${displayName} />`
+    const msg = `${content} copied`;
+    toCopy(content)
+    Message.success(msg)
+  }
+
+  const mapIcon = Object.keys(icons)
+  .filter((name) => {
+    if (iconType === '' ) return true
+
+    return name.toLowerCase().includes(iconType)
+  })
+  .map((name, index) => {
+    const Icon = icons[name]
+    return (
+      <Grid
+        style={{ cursor: "pointer" }}
+        item
+        key={name}
+        xs={2}
+        onClick={() => handleCopy(name)}
+      >
+        <Paper sx={itemStyle}>
+          <Icon style={{ fontSize: 36 }} />
+          <Typography style={{ wordBreak: "break-all" }}>
+            {name}
+          </Typography>
+        </Paper>
       </Grid>
-  </Layout>
-)
+    )
+  })
+
+  const actions = [
+    {
+      text: '全部',
+      onClick: () => setIconType('')
+    },
+    {
+      text: 'FilledIcon',
+      onClick: () => setIconType('filled')
+    },
+    {
+      text: 'OutlineIcon',
+      onClick: () => setIconType('outline')
+    },
+  ]
+
+  return (
+    <Layout>
+      <Actions actions={actions} spacing={6} />
+      <Grid sx={{ mt: 1 }} container spacing={6}>
+          {mapIcon}
+      </Grid>
+    </Layout>
+  )
+}
 ```

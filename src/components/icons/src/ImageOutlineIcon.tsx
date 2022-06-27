@@ -1,0 +1,11 @@
+import React from "react";
+import SvgIcon from "@mui/material/SvgIcon";
+import type { SvgIconProps } from "@mui/material/SvgIcon";
+
+const ImageOutlineIcon: React.FC<SvgIconProps> = (props) => (
+  <SvgIcon {...props}>
+     <path d="M20,3 C20.5522847,3 21,3.44771525 21,4 L21,20 C21,20.5522847 20.5522847,21 20,21 L4,21 C3.44771525,21 3,20.5522847 3,20 L3,4 C3,3.44771525 3.44771525,3 4,3 L20,3 Z M19,5 L5,5 L5,19 L8.531,19 L14.8622492,10.7386162 C15.3601263,10.0889318 16.1203375,9.70693674 16.7724905,10.281183 L16.8745101,10.3799004 L19,12.628 L19,5 Z M16.0642613,12.4233468 L11.024,19 L19,19 L19,15.53 L16.0642613,12.4233468 Z M8.6,7 C9.4836556,7 10.2,7.7163444 10.2,8.6 C10.2,9.4836556 9.4836556,10.2 8.6,10.2 C7.7163444,10.2 7,9.4836556 7,8.6 C7,7.7163444 7.7163444,7 8.6,7 Z" id="形状结合" fill="#000000"></path>
+  </SvgIcon>
+);
+
+export default ImageOutlineIcon;
