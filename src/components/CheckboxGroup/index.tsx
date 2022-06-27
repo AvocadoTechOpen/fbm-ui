@@ -44,7 +44,6 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = React.forwardRef((props, ref
 
 CheckboxGroup.defaultProps = {
   defaultValue: [],
-  value: [],
   row: true,
 }
 

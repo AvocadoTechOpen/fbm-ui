@@ -51,7 +51,6 @@ const FbmDateRangePicker: React.FC<FbmDateRangePickerProps> = props => {
   const {
     value,
     error,
-    InputProps,
     onChange,
     onBlur,
     inputFormat,

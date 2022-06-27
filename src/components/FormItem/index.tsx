@@ -5,6 +5,7 @@ import {
 
 import FormItem from './FormItem'
 import validate from './validate'
+import { toArray } from '../../utils'
 import { FormItemProps, RuleItemObjType, RuleItemType, Error } from './types'
 
 interface MemoInputProps {
@@ -26,12 +27,14 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   const {
     name,
     max,
-    children: childrenProp,
+    size,
+    children,
     label: labelProp,
     required: requiredProp,
     rules: rulesProp,
     onChange,
     onBlur,
+    trigger,
     ...FormItemProps
   } = props
 
@@ -66,19 +69,21 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [rules])
 
   const label = useMemo(() => {
-    if (required && (labelProp && typeof labelProp === 'string' && !labelProp.endsWith('*'))) {
+    if (required && (labelProp && typeof labelProp === 'string' && !labelProp?.endsWith?.('*'))) {
       return `${labelProp}*`
     }
-    return labelProp || ''
+    return labelProp
   }, [labelProp])
 
-  const { registerField, unregisterField, getFieldProps, getFieldMeta } = useFormikContext() || {}
+
+  const { registerField, unregisterField, getFieldProps, getFieldMeta } = useFormikContext?.() || {}
   const field = getFieldProps?.({ name })
   const meta = getFieldMeta?.(name)
 
   useEffect(() => {
     if (name) {
       registerField?.(name, {
+         // @ts-ignore
         validate: async (value) => {
           const error: Error = await validate({
             value,
@@ -119,28 +124,48 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     field?.onChange?.(formatEvent(event))
-    onChange?.(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     field?.onBlur?.(formatEvent(event))
-    onBlur?.(event)
   }
 
-  let children = childrenProp
-
-  const childProps = {
+  // ======================= Children =======================
+  let childNode: React.ReactNode = null;
+  const mergedControl: FormItemProps = {
     name,
+    // @ts-ignore
     error,
-    value: field?.value,
     onChange: handleChange,
     onBlur: handleBlur,
   }
 
+  if (children?.props?.label === undefined) {
+    mergedControl.label = label
+  }
+
+  if (children?.props?.size === undefined) {
+    mergedControl.size = size
+  }
+
+  if (children?.props?.value === undefined) {
+    mergedControl.value = field?.value
+  }
+  
   if (typeof children === 'function') {
-    children = children?.(childProps)
+    childNode = children?.(mergedControl)
   } else if (children) {
-    children = (
+    const childProps = { ...children.props, ...mergedControl };
+
+    const triggers = toArray(trigger);
+    triggers.forEach(eventName => {
+      childProps[eventName] = (event: any) => {
+        mergedControl[eventName]?.(event);
+        children.props[eventName]?.(event);
+      };
+    });
+
+    childNode = (
       <MemoInput value={childProps?.value} update={children}>
         {React.cloneElement(children, childProps)}
       </MemoInput>
@@ -151,22 +176,24 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     <FormItem
       ref={ref}
       name={name}
+      max={max}
+      size={size}
       label={label}
       value={field?.value}
-      max={max}
       // @ts-ignore
       error={error}
       onChange={handleChange}
       onBlur={handleBlur}
       {...FormItemProps}
     >
-      {children}
+      {childNode}
     </FormItem>
   )
 })
 
 FormItemIndex.defaultProps = {
   rules: [],
+  trigger: ['onBlur', 'onChange'],
 }
 
 export default FormItemIndex

@@ -66,20 +66,21 @@ export default () => {
     </Demo>
       <Form {...form}>
         <FormItem
+          label="名称"
           required
           name='name' 
           max={10}
-          label="名称"
-          size='small'
-        />
-
+        >
+          <Input  onChange={handleChange}/>
+        </FormItem>
+    
         <FormItem
           required
           name='sex' 
-          label="性别"
           size='small'
-          options={options}
-       />
+       >
+        <Select options={options} />
+       </FormItem>
        
         <FormItem name='keys' required>
           <CheckboxGroup>
@@ -90,7 +91,7 @@ export default () => {
           </CheckboxGroup>
         </FormItem>
         <FormItem name="isProgress"  >
-           <Checkbox/>
+           <Checkbox label={'Progress'} />
         </FormItem>
         <FormItem name='radio' required>
           <RadioGroup>

@@ -1,6 +1,6 @@
 
 export * from './getValueLength';
-
+export * from './array';
 
 export const isFunction = (value: any): value is Function =>
   typeof value === 'function';

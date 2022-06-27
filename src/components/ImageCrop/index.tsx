@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useImperativeHandle } from 'react'
+import React, { useState, useMemo, useRef, useImperativeHandle, useEffect } from 'react'
 import FbmImageCrop, { Crop, centerCrop, PixelCrop, PercentCrop, getCropBlob } from 'fbm-image-crop'
 import { Box } from '@mui/material'
 import { ImageCropProps, IFile } from './types'
@@ -18,9 +18,10 @@ const ImageCrop: React.FC<ImageCropProps> = React.forwardRef(({
   children: childrenProp,
   onChange,
 }, ref) => {
-  
   const imgRef = useRef<HTMLImageElement | null>(null)
   const [crop, setCrop] = useState<Crop>(cropProp)
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
+
   const { src, name: fileName, type: fileType } = useMemo<IFile>(() => {
     if (isFile(img as File)) {
       const imgFile = img as File
@@ -54,16 +55,13 @@ const ImageCrop: React.FC<ImageCropProps> = React.forwardRef(({
   }
 
   const handelCropChange = (crop: PixelCrop, percentageCrop: PercentCrop) => {
-    if (onChange) {
-      onChange?.(crop, percentageCrop)
-    }
-    
+    onChange?.(crop, percentageCrop)
     setCrop(percentageCrop)
   }
 
   const getCropImgBlob = async () => {
     if (imgRef.current) {
-      const blob = await getCropBlob(imgRef.current, crop)
+      const blob = await getCropBlob(imgRef.current, completedCrop)
       return blob
     }
     return null
@@ -95,12 +93,17 @@ const ImageCrop: React.FC<ImageCropProps> = React.forwardRef(({
     )
   }
 
+  useEffect(() => {
+    setCrop(undefined)
+  }, [src])
+
   return (
     <FbmImageCrop
       crop={crop}
       locked={locked}
       disabled={disabled}
       onChange={handelCropChange}
+      onComplete={(c)=> setCompletedCrop(c)}
     >
       {children}
     </FbmImageCrop>
