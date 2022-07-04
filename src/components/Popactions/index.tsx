@@ -4,10 +4,10 @@ import { MenuItem, Box, ListItemIcon, ListSubheader } from '@mui/material'
 
 import Popover, { PopoverProps } from '../Popover'
 import { ButtonProps } from '../Button'
-import { ActionProps } from '../Actions'
+import { ActionsProps } from '../Actions'
 
 export interface PopactionsProps extends PopoverProps {
-  actions?: ActionProps[]
+  actions?: ActionsProps[]
 }
 
 interface ActionMenusTitle {

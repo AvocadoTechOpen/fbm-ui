@@ -2,7 +2,7 @@ import React, { ReactNode, useMemo, FC } from 'react';
 import styled from '@mui/material/styles/styled';
 
 import Box from '../Box';
-import Actions, { ActionProps } from '../Actions';
+import Actions, { ActionsProps } from '../Actions';
 import Typography from '../Typography';
 import { isFunction } from '../../utils';
 
@@ -18,7 +18,7 @@ export interface Row {
   /** 辅助文字  当render无内容时显示该文字  辅助文字颜色不同:rgba(0, 0, 0, 0,56) */
   auxiliaryText?: string;
   /** 右侧按钮属性 */
-  actions?: ActionProps['actions'];
+  actions?: ActionsProps['actions'];
   /** 自定义按钮内容 */
   renderActions?: ReactNode;
 }
