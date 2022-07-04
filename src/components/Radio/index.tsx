@@ -1,5 +1,6 @@
 import React from 'react';
-import { Radio as MuiRadio, RadioProps as MuiRadioProps, FormControlLabel, FormControlLabelProps, styled } from '@mui/material';
+import { RadioCheckedIcon, RadioIcon } from '../icons'
+import { Radio as MuiRadio, RadioProps as MuiRadioProps, FormControlLabel, FormControlLabelProps } from '@mui/material';
 
 export interface RadioProps {
   ref?: MuiRadioProps['ref'];
@@ -9,6 +10,8 @@ export interface RadioProps {
   disabled?: boolean;
   FormControlLabelProps?: FormControlLabelProps;
   RadioProps?: MuiRadioProps;
+  checkedIcon?: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 const Radio: React.FC<RadioProps> = React.forwardRef(({
@@ -18,13 +21,23 @@ const Radio: React.FC<RadioProps> = React.forwardRef(({
   disabled,
   FormControlLabelProps,
   RadioProps,
+  icon,
+  checkedIcon,
 }, ref) => {
   return (
     <FormControlLabel
       value={value}
       label={label}
       disabled={disabled}
-      control={<MuiRadio ref={ref} size={size} {...RadioProps} />}
+      control={
+        <MuiRadio
+          checkedIcon={checkedIcon}
+          icon={icon}
+          ref={ref} 
+          size={size} 
+          {...RadioProps}
+        />
+      }
       {...FormControlLabelProps}
     />
   )
@@ -32,7 +45,10 @@ const Radio: React.FC<RadioProps> = React.forwardRef(({
 
 Radio.defaultProps = {
   size: 'medium',
-  label: ''
+  label: '',
+  checkedIcon: <RadioCheckedIcon />,
+  icon: <RadioIcon />,
+
 }
 
 export default Radio;
