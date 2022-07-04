@@ -13,12 +13,12 @@ const buttonComponents = {
 
 type ButtonType = 'IconButton' | 'Button';
 
-export interface ActionProps extends ButtonProps {
+export interface ActionsProps extends ButtonProps {
   buttonType?: ButtonType;
   /** 按钮展示文字 */
   text?: string,
   /** 下拉展示更多按钮 */
-  actions?: ActionProps[]
+  actions?: ActionsProps[]
   /** 按钮间距 */
   spacing?: number | string;
   /** click Params */
@@ -26,11 +26,14 @@ export interface ActionProps extends ButtonProps {
 
 }
 
-const ActionsRoot = styled(Box)(({ spacing }: ActionProps) => ({
+const ActionsRoot = styled(Box)(({ spacing }: ActionsProps) => ({
   display: 'flex',
   alignItems: 'center',
-  '&>*': {
-    marginLeft: typeof spacing === 'number' ? `${spacing}px !important` : `${spacing} !important`
+  '&>button': {
+    marginLeft: spacing,
+  },
+  '&>div': {
+    marginLeft: spacing,
   },
   '&>*:first-child': {
     marginLeft: 0
@@ -38,7 +41,7 @@ const ActionsRoot = styled(Box)(({ spacing }: ActionProps) => ({
 }
 ))
 
-const Action: React.FC<ActionProps> = ({
+const Action: React.FC<ActionsProps> = ({
   spacing,
   actions,
   data,

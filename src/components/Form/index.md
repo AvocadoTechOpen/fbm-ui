@@ -68,7 +68,7 @@ export default () => {
         <FormItem
           label="名称"
           required
-          name='name' 
+          name='name'
           max={10}
         >
           <Input  onChange={handleChange}/>
@@ -77,7 +77,7 @@ export default () => {
         <FormItem
           required
           name='sex' 
-          size='small'
+          label="性别"
        >
         <Select options={options} />
        </FormItem>

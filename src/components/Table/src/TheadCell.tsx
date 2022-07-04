@@ -4,7 +4,7 @@ import { TableCell, Box } from '@mui/material'
 
 import Typography from '../../Typography'
 import { isEmpty } from '../../../utils'
-import Actions, { ActionProps } from '../../Actions'
+import Actions, { ActionsProps } from '../../Actions'
 import { ColumnProps }  from '../types'
 
 const TableCellRoot = styled(TableCell)({
@@ -61,7 +61,7 @@ const TheadCell: React.FC<ColumnProps> = ({
     )
   }
 
-  const CheckActions: React.FC<ActionProps> = () => {
+  const CheckActions: React.FC<ActionsProps> = () => {
     if (type !== 'checkbox') return null
     if (isEmpty(batchActions)) return null
     const len = selected.length

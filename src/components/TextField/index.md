@@ -21,6 +21,7 @@ export default () => {
   const [value, setValue] = React.useState('')
 
  const nameFieldProps = useTextField({
+    label: '姓名',
     size: 'small',
     value,
     max: 5,
@@ -40,7 +41,7 @@ export default () => {
 
   return (
     <Layout>
-      <TextField {...nameFieldProps} />
+      <TextField label="姓名" size="small" />
       <Button onClick={handleSubmit}> 提交 </Button> 
     </Layout>
   )

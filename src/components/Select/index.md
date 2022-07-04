@@ -43,6 +43,13 @@ export default () =>{
         onChange={handleChange}
       >
       </Select>
+       <Select
+        value={age}
+        options={options}
+        size="small"
+        onChange={handleChange}
+      >
+      </Select>
     </Layout>
   )
 }

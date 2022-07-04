@@ -273,4 +273,5 @@ export { default as HeaderOutlineIcon } from './src/HeaderOutlineIcon'
 export { default as RichTextOutlineIcon } from './src/RichTextOutlineIcon'
 export { default as SpaceDashboardOutlineIcon } from './src/SpaceDashboardOutlineIcon'
 export { default as VideocamPlayOutlineIcon } from './src/VideocamPlayOutlineIcon'
+export { default as GridOutlineIcon } from './src/GridOutlineIcon'
 export { default as StarIcon } from "./src/StarIcon";

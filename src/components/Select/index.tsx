@@ -16,9 +16,17 @@ export interface SelectProps extends MuiSelectProps {
   options?: OptionMap[];
 }
 
-const SelectRoot = styled(Select)({
-  [`& .${selectClasses.icon}`]: {
-    color: 'rgba(0, 0, 0, 0.56)'
+const SelectRoot = styled(Select)(({ size }: SelectProps) => {
+  return {
+    [`& .${selectClasses.icon}`]: {
+      color: 'rgba(0, 0, 0, 0.56)'
+    },
+
+    [`& .${selectClasses.select}`]: {
+      ...(size === 'small') && {
+        padding: '7px 12px 6px 12px',
+      }
+    },
   }
 })
 
@@ -38,8 +46,8 @@ const FbmSelect: React.FC<SelectProps> = React.forwardRef((props, ref) => {
       </MenuItem>
     ))
   }
-  
-  const input = <Input label={label}/>
+
+  const input = <Input label={label} />
 
   return (
     <SelectRoot ref={ref} input={input} {...SelectProps}>
