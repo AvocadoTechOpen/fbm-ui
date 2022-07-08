@@ -1,10 +1,11 @@
 
-import React from 'react';
-import { Select, SelectProps as MuiSelectProps, selectClasses, MenuItem, MenuItemProps } from '@mui/material'
-import styled from '@mui/material/styles/styled'
+import React, { useMemo } from 'react';
+import { Select as MuiSelect, Box, selectClasses, MenuItem, styled } from '@mui/material'
+import type { SelectProps as MuiSelectProps, MenuItemProps } from '@mui/material'
 
 import Input from '../Input'
-import { ArrowDropDownIcon } from '../icons'
+import { ArrowDropDownIcon, DoneIcon } from '../icons'
+import Chip from '../Chip'
 
 type OptionMap = {
   label: string;
@@ -16,7 +17,7 @@ export interface SelectProps extends MuiSelectProps {
   options?: OptionMap[];
 }
 
-const SelectRoot = styled(Select)(({ size }: SelectProps) => {
+const SelectRoot = styled(MuiSelect)(({ size }: SelectProps) => {
   return {
     [`& .${selectClasses.icon}`]: {
       color: 'rgba(0, 0, 0, 0.56)'
@@ -30,36 +31,75 @@ const SelectRoot = styled(Select)(({ size }: SelectProps) => {
   }
 })
 
-const FbmSelect: React.FC<SelectProps> = React.forwardRef((props, ref) => {
+const MenuItemRoot = styled(MenuItem)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+})
+
+const LabelRoot = styled(Box)({
+  flex: 1,
+})
+
+const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
   const {
-    options,
-    children: childrenProp,
     label,
+    value: valueProp,
+    children: childrenProp,
+    options,
     ...SelectProps
   } = props
 
-  let children = childrenProp
-  if (children == null) {
-    children = options.map(({ label, value }) => (
-      <MenuItem key={label} value={value}>
-        {label || value}
-      </MenuItem>
-    ))
-  }
+  const children = useMemo(() => {
+    if (childrenProp != null) return childrenProp
 
-  const input = <Input label={label} />
+    return options.map(({ label, value }) => (
+      <MenuItemRoot key={`${value}${label}`} value={value}>
+        <LabelRoot>
+          {label || value}
+        </LabelRoot>
+        {
+          Array.isArray(valueProp)
+            ? valueProp.includes(value) && <DoneIcon color="primary" />
+            : value === valueProp && <DoneIcon color="primary" />
+        }
+      </MenuItemRoot>
+    ))
+  }, [options, childrenProp, valueProp])
+
+  const optionMaps = useMemo(() => {
+    const _maps = {};
+
+    for (let i = 0; i < options?.length; i++) {
+      const { value, label } = options[i]
+      _maps[value as string] = label
+    }
+
+    return _maps
+  }, [options])
 
   return (
-    <SelectRoot ref={ref} input={input} {...SelectProps}>
+    <SelectRoot
+      ref={ref}
+      value={valueProp}
+      input={<Input label={label} />}
+      renderValue={(value) => {
+        if (Array.isArray(value)) {
+          return value?.map((v) => <Chip sx={{ mr: '3px' }} label={optionMaps[v]} />)
+        }
+        return optionMaps[value as string]
+      }}
+      {...SelectProps}
+    >
       {children}
     </SelectRoot>
   )
 })
 
-FbmSelect.defaultProps = {
-  IconComponent: ArrowDropDownIcon,
+Select.defaultProps = {
   options: [],
+  IconComponent: ArrowDropDownIcon,
   fullWidth: true,
 }
 
-export default FbmSelect
+export default Select

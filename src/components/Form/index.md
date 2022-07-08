@@ -68,6 +68,7 @@ export default () => {
         <FormItem
           label="名称"
           required
+          size="small"
           name='name'
           max={10}
         >

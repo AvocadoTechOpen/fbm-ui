@@ -10,7 +10,7 @@ import {
 
 import Input from '../Input'
 import Select from '../Select'
-import { chineseLength, isArray } from '../../utils'
+import { chineseLength } from '../../utils'
 import { FormItemProps, InputLabelProps, HelperProps } from './types'
 
 const FormItemRoot: React.FC<FormControlProps> = styled(FormControl)({

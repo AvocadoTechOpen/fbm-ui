@@ -14,8 +14,7 @@ group:
  * desc: 基本使用
  */
 import * as React from 'react';
-import {  Popover, Button, Demo } from 'fbm-ui'
-
+import {  Popover, Button, Demo, Select } from 'fbm-ui'
 
 export default () =>{
   const [open, setOpen] = React.useState(true)
@@ -27,8 +26,8 @@ export default () =>{
 
   return (
     <Demo>
-      <Popover content={content} trigger="hover">
-        <Button  sx={{ mr: 1 }}>hover</Button>
+      <Popover content={content}>
+        <Button sx={{ mr: 1 }}>hover</Button>
       </Popover>
       <Popover 
           arrow={false}
