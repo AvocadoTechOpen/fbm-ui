@@ -19,9 +19,8 @@ interface IValidateParams {
  * @param {*} value 输入框值
  * @param {*} props useFormItemParams
  */
-export default async function validate(input: IValidateParams): Promise<Error> {
+export default function validate(input: IValidateParams): Error {
   const { rules } = input
-
   const rulesLen = rules?.length || 0
   if (rulesLen === 0) {
     return undefined
@@ -31,8 +30,8 @@ export default async function validate(input: IValidateParams): Promise<Error> {
     const rule: RuleItemType = rules[i]
 
     if (isFunction(rule)) {
-      const error: Error = await rule(input)
-
+      const error: Error = rule(input)
+      
       if (error) {
         return error
       }
@@ -41,7 +40,7 @@ export default async function validate(input: IValidateParams): Promise<Error> {
     if (typeof rule === 'object') {
       const { message, type } = rule
       const validateFn = ruleFuns?.[type]
-      const error: Error = await validateFn?.(message)?.(input)
+      const error: Error = validateFn?.(message)?.(input)
       if (error !== undefined) {
         return error
       }

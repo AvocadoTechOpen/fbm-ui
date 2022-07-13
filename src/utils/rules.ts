@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { isURL } from 'validator'
 import { isArray, isDate, isObject, chineseLength } from './index'
 
 // 邮箱正则
@@ -32,7 +33,7 @@ const isEmpty = (item) => {
 
 // 验证是否必填
 export const required = (message?: string) => {
-  return ({ value, label }) => {
+  let fn = ({ value, label }) => {
     if (isEmpty(value)) {
       if (message) return message
       let labelStr = '此处'
@@ -45,48 +46,77 @@ export const required = (message?: string) => {
       }
       return `${labelStr}不能为空`
     }
+
+    fn = null
   }
+
+  return fn
 }
 
 // 验证手机号
 export const mobile = (message?: string) => {
-  return ({ value }) => {
+  let fn = ({ value }) => {
     if (value && !MOBILE_REGEX.test(value)) {
       return message || '请输入正确的手机号';
     }
+
+    fn = null
   }
+  return fn
 }
 
 // 验证邮箱地址
 export const email = (message?: string) => {
-  return ({ value }) => {
+  let fn = ({ value }) => {
     if (value && !EMAIL_REGEX.test(value)) {
       return message || '请输入正确的邮箱'
     }
+
+    fn = null
   }
+
+  return fn
 }
 
 export const date = (message?: string) => {
-  return ({ value }) => {
+  let fn = ({ value }) => {
     if (!isDate(value)) {
       return message || '请输入正确的日期格式'
     }
+
+    fn = null
   }
+  return fn
 }
 
 export const time = (message?: string) => {
-  return ({ value }) => {
+  let fn = ({ value }) => {
     if (!moment(value, 'HH:mm', true).isValid()) {
       return message || '请输入正确的时间格式'
     }
+
+    fn = null
   }
+  return fn
 }
 
 export const max = () => {
-  return ({ value, max }) => {
+  let fn =  ({ value, max }) => {
     const len: number = chineseLength(value)
     // 判断是否超出
-    if(len > max ) return true
+    if (len > max) return true
+
+    fn = null
+  }
+}
+
+export const url = (message: string = '请输入正确的URL格式') => {
+  let fn = ({ value }) => {
+    if (!isURL(value)) {
+      return message || '请输入正确的时间格式'
+    }
+
+    fn = null
   }
 }
 

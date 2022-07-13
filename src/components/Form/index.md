@@ -40,7 +40,6 @@ export default () => {
       isProgress: false,
     },
     onSubmit: (values) => {
-      console.log(values)
     }
   })
 
@@ -56,7 +55,6 @@ export default () => {
   ]
 
   const handleChange = (e) => {
-    console.log(e)
   }
 
   return (
@@ -83,7 +81,7 @@ export default () => {
         <Select options={options} />
        </FormItem>
        
-        <FormItem name='keys' required>
+        <FormItem name='keys' required >
           <CheckboxGroup>
             <Checkbox value={'A'} label="A"/>
             <Checkbox value={'B'} label="B"/>

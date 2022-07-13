@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 import styled from '@mui/material/styles/styled'
 import {
   FormControl,
@@ -125,7 +125,6 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
     }
     return true
   }, [error])
-
   let children = childrenProp
   if (childrenProp == null) {
     const InputElement = (
@@ -160,7 +159,7 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
       />
     )
     if (options) {
-      children = <Select input={InputElement} options={options} {...SelectProps} />
+      children = <Select input={InputElement} value={value} options={options} {...SelectProps} />
     } else {
       children = InputElement
     }
@@ -215,4 +214,9 @@ FormItem.defaultProps = {
   fullWidth: true,
 }
 
-export default FormItem;
+export default memo(FormItem, (prev, next) => {
+  if (next.shouldUpdate) {
+    return next.shouldUpdate(prev, next)
+  }
+  return false
+})

@@ -1,11 +1,10 @@
-import React, { useMemo, useEffect, useCallback } from 'react'
-import {
-  useFormikContext,
-} from 'formik'
+import React, { useMemo, useEffect, useCallback, memo } from 'react'
+import { useFormikContext } from 'formik'
 
 import FormItem from './FormItem'
 import validate from './validate'
-import { toArray } from '../../utils'
+import { toArray,  } from '../../utils'
+import {cloneElement, isValidElement } from '../../utils/reactNode'
 import { FormItemProps, RuleItemObjType, RuleItemType, Error } from './types'
 
 interface MemoInputProps {
@@ -84,8 +83,8 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     if (name) {
       registerField?.(name, {
          // @ts-ignore
-        validate: async (value) => {
-          const error: Error = await validate({
+        validate:  (value) => {
+          const error: Error = validate({
             value,
             rules,
             max,
@@ -109,7 +108,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [meta])
 
   const formatEvent = useCallback((event: React.FocusEvent<HTMLInputElement> | any) => {
-    if (event.target) {
+    if (event?.target) {
       return event
     }
 
@@ -154,8 +153,8 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   
   if (typeof children === 'function') {
     childNode = children?.(mergedControl)
-  } else if (children) {
-    const childProps = { ...children.props, ...mergedControl };
+  } else if (isValidElement(children)) {
+    const childProps = { ...children?.props, ...mergedControl };
 
     const triggers = toArray(trigger);
     triggers.forEach(eventName => {
@@ -167,7 +166,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
     childNode = (
       <MemoInput value={childProps?.value} update={children}>
-        {React.cloneElement(children, childProps)}
+        {cloneElement(children, childProps)}
       </MemoInput>
     )
   }
@@ -194,6 +193,19 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 FormItemIndex.defaultProps = {
   rules: [],
   trigger: ['onBlur', 'onChange'],
+  shouldUpdate: (prev, next) => {
+    return (
+      prev.name === next.name
+      && prev.value === next.value
+      && prev.label === next.label
+      && prev.max === next.max
+      && prev.length === next.length
+      && prev.extra === next.extra
+      && prev.error === next.error
+      && (prev.options === next.options && prev.options?.length === next.options?.length)
+      && Object.keys(prev).length === Object.keys(next).length
+    )
+  }
 }
 
 export default FormItemIndex
