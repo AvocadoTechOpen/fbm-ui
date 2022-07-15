@@ -20,7 +20,6 @@ export default () => {
   const [value, setValue] = React.useState('123')
   const handleChange = (e) => {
     setValue(e.target.value)
-    console.log('12312312')
   }
 
  const options = [

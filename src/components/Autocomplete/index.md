@@ -1,4 +1,4 @@
----
+<!-- ---
 nav:
   title: 组件
   path: /components
@@ -16,8 +16,7 @@ group:
  * desc: 基本使用
  */
 import * as React from 'react';
-import { Autocomplete } from '@mui/material'
-import { Layout, rules, Button, SearchIcon, TextField, useInput} from 'fbm-ui'
+import { Layout, rules, Button, SearchIcon, TextField, useInput, Autocomplete} from 'fbm-ui'
 
 export default () => {
 
@@ -64,4 +63,4 @@ export default () => {
   )
 }
 
-```
+``` -->

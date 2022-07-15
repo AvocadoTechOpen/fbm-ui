@@ -62,6 +62,7 @@ const PopoverRoot: React.FC<TooltipProps> = styled((inProps) => {
     />
   )
 })(({ theme, arrow }: any) => ({
+  zIndex: 1300,
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: theme.palette.common.white,
     color: 'rgba(0, 0, 0, 0.87)',
@@ -167,7 +168,10 @@ const Popover: React.FC<PopoverProps> = React.forwardRef((props, ref) => {
   };
 
   const handleClickAway = (event) => {
-    if(open === false) return
+    // bugfix: select在popover内打开自动关闭popover 
+    if (event.composedPath().indexOf(document.body) === 0) return
+
+    if (open === false) return
     const bool: boolean | void = onClickAway?.(event)
     if (bool === false) {
       return

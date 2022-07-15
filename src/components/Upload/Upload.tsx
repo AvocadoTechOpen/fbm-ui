@@ -22,12 +22,14 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     fileList,
     defaultFileList,
     maxCount,
+    headers,
+    showUploadList,
+    uploadListPlace,
     itemRender,
     onChange,
     onRemove,
-    showUploadList,
     onDrop,
-    headers,
+    UploadListProps,
     ...restProps
   } = props
 
@@ -256,7 +258,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   }));
 
   let children: React.ReactNode = null;
-  
+
   if (type === 'drop') {
     children = (
       <UploadChildrenDragger
@@ -309,6 +311,8 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       onRemove={handleRemove}
       onRefresh={handleRefresh}
       itemRender={itemRender}
+      uploadListPlace={uploadListPlace}
+      {...UploadListProps}
     />
   ) : null
 
@@ -318,8 +322,9 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       onDragOver={onFileDrop}
       onDragLeave={onFileDrop}
     >
+      {uploadListPlace === 'top' && uploadList}
       {uploadButton}
-      {uploadList}
+      {uploadListPlace === 'bottom' && uploadList}
     </div>
   )
 })
@@ -330,6 +335,7 @@ Upload.defaultProps = {
   accept: '',
   type: 'button',
   showUploadList: true,
+  uploadListPlace: 'bottom'
 };
 
 export default Upload

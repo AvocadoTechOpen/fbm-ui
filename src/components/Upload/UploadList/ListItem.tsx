@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled, LinearProgress, Box, Tooltip, Theme } from '@mui/material'
 
-import { RefreshIcon, CancelIcon } from '../../icons'
+import { RefreshIcon, CancelIcon, DeleteIcon } from '../../icons'
 import Typography from '../../Typography'
 import { FileIcons, getFileFormat } from '../utils'
 import {
@@ -31,10 +31,10 @@ const FlexFill = styled(Box)({
 })
 
 const ActionIconBox = styled('span')({
-  position: 'absolute',
-  right: '0',
-  top: '-11px',
   cursor: 'pointer',
+  position: 'relative',
+  top: 5,
+  marginLeft: 8,
 })
 
 const FileName = styled(Typography)({
@@ -44,6 +44,12 @@ const FileName = styled(Typography)({
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   lineHeight: '22px',
+})
+
+const Progress = styled(LinearProgress)({
+  width: '100%',
+  mr: '25px',
+  borderRadius: 4,
 })
 
 interface ActionIconSpanProps {
@@ -60,17 +66,27 @@ const HelperText = styled(Typography)({
   lineHeight: '22px',
 })
 
-const ListItem: React.FC<ListItemProps> = props => {
-  const {
-    name,
-    percent,
-    status,
-    onClose,
-    onRefresh,
-  } = props
+const progressColors = {
+  uploading: 'primary',
+  error: 'error',
+  done: 'primary'
+}
+
+const ListItem: React.FC<ListItemProps> = ({
+  // 文件名称
+  name,
+  // 上传进度
+  percent: percentProp,
+  // 上传状态
+  status,
+  onClose,
+  onRefresh,
+}) => {
 
   const fileFormat: string = getFileFormat(name)
   const FileIcon: React.FC<any> = FileIcons[fileFormat] || FileIcons['undefined']
+
+  const progress = status === 'error' ? 100 : percentProp
 
   const StatusIcons = {
     uploading: (
@@ -88,13 +104,14 @@ const ListItem: React.FC<ListItemProps> = props => {
         </ActionIconSpan>
       </Tooltip>
     ),
-  }
-  const statusIcon: React.ReactNode = StatusIcons[status] || null
 
-  const progressColors = {
-    uploading: 'primary',
-    error: 'error',
-    done: 'primary'
+    done: (
+      <Tooltip title={'删除文件'} placement="top">
+        <ActionIconSpan status={status}>
+          <DeleteIcon onClick={() => onClose()} />
+        </ActionIconSpan>
+      </Tooltip>
+    )
   }
 
   return (
@@ -107,29 +124,16 @@ const ListItem: React.FC<ListItemProps> = props => {
       <FlexFill>
         <FileName>{name}</FileName>
         <FlexCenterBox sx={{ flex: 1, position: 'relative' }}>
-          <LinearProgress
-            sx={{
-              width: '100%',
-              mr: '25px',
-            }}
+          <Progress
             variant='determinate'
-            value={percent}
+            value={progress}
             color={progressColors[status]}
           />
-          <ActionIconBox>
-            {statusIcon}
-          </ActionIconBox>
         </FlexCenterBox>
-        <HelperText>
-
-          {
-            /**
-              *  @Todo
-              */
-          }
-
-        </HelperText>
       </FlexFill>
+      <ActionIconBox>
+        {StatusIcons[status] || null}
+      </ActionIconBox>
     </FlexCenterBox>
   )
 }

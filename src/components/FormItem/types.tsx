@@ -19,7 +19,7 @@ export type RuleItemFnParams = {
   label: Label;
   max?: number;
 } 
-export type RuleItemFnType = (input: RuleItemFnParams) => string | Promise<string>
+export type RuleItemFnType = (input: RuleItemFnParams) => Error
 export type RuleItemObjType = {
   type?: string;
   message?: string;
@@ -58,6 +58,7 @@ interface FormItemBaseProps {
   children?: any;
   /** 触发验证的时机 */
   trigger?: 'onChange' | 'onBlur' | ('onChange' | 'onBlur')[];
+  shouldUpdate?: ((prev: FormItemProps, next: FormItemProps) => boolean)
 }
 
 export type FormItemProps = FormItemBaseProps & InputProps

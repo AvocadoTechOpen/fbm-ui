@@ -275,3 +275,6 @@ export { default as SpaceDashboardOutlineIcon } from './src/SpaceDashboardOutlin
 export { default as VideocamPlayOutlineIcon } from './src/VideocamPlayOutlineIcon'
 export { default as GridOutlineIcon } from './src/GridOutlineIcon'
 export { default as StarIcon } from "./src/StarIcon";
+export { default as DesktopIcon  } from "./src/DesktopIcon";
+export { default as ExitIcon  } from "./src/ExitIcon";
+export { default as LinkOffIcon  } from "./src/LinkOffIcon";

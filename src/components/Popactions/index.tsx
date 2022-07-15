@@ -58,7 +58,8 @@ const ActionMenu: React.FC<ActionsMenu> = (props) => {
       ]
     }
 
-    const handleMenuItemClick = () => {
+    const handleMenuItemClick = (event) => {
+      event.stopPropagation()
       if (onClick && typeof onClick === 'function') {
         onClick(popupProps)
       }

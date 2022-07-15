@@ -8,75 +8,6 @@ group:
 # Upload 上传组件
 ## 代码演示
 
-```tsx
-/**
- * title: 基本
- * desc: 基本使用
- */
-import * as React from 'react';
-        
-import { Demo, Upload, Loading, Button } from 'fbm-ui'
-
-export default () =>{
-
-  const props = {
-    name: 'file',
-    action: '/v2/5cc8019d300000980a055e76',
-    headers: {
-      authorization: 'authorization-text',
-    },
-    type: 'custom',
-    maxCount: 1,
-    showUploadList: false,
-  };
-  return (
-    <Demo>
-      <Upload  {...props}>
-        {(fileList) => {
-          const file = fileList[0]
-          if (file?.status === 'uploading') {
-            return <Loading />
-          }
-          if (file?.status === 'done') {
-            return <img style={{ width: 100 }} src={file.response.thumbUrl} />
-          }
-          return  <Button> 上传 </Button>
-         }}
-      </Upload>
-    </Demo>
-  )
-}
-```
-
-```tsx
-/**
- * title: 自定义上传列表
- * desc: 基本使用
- */
-import * as React from 'react';
-        
-import { Demo, Upload, Button} from 'fbm-ui'
-
-export default () =>{
-  const ref = useRef(null)
-  const props = {
-    name: 'file',
-    action: '/v2/5cc8019d300000980a055e76',
-    headers: {
-      authorization: 'authorization-text',
-    },
-  };
-
-  return (
-    <Demo>
-      <Upload ref={ ref} {...props}>
-        上传
-      </Upload>
-
-    </Demo>
-  )
-}
-```
 
 ```tsx
 /**
@@ -93,10 +24,14 @@ export default () =>{
   const props = {
     name: 'file',
     maxCount: 1,
+    uploadListPlace: 'top',
     action: '/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
     },
+    onChange: (info) => {
+      console.log(info)
+    }
   };
   return (
     <Demo>
@@ -196,3 +131,4 @@ export default () =>{
 }
 ```
 <API></API>
+
