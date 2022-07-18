@@ -37,73 +37,9 @@ export default () => {
     const error:string = await nameFieldProps.handleValidate()
   }
 
-  console.log(nameFieldProps)
-
   return (
     <Layout>
-      <TextField label="姓名" size="small" />
-      <Button onClick={handleSubmit}> 提交 </Button> 
-    </Layout>
-  )
-}
-```
-
-```tsx
-/**
- * title: 基本
- * desc: 基本使用
- */
-import * as React from 'react';
-import moment from 'moment'
-import { Layout, TextField, rules, useTextField, Button, SearchIcon, DatePicker, Select, TimePicker } from 'fbm-ui'
-
-export default () => {
-  const [value, setValue] = React.useState(null)
-  const [time, setTime] = React.useState('22:12')
-
-  const handleChange = (event) => {
-    setValue(event)
-  }
-
- const dateFieldProps = useTextField({
-    value,
-    rules: [
-      { required:true },
-      { type: 'date' }
-    ],
-    onChange: handleChange,
-  })
-
-  const timeFieldProps = useTextField({
-    value:time,
-    rules: [
-      { type: 'time' }
-    ],
-    label:'时间',
-    size:'small',
-    onChange: (value) => {
-      setTime(value)
-    },
-    sx:{
-      width: 100,
-      height: 'auto',
-    }
-  })
-
-  const handleSubmit = async () => {
-    const f = await dateFieldProps.handleValidate()
-  }
-
-  return (
-    <Layout>
-      <TextField label='时间' error={dateFieldProps.error}>
-        <DatePicker {...dateFieldProps.InputProps}  />
-      </TextField>
-
-      <TimePicker 
-        {...timeFieldProps}
-      />
-
+      <TextField  size="small" />
       <Button onClick={handleSubmit}> 提交 </Button> 
     </Layout>
   )

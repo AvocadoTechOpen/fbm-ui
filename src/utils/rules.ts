@@ -101,13 +101,14 @@ export const time = (message?: string) => {
 }
 
 export const max = () => {
-  let fn =  ({ value, max }) => {
+  let fn = ({ value, max }) => {
     const len: number = chineseLength(value)
-    // 判断是否超出
-    if (len > max) return true
-
+    if (len > max) {
+      return true
+    }
     fn = null
   }
+  return fn
 }
 
 export const url = (message: string = '请输入正确的URL格式') => {
@@ -118,6 +119,7 @@ export const url = (message: string = '请输入正确的URL格式') => {
 
     fn = null
   }
+  return fn
 }
 
 export default {

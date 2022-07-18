@@ -41,6 +41,7 @@ export default function validate(input: IValidateParams): Error {
       const { message, type } = rule
       const validateFn = ruleFuns?.[type]
       const error: Error = validateFn?.(message)?.(input)
+      console.log(error)
       if (error !== undefined) {
         return error
       }

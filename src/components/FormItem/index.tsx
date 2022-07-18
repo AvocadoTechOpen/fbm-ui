@@ -75,10 +75,11 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [labelProp])
 
 
-  const { registerField, unregisterField, getFieldProps, getFieldMeta } = useFormikContext?.() || {}
+  const { registerField, unregisterField, getFieldProps, getFieldMeta, getFieldHelpers } = useFormikContext?.() || {}
   const field = getFieldProps?.({ name })
   const meta = getFieldMeta?.(name)
-
+  const helpers = getFieldHelpers?.(name)
+  
   useEffect(() => {
     if (name) {
       registerField?.(name, {
@@ -122,6 +123,9 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [name])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (meta?.touched === false) {
+      helpers?.setTouched(true)
+    }
     field?.onChange?.(formatEvent(event))
   }
 

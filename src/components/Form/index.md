@@ -64,14 +64,10 @@ export default () => {
     </Demo>
       <Form {...form}>
         <FormItem
-          label="名称"
-          required
           size="small"
           name='name'
-          max={10}
-        >
-          <Input  onChange={handleChange}/>
-        </FormItem>
+          max={3}
+        />
     
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
