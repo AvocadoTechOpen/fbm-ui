@@ -41,7 +41,6 @@ export default () => {
     },
     onSubmit: (values) => {
     },
-    fast: true,
   })
 
   const options = [

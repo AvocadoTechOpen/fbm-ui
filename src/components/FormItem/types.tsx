@@ -55,7 +55,7 @@ interface FormItemBaseProps {
   InputProps?: InputProps;
   options?: SelectProps['options']
   SelectProps?: SelectProps;
-  children?: any;
+  children?: React.ReactNode;
   /** 触发验证的时机 */
   trigger?: 'onChange' | 'onBlur' | ('onChange' | 'onBlur')[];
   shouldMemoUpdate?: ((prev: FormItemProps, next: FormItemProps) => boolean)

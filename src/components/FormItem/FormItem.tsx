@@ -179,8 +179,6 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
     return error
   }, [error])
 
-  console.log('-----', value)
-
   return (
     <FormItemRoot
       ref={ref}
