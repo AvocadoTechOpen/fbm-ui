@@ -40,7 +40,8 @@ export default () => {
       isProgress: false,
     },
     onSubmit: (values) => {
-    }
+    },
+    fast: true,
   })
 
   const options = [
@@ -59,16 +60,48 @@ export default () => {
 
   return (
     <Layout>
-    <Demo grey>
-      {JSON.stringify(form.values)}
-    </Demo>
+      <Demo grey>
+        {JSON.stringify(form.values)}
+      </Demo>
+    
       <Form {...form}>
         <FormItem
+          label="名称"
+          required
           size="small"
           name='name'
-          max={3}
-        />
+          max={10}
+        >
+          <Input  onChange={handleChange}/>
+        </FormItem>
     
+        <FormItem
+          required
+          name='sex' 
+          label="性别"
+       >
+        <Select options={options} />
+       </FormItem>
+       
+        <FormItem name='keys' required >
+          <CheckboxGroup>
+            <Checkbox value={'A'} label="A"/>
+            <Checkbox value={'B'} label="B"/>
+            <Checkbox value={'C'} label="C"/>
+            <Checkbox value={'D'} label="D"/>
+          </CheckboxGroup>
+        </FormItem>
+        <FormItem name="isProgress"  >
+           <Checkbox label={'Progress'} />
+        </FormItem>
+        <FormItem name='radio' required>
+          <RadioGroup>
+            <Radio value={'A'} label="A"/>
+            <Radio value={'B'} label="B"/>
+            <Radio value={'C'} label="C"/>
+            <Radio value={'D'} label="D"/>
+          </RadioGroup>
+        </FormItem>
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
           重置

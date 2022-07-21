@@ -179,6 +179,8 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
     return error
   }, [error])
 
+  console.log('-----', value)
+
   return (
     <FormItemRoot
       ref={ref}
@@ -215,8 +217,8 @@ FormItem.defaultProps = {
 }
 
 export default memo(FormItem, (prev, next) => {
-  if (next.shouldUpdate) {
-    return next.shouldUpdate(prev, next)
+  if (next.shouldMemoUpdate) {
+    return next.shouldMemoUpdate(prev, next)
   }
   return false
 })

@@ -4,9 +4,9 @@ import DrawerRoot, { DrawerRootProps } from './src/DrawerRoot'
 import Header, { HeaderProps } from './src/Header'
 import Content from './src/Content'
 import Footer from './src/Footer'
-import { FbmConfirmFooterProps } from '../ConfirmFooter'
+import { ConfirmFooterProps } from '../ConfirmFooter'
 
-export interface DrawerProps extends FbmConfirmFooterProps {
+export interface DrawerProps extends ConfirmFooterProps {
   open: boolean;
   onBack?: HeaderProps['onBack'];
   footer?: React.ReactNode | null;

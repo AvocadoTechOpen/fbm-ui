@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, styled, IconButton } from '@mui/material'
 import { CloseIcon, KeyboardArrowLeftIcon } from '../../icons'
-import { FbmConfirmFooterProps } from '../../ConfirmFooter'
+import { ConfirmFooterProps } from '../../ConfirmFooter'
 
 export interface HeaderProps {
   title?: React.ReactNode;
   isShowClose?: boolean;
   header?: React.ReactNode | ((props: HeaderProps) => React.ReactDOM) | null;
-  onClose?: FbmConfirmFooterProps['onClose']
+  onClose?: ConfirmFooterProps['onClose']
   onBack?: () => void;
 }
 

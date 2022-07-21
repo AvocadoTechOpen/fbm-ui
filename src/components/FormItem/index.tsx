@@ -1,5 +1,6 @@
-import React, { useMemo, useEffect, useCallback, memo } from 'react'
+import React, { useMemo, useEffect, useCallback } from 'react'
 import { useFormikContext } from 'formik'
+import { FormProps } from '../Form'
 
 import FormItem from './FormItem'
 import validate from './validate'
@@ -75,7 +76,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [labelProp])
 
 
-  const { registerField, unregisterField, getFieldProps, getFieldMeta, getFieldHelpers } = useFormikContext?.() || {}
+  const { registerField, unregisterField, getFieldProps, getFieldMeta, getFieldHelpers, fast } = (useFormikContext?.()  || {})
   const field = getFieldProps?.({ name })
   const meta = getFieldMeta?.(name)
   const helpers = getFieldHelpers?.(name)
@@ -178,6 +179,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   return (
     <FormItem
       ref={ref}
+      fast={fast}
       name={name}
       max={max}
       size={size}
@@ -197,18 +199,22 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 FormItemIndex.defaultProps = {
   rules: [],
   trigger: ['onBlur', 'onChange'],
-  shouldUpdate: (prev, next) => {
-    return (
-      prev.name === next.name
-      && prev.value === next.value
-      && prev.label === next.label
-      && prev.max === next.max
-      && prev.length === next.length
-      && prev.extra === next.extra
-      && prev.error === next.error
-      && (prev.options === next.options && prev.options?.length === next.options?.length)
-      && Object.keys(prev).length === Object.keys(next).length
-    )
+  shouldMemoUpdate: (prev, next) => {
+    if (prev.fast === true) {
+      return (
+        prev.name === next.name
+        && prev.value === next.value
+        && prev.label === next.label
+        && prev.max === next.max
+        && prev.length === next.length
+        && prev.extra === next.extra
+        && prev.error === next.error
+        && (prev.options === next.options && prev.options?.length === next.options?.length)
+        && Object.keys(prev).length === Object.keys(next).length
+      )
+    }
+
+    return false
   }
 }
 

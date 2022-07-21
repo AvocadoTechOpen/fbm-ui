@@ -56,7 +56,7 @@ export const required = (message?: string) => {
 // 验证手机号
 export const mobile = (message?: string) => {
   let fn = ({ value }) => {
-    if (value && !MOBILE_REGEX.test(value)) {
+    if (!isEmpty(value) && !MOBILE_REGEX.test(value)) {
       return message || '请输入正确的手机号';
     }
 
@@ -68,7 +68,7 @@ export const mobile = (message?: string) => {
 // 验证邮箱地址
 export const email = (message?: string) => {
   let fn = ({ value }) => {
-    if (value && !EMAIL_REGEX.test(value)) {
+    if (!isEmpty(value) && !EMAIL_REGEX.test(value)) {
       return message || '请输入正确的邮箱'
     }
 
@@ -80,7 +80,7 @@ export const email = (message?: string) => {
 
 export const date = (message?: string) => {
   let fn = ({ value }) => {
-    if (!isDate(value)) {
+    if (!isEmpty(value) && !isDate(value)) {
       return message || '请输入正确的日期格式'
     }
 
@@ -91,7 +91,7 @@ export const date = (message?: string) => {
 
 export const time = (message?: string) => {
   let fn = ({ value }) => {
-    if (!moment(value, 'HH:mm', true).isValid()) {
+    if (!isEmpty(value) && !moment(value, 'HH:mm', true).isValid()) {
       return message || '请输入正确的时间格式'
     }
 
@@ -113,7 +113,7 @@ export const max = () => {
 
 export const url = (message: string = '请输入正确的URL格式') => {
   let fn = ({ value }) => {
-    if (!isURL(value)) {
+    if (!isEmpty(value) && !isURL(value)) {
       return message || '请输入正确的时间格式'
     }
 
