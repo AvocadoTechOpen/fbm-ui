@@ -19,6 +19,7 @@ interface ListItemProps {
   onClose: (file?: UploadFile) => void;
   /** 重新上传 */
   onRefresh: (file?: UploadFile) => void;
+  nameRender: (file?: UploadFile) => React.ReactNode;
 }
 
 const FlexCenterBox = styled(Box)({
@@ -81,6 +82,7 @@ const ListItem: React.FC<ListItemProps> = ({
   status,
   onClose,
   onRefresh,
+  nameRender,
 }) => {
 
   const fileFormat: string = getFileFormat(name)
@@ -122,7 +124,7 @@ const ListItem: React.FC<ListItemProps> = ({
         top: '3px',
       }} />
       <FlexFill>
-        <FileName>{name}</FileName>
+        <FileName>{nameRender()}</FileName>
         <FlexCenterBox sx={{ flex: 1, position: 'relative' }}>
           <Progress
             variant='determinate'

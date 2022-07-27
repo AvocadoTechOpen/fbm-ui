@@ -1,11 +1,10 @@
 import React, { useMemo, useEffect, useCallback } from 'react'
 import { useFormikContext } from 'formik'
-import { FormProps } from '../Form'
 
 import FormItem from './FormItem'
 import validate from './validate'
-import { toArray,  } from '../../utils'
-import {cloneElement, isValidElement } from '../../utils/reactNode'
+import { toArray, } from '../../utils'
+import { cloneElement, isValidElement } from '../../utils/reactNode'
 import { FormItemProps, RuleItemObjType, RuleItemType, Error } from './types'
 
 interface MemoInputProps {
@@ -20,7 +19,7 @@ const MemoInput = React.memo(
 );
 
 /**
- * @description: 配合form组件使用
+ * @description: 输入框验证，显示报错
  * @props {*} FormItemProps
  */
 const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
@@ -32,9 +31,10 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     label: labelProp,
     required: requiredProp,
     rules: rulesProp,
+    trigger: triggerProp,
+    fast: fastProp,
     onChange,
     onBlur,
-    trigger,
     ...FormItemProps
   } = props
 
@@ -76,16 +76,17 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [labelProp])
 
 
-  const { registerField, unregisterField, getFieldProps, getFieldMeta, getFieldHelpers, fast } = (useFormikContext?.()  || {})
+  const { registerField, unregisterField, getFieldProps, getFieldMeta, getFieldHelpers, fast = fastProp, trigger } = (useFormikContext?.() || {})
   const field = getFieldProps?.({ name })
   const meta = getFieldMeta?.(name)
   const helpers = getFieldHelpers?.(name)
-  
+
+
   useEffect(() => {
     if (name) {
       registerField?.(name, {
-         // @ts-ignore
-        validate:  (value) => {
+        // @ts-ignore
+        validate: (value) => {
           const error: Error = validate({
             value,
             rules,
@@ -140,9 +141,22 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     name,
     // @ts-ignore
     error,
+  }
+
+  // 触发验证器
+  const triggerEvents = {
     onChange: handleChange,
     onBlur: handleBlur,
   }
+
+  const triggers = useMemo(() => {
+    // 优先使FromItemProps
+    if (triggerProp != null) {
+      return toArray(triggerProp)
+    }
+    return toArray(trigger)
+  }, [triggerProp])
+
   if (typeof children === 'function') {
     childNode = children(mergedControl)
   } else if (isValidElement(children)) {
@@ -161,10 +175,10 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
     const childProps = { ...children?.props, ...mergedControl };
 
-    const triggers = toArray(trigger);
+    // events validate
     triggers.forEach(eventName => {
       childProps[eventName] = (event: any) => {
-        mergedControl[eventName]?.(event);
+        triggerEvents[eventName]?.(event);
         children.props[eventName]?.(event);
       };
     });
@@ -198,7 +212,6 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
 FormItemIndex.defaultProps = {
   rules: [],
-  trigger: ['onBlur', 'onChange'],
   shouldMemoUpdate: (prev, next) => {
     if (prev.fast === true) {
       return (

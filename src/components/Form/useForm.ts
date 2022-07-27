@@ -3,7 +3,9 @@ import type { FormikErrors, FormikTouched, FormikState, FieldInputProps, FieldMe
 
 
 export interface FormConfig<Values> extends FormikConfig<Values> {
-  fast?: boolean
+  fast?: boolean;
+  /** 触发验证的时机 */
+  trigger?: 'onChange' | 'onBlur' | ('onChange' | 'onBlur')[];
 }
 
 export interface FormProps<Values> {
@@ -51,15 +53,18 @@ export interface FormProps<Values> {
   isValidating: boolean;
   status?: any;
   submitCount: number;
-  fast: boolean
+  fast: boolean;
+  /** 触发验证的时机 */
+  trigger?: 'onChange' | 'onBlur' | ('onChange' | 'onBlur')[];
 }
 
-export default function useForm<Values extends FormikValues>({ fast = false, ...config }: FormConfig<Values>): FormProps<Values> {
+export default function useForm<Values extends FormikValues>({ fast = false, trigger, ...config }: FormConfig<Values>): FormProps<Values> {
   const formik = useFormik(config)
 
   return {
     ...formik,
     fast,
+    trigger,
   }
 }
 

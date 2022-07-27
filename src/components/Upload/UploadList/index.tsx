@@ -26,16 +26,23 @@ const FbmUploadList: React.FC<UploadListProps> = props => {
     onRefresh,
     itemRender,
     uploadListPlace,
+    nameRender: nameRenderProp,
     ...restProps
   } = props
 
-  const handleClose = (file: UploadFile) => onRemove(file)
-  const handleRefresh = (file: UploadFile) => onRefresh(file)
-
   if (!items || items?.length === 0) return null
 
+  const handleClose = (file) => onRemove(file)
+  const handleRefresh = (file) => onRefresh(file)
+  const nameRender = (file) => {
+    if (nameRenderProp != null && typeof nameRenderProp === 'function') {
+      nameRenderProp(file)
+    }
+    return file.name
+  }
+
   return (
-    <UploadListRoot 
+    <UploadListRoot
       place={uploadListPlace}
       {...restProps}
     >
@@ -44,6 +51,7 @@ const FbmUploadList: React.FC<UploadListProps> = props => {
           name: item.name,
           percent: item.percent,
           status: item.status,
+          nameRender: () => nameRender(item),
           onClose: () => handleClose(item),
           onRefresh: () => handleRefresh(item)
         }
@@ -64,4 +72,5 @@ const FbmUploadList: React.FC<UploadListProps> = props => {
     </UploadListRoot>
   )
 }
+
 export default FbmUploadList

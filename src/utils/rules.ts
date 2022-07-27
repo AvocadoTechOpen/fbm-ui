@@ -126,5 +126,8 @@ export default {
   required,
   mobile,
   email,
-  date
+  date,
+  url,
+  max,
+  time,
 }

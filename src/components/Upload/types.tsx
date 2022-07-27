@@ -39,16 +39,12 @@ export interface UploadFile<T = any> {
 export interface ListItemProps {
   /** 文件名称 */
   name?: UploadFile['name'];
-
   /** 上传进度 */
   percent: UploadFile['percent'];
-
   /** 文件上传状态 */
   status: UploadFile['status'];
-
   /** 取消上传 */
   onClose: (file?: UploadFile) => void;
-
   /** 重新上传 */
   onRefresh: (file?: UploadFile) => void;
 }
@@ -74,6 +70,7 @@ export interface UploadListProps<T = any> extends BoxProps {
   itemRender?: UploadProps['itemRender'];
   items?: Array<UploadFile<T>>;
   uploadListPlace?: UploadListPlace;
+  nameRender?: (file: UploadFile<T>) => React.ReactNode
 }
 
 
