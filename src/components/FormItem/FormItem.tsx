@@ -215,8 +215,8 @@ FormItem.defaultProps = {
 }
 
 export default memo(FormItem, (prev, next) => {
-  if (next.shouldUpdate) {
-    return next.shouldUpdate(prev, next)
+  if (next.shouldMemoUpdate) {
+    return next.shouldMemoUpdate(prev, next)
   }
   return false
 })

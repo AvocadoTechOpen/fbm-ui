@@ -5,9 +5,8 @@ import styled from '@mui/material/styles/styled'
 
 import { CloseIcon } from '../icons'
 import Typography from '../Typography'
-
 import Box from '../Box'
-import ConfirmFooter, { FbmConfirmFooterProps } from '../ConfirmFooter'
+import ConfirmFooter, { ConfirmFooterProps } from '../ConfirmFooter'
 
 export const componentName: string = 'ADialog'
 
@@ -21,10 +20,10 @@ interface HeaderProps {
   /** 传null则不显示， 传vnode则自定义底部内容， 不传则展示默认footer */
   header?: React.ReactNode | null;
   /** 关闭弹框事件 */
-  onClose?: FbmConfirmFooterProps['onClose'];
+  onClose?: ConfirmFooterProps['onClose'];
 }
 
-export interface FooterProps extends FbmConfirmFooterProps {
+export interface FooterProps extends ConfirmFooterProps {
   /** 传null则不显示， 传vnode则自定义底部内容， 不传则展示默认footer */
   footer?: React.ReactNode | null;
 }
@@ -151,11 +150,13 @@ const Footer: React.FC<FooterProps> = (props) => {
 
   if (footer === null) return null
 
-  if (typeof (footer) === 'function') return (
-    <>
-      {footer(props)}
-    </>
-  )
+  if (typeof (footer) === 'function') {
+    return (
+      <React.Fragment>
+        {footer(props)}
+      </React.Fragment>
+    )
+  }
 
   return <ConfirmFooter  {...confirmFooterProps} />
 }

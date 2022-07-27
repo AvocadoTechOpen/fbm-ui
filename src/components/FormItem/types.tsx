@@ -18,7 +18,7 @@ export type RuleItemFnParams = {
   value: Value;
   label: Label;
   max?: number;
-} 
+}
 export type RuleItemFnType = (input: RuleItemFnParams) => Error
 export type RuleItemObjType = {
   type?: string;
@@ -41,7 +41,7 @@ export interface InputLabelProps extends MuiInputLabelProps {
 // type ChildrenType<Values = any> = RenderChildren<Values> | React.ReactNode;
 
 interface FormItemBaseProps {
-  ref?: any; 
+  ref?: any;
   label?: Label;
   extra?: Extra;
   max?: number;
@@ -55,10 +55,12 @@ interface FormItemBaseProps {
   InputProps?: InputProps;
   options?: SelectProps['options']
   SelectProps?: SelectProps;
-  children?: any;
+  children?: React.ReactNode;
   /** 触发验证的时机 */
   trigger?: 'onChange' | 'onBlur' | ('onChange' | 'onBlur')[];
-  shouldUpdate?: ((prev: FormItemProps, next: FormItemProps) => boolean)
+  shouldMemoUpdate?: ((prev: FormItemProps, next: FormItemProps) => boolean)
+  /** 用于性能优化 */
+  fast?: boolean;
 }
 
 export type FormItemProps = FormItemBaseProps & InputProps

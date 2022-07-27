@@ -1,6 +1,7 @@
 import { green, red } from '@mui/material/colors'
+import { ThemeOptions } from '@mui/material/styles/createTheme'
 
-export default {
+const palette = {
   type: 'light',
   common: {
     black: '#000',
@@ -87,3 +88,5 @@ export default {
     activatedOpacity: 0.12,
   },
 }
+
+export default palette

@@ -1,9 +1,10 @@
 import React from 'react';
-import { FormikProvider, FormikProps, Form as FormikForm} from 'formik';
+import { FormikProvider, Form as FormikForm} from 'formik';
+import { FormProps } from './useForm';
 
-export { default as useForm } from './useForm'
+export { default as useForm, FormProps} from './useForm'
 
-const Form: React.FC<FormikProps<any>> = ({ children, ...formik }) => {
+const Form: React.FC<FormProps<any>> = ({ children, ...formik }) => {
   return (
     <FormikProvider value={formik}>
       <FormikForm>

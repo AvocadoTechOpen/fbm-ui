@@ -6,9 +6,9 @@ import Button, { ButtonProps } from '../Button'
 
 // type SizeMap = 'small' | 'medium' | 'large'
 
-export interface FbmConfirmFooterProps {
+export interface ConfirmFooterProps {
   /** 确定按钮 */
-  onOk?: (props: FbmConfirmFooterProps) => void | Promise<void>;
+  onOk?: (props: ConfirmFooterProps) => void | Promise<void>;
   /** 确定按钮文案 */
   okText?: string;
   /** 确定按钮按钮ButtonProps  */
@@ -34,7 +34,7 @@ const ConfirmFooterRoot = styled(Box)({
   height: '56px'
 })
 
-const FbmConfirmFooter: React.FC<FbmConfirmFooterProps> = React.forwardRef((props, ref) => {
+const ConfirmFooter: React.FC<ConfirmFooterProps> = React.forwardRef((props, ref) => {
   const {
     onOk,
     okText,
@@ -55,33 +55,17 @@ const FbmConfirmFooter: React.FC<FbmConfirmFooterProps> = React.forwardRef((prop
   }
 
   const [loading, setLoading] = React.useState(false)
-  
+
   if (footer === null) return null;
   if (typeof footer === 'function') return footer(props)
 
-  const handleClose = async () => {
-    if (onClose) {
-      try {
-        await onClose()
-      } catch (error) {
-        throw error
-      }
+  const handleClose = async (e) => {
+    e?.stopPropagation()
+    try {
+      await onClose?.()
+    } catch (error) {
+      throw error
     }
-  }
-
-  const CloseButton: React.FC = () => {
-    if (!isCloseButton) return null
-    return (
-      <Button
-        variant='text'
-        onClick={handleClose}
-        sx={{ mr: '8px' }}
-        color='secondary'
-        {...closeProps}
-      >
-        {closeText}
-      </Button>
-    )
   }
 
   const handleOk = async () => {
@@ -95,27 +79,36 @@ const FbmConfirmFooter: React.FC<FbmConfirmFooterProps> = React.forwardRef((prop
       }
     }
   }
-  const OkButton: React.FC = () => (
-    <Button
-      loading={loading}
-      disabled={okDisabled}
-      onClick={handleOk}
-      {...okProps}
-    >
-      {okText}
-    </Button>
-  )
-
+  
   return (
     <ConfirmFooterRoot {...otherProps} ref={ref}>
-      <CloseButton />
-      <OkButton />
+      {
+        isCloseButton && (
+          <Button
+            variant='text'
+            onClick={handleClose}
+            sx={{ mr: '8px' }}
+            color='secondary'
+            {...closeProps}
+          >
+            {closeText}
+          </Button>
+        )
+      }
+      <Button
+        loading={loading}
+        disabled={okDisabled}
+        onClick={handleOk}
+        {...okProps}
+      >
+        {okText}
+      </Button>
     </ConfirmFooterRoot>
   )
 })
 
 
-FbmConfirmFooter.defaultProps = {
+ConfirmFooter.defaultProps = {
   okDisabled: false,
   okText: '确定',
   okProps: {},
@@ -124,4 +117,4 @@ FbmConfirmFooter.defaultProps = {
   closeText: '取消'
 }
 
-export default FbmConfirmFooter
+export default ConfirmFooter

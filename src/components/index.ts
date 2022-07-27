@@ -10,6 +10,7 @@ export { default as Demo } from './Demo';
 export { default as Layout } from './Layout';
 
 export { default as ThemeProvider } from './ThemeProvider';
+export * from './ThemeProvider'
 
 export { default as Image } from './Image';
 
@@ -120,3 +121,5 @@ export * from './Checkbox'
 
 export { default as CheckboxGroup } from './CheckboxGroup'
 export * from './CheckboxGroup'
+
+export { default as Tree } from './Tree'

@@ -4,10 +4,10 @@ import styled from '@mui/material/styles/styled'
 import Popover, { PopoverProps } from '../Popover'
 import Box from '../Box'
 import Typography from '../Typography'
-import ConfirmFooter, { FbmConfirmFooterProps } from '../ConfirmFooter'
+import ConfirmFooter, { ConfirmFooterProps } from '../ConfirmFooter'
 import { isFunction } from '../../utils'
 
-export interface PopconfirmProps extends FbmConfirmFooterProps {
+export interface PopconfirmProps extends ConfirmFooterProps {
   /** 弹框标题 */
   title?: React.ReactNode;
   /** 弹框内容 */

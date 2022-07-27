@@ -31,6 +31,7 @@ import {
 
 export default () => {
   const form = useForm({
+    trigger: 'onChange',
     initialValues: {
       name:'',
       sex: '',
@@ -40,7 +41,7 @@ export default () => {
       isProgress: false,
     },
     onSubmit: (values) => {
-    }
+    },
   })
 
   const options = [
@@ -59,9 +60,10 @@ export default () => {
 
   return (
     <Layout>
-    <Demo grey>
-      {JSON.stringify(form.values)}
-    </Demo>
+      <Demo grey>
+        {JSON.stringify(form.values)}
+      </Demo>
+    
       <Form {...form}>
         <FormItem
           label="名称"
@@ -72,6 +74,7 @@ export default () => {
         >
           <Input  onChange={handleChange}/>
         </FormItem>
+    
     
       </Form>
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>

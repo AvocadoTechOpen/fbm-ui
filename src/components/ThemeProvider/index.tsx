@@ -1,7 +1,6 @@
 import * as React from 'react';
-
-import ThemeProvider, { ThemeProviderProps } from '@mui/material/styles/ThemeProvider';
-import createTheme, { Theme } from '@mui/material/styles/createTheme'
+import { ThemeProvider as MuiThemeProvider } from '@mui/material'
+import createTheme, { Theme, ThemeOptions } from '@mui/material/styles/createTheme'
 
 import palette from './src/palette'
 import typography from './src/typography'
@@ -9,40 +8,29 @@ import transitions from './src/transitions'
 import shadows from './src/shadows'
 import components from './src/components'
 
-interface BgColor {
-  error: string;
-  warning: string;
-  success: string;
-  info: string;
+export const defaultTheme = {
+  palette,
+  typography,
+  transitions,
+  shadows,
+  components,
+}
+export const theme = createTheme(defaultTheme)
+
+interface ThemeProviderProps extends ThemeOptions {
+  theme?: Theme
 }
 
-interface Mask {
-  dark: string;
-  white: string;
+const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  return (
+    <MuiThemeProvider theme={theme}>
+      {children}
+    </MuiThemeProvider>
+  )
 }
 
-interface Custom {
-  bgColor: BgColor;
-  mask: Mask
-}
-export interface FbmThemeOptions extends Theme {
-  custom: Custom
+ThemeProvider.defaultProps = {
+  theme: theme
 }
 
-export const theme = createTheme(
-  {
-    palette,
-    components,
-    typography,
-    transitions,
-    shadows: (shadows as any),
-  },
-)
-
-const FbmThemeProvider: React.FC = ({ children }) => (
-  <ThemeProvider theme={theme}>
-    {children}
-  </ThemeProvider>
-)
-
-export default FbmThemeProvider
+export default ThemeProvider

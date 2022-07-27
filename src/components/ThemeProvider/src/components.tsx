@@ -1,6 +1,4 @@
-
 import React from 'react'
-import { outlinedInputClasses } from '@mui/material'
 import palette from './palette'
 import {IndeterminateCheckBoxIcon, CheckBoxOutlineBlankIcon, CheckBoxIcon} from '../../icons'
 

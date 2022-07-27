@@ -142,6 +142,8 @@ export default () =>{
   )
 }
 ```
+
+
 ```tsx
 /**
  * title: 不需要Header 和 不需要Footer
@@ -180,7 +182,6 @@ export default () =>{
         isShowClose
         title={'鳄梨科技'}
         open={open2}
-        footer={null}
         onClose={() => setOpen2(false)}
         onOk={() => setOpen2(false)}
       >
@@ -190,5 +191,55 @@ export default () =>{
   )
 }
 ```
+
+
+```tsx
+/**
+ * title: 配合form使用
+ * desc: 基本使用
+ */
+import * as React from 'react';
+import { Dialog, Button, Demo, Form, FormItem, useForm} from 'fbm-ui'
+
+export default () =>{
+  const [open, setOpen] = React.useState(false)
+
+ const form = useForm({
+    initialValues: {
+      password:'',
+      rePassword: '',
+    },
+    onSubmit: (values) => {
+    }
+  })
+
+  return (
+    <Demo>
+      <Button onClick={() => setOpen(true)}  sx={{mr:2}}> 修改密码 </Button>
+
+      <Dialog 
+        title="修改密码"
+        open={open}
+        onClose={() => setOpen(false)}
+        onOk={() => setOpen(false)}
+      >
+        <Form {...form}>
+          <FormItem
+            required
+            name="password"
+            label="密码"
+          />
+          <FormItem
+            required
+            name="rePassword"
+            label="确认密码"
+          />
+        </Form>
+      </Dialog>
+    </Demo>
+  )
+}
+```
+
 
 <API></API>

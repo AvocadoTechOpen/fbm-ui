@@ -1,10 +1,10 @@
-import React, { useMemo, useEffect, useCallback, memo } from 'react'
+import React, { useMemo, useEffect, useCallback } from 'react'
 import { useFormikContext } from 'formik'
 
 import FormItem from './FormItem'
 import validate from './validate'
-import { toArray,  } from '../../utils'
-import {cloneElement, isValidElement } from '../../utils/reactNode'
+import { toArray, } from '../../utils'
+import { cloneElement, isValidElement } from '../../utils/reactNode'
 import { FormItemProps, RuleItemObjType, RuleItemType, Error } from './types'
 
 interface MemoInputProps {
@@ -19,7 +19,7 @@ const MemoInput = React.memo(
 );
 
 /**
- * @description: 配合form组件使用
+ * @description: 输入框验证，显示报错
  * @props {*} FormItemProps
  */
 const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
@@ -31,9 +31,10 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     label: labelProp,
     required: requiredProp,
     rules: rulesProp,
+    trigger: triggerProp,
+    fast: fastProp,
     onChange,
     onBlur,
-    trigger,
     ...FormItemProps
   } = props
 
@@ -75,15 +76,17 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [labelProp])
 
 
-  const { registerField, unregisterField, getFieldProps, getFieldMeta } = useFormikContext?.() || {}
+  const { registerField, unregisterField, getFieldProps, getFieldMeta, getFieldHelpers, fast = fastProp, trigger } = (useFormikContext?.() || {})
   const field = getFieldProps?.({ name })
   const meta = getFieldMeta?.(name)
+  const helpers = getFieldHelpers?.(name)
+
 
   useEffect(() => {
     if (name) {
       registerField?.(name, {
-         // @ts-ignore
-        validate:  (value) => {
+        // @ts-ignore
+        validate: (value) => {
           const error: Error = validate({
             value,
             rules,
@@ -122,6 +125,9 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [name])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (meta?.touched === false) {
+      helpers?.setTouched(true)
+    }
     field?.onChange?.(formatEvent(event))
   }
 
@@ -135,31 +141,44 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     name,
     // @ts-ignore
     error,
+  }
+
+  // 触发验证器
+  const triggerEvents = {
     onChange: handleChange,
     onBlur: handleBlur,
   }
 
-  if (children?.props?.label === undefined) {
-    mergedControl.label = label
-  }
+  const triggers = useMemo(() => {
+    // 优先使FromItemProps
+    if (triggerProp != null) {
+      return toArray(triggerProp)
+    }
+    return toArray(trigger)
+  }, [triggerProp])
 
-  if (children?.props?.size === undefined) {
-    mergedControl.size = size
-  }
-
-  if (children?.props?.value === undefined) {
-    mergedControl.value = field?.value
-  }
-  
   if (typeof children === 'function') {
-    childNode = children?.(mergedControl)
+    childNode = children(mergedControl)
   } else if (isValidElement(children)) {
+    // 如果children没有lable 则使用formItem.props.lable
+    if (children?.props?.label === undefined) {
+      mergedControl.label = label
+    }
+    // 如果children没有lable 则使用formItem.props.size
+    if (children?.props?.size === undefined) {
+      mergedControl.size = size
+    }
+    // 如果children没有lable 则使用 field.value
+    if (children?.props?.value === undefined) {
+      mergedControl.value = field?.value
+    }
+
     const childProps = { ...children?.props, ...mergedControl };
 
-    const triggers = toArray(trigger);
+    // events validate
     triggers.forEach(eventName => {
       childProps[eventName] = (event: any) => {
-        mergedControl[eventName]?.(event);
+        triggerEvents[eventName]?.(event);
         children.props[eventName]?.(event);
       };
     });
@@ -174,6 +193,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   return (
     <FormItem
       ref={ref}
+      fast={fast}
       name={name}
       max={max}
       size={size}
@@ -192,19 +212,21 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
 FormItemIndex.defaultProps = {
   rules: [],
-  trigger: ['onBlur', 'onChange'],
-  shouldUpdate: (prev, next) => {
-    return (
-      prev.name === next.name
-      && prev.value === next.value
-      && prev.label === next.label
-      && prev.max === next.max
-      && prev.length === next.length
-      && prev.extra === next.extra
-      && prev.error === next.error
-      && (prev.options === next.options && prev.options?.length === next.options?.length)
-      && Object.keys(prev).length === Object.keys(next).length
-    )
+  shouldMemoUpdate: (prev, next) => {
+    if (prev.fast === true) {
+      return (
+        prev.name === next.name
+        && prev.value === next.value
+        && prev.label === next.label
+        && prev.max === next.max
+        && prev.length === next.length
+        && prev.extra === next.extra
+        && prev.error === next.error
+        && (prev.options === next.options && prev.options?.length === next.options?.length)
+        && Object.keys(prev).length === Object.keys(next).length
+      )
+    }
+    return false
   }
 }
 
