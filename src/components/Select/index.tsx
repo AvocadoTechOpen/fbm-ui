@@ -35,6 +35,12 @@ const MenuItemRoot = styled(MenuItem)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  '&.Mui-selected': {
+    background: '#fff',
+    '&:hover': {
+      background: 'rgba(0,0,0,.04)',
+    },
+  },
 })
 
 const LabelRoot = styled(Box)({

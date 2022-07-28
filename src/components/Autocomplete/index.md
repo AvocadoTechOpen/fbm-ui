@@ -1,4 +1,4 @@
-<!-- ---
+---
 nav:
   title: 组件
   path: /components
@@ -17,18 +17,33 @@ group:
  */
 import * as React from 'react';
 import { Layout, rules, Button, SearchIcon, TextField, useInput, Autocomplete} from 'fbm-ui'
-
+import {
+    CheckBoxItem,
+    AutocompleteContainer,
+    AutocompleteTextField,
+    PopperComponent,
+    AutocompleteChip,
+} from "./index.styles";
 export default () => {
-
+  const [value, setValue] = React.useState([])
   const top100Films = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Godfather', year: 1972 },
-    { label: 'The Godfather: Part II', year: 1974 },
-    { label: 'The Dark Knight', year: 2008 },
-    { label: '12 Angry Men', year: 1957 },
-    { label: "Schindler's List", year: 1993 },
-    { label: 'Pulp Fiction', year: 1994 },
-  ];
+  {
+    label: "The Shawshank Redemption",
+    token: 1994,
+    children: [
+      { label: "12312", token: 19993 },
+      { label: "sdcsdacadscdsc", token: 19991 },
+      { label: "1231dsnjnkjnkjnkj2", token: 19992 },
+      { label: "123dsfdcsxtr4312", token: 19993 },
+    ],
+  },
+  { label: "The Shawshank Redemption", token: 19943 },
+  { label: "The Godfather", token: 1972 },
+  { label: "The Godfather: Part II", token: 1974 },
+  { label: "The Dark Knight", token: 2008 },
+  { label: "12 Angry Men", token: 1957 },
+  { label: "Schindler's List", token: 1993 },
+];
 
   // const { 
   //   error,
@@ -45,22 +60,29 @@ export default () => {
   return (
     <Layout>
       <Autocomplete
+        data={top100Films}
+        // open
+        value={value}
         multiple={true}
         options={top100Films}
         onChange={(_, newValue) => {
+          setValue(newValue)
         }}
+        type="check"
+        isOptionEqualToValue={(option, val) => option.token === val.token}
 
+        disableCloseOnSelect
         renderInput={(params) => {
           return (
-            <TextField 
+            <TextField
+            size="small" placeholder="请输入"  
               {...params}
             />
           )
         }}
       />
-      <Button onClick={handleSubmit}> 提交 </Button> 
     </Layout>
   )
 }
 
-``` -->
+```

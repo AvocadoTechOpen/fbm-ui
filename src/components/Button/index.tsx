@@ -24,6 +24,9 @@ const loadingProps = {
 const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
   return {
     minWidth: 'auto',
+    '& .MuiButton-startIcon': {
+      marginRight: '4px'
+    },
     '&:hover': {
       boxShadow: 'none',
       ...(variant === 'text' &&
