@@ -30,13 +30,14 @@ const FbmUploadList: React.FC<UploadListProps> = props => {
     ...restProps
   } = props
 
+
   if (!items || items?.length === 0) return null
 
   const handleClose = (file) => onRemove(file)
   const handleRefresh = (file) => onRefresh(file)
   const nameRender = (file) => {
     if (nameRenderProp != null && typeof nameRenderProp === 'function') {
-      nameRenderProp(file)
+      return nameRenderProp(file)
     }
     return file.name
   }
