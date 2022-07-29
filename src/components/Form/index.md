@@ -72,10 +72,11 @@ export default () => {
           size="small"
           name='name'
           trigger="onChange"
+          onBlur= {() => console.log('====')}
           max={10}
           InputProps={{ autoFocus: true }}
         />
-      </Form>
+        </Form>
       
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
           重置

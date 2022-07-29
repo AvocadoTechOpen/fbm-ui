@@ -122,4 +122,6 @@ export * from './Checkbox'
 export { default as CheckboxGroup } from './CheckboxGroup'
 export * from './CheckboxGroup'
 
-export { default as Tree } from './Tree'
+export { default as TreeView } from './TreeView'
+
+export { default as TreeItem } from './TreeItem'

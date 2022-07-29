@@ -124,7 +124,6 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [name])
 
   const triggers = useMemo(() => {
-
     // 优先使FromItemProps
     if (triggerProp != null) {
       return toArray(triggerProp)
@@ -147,12 +146,14 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     }
   
     field?.onChange?.(formatEvent(event))
+    onChange?.(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     if (triggers.includes('onBlur')) {
       field?.onBlur?.(formatEvent(event))
     }
+    onBlur?.(event)
   }
 
   // 触发验证器
