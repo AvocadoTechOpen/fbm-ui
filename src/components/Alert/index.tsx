@@ -1,7 +1,6 @@
 import React from 'react';
 import { Alert as MuiAlert, AlertProps as MuiAlertProps, styled, AlertColor, Theme } from '@mui/material'
 
-import { ThemeOptions } from '../ThemeProvider'
 import {
   CheckIcon,
   ErrorIcon,
@@ -36,7 +35,7 @@ const AlertRoot:React.FC<AlertProps> = styled(MuiAlert)(({ theme, type }: AlertR
     padding: '4px 16px',
     border: '1px solid',
     borderColor: theme.palette[type].main,
-    backgroundColor: (theme as ThemeOptions).custom?.bgColor[type],
+    backgroundColor: theme?.custom?.bgColor[type],
   }
 })
 

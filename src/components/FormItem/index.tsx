@@ -145,14 +145,15 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
         helpers?.setTouched(true)
       }
     }
-  
     field?.onChange?.(formatEvent(event))
+    onChange?.(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     if (triggers.includes('onBlur')) {
       field?.onBlur?.(formatEvent(event))
     }
+    onBlur?.(event)
   }
 
   // 触发验证器
@@ -184,7 +185,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     if (children?.props?.value === undefined) {
       mergedControl.value = field?.value
     }
-    const childProps = { ...children?.props, ...mergedControl };
+    const childProps = { ...children?.props, ...mergedControl, };
 
     // events validate
     Object.keys(triggerEvents).forEach(eventName => {

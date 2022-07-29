@@ -74,7 +74,9 @@ export default () => {
           trigger="onChange"
           max={10}
           InputProps={{ autoFocus: true }}
-        />
+        >
+         <Input />
+        </FormItem>
       </Form>
       
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
