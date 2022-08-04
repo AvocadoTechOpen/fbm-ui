@@ -16,6 +16,10 @@ import { FormItemProps, InputLabelProps, HelperProps } from './types'
 const FormItemRoot: React.FC<FormControlProps> = styled(FormControl)({
   display: 'block',
   height: '84px',
+  '& .MuiInputLabel-root': {
+    background: '#fff',
+    padding: '0 5px',
+  }
 });
 
 const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => ({

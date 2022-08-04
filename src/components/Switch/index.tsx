@@ -13,10 +13,16 @@ export interface SwitchProps extends MuiSwitchProps {
   label?: FormControlLabelProps['label'];
 }
 
-const CustomSwitch = styled(MuiSwitch)(({ theme }) => {
+const CustomSwitch = styled(MuiSwitch)(({ theme, size }) => {
   return {
-    width: 35,
-    height: 22,
+    ...(size === 'small' && {
+      width: 30,
+      height: 16,
+    }),
+    ...(size === 'medium' && {
+      width: 36,
+      height: 22,
+    }),
     padding: 0,
     [`& .${switchClasses.switchBase}`]: {
       padding: 0,
@@ -50,8 +56,14 @@ const CustomSwitch = styled(MuiSwitch)(({ theme }) => {
     },
     '& .MuiSwitch-thumb': {
       boxSizing: 'border-box',
-      width: 20,
-      height: 20,
+      ...(size === 'small' && {
+        width: 14,
+        height: 14,
+      }),
+      ...(size === 'medium' && {
+        width: 20,
+        height: 20,
+      }),
     },
     '& .MuiSwitch-track': {
       borderRadius: 26 / 2,
