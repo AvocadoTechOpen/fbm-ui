@@ -27,6 +27,7 @@ export { createFilterOptions };
 type IProps = AutocompleteProps<any, boolean | undefined, boolean | undefined, boolean | undefined>
 
 const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
+
   const {
     ChipProps,
     clearIcon = <CloseIcon />,
@@ -52,7 +53,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     loading = false,
     loadingText = 'Loading…',
     multiple = false,
-    noOptionsText = 'No options',
+    noOptionsText = '暂无数据',
     onChange,
     onClose,
     onInputChange,
@@ -76,6 +77,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     closeText = 'Close',
     openText = 'Open',
   } = props
+
 
   const {
     getInputProps,
@@ -190,7 +192,6 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
       inputValue,
     });
   };
-
 
   return (
     <React.Fragment>

@@ -99,7 +99,6 @@ export const AutocompleteListbox = styled('div', {
   slot: 'Listbox',
   overridesResolver: (props, styles) => styles.listbox,
 })(({ theme }) => {
-  console.log(theme)
   return ({
     listStyle: 'none',
     margin: 0,

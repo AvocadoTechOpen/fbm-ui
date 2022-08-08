@@ -1,7 +1,6 @@
 import { generateUtilityClass, generateUtilityClasses } from '@mui/core';
 
 export interface AutocompleteClasses {
-  typography: any;
   /** Styles applied to the root element. */
   root: string;
   /** Styles applied to the root element if `fullWidth={true}`. */

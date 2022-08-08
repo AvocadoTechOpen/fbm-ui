@@ -9,16 +9,18 @@ const Autocomplete = (inProps) => {
     label,
     placeholder,
   } = props
-
+  
   return (
     <AutocompleteCore
-      renderInput={(params) => (
-        <Input
-          label={label}
-          placeholder={placeholder}
-          {...params}
-        />
-      )}
+      renderInput={(params) => {
+        return (
+          <Input
+            label={label}
+            placeholder={placeholder}
+            {...params}
+          />
+        )
+      }}
       {...props}
     />
   )

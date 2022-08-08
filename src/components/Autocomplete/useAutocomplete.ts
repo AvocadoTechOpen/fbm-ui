@@ -93,9 +93,11 @@ export default function useAutocomplete(props) {
     isOptionEqualToValue = (option, value) => {
       return  option.token === value.token
     },
+    name,
     multiple = false,
     onChange,
     onClose,
+    onBlur,
     onHighlightChange,
     onInputChange,
     onOpen,
@@ -212,7 +214,8 @@ export default function useAutocomplete(props) {
 
   const inputValueIsSelectedValue =
     !multiple && value != null && inputValue === getOptionLabel(value);
-
+  
+    
   const popupOpen = open && !readOnly;
 
   const filteredOptions = popupOpen
@@ -718,7 +721,6 @@ export default function useAutocomplete(props) {
     if (onInputChange) {
       onInputChange(event, '', 'clear');
     }
-
     handleValue(event, multiple ? [] : null, 'clear');
   };
 
@@ -883,6 +885,7 @@ export default function useAutocomplete(props) {
     }
 
     handleClose(event, 'blur');
+    onBlur?.(event)
   };
 
   const handleInputChange = (event) => {
@@ -1025,6 +1028,7 @@ export default function useAutocomplete(props) {
     }),
     getInputProps: () => ({
       id,
+      name,
       value: inputValue,
       onBlur: handleBlur,
       onFocus: handleFocus,
@@ -1097,16 +1101,6 @@ export default function useAutocomplete(props) {
     anchorEl,
     setAnchorEl,
     focusedTag,
-    groupedOptions: [
-      {
-        label: "ShawshankShawshankShawshankShawshankShawshankShawshankShawshankShawshank",
-        token: 1994,
-      },
-      { label: "The Godfather", token: 1972 },
-      { label: "The Godfather: Part II", token: 1974 },
-      { label: "The Dark Knight", token: 2008 },
-      { label: "12 Angry Men", token: 1957 },
-      { label: "Schindler's List", token: 1993 },
-    ],
+    groupedOptions,
   };
 }

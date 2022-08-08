@@ -70,10 +70,7 @@ export default () => {
           required
           size="small"
           name='name'
-          trigger="onChange"
-          onBlur= {() => console.log('====')}
           max={10}
-          InputProps={{ autoFocus: true }}
         />
         </Form>
       

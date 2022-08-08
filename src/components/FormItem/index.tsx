@@ -92,6 +92,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
             max,
             label: labelProp
           })
+
           return error
         }
       });
@@ -107,17 +108,23 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     if (meta?.touched) {
       return meta?.error
     }
+
   }, [meta])
 
   const formatEvent = useCallback((event: React.FocusEvent<HTMLInputElement>, newValue) => {
-    if (event?.target) {
-      return event
+    let value
+    if (newValue !== undefined) {
+      value = newValue
+    } else if (event?.target?.value !== undefined) {
+      value = event?.target?.value
+    } else {
+      value = event
     }
 
     return {
       target: {
         name,
-        value: event,
+        value: value,
       },
       type: props.type || 'custom',
     }
@@ -134,7 +141,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
       return toArray(trigger)
     }
 
-    // 默认支持
+    // 默认支持 onChange时验证和onBlur时验证
     return ['onChange', 'onBlur']
   }, [triggerProp, trigger])
 
@@ -144,7 +151,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
         helpers?.setTouched(true)
       }
     }
-
+    console.log(args)
     field?.onChange?.(formatEvent(...args))
     onChange?.(...args)
   }
