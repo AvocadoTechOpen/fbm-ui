@@ -125,3 +125,4 @@ export * from './CheckboxGroup'
 export { default as TreeView } from './TreeView'
 
 export { default as TreeItem } from './TreeItem'
+export { default as Autocomplete } from './Autocomplete'

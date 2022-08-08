@@ -31,7 +31,6 @@ import {
 
 export default () => {
   const form = useForm({
-   
     initialValues: {
       name:'',
       sex: '',

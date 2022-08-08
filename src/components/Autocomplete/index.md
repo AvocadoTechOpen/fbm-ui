@@ -16,7 +16,7 @@ group:
  * desc: 基本使用
  */
 import * as React from 'react';
-import { Layout, rules, Button, SearchIcon, TextField, useInput, Autocomplete} from 'fbm-ui'
+import { Layout, rules, Button, SearchIcon, Autocomplete, Form, FormItem, useForm, Input } from 'fbm-ui'
 import {
     CheckBoxItem,
     AutocompleteContainer,
@@ -30,14 +30,7 @@ export default () => {
   {
     label: "The Shawshank Redemption",
     token: 1994,
-    children: [
-      { label: "12312", token: 19993 },
-      { label: "sdcsdacadscdsc", token: 19991 },
-      { label: "1231dsnjnkjnkjnkj2", token: 19992 },
-      { label: "123dsfdcsxtr4312", token: 19993 },
-    ],
   },
-  { label: "The Shawshank Redemption", token: 19943 },
   { label: "The Godfather", token: 1972 },
   { label: "The Godfather: Part II", token: 1974 },
   { label: "The Dark Knight", token: 2008 },
@@ -45,41 +38,25 @@ export default () => {
   { label: "Schindler's List", token: 1993 },
 ];
 
-  // const { 
-  //   error,
-  //   value,
-  //   setValue,
-  // } = useInput({
-  //   value,
-  //   rules: [{ required: true }]
-  // })
-
   const handleSubmit = () => {
   }
 
+  const form = useForm({
+    initialValues: {
+      keys: [],
+    },
+    onSubmit: (values) => {
+    },
+  })
+
   return (
     <Layout>
-      <Autocomplete
-        data={top100Films}
-        // open
+    <Input />
+     <Autocomplete
+        placeholder="请输入"
         value={value}
-        multiple={true}
         options={top100Films}
-        onChange={(_, newValue) => {
-          setValue(newValue)
-        }}
-        type="check"
-        isOptionEqualToValue={(option, val) => option.token === val.token}
-
-        disableCloseOnSelect
-        renderInput={(params) => {
-          return (
-            <TextField
-            size="small" placeholder="请输入"  
-              {...params}
-            />
-          )
-        }}
+        onChange={(e, value) => setValue(value)}
       />
     </Layout>
   )

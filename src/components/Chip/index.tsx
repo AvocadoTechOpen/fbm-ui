@@ -4,6 +4,8 @@ import { Chip, ChipProps, chipClasses } from '@mui/material'
 
 type SizeMap = 'small' | 'medium' | 'large';
 
+export { ChipProps }
+
 const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size }) => {
   return {
     [`& .${chipClasses.label}`]: {
