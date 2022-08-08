@@ -1085,6 +1085,7 @@ export default function useAutocomplete(props) {
         'data-option-index': index,
         'aria-disabled': disabled,
         'aria-selected': selected,
+        'aria-multiple': multiple,
       };
     },
     id,
@@ -1096,6 +1097,16 @@ export default function useAutocomplete(props) {
     anchorEl,
     setAnchorEl,
     focusedTag,
-    groupedOptions,
+    groupedOptions: [
+      {
+        label: "ShawshankShawshankShawshankShawshankShawshankShawshankShawshankShawshank",
+        token: 1994,
+      },
+      { label: "The Godfather", token: 1972 },
+      { label: "The Godfather: Part II", token: 1974 },
+      { label: "The Dark Knight", token: 2008 },
+      { label: "12 Angry Men", token: 1957 },
+      { label: "Schindler's List", token: 1993 },
+    ],
   };
 }

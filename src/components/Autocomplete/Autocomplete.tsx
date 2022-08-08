@@ -3,13 +3,16 @@ import clsx from 'clsx';
 import { createFilterOptions } from '@mui/base';
 import { Paper, Popper, Checkbox } from '@mui/material'
 import {
+  inputRoot,
   AutocompleteGroupLabel,
   AutocompleteGroupUl,
   AutocompletePopper,
   useUtilityClasses,
   AutocompletePaper,
   AutocompleteListbox,
-  inputRoot,
+  AutocompleteEndAdornment,
+  AutocompleteClearIndicator,
+  AutocompletePopupIndicator,
 } from './index.styles'
 import useAutocomplete from './useAutocomplete'
 
@@ -24,7 +27,6 @@ export { createFilterOptions };
 type IProps = AutocompleteProps<any, boolean | undefined, boolean | undefined, boolean | undefined>
 
 const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
-  /* eslint-enable @typescript-eslint/no-unused-vars */
   const {
     ChipProps,
     clearIcon = <CloseIcon />,
@@ -69,13 +71,16 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     selectOnFocus = !props.freeSolo,
     size = 'large',
     value: valueProp,
-    ...other
+    componentsProps = {},
+    clearText = 'Clear',
+    closeText = 'Close',
+    openText = 'Open',
   } = props
 
   const {
     getInputProps,
-    // getPopupIndicatorProps,
-    // getClearProps,
+    getPopupIndicatorProps,
+    getClearProps,
     getTagProps,
     getListboxProps,
     getOptionProps,
@@ -160,12 +165,19 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
   const renderGroup = renderGroupProp || defaultRenderGroup;
   const defaultRenderOption = (props2, option, { selected }) => {
     if (multiple) {
-      return <li {...props2}><Checkbox checked={selected} />{getOptionLabel(option)}</li>
+      return (
+        <li {...props2}>
+          <Checkbox checked={selected} />
+          <Typography className={classes.optionLabel}>
+            {getOptionLabel(option)}
+          </Typography>
+        </li>
+      )
     }
     return (
       <li {...props2}>
-        <Typography>{getOptionLabel(option)}</Typography>
-        <DoneIcon />
+        <Typography className={classes.optionLabel}>{getOptionLabel(option)}</Typography>
+        {selected && <DoneIcon className={classes.optioncheckedIcon} />}
       </li>
     )
   };
@@ -178,6 +190,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
       inputValue,
     });
   };
+
 
   return (
     <React.Fragment>
@@ -193,6 +206,42 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
           className: classes.input,
           ...getInputProps(),
         },
+        ...((hasClearIcon || hasPopupIcon) && {
+          endAdornment: (
+            <AutocompleteEndAdornment className={classes.endAdornment}>
+              {hasClearIcon ? (
+                <AutocompleteClearIndicator
+                  {...getClearProps()}
+                  aria-label={clearText}
+                  title={clearText}
+                  {...componentsProps.clearIndicator}
+                  className={clsx(
+                    classes.clearIndicator,
+                    componentsProps.clearIndicator?.className,
+                  )}
+                >
+                  {clearIcon}
+                </AutocompleteClearIndicator>
+              ) : null}
+              {hasPopupIcon ? (
+                <AutocompletePopupIndicator
+                  {...getPopupIndicatorProps()}
+                  disabled={disabled}
+                  aria-label={popupOpen ? closeText : openText}
+                  title={popupOpen ? closeText : openText}
+                  ownerState={ownerState}
+                  {...componentsProps.popupIndicator}
+                  className={clsx(
+                    classes.popupIndicator,
+                    componentsProps.popupIndicator?.className,
+                  )}
+                >
+                  {popupIcon}
+                </AutocompletePopupIndicator>
+              ) : null}
+            </AutocompleteEndAdornment>
+          ),
+        }),
       })}
       {popupOpen && anchorEl ? (
         <AutocompletePopper

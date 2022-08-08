@@ -12,7 +12,6 @@ const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size }) => {
       paddingLeft: 11,
       paddingRight: 11,
       fontSize: 14,
-      lineHeight: 1,
     },
     ...(size === 'small' && {
       height: '18px',

@@ -38,6 +38,10 @@ export const useUtilityClasses = (ownerState) => {
     loading: ['loading'],
     noOptions: ['noOptions'],
     option: ['option'],
+    optionLabel: ['optionLabel'],
+    optioncheckedIcon: ['optioncheckedIcon'],
+    typography: ['typography'],
+    checkedIcon: ['checkedIcon'],
     groupLabel: ['groupLabel'],
     groupUl: ['groupUl'],
   };
@@ -45,41 +49,6 @@ export const useUtilityClasses = (ownerState) => {
   return composeClasses(slots, getAutocompleteUtilityClass, classes);
 };
 
-export const AutocompleteEndAdornment = styled('div', {
-  name: 'MuiAutocomplete',
-  slot: 'EndAdornment',
-  overridesResolver: (props, styles) => styles.endAdornment,
-})({
-  // We use a position absolute to support wrapping tags.
-  position: 'absolute',
-  right: 0,
-  top: 'calc(50% - 14px)', // Center vertically
-});
-
-export const AutocompleteClearIndicator = styled(IconButton, {
-  name: 'MuiAutocomplete',
-  slot: 'ClearIndicator',
-  overridesResolver: (props, styles) => styles.clearIndicator,
-})({
-  marginRight: -2,
-  padding: 4,
-  visibility: 'hidden',
-});
-
-export const AutocompletePopupIndicator = styled(IconButton, {
-  name: 'MuiAutocomplete',
-  slot: 'PopupIndicator',
-  overridesResolver: ({ ownerState }, styles) => ({
-    ...styles.popupIndicator,
-    ...(ownerState.popupOpen && styles.popupIndicatorOpen),
-  }),
-})(({ ownerState }) => ({
-  padding: 2,
-  marginRight: -2,
-  ...(ownerState.popupOpen && {
-    transform: 'rotate(180deg)',
-  }),
-}));
 
 export const AutocompletePopper = styled(Popper, {
   name: 'MuiAutocomplete',
@@ -124,56 +93,70 @@ export const AutocompleteNoOptions = styled('div', {
   padding: '14px 16px',
 }));
 
+
 export const AutocompleteListbox = styled('div', {
   name: 'MuiAutocomplete',
   slot: 'Listbox',
   overridesResolver: (props, styles) => styles.listbox,
-})(({ theme }) => ({
-  listStyle: 'none',
-  margin: 0,
-  padding: '8px 0',
-  maxHeight: '40vh',
-  overflow: 'auto',
-  [`& .${autocompleteClasses.option}`]: {
-    minHeight: 48,
-    display: 'flex',
-    overflow: 'hidden',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    cursor: 'pointer',
-    paddingTop: 6,
-    boxSizing: 'border-box',
-    outline: '0',
-    WebkitTapHighlightColor: 'transparent',
-    paddingBottom: 6,
-    paddingLeft: 16,
-    paddingRight: 16,
-    [theme.breakpoints.up('sm')]: {
-      minHeight: 'auto',
-    },
-    [`&.${autocompleteClasses.focused}`]: {
-      backgroundColor: theme.palette.action.hover,
-      // Reset on touch devices, it doesn't add specificity
-      '@media (hover: none)': {
-        backgroundColor: 'transparent',
+})(({ theme }) => {
+  console.log(theme)
+  return ({
+    listStyle: 'none',
+    margin: 0,
+    padding: '8px 0',
+    maxHeight: '40vh',
+    overflow: 'auto',
+    [`& .${autocompleteClasses.option}`]: {
+      minHeight: 48,
+      display: 'flex',
+      overflow: 'hidden',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      cursor: 'pointer',
+      paddingTop: 6,
+      boxSizing: 'border-box',
+      outline: '0',
+      WebkitTapHighlightColor: 'transparent',
+      paddingBottom: 6,
+      paddingLeft: 16,
+      paddingRight: 16,
+      [theme.breakpoints.up('sm')]: {
+        minHeight: 'auto',
       },
-    },
-    '&[aria-disabled="true"]': {
-      opacity: theme.palette.action.disabledOpacity,
-      pointerEvents: 'none',
-    },
-    [`&.${autocompleteClasses.focusVisible}`]: {
-      backgroundColor: theme.palette.action.focus,
-    },
-    '&[aria-selected="true"]': {
       [`&.${autocompleteClasses.focused}`]: {
+        backgroundColor: theme.palette.action.hover,
+        // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
-          backgroundColor: theme.palette.action.selected,
+          backgroundColor: 'transparent',
         },
       },
+      '&[aria-disabled="true"]': {
+        opacity: theme.palette.action.disabledOpacity,
+        pointerEvents: 'none',
+      },
+      // [`&.${autocompleteClasses.focusVisible}`]: {
+      //   backgroundColor: theme.palette.action.focus,
+      // },
+      [`& .${autocompleteClasses.optionLabel}`]: {
+        flex: 1,
+        wordBreak:'break-all', 
+      },
+      [`& .${autocompleteClasses.optioncheckedIcon}`]: {
+        color: theme.palette.primary.main
+      },
+      '&[aria-selected="true"]': {
+        [`&.${autocompleteClasses.focused}`]: {
+          '@media (hover: none)': {
+            backgroundColor: theme.palette.action.selected,
+          },
+        },
+      },
+      '&[aria-multiple="true"]': {
+        paddingLeft: 4
+      },
     },
-  },
-}));
+  })
+});
 
 export const AutocompleteGroupLabel = styled(ListSubheader, {
   name: 'MuiAutocomplete',
@@ -208,5 +191,44 @@ export const inputRoot = {
   },
   [`& .${chipClasses.root}`]: {
     margin: '8px 0 0 4px'
+  },
+  [`&:hover .${autocompleteClasses.clearIndicator}`]: {
+    visibility: 'visible',
   }
 }
+
+export const AutocompleteEndAdornment = styled('div', {
+  name: 'MuiAutocomplete',
+  slot: 'EndAdornment',
+  overridesResolver: (props, styles) => styles.endAdornment,
+})({
+  // We use a position absolute to support wrapping tags.
+  position: 'absolute',
+  right: 0,
+  top: 'calc(50% - 14px)', // Center vertically
+});
+
+export const AutocompleteClearIndicator = styled(IconButton, {
+  name: 'MuiAutocomplete',
+  slot: 'ClearIndicator',
+  overridesResolver: (props, styles) => styles.clearIndicator,
+})({
+  marginRight: -2,
+  padding: 4,
+  visibility: 'hidden',
+});
+
+export const AutocompletePopupIndicator = styled(IconButton, {
+  name: 'MuiAutocomplete',
+  slot: 'PopupIndicator',
+  overridesResolver: ({ ownerState }, styles) => ({
+    ...styles.popupIndicator,
+    ...(ownerState.popupOpen && styles.popupIndicatorOpen),
+  }),
+})(({ ownerState }) => ({
+  padding: 2,
+  marginRight: -2,
+  ...(ownerState.popupOpen && {
+    transform: 'rotate(180deg)',
+  }),
+}));
