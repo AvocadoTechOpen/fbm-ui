@@ -1,5 +1,4 @@
 import autocompleteClasses, { getAutocompleteUtilityClass } from './autocompleteClasses';
-import { alpha } from '@mui/system';
 import { capitalize, styled, Popper, ListSubheader, Paper, IconButton, chipClasses, inputClasses, inputBaseClasses, outlinedInputClasses, filledInputClasses } from '@mui/material'
 import {
   unstable_composeClasses as composeClasses,
@@ -183,17 +182,18 @@ export const inputRoot = {
   [`& .${autocompleteClasses.input}`]: {
     width: 0,
     minWidth: 30,
-    height: 32,
-    padding: '8px',
     flexGrow: 1,
     textOverflow: 'ellipsis'
   },
   [`& .${chipClasses.root}`]: {
     margin: '8px 0 0 4px'
   },
+  [`& .${chipClasses.sizeMedium}`]: {
+    margin: '6px 0 0 4px'
+  },
   [`&:hover .${autocompleteClasses.clearIndicator}`]: {
     visibility: 'visible',
-  }
+  },
 }
 
 export const AutocompleteEndAdornment = styled('div', {

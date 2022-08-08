@@ -129,7 +129,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
       startAdornment = value.map((option, index) => (
         <Chip
           label={getOptionLabel(option)}
-          size={size}
+          size={size === 'small' ? 'medium' : size}
           {...getCustomizedTagProps({ index })}
           {...ChipProps}
         />

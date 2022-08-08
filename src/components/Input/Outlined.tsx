@@ -45,20 +45,6 @@ const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ 
       //   padding: '10px 12px 11px 4px'
       // },
     }),
-
-    [`.${autocompleteClasses.inputRoot}`]: {
-      flexWrap: 'wrap',
-      [`.${autocompleteClasses.hasPopupIcon}&, .${autocompleteClasses.hasClearIcon}&`]: {
-        paddingRight: 26 + 4,
-      },
-      [`.${autocompleteClasses.hasPopupIcon}.${autocompleteClasses.hasClearIcon}&`]: {
-        paddingRight: 52 + 4,
-      },
-      [`& .${autocompleteClasses.input}`]: {
-        width: 0,
-        minWidth: 30,
-      },
-    },
   }
 ))
 

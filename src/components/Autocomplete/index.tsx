@@ -5,21 +5,11 @@ import Input from '../Input'
 
 const Autocomplete = (inProps) => {
   const props = useThemeProps({ props: inProps, name: 'MuiAutocomplete' });
-  const {
-    label,
-    placeholder,
-  } = props
   
   return (
     <AutocompleteCore
-      renderInput={(params) => {
-        return (
-          <Input
-            label={label}
-            placeholder={placeholder}
-            {...params}
-          />
-        )
+      renderInput={(props) => {
+        return (<Input {...props} />)
       }}
       {...props}
     />

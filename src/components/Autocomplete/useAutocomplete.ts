@@ -91,9 +91,12 @@ export default function useAutocomplete(props) {
     includeInputInList = false,
     inputValue: inputValueProp,
     isOptionEqualToValue = (option, value) => {
-      return  option.token === value.token
+      return option.token === value.token
     },
     name,
+    label,
+    size,
+    placeholder,
     multiple = false,
     onChange,
     onClose,
@@ -214,30 +217,30 @@ export default function useAutocomplete(props) {
 
   const inputValueIsSelectedValue =
     !multiple && value != null && inputValue === getOptionLabel(value);
-  
-    
+
+
   const popupOpen = open && !readOnly;
 
   const filteredOptions = popupOpen
     ? filterOptions(
-        options?.filter((option) => {
-          if (
-            filterSelectedOptions &&
-            (multiple ? value : [value]).some(
-              (value2) => value2 !== null && isOptionEqualToValue(option, value2),
-            )
-          ) {
-            return false;
-          }
-          return true;
-        }),
-        // we use the empty string to manipulate `filterOptions` to not filter any options
-        // i.e. the filter predicate always returns true
-        {
-          inputValue: inputValueIsSelectedValue && inputPristine ? '' : inputValue,
-          getOptionLabel,
-        },
-      )
+      options?.filter((option) => {
+        if (
+          filterSelectedOptions &&
+          (multiple ? value : [value]).some(
+            (value2) => value2 !== null && isOptionEqualToValue(option, value2),
+          )
+        ) {
+          return false;
+        }
+        return true;
+      }),
+      // we use the empty string to manipulate `filterOptions` to not filter any options
+      // i.e. the filter predicate always returns true
+      {
+        inputValue: inputValueIsSelectedValue && inputPristine ? '' : inputValue,
+        getOptionLabel,
+      },
+    )
     : [];
 
   const listboxAvailable = open && filteredOptions?.length > 0 && !readOnly;
@@ -252,10 +255,9 @@ export default function useAutocomplete(props) {
         console.warn(
           [
             `MUI: The value provided to ${componentName} is invalid.`,
-            `None of the options match with \`${
-              missingValue.length > 1
-                ? JSON.stringify(missingValue)
-                : JSON.stringify(missingValue[0])
+            `None of the options match with \`${missingValue.length > 1
+              ? JSON.stringify(missingValue)
+              : JSON.stringify(missingValue[0])
             }\`.`,
             'You can use the `isOptionEqualToValue` prop to customize the equality test.',
           ].join('\n'),
@@ -1029,6 +1031,9 @@ export default function useAutocomplete(props) {
     getInputProps: () => ({
       id,
       name,
+      label,
+      size,
+      placeholder,
       value: inputValue,
       onBlur: handleBlur,
       onFocus: handleFocus,

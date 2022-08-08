@@ -10,7 +10,7 @@ group:
 ## 代码演示
 
 
-<!-- ```tsx
+```tsx
 /**
  * title: 基本使用
  */
@@ -30,6 +30,14 @@ export default () => {
   return (
     <Layout>
       <Autocomplete
+        placeholder="请输入"
+        value={value}
+        options={top100Films}
+        onChange={(e, value) => setValue(value)}
+      />
+      <br/><br/>
+      <Autocomplete
+        size="small"
         placeholder="请输入"
         value={value}
         options={top100Films}
@@ -71,6 +79,15 @@ export default () => {
         multiple
         placeholder="请输入"
         value={value}
+        options={top100Films}
+        onChange={handleChange}
+      />
+      <br/><br/>
+      <Autocomplete
+        multiple
+        placeholder="请输入"
+        value={value}
+        size="small"
         options={top100Films}
         onChange={handleChange}
       />
@@ -120,8 +137,7 @@ export default () => {
     </Layout>
   )
 }
-``` -->
-
+``` 
 
 
 ```tsx
@@ -151,7 +167,8 @@ export default () => {
 
   const formProps = useForm({
     initialValues: {
-      keys: [],
+      keys: {},
+      keys: []
     },
      onSubmit: (values) => {
     },
@@ -160,8 +177,15 @@ export default () => {
   return (
     <Layout>
       <Form {...formProps}> 
-        <FormItem name="keys" label="这是一个label" required>
+        <FormItem name="key" label="单选" required>
           <Autocomplete
+            placeholder="请输入"
+            options={top100Films}
+          />
+        </FormItem>
+        <FormItem name="keys" label="多选" required>
+          <Autocomplete
+            multiple
             placeholder="请输入"
             options={top100Films}
           />
