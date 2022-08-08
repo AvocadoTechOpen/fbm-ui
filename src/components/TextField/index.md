@@ -23,7 +23,6 @@ export default () => {
  const nameFieldProps = useTextField({
     label: '姓名',
     size: 'small',
-    value,
     max: 5,
     rules: [{
       required: true,
@@ -39,7 +38,7 @@ export default () => {
 
   return (
     <Layout>
-      <TextField  size="small" />
+      <TextField  size="small" { ...nameFieldProps } />
       <Button onClick={handleSubmit}> 提交 </Button> 
     </Layout>
   )
@@ -87,7 +86,7 @@ export default () => {
 
   return (
     <Layout>
-      <TextField error={dateFieldProps.error}>
+      <TextField error={dateFieldProps.error} label="2342311">
         <Select 
           options={options} 
           {...dateFieldProps.InputProps}

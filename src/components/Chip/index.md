@@ -23,6 +23,8 @@ export default () => {
         <Chip
           color={'primary'}
           label={'小标签'}
+          clickable
+
           size="small"
           sx={{ mr: 3 }}/>
         <Chip
@@ -35,12 +37,15 @@ export default () => {
           color={'primary'}
           label={'大标签'}
           size="large"
+          clickable
+
           sx={{ mr: 3 }}/>
       </Box>
 
        <Box>
         <Chip
           variant="filled"
+          clickable
           color={'primary'}
           label={'小标签'}
           size="small"
@@ -56,6 +61,8 @@ export default () => {
           color={'primary'}
           label={'大标签'}
           size="large"
+          clickable
+
           sx={{ mr: 3 }}/>
       </Box>
     </Demo>
