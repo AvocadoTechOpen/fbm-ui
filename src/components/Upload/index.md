@@ -31,6 +31,9 @@ export default () =>{
     },
     onChange: (info) => {
       console.log(info)
+    },
+    UploadListProps:{
+      nameRender: () => 'asd',
     }
   };
   return (

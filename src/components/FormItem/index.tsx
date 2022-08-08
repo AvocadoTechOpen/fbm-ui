@@ -81,7 +81,6 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   const meta = getFieldMeta?.(name)
   const helpers = getFieldHelpers?.(name)
 
-
   useEffect(() => {
     if (name) {
       registerField?.(name, {
@@ -124,15 +123,43 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     }
   }, [name])
 
+  const triggers = useMemo(() => {
+
+    // 优先使FromItemProps
+    if (triggerProp != null) {
+      return toArray(triggerProp)
+    }
+
+    // useForm 返回的trigger
+    if (trigger != null) {
+      return toArray(trigger)
+    }
+
+    // 默认支持
+    return ['onChange', 'onBlur']
+  }, [triggerProp, trigger])
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (meta?.touched === false) {
-      helpers?.setTouched(true)
+    if (triggers.includes('onChange')) {
+      if (meta?.touched === false) {
+        helpers?.setTouched(true)
+      }
     }
     field?.onChange?.(formatEvent(event))
+    onChange?.(event)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    field?.onBlur?.(formatEvent(event))
+    if (triggers.includes('onBlur')) {
+      field?.onBlur?.(formatEvent(event))
+    }
+    onBlur?.(event)
+  }
+
+  // 触发验证器
+  const triggerEvents = {
+    onChange: handleChange,
+    onBlur: handleBlur,
   }
 
   // ======================= Children =======================
@@ -142,20 +169,6 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     // @ts-ignore
     error,
   }
-
-  // 触发验证器
-  const triggerEvents = {
-    onChange: handleChange,
-    onBlur: handleBlur,
-  }
-
-  const triggers = useMemo(() => {
-    // 优先使FromItemProps
-    if (triggerProp != null) {
-      return toArray(triggerProp)
-    }
-    return toArray(trigger)
-  }, [triggerProp])
 
   if (typeof children === 'function') {
     childNode = children(mergedControl)
@@ -172,11 +185,10 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     if (children?.props?.value === undefined) {
       mergedControl.value = field?.value
     }
-
-    const childProps = { ...children?.props, ...mergedControl };
+    const childProps = { ...children?.props, ...mergedControl, };
 
     // events validate
-    triggers.forEach(eventName => {
+    Object.keys(triggerEvents).forEach(eventName => {
       childProps[eventName] = (event: any) => {
         triggerEvents[eventName]?.(event);
         children.props[eventName]?.(event);

@@ -1,21 +1,28 @@
 import React, { useCallback, useImperativeHandle } from 'react'
-import { TreeView, TreeItem } from '@mui/lab'
+import { TreeView } from '@mui/lab'
 import useTree from './useTree'
 import { isArray, isEmpty } from '../../utils'
 import { DataNode, TreeProps } from './interface'
+
+import { styled } from '../styled'
+import Box from '../Box'
+import { ArrowDropDownIcon, ArrowDropRightIcon } from '../icons'
+import TreeItem from './TreeItem'
 
 // TODO
 const Tree: React.FC<TreeProps> = React.forwardRef((props, ref) => {
   const {
     getNodeLabel,
-    getNodeId
+    getNodeId,
+    defaultCollapseIcon,
+    defaultExpandIcon,
   } = props
 
   const {
     data
   } = useTree(props)
 
-  const renderTree = useCallback((data) => {
+  const renderTreeItems = useCallback((data) => {
     if (isEmpty(data)) return null
 
     return data.map(nodeData => {
@@ -33,25 +40,34 @@ const Tree: React.FC<TreeProps> = React.forwardRef((props, ref) => {
           nodeId={_nodeId}
           label={_label}
         >
-          {renderTree(children)}
+          {renderTreeItems(children)}
         </TreeItem>
       )
     })
   }, [data])
-  
+
 
   useImperativeHandle(ref, () => {
     return {
       // 获取选中的节点数据
-      getSelected: () => {}
+      getSelected: () => { }
     }
   })
-  
+
   return (
-    <TreeView>
-      {renderTree(data)}
+    <TreeView
+      multiSelect={true}
+      defaultExpandIcon={defaultExpandIcon}
+      defaultCollapseIcon={defaultCollapseIcon}
+    >
+      {renderTreeItems(data)}
     </TreeView>
   )
 })
 
+
+Tree.defaultProps = {
+  defaultCollapseIcon: <ArrowDropDownIcon />,
+  defaultExpandIcon: <ArrowDropRightIcon />
+}
 export default Tree;

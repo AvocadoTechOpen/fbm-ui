@@ -31,7 +31,7 @@ import {
 
 export default () => {
   const form = useForm({
-    trigger: 'onChange',
+   
     initialValues: {
       name:'',
       sex: '',
@@ -56,6 +56,7 @@ export default () => {
   ]
 
   const handleChange = (e) => {
+    console.log('----')
   }
 
   return (
@@ -70,13 +71,14 @@ export default () => {
           required
           size="small"
           name='name'
+          trigger="onChange"
           max={10}
+          InputProps={{ autoFocus: true }}
         >
-          <Input  onChange={handleChange}/>
+         <Input />
         </FormItem>
-    
-    
       </Form>
+      
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
           重置
       </Button>

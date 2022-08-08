@@ -69,9 +69,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
       if (isFunction(popover?.handleClose)) {
         popover.handleClose()
       }
-      if (isFunction(onClose)) {
-        onClose()
-      }
+      onClose?.()
     }
 
     let content = contentProp;
@@ -100,6 +98,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
   return (
     <Popover
       content={contentRender}
+      onClose={onClose}
       {...popoverProps}
     >
       {children}
