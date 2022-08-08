@@ -10,7 +10,36 @@ group:
 
 ```jsx
 /**
- * title: 基本
+ * title: 基本 横排展示
+ */
+import * as React from 'react';
+import { 
+  RadioGroup,
+  Radio,
+  Demo,
+} from 'fbm-ui'
+
+export default () => {
+
+  const handleChange = (e) => {
+    console.log(e.target.value)
+  }
+  return (
+    <Demo>
+      <RadioGroup onChange={handleChange} value={'A'} row={false}>
+        <Radio value={'A'} label="A" disabled/>
+        <Radio value={'B'} label="B"/>
+        <Radio value={'C'} label="C"/>
+        <Radio value={'D'} label="D"/>
+      </RadioGroup>
+    </Demo>
+  )
+}
+```
+
+```jsx
+/**
+ * title: 基本 竖排展示
  */
 import * as React from 'react';
 import { 

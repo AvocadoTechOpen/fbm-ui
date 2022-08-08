@@ -55,13 +55,13 @@ const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
     ...(variant === 'outlined' && {
       backgroundColor: '#fff',
       ...(size === 'small' && {
-        padding: '0px 7px',
+        padding: '0px 8px',
       }),
       ...(size === 'medium' && {
-        padding: '4px 15px',
+        padding: '4px 16px',
       }),
       ...(size === 'large' && {
-        padding: '8px 23px',
+        padding: '8px 24px',
       }),
     }),
   }

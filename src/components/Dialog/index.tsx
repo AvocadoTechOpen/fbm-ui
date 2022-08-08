@@ -74,7 +74,7 @@ const DialogContainer: React.FC<DialogContainerProps> = styled(Box)(({
 }: DialogContainerProps) => {
   return {
     width: width || defaultSizes[(size as string)],
-    paddingLeft: '16px',
+    paddingLeft: '24px',
     paddingRight: '16px',
     ...(isNullHeader && {
       paddingTop: '24px',
@@ -109,7 +109,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const Title = () => {
     if (!title) return null
     return (
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, padding: '8px 0' }}>
         <Typography color='black' weight='medium'>
           {title}
         </Typography>
