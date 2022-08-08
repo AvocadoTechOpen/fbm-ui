@@ -169,7 +169,9 @@ const Popover: React.FC<PopoverProps> = React.forwardRef((props, ref) => {
 
   const handleClickAway = (event) => {
     // bugfix: select在popover内打开自动关闭popover 
-    if (event.composedPath().indexOf(document.body) === 0) return
+    if (event.composedPath().indexOf(document.body) === 0) {
+      return
+    }
 
     if (open === false) return
     const bool: boolean | void = onClickAway?.(event)

@@ -78,13 +78,13 @@ export default () => {
   return (
     <Demo>
       <Popconfirm
-        isAway={false}
         title="修改名称"
         content={
           <Box sx={{ width: '360px', }}>
             <TextField {...nameTextField} />
           </Box>
         }
+        onClose={() => console.log('-------')}
         onOk={handleOk}
       >
         <Button >Popconfirm</Button>
