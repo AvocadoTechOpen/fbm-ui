@@ -87,10 +87,6 @@ export default () => {
   return (
     <Layout>
       <TextField error={dateFieldProps.error} label="2342311">
-        <Select 
-          options={options} 
-          {...dateFieldProps.InputProps}
-        />
       </TextField>
       <Button onClick={handleSubmit}> 提交 </Button> 
     </Layout>
@@ -189,45 +185,6 @@ export default () => {
 
 ```
 
-```tsx
-/**
- * title: 基本
- * desc: 基本使用
- */
-import * as React from 'react';
-import { Autocomplete } from '@mui/material'
-import { Layout, rules, Button, SearchIcon, TextField } from 'fbm-ui'
-
-export default () => {
-  const [value, setValue] = React.useState('')
-  const ref = React.useRef(null)
-
-  const top100Films = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Godfather', year: 1972 },
-    { label: 'The Godfather: Part II', year: 1974 },
-    { label: 'The Dark Knight', year: 2008 },
-    { label: '12 Angry Men', year: 1957 },
-    { label: "Schindler's List", year: 1993 },
-    { label: 'Pulp Fiction', year: 1994 },
-  ];
-
-  return (
-    <Layout>
-      <Autocomplete
-        id="combo-box-demo"
-        options={top100Films}
-        sx={{ width: 300 }}
-        renderInput={(params) => {
-          return <TextField {...params}/>
-        }}
-      />
-    </Layout>
-  )
-}
-
-```
-
 
 ```tsx
 /**
@@ -303,6 +260,76 @@ const Example: React.FC<ExampleProps> = React.forwardRef(({
   );
 })
 ```
+
+```tsx
+/**
+ * title: 两种大小
+ * desc: 输入框定义了两种尺寸（默认、小），高度分别为36px和48px。
+ */
+import * as React from 'react';
+import {  Demo, Input, Box} from 'fbm-ui'
+
+export default () => (
+  <Demo grey={true}>
+    <Box sx={{ mb: 2 }}>
+      <Input size="small" placeholder="请输入姓名"  />
+    </Box>
+    <Box>
+      <Input placeholder="请输入姓名"  />
+    </Box>
+  </Demo>
+)
+```
+
+```tsx
+/**
+ * desc: disabled
+ */
+import * as React from 'react';
+import {  Demo, Input, Box } from 'fbm-ui'
+
+export default () => (
+  <Demo>
+    <Input disabled placeholder="请输入姓名" />
+  </Demo>
+)
+```
+
+```tsx
+/**
+ * desc: startAdornment
+ */
+import * as React from 'react';
+import {  Demo, Input, Box, SearchIcon} from 'fbm-ui'
+
+export default () => (
+  <Demo>
+    <Input 
+     
+      startAdornment={
+        <SearchIcon color="disabled" />
+      }
+      placeholder="请输入姓名"
+     />
+  </Demo>
+)
+```
+
+
+```tsx
+/**
+ * desc: StandardInput
+ */
+import * as React from 'react';
+import {  Demo, Input, Box } from 'fbm-ui'
+
+export default () => (
+  <Demo white>
+    <Input variant='standard'  placeholder="请输入姓名" />
+  </Demo>
+)
+```
+
 
 ```tsx
 /**
