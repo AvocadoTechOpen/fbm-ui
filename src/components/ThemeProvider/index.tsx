@@ -18,19 +18,26 @@ export const defaultTheme = {
 export const theme = createTheme(defaultTheme)
 
 interface ThemeProviderProps extends ThemeOptions {
-  theme?: Theme
+  theme?: Theme,
 }
 
-const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, palette }) => {
+
   return (
-    <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={{
+      ...theme,
+      palette: {
+        ...theme.palette,
+        ...palette,
+      }
+    }}>
       {children}
     </MuiThemeProvider>
   )
 }
 
 ThemeProvider.defaultProps = {
-  theme: theme
+  palette: {},
 }
 
 export default ThemeProvider
