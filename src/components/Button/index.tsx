@@ -35,7 +35,14 @@ const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
             theme.palette[color].main,
             theme.palette.action.hoverOpacity,
           ),
-      })
+      }),
+      ...(variant === 'contained' &&
+        color !== 'inherit' && {
+          backgroundColor: alpha(
+            theme.palette[color].main,
+            0.8
+          ),
+      }),
     },
     ...(size === 'small' && {
       padding: '1px 8px',
@@ -48,6 +55,7 @@ const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
         borderColor: 'rgba(0,0,0,.04)',
       },
     }),
+   
     ...(variant === 'text' &&
       color !== 'inherit' && {
       color: theme.palette[color].main,
