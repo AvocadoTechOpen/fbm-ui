@@ -171,17 +171,23 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }
 
   if (typeof children === 'function') {
-    childNode = children(mergedControl)
+    childNode = children({
+      ...mergedControl,
+      ...triggerEvents,
+      value: field?.value,
+      size,
+      label
+    })
   } else if (isValidElement(children)) {
     // 如果children没有lable 则使用formItem.props.lable
     if (children?.props?.label === undefined) {
       mergedControl.label = label
     }
-    // 如果children没有lable 则使用formItem.props.size
+    // 如果children没有value 则使用formItem.props.size
     if (children?.props?.size === undefined) {
       mergedControl.size = size
     }
-    // 如果children没有lable 则使用 field.value
+    // 如果children没有value 则使用 field.value
     if (children?.props?.value === undefined) {
       mergedControl.value = field?.value
     }
