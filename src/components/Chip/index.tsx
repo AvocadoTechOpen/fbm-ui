@@ -11,7 +11,6 @@ const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, colo
       paddingLeft: 11,
       paddingRight: 13,
       fontSize: 14,
-      lineHeight: 1,
     },
     "&:hover": {
       cursor: "pointer",

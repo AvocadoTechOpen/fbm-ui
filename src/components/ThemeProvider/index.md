@@ -31,7 +31,7 @@ export default () =>{
           main: color
         }
       }}>
-         <Button sx={{mr: 1}} >按钮</Button> 
+        <Button sx={{mr: 1}} >按钮</Button> 
         <Button sx={{mr: 1}} variant="text">按钮</Button> 
         <Button sx={{mr: 1}} variant="outlined">按钮</Button> 
         <ThemeProvider palette={{

@@ -28,12 +28,12 @@ export default {
       },
       containedPrimary: {
         '&:hover': {
-          backgroundColor: 'rgba(76,175,80,0.8)',
+          // backgroundColor: 'rgba(76,175,80,0.8)',
         },
       },
       containedError: {
         '&:hover': {
-          backgroundColor: 'rgba(255,108,108,0.8)',
+          // backgroundColor: 'rgba(255,108,108,0.8)',
         },
       },
       sizeSmall: {
