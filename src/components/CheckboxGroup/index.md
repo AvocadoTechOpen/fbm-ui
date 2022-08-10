@@ -51,14 +51,14 @@ import * as React from "react";
 import { CheckboxGroup, Demo, Checkbox } from "fbm-ui";
 
 export default () => {
-  const [value, setValue] = React.useState('B');
+  const [value, setValue] = React.useState([]);
 
-  const handleChange = (value) => {
-    setValue(value);
+  const handleChange = (e) => {
+    setValue(e);
   };
   return (
     <Demo>
-      <CheckboxGroup row={false} onChange={(value) => handleChange(value)} value={value}>
+      <CheckboxGroup row={false} onChange={(_,value) => handleChange(value)} value={value}>
         <Checkbox value={"B"} label="B" disabled/>
         <Checkbox value={"C"} label="C" />
         <Checkbox value={"D"} label="D" />

@@ -14,7 +14,7 @@ group:
  * desc: xs(360px默认) sm(588px) md(800px) lg(960px) xl(1280px)
  */
 import * as React from 'react';
-import { Demo, Dialog, Button, Form, Input} from 'fbm-ui'
+import { Demo, Dialog, Button, Form, Input, Typography} from 'fbm-ui'
 import { useFormik } from 'formik'
 
 const defaultSizes = {
@@ -68,10 +68,10 @@ export default () =>{
           color: 'error'
         }}
       >
-        <span>
+        <Typography>
           依托“AI+视频”面试，助力企业打造独有AI岗位
           模型，精准筛选候选人，提高批量人才质量，从  而提高企业价值。
-        </span >
+        </Typography >
       </Dialog>
     </Demo>
   )
@@ -85,7 +85,7 @@ export default () =>{
  * desc: 基本使用
  */
 import * as React from 'react';
-import { Dialog, Layout, Button, Form, Input} from 'fbm-ui'
+import { Dialog, Layout, Button, Form, Input, Typography} from 'fbm-ui'
 import { useFormik } from 'formik'
 
 const CustomHeader =  ({ onClose }) => (
@@ -103,7 +103,7 @@ const CustomFooter = ({onOK, onClose}) =>(
     display:'flex',
     alignItems: 'center',
   }}>
-      <p style={{ flex:1}}>CustomFooter</p>
+    <Typography style={{ flex:1}}>CustomFooter</Typography>
     <Button onClick={onClose}> 关闭</Button>
   </div>
  )
@@ -130,7 +130,7 @@ export default () =>{
         onClose={() => setOpen1(false)}
         onOk={() => setOpen1(false)}
       >
-        <h1>content</h1 >
+        <Typography>content</Typography>
       </Dialog>
 
       <Button onClick={() => setOpen2(true)}  sx={{mr:2}}> 自定义Footer </Button>
@@ -140,7 +140,7 @@ export default () =>{
         onClose={() => setOpen2(false)}
         onOk={() => setOpen2(false)}
       >
-         <h1>content</h1 >
+         <Typography>content</Typography>
       </Dialog>
     </Layout>
   )
@@ -154,7 +154,7 @@ export default () =>{
  * desc: 基本使用
  */
 import * as React from 'react';
-import { Dialog, Layout, Button, Form, Input} from 'fbm-ui'
+import { Dialog, Layout, Button, Form, Input, Typography} from 'fbm-ui'
 import { useFormik } from 'formik'
 
 export default () =>{
@@ -178,7 +178,7 @@ export default () =>{
         onClose={() => setOpen1(false)}
         onOk={() => setOpen1(false)}
       >
-        <h1>content</h1 >
+        <Typography>content</Typography >
       </Dialog>
 
       <Button onClick={() => setOpen2(true)}  sx={{mr:2}}> 不需要Footer </Button>
@@ -189,7 +189,7 @@ export default () =>{
         onClose={() => setOpen2(false)}
         onOk={() => setOpen2(false)}
       >
-         <h1>content</h1 >
+         <Typography>content</Typography >
       </Dialog>
     </Layout>
   )

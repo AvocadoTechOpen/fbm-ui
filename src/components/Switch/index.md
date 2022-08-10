@@ -27,9 +27,28 @@ export default () =>{
   return (
     <Demo>
       <Switch 
-        label={'switch'}
+        sx={{ mb: 1 }}
+        label={'大尺寸'}
         checked={checked}
         onChange={handleChange}
+      />
+      <br />
+      <Switch 
+        sx={{ mb: 1 }}
+        label={'小尺寸'}
+        size={'small'}
+      />
+      <br />
+      <Switch 
+        sx={{ mb: 2 }}
+        label={'禁用'}
+        disabled
+      />
+      <br />
+      <Switch 
+      label={'禁用'}
+      disabled
+      checked={true}
       />
     </Demo>
   )
