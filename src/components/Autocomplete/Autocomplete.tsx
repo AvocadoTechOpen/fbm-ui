@@ -34,6 +34,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     defaultValue = props.multiple ? [] : null,
     disableClearable = false,
     disabled = false,
+    label,
     disableCloseOnSelect = props.multiple,
     filterOptions,
     filterSelectedOptions = false,
@@ -198,6 +199,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
       {renderInput({
         id,
         disabled,
+        label,
         size: size === 'small' ? 'small' : undefined,
         ref: setAnchorEl,
         startAdornment,

@@ -8,9 +8,7 @@ const Autocomplete = (inProps) => {
   
   return (
     <AutocompleteCore
-      renderInput={(props) => {
-        return (<Input {...props} />)
-      }}
+      renderInput={(props) => <Input {...props} />}
       {...props}
     />
   )
