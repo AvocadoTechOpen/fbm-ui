@@ -92,6 +92,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
             max,
             label: labelProp
           })
+
           return error
         }
       });
@@ -107,24 +108,29 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
     if (meta?.touched) {
       return meta?.error
     }
+
   }, [meta])
 
-  const formatEvent = useCallback((event: React.FocusEvent<HTMLInputElement> | any) => {
-    if (event?.target) {
-      return event
+  const formatEvent = useCallback((event: React.FocusEvent<HTMLInputElement>, newValue) => {
+    let value
+    if (newValue !== undefined) {
+      value = newValue
+    } else if (event?.target?.value !== undefined) {
+      value = event?.target?.value
+    } else {
+      value = event
     }
 
     return {
       target: {
         name,
-        value: event,
+        value: value,
       },
       type: props.type || 'custom',
     }
   }, [name])
 
   const triggers = useMemo(() => {
-
     // 优先使FromItemProps
     if (triggerProp != null) {
       return toArray(triggerProp)
@@ -135,25 +141,25 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
       return toArray(trigger)
     }
 
-    // 默认支持
+    // 默认支持 onChange时验证和onBlur时验证
     return ['onChange', 'onBlur']
   }, [triggerProp, trigger])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (...args) => {
     if (triggers.includes('onChange')) {
       if (meta?.touched === false) {
         helpers?.setTouched(true)
       }
     }
-    field?.onChange?.(formatEvent(event))
-    onChange?.(event)
+    field?.onChange?.(formatEvent(...args))
+    onChange?.(...args)
   }
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (...args) => {
     if (triggers.includes('onBlur')) {
-      field?.onBlur?.(formatEvent(event))
+      field?.onBlur?.(formatEvent(...args))
     }
-    onBlur?.(event)
+    onBlur?.(...args)
   }
 
   // 触发验证器
@@ -195,9 +201,9 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
     // events validate
     Object.keys(triggerEvents).forEach(eventName => {
-      childProps[eventName] = (event: any) => {
-        triggerEvents[eventName]?.(event);
-        children.props[eventName]?.(event);
+      childProps[eventName] = (...arg) => {
+        triggerEvents[eventName]?.(...arg);
+        children.props[eventName]?.(...arg);
       };
     });
 

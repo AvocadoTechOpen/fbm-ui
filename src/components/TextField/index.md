@@ -6,7 +6,7 @@ group:
   title: 数据录入
 ---
 
-# TextField 带验证的输入框
+# TextField 带验证的输入框 （建议使用formItem组件代替TextField）
 ## 代码演示
 
 ```tsx

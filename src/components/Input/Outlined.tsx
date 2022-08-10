@@ -4,7 +4,9 @@ import {
   OutlinedInput as MuiOutlinedInput,
   OutlinedInputProps,
   outlinedInputClasses,
+  autocompleteClasses
 } from '@mui/material'
+
 
 export { OutlinedInputProps } from '@mui/material'
 
@@ -40,9 +42,9 @@ const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ 
     },
     ...(startAdornment && {
       paddingLeft: 4,
-      [`& .${outlinedInputClasses.input}`]: {
-        padding: '10px 12px 11px 4px'
-      },
+      // [`& .${outlinedInputClasses.input}`]: {
+      //   padding: '10px 12px 11px 4px'
+      // },
     }),
   }
 ))

@@ -12,32 +12,56 @@ group:
 
 ```tsx
 /**
- * title: 基本
- * desc: 基本使用
+ * title: 基本使用
  */
 import * as React from 'react';
-import { Layout, rules, Button, SearchIcon, TextField, useInput, Autocomplete} from 'fbm-ui'
-import {
-    CheckBoxItem,
-    AutocompleteContainer,
-    AutocompleteTextField,
-    PopperComponent,
-    AutocompleteChip,
-} from "./index.styles";
+import { Layout, rules, Button,  Autocomplete, Form, FormItem, useForm, Input, TextField } from 'fbm-ui'
+
+export default () => {
+  const [value, setValue] = React.useState()
+  const top100Films = [
+    { label: "The Shawshank Redemption", token: 1994,},
+    { label: "The Godfather", token: 1972 },
+    { label: "The Godfather: Part II", token: 1974 },
+    { label: "The Dark Knight", token: 2008 },
+    { label: "12 Angry Men", token: 1957 },
+    { label: "Schindler's List", token: 1993 },
+  ];
+  return (
+    <Layout>
+      <Autocomplete
+        placeholder="请输入"
+        value={value}
+        options={top100Films}
+        onChange={(e, value) => setValue(value)}
+      />
+      <br/><br/>
+      <Autocomplete
+        size="small"
+        placeholder="请输入"
+        value={value}
+        options={top100Films}
+        onChange={(e, value) => setValue(value)}
+      />
+    </Layout>
+  )
+}
+```
+
+```tsx
+/**
+ * title: 多选
+ */
+import * as React from 'react';
+import { Layout, rules, Button,  Autocomplete, Form, FormItem, useForm, Input } from 'fbm-ui'
+
 export default () => {
   const [value, setValue] = React.useState([])
   const top100Films = [
   {
     label: "The Shawshank Redemption",
     token: 1994,
-    children: [
-      { label: "12312", token: 19993 },
-      { label: "sdcsdacadscdsc", token: 19991 },
-      { label: "1231dsnjnkjnkjnkj2", token: 19992 },
-      { label: "123dsfdcsxtr4312", token: 19993 },
-    ],
   },
-  { label: "The Shawshank Redemption", token: 19943 },
   { label: "The Godfather", token: 1972 },
   { label: "The Godfather: Part II", token: 1974 },
   { label: "The Dark Knight", token: 2008 },
@@ -45,44 +69,129 @@ export default () => {
   { label: "Schindler's List", token: 1993 },
 ];
 
-  // const { 
-  //   error,
-  //   value,
-  //   setValue,
-  // } = useInput({
-  //   value,
-  //   rules: [{ required: true }]
-  // })
-
-  const handleSubmit = () => {
+  const handleChange = (e, value) => {
+    setValue(value)
   }
 
   return (
     <Layout>
       <Autocomplete
-        data={top100Films}
-        // open
+        multiple
+        placeholder="请输入"
         value={value}
-        multiple={true}
         options={top100Films}
-        onChange={(_, newValue) => {
-          setValue(newValue)
-        }}
-        type="check"
-        isOptionEqualToValue={(option, val) => option.token === val.token}
-
-        disableCloseOnSelect
-        renderInput={(params) => {
-          return (
-            <TextField
-            size="small" placeholder="请输入"  
-              {...params}
-            />
-          )
-        }}
+        onChange={handleChange}
+      />
+      <br/><br/>
+      <Autocomplete
+        multiple
+        placeholder="请输入"
+        value={value}
+        size="small"
+        options={top100Films}
+        onChange={handleChange}
       />
     </Layout>
   )
 }
+```
 
+
+
+```tsx
+/**
+ * title: 添加label
+ */
+import * as React from 'react';
+import { Layout, rules, Button, Autocomplete, Form, FormItem, useForm, Input } from 'fbm-ui'
+
+export default () => {
+  const [value, setValue] = React.useState([])
+  const top100Films = [
+  {
+    label: "The Shawshank Redemption",
+    token: 1994,
+  },
+  { label: "The Godfather", token: 1972 },
+  { label: "The Godfather: Part II", token: 1974 },
+  { label: "The Dark Knight", token: 2008 },
+  { label: "12 Angry Men", token: 1957 },
+  { label: "Schindler's List", token: 1993 },
+];
+
+  const handleChange = (e, value) => {
+    setValue(value)
+  }
+
+  return (
+    <Layout>
+      <FormItem label="这是一个label">
+        <Autocomplete
+          multiple
+          placeholder="请输入"
+          value={value}
+          options={top100Films}
+          onChange={handleChange}
+        />
+      </FormItem>
+    </Layout>
+  )
+}
+``` 
+
+
+```tsx
+/**
+ * title: 结合form
+ */
+import * as React from 'react';
+import { Layout,  Button, Autocomplete, Form, FormItem, useForm, Input } from 'fbm-ui'
+
+export default () => {
+  const [value, setValue] = React.useState([])
+  const top100Films = [
+  {
+    label: "The Shawshank Redemption",
+    token: 1994,
+  },
+  { label: "The Godfather", token: 1972 },
+  { label: "The Godfather: Part II", token: 1974 },
+  { label: "The Dark Knight", token: 2008 },
+  { label: "12 Angry Men", token: 1957 },
+  { label: "Schindler's List", token: 1993 },
+];
+
+  const handleChange = (e, value) => {
+    setValue(value)
+  }
+
+  const formProps = useForm({
+    initialValues: {
+      keys: {},
+      keys: []
+    },
+     onSubmit: (values) => {
+    },
+  })
+
+  return (
+    <Layout>
+      <Form {...formProps}> 
+        <FormItem name="key" label="单选" required>
+          <Autocomplete
+            placeholder="请输入"
+            options={top100Films}
+          />
+        </FormItem>
+        <FormItem name="keys" label="多选" required>
+          <Autocomplete
+            multiple
+            placeholder="请输入"
+            options={top100Films}
+          />
+        </FormItem>
+      </Form>
+    </Layout>
+  )
+}
 ```
