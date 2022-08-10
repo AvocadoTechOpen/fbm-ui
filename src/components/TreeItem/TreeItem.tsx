@@ -1,16 +1,17 @@
 import * as React from 'react';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import { elementTypeAcceptingRef } from '@mui/utils';
 import Collapse from '@mui/material/Collapse';
 import { alpha, styled, useThemeProps } from '@mui/material/styles';
 import { ownerDocument, useForkRef, unsupportedProp } from '@mui/material/utils';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
-import TreeViewContext from '@mui/lab/TreeView/TreeViewContext';
-import { DescendantProvider, useDescendant } from '@mui/lab/TreeView/descendants';
+import TreeViewContext from '../TreeView/TreeViewContext';
+import { DescendantProvider, useDescendant } from '../TreeView/descendants';
 import TreeItemContent from './TreeItemContent';
-import treeItemClasses, { getTreeItemUtilityClass } from '@mui/lab/TreeItem/treeItemClasses';
+import treeItemClasses, { getTreeItemUtilityClass } from './treeItemClasses';
 
-import { TreeItemProps } from './interface' 
-
+import {  TreeItemProps  } from './interface'
 
 const useUtilityClasses = (ownerState) => {
   const { classes } = ownerState;
@@ -125,8 +126,7 @@ const TreeItemGroup = styled(Collapse, {
   marginLeft: 17,
 });
 
-const TreeItem:React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inProps, ref) {
-
+const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inProps, ref) {
   const props = useThemeProps({ props: inProps, name: 'MuiTreeItem' });
   const {
     children,
@@ -162,9 +162,7 @@ const TreeItem:React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inPr
     registerNode,
     unregisterNode,
     treeId,
-    selectNode,
   } = React.useContext(TreeViewContext);
-
 
   let id = null;
 
@@ -241,9 +239,6 @@ const TreeItem:React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inPr
     return undefined;
   }, [registerNode, unregisterNode, parentId, index, nodeId, expandable, disabledProp, id]);
 
-  console.log(isSelected(parentId), parentId)
-
-
   React.useEffect(() => {
     if (mapFirstChar && unMapFirstChar && label) {
       mapFirstChar(nodeId, contentRef.current.textContent.substring(0, 1).toLowerCase());
@@ -308,6 +303,7 @@ const TreeItem:React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inPr
         }}
         label={label}
         nodeId={nodeId}
+        multiSelect={multiSelect}
         onClick={onClick}
         onMouseDown={onMouseDown}
         icon={icon}
@@ -322,7 +318,7 @@ const TreeItem:React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inPr
             as={TransitionComponent}
             unmountOnExit
             className={classes.group}
-            in={tru}
+            in={expanded}
             component="ul"
             role="group"
             {...TransitionProps}
@@ -334,5 +330,6 @@ const TreeItem:React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inPr
     </TreeItemRoot>
   );
 });
+
 
 export default TreeItem;

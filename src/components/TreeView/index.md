@@ -15,11 +15,10 @@ group:
  * desc: 基本使用
  */
 import * as React from 'react';
-import { Demo, Tree } from 'fbm-ui'
+import { Demo, TreeView, TreeItem } from 'fbm-ui'
 
 export default () => {
-  const [value, setValue] = React.useState('22:22')
-
+ const [selected, setSelected ] = React.useState([])
  const treeData = [
     {
       label: 'Node1',
@@ -40,11 +39,20 @@ export default () => {
       value: '0-1',
     },
   ];
+
+  const hadnleNodeSelect = (e, nodeIds) => {
+    console.log(nodeIds, '-----')
+    setSelected(nodeIds)
+  }
+
   return (
       <Demo>
-        <Tree 
+        <TreeView 
+          multiSelect 
+          selected={selected}
           data={treeData}
           getNodeId={({ value }) => value}
+          onNodeSelect={hadnleNodeSelect}
         />
       </Demo>
     )

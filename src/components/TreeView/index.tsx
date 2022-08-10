@@ -1,26 +1,19 @@
 import React, { useCallback, useImperativeHandle } from 'react'
-import { TreeView } from '@mui/lab'
-import useTree from './useTree'
 import { isArray, isEmpty } from '../../utils'
-import { DataNode, TreeProps } from './interface'
-
-import { styled } from '../styled'
-import Box from '../Box'
 import { ArrowDropDownIcon, ArrowDropRightIcon } from '../icons'
-import TreeItem from './TreeItem'
+
+import TreeView from './TreeView'
+import TreeItem from '../TreeItem'
+import { TreeViewProps } from './interface'
 
 // TODO
-const Tree: React.FC<TreeProps> = React.forwardRef((props, ref) => {
+const Tree: React.FC<TreeViewProps> = React.forwardRef((props, ref) => {
   const {
+    data,
     getNodeLabel,
     getNodeId,
-    defaultCollapseIcon,
-    defaultExpandIcon,
+    ...TreeViewProps
   } = props
-
-  const {
-    data
-  } = useTree(props)
 
   const renderTreeItems = useCallback((data) => {
     if (isEmpty(data)) return null
@@ -56,9 +49,7 @@ const Tree: React.FC<TreeProps> = React.forwardRef((props, ref) => {
 
   return (
     <TreeView
-      multiSelect={true}
-      defaultExpandIcon={defaultExpandIcon}
-      defaultCollapseIcon={defaultCollapseIcon}
+      {...TreeViewProps}
     >
       {renderTreeItems(data)}
     </TreeView>

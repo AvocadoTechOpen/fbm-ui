@@ -1,5 +1,4 @@
 import { green, red } from '@mui/material/colors'
-import { ThemeOptions } from '@mui/material/styles/createTheme'
 
 const palette = {
   type: 'light',
