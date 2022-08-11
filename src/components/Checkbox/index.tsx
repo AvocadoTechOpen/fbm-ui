@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControlLabel, styled, FormControlLabelProps as MuiFormControlLabelProps, Checkbox as MuiCheckbox, CheckboxProps as MuiCheckboxProps, createChainedFunction } from '@mui/material';
+import { FormControlLabel, styled, FormControlLabelProps as MuiFormControlLabelProps, Checkbox as MuiCheckbox, CheckboxProps as MuiCheckboxProps, createChainedFunction, checkboxClasses } from '@mui/material';
 import useCheckboxGroup from '../CheckboxGroup/useCheckboxGroup'
 
 export interface CheckboxProps {
@@ -18,12 +18,14 @@ function areEqualValues(values, name): boolean {
   return values?.includes?.(name)
 }
 
-const FormControlLabelRoot = styled(FormControlLabel)({
-  '& .MuiCheckbox-root': {
-    width: 42,
-    height: 42,
-  }
-})
+const FormControlLabelRoot = styled(FormControlLabel)(({ theme }) => {
+  return {
+    [`& .${checkboxClasses.root}`]: {
+      width: 42,
+      height: 42,
+    }
+  };
+});
 
 const Checkbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
   const {
