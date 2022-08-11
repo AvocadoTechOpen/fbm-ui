@@ -58,6 +58,10 @@ const DialogRoot: React.FC<MuiDialogProps> = styled(Dialog)({
   }
 })
 
+const BoxRoot: React.FC<MuiDialogProps> = styled(Box)({
+  marginBottom: '16px'
+})
+
 const defaultSizes = {
   'xs': '360px',
   'sm': '588px',
@@ -137,9 +141,9 @@ const Header: React.FC<HeaderProps> = (props) => {
 }
 
 const Content: React.FC = ({ children }) => (
-  <Box>
+  <BoxRoot>
     {children}
-  </Box>
+  </BoxRoot>
 )
 
 const Footer: React.FC<FooterProps> = (props) => {

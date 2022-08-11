@@ -26,7 +26,7 @@ export default () => {
   }
   return (
     <Demo>
-      <RadioGroup onChange={handleChange} value={'A'} row={false}>
+      <RadioGroup onChange={handleChange} row={false}>
         <Radio value={'A'} label="A" disabled/>
         <Radio value={'B'} label="B"/>
         <Radio value={'C'} label="C"/>
