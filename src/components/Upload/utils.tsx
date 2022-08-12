@@ -57,7 +57,9 @@ export const FileIcons = {
   '.jpg': DocImageIcon,
   '.jpeg': DocImageIcon,
   '.html': DocUrlIcon,
-  '.excel': DocExcelIcon
+  '.excel': DocExcelIcon,
+  '.xls': DocExcelIcon,
+  '.xlsx': DocExcelIcon,
 }
 
 export const getFileFormat = (fileName: string): string => {

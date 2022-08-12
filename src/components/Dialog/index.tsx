@@ -58,7 +58,7 @@ const DialogRoot: React.FC<MuiDialogProps> = styled(Dialog)({
   }
 })
 
-const BoxRoot: React.FC<MuiDialogProps> = styled(Box)({
+const DialogContentRoot = styled(Box)({
   marginBottom: '16px'
 })
 
@@ -140,12 +140,6 @@ const Header: React.FC<HeaderProps> = (props) => {
   )
 }
 
-const Content: React.FC = ({ children }) => (
-  <BoxRoot>
-    {children}
-  </BoxRoot>
-)
-
 const Footer: React.FC<FooterProps> = (props) => {
   const {
     footer,
@@ -189,6 +183,7 @@ const FbmDialog: React.FC<DialogProps> = React.forwardRef((inProps, ref) => {
   const isNullFooter = footer === null
 
   return (
+     // @ts-ignore
     <DialogRoot
       open={open}
       TransitionComponent={Fade}
@@ -208,9 +203,9 @@ const FbmDialog: React.FC<DialogProps> = React.forwardRef((inProps, ref) => {
           isShowClose={isShowClose}
           onClose={onClose}
         />
-        <Content>
+        <DialogContentRoot>
           {children}
-        </Content>
+        </DialogContentRoot>
         <Footer
           footer={footer}
           okText={okText}

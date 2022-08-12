@@ -28,6 +28,7 @@ export const useUtilityClasses = (ownerState) => {
     inputRoot: ['inputRoot'],
     input: ['input', inputFocused && 'inputFocused'],
     tag: ['tag', `tagSize${capitalize(size)}`],
+    limitTag: ['limitTag', `limitTag${capitalize(size)}`],
     endAdornment: ['endAdornment'],
     clearIndicator: ['clearIndicator'],
     popupIndicator: ['popupIndicator', popupOpen && 'popupIndicatorOpen'],
@@ -91,7 +92,6 @@ export const AutocompleteNoOptions = styled('div', {
   color: theme.palette.text.secondary,
   padding: '14px 16px',
 }));
-
 
 export const AutocompleteListbox = styled('div', {
   name: 'MuiAutocomplete',
@@ -194,7 +194,24 @@ export const inputRoot = {
   [`&:hover .${autocompleteClasses.clearIndicator}`]: {
     visibility: 'visible',
   },
+  [`&.${inputBaseClasses.sizeSmall} .${autocompleteClasses.endAdornment}`]: {
+    top: '6.5px', // Center vertically
+  },
+
+  // limitTag css
+  [`& .${autocompleteClasses.limitTag}`]: {
+    height: '32px',
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: '8px',
+    marginLeft: '3px',
+  },
+  [`&.${inputBaseClasses.sizeSmall} .${autocompleteClasses.limitTag}`]: {
+    height: '24px',
+    marginTop: '6.5px',
+  },
 }
+
 
 export const AutocompleteEndAdornment = styled('div', {
   name: 'MuiAutocomplete',
@@ -204,7 +221,8 @@ export const AutocompleteEndAdornment = styled('div', {
   // We use a position absolute to support wrapping tags.
   position: 'absolute',
   right: 0,
-  top: 'calc(50% - 14px)', // Center vertically
+  // 默认input框 48
+  top: '11.5px', // Center vertically
 });
 
 export const AutocompleteClearIndicator = styled(IconButton, {
@@ -212,8 +230,9 @@ export const AutocompleteClearIndicator = styled(IconButton, {
   slot: 'ClearIndicator',
   overridesResolver: (props, styles) => styles.clearIndicator,
 })({
-  marginRight: -2,
-  padding: 4,
+  marginRight: 7,
+  padding: 0,
+  color: 'rgba(0, 0, 0, 0.56)',
   visibility: 'hidden',
 });
 
@@ -225,8 +244,9 @@ export const AutocompletePopupIndicator = styled(IconButton, {
     ...(ownerState.popupOpen && styles.popupIndicatorOpen),
   }),
 })(({ ownerState }) => ({
-  padding: 2,
-  marginRight: -2,
+  padding: 0,
+  marginRight: 7,
+  color: 'rgba(0, 0, 0, 0.56)',
   ...(ownerState.popupOpen && {
     transform: 'rotate(180deg)',
   }),

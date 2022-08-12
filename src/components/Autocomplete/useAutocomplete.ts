@@ -90,9 +90,7 @@ export default function useAutocomplete(props) {
     id: idProp,
     includeInputInList = false,
     inputValue: inputValueProp,
-    isOptionEqualToValue = (option, value) => {
-      return option.token === value.token
-    },
+    isOptionEqualToValue = (option, value) => option.value === value.value,
     name,
     label,
     size,

@@ -113,7 +113,7 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
 
   const formatEvent = useCallback((event: React.FocusEvent<HTMLInputElement>, newValue) => {
     let value
-    if (newValue !== undefined) {
+    if (newValue !== undefined && !isValidElement(newValue)) {
       value = newValue
     } else if (event?.target?.value !== undefined) {
       value = event?.target?.value

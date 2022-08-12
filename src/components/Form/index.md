@@ -72,7 +72,13 @@ export default () => {
           name='name'
           max={10}
         />
-        </Form>
+        
+        <FormItem
+          label="性别"
+          name='sex'
+          options={options}
+        />
+      </Form>
       
       <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
           重置
