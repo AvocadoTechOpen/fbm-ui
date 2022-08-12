@@ -164,7 +164,6 @@ export default () => {
       placeholder: '内容',
       multiline: true,
       inputProps: {
-        maxLength: 3,
       }
     }
   })

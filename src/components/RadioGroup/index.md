@@ -10,7 +10,7 @@ group:
 
 ```jsx
 /**
- * title: 基本 横排展示
+ * title: 基本 竖排展示 disabled状态
  */
 import * as React from 'react';
 import { 
@@ -26,11 +26,9 @@ export default () => {
   }
   return (
     <Demo>
-      <RadioGroup onChange={handleChange} row={false}>
+      <RadioGroup onChange={handleChange} row={false} value="B">
         <Radio value={'A'} label="A" disabled/>
-        <Radio value={'B'} label="B"/>
-        <Radio value={'C'} label="C"/>
-        <Radio value={'D'} label="D"/>
+        <Radio value={'B'} label="B" disabled/>
       </RadioGroup>
     </Demo>
   )
@@ -39,7 +37,7 @@ export default () => {
 
 ```jsx
 /**
- * title: 基本 竖排展示
+ * title: 基本 横排展示
  */
 import * as React from 'react';
 import { 
@@ -52,7 +50,7 @@ export default () => {
   return (
     <Demo>
       <RadioGroup>
-        <Radio value={'A'} label="A"/>
+        <Radio value={'A'} label="A"  disabled />
         <Radio value={'B'} label="B"/>
         <Radio value={'C'} label="C"/>
         <Radio value={'D'} label="D"/>

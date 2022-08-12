@@ -30,3 +30,26 @@ export default () => {
   )
 }
 ```
+
+```jsx
+/**
+ * title: 基本 横排展示 禁用状态
+ */
+import * as React from 'react';
+import { 
+  Checkbox,
+  Demo,
+} from 'fbm-ui'
+
+export default () => {
+
+  return (
+    <Demo>
+        <Checkbox value={'A'} label="A" disabled checked/>
+        <Checkbox value={'B'} label="B" disabled />
+        <Checkbox value={'C'} label="C"/>
+        <Checkbox value={'D'} label="D"/>
+    </Demo>
+  )
+}
+```

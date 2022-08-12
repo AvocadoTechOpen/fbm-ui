@@ -13,31 +13,34 @@ import Select from '../Select'
 import { chineseLength } from '../../utils'
 import { FormItemProps, InputLabelProps, HelperProps } from './types'
 
-const FormItemRoot: React.FC<FormControlProps> = styled(FormControl)({
-  display: 'block',
-  height: '84px',
-  '& .MuiInputLabel-root': {
-    background: '#fff',
-    padding: '0 5px',
-  }
-});
-
-const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => ({
-  lineHeight: 1,
-  zIndex: 1,
-  top: '0',
-  ...(variant === 'outlined' && {
-    [`&.${inputLabelClasses.shrink}`]: {
-      transform: 'translate(14px, -5px) scale(0.75)',
-    }
-  }),
-  ...(variant === 'outlined' && size === 'small' && {
-    top: '1px',
-    [`&.${inputLabelClasses.shrink}`]: {
-      transform: 'translate(14px, -7px) scale(0.75)',
-    }
-  })
+const FormItemRoot: React.FC<FormControlProps> = styled(FormControl)(() => ({
+  display: "block",
+  height: "84px",
 }));
+
+const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => {
+  return {
+    lineHeight: 1,
+    zIndex: 1,
+    top: "0",
+    ...(variant === "outlined" && {
+      [`&.${inputLabelClasses.shrink}`]: {
+        transform: "translate(14px, -5px) scale(0.75)",
+      },
+    }),
+    ...(variant === "outlined" &&
+      size === "small" && {
+        top: "1px",
+        [`&.${inputLabelClasses.root}`]: {
+          fontSize: "14px",
+        },
+        [`&.${inputLabelClasses.shrink}`]: {
+          transform: "translate(14px, -7px) scale(0.75)",
+          fontSize: "16px !important",
+        },
+      }),
+  };
+});
 
 const HelperTextRoot = styled(FormHelperText)({
   display: 'flex',

@@ -6,6 +6,7 @@ import type { SelectProps as MuiSelectProps, MenuItemProps } from '@mui/material
 import Input from '../Input'
 import { ArrowDropDownIcon, DoneIcon } from '../icons'
 import Chip from '../Chip'
+import Checkbox from '../Checkbox';
 
 type OptionMap = {
   label: string;
@@ -22,7 +23,6 @@ const SelectRoot = styled(MuiSelect)(({ size }: SelectProps) => {
     [`& .${selectClasses.icon}`]: {
       color: 'rgba(0, 0, 0, 0.56)'
     },
-
     [`& .${selectClasses.select}`]: {
       ...(size === 'small') && {
         padding: '7px 12px 6px 12px',
@@ -57,21 +57,23 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
   } = props
 
   const children = useMemo(() => {
-    if (childrenProp != null) return childrenProp
-
+    if (childrenProp != null) return childrenProp;
+    if (SelectProps.multiple) {
+      return options.map(({ label, value }) => (
+        <MenuItemRoot key={`${value}${label}`} value={value} sx={{ justifyContent: "flex-start" }}>
+          <Checkbox label={label} checked={Array.isArray(valueProp) && valueProp.includes(value)} />
+        </MenuItemRoot>
+      ));
+    }
     return options.map(({ label, value }) => (
       <MenuItemRoot key={`${value}${label}`} value={value}>
-        <LabelRoot>
-          {label || value}
-        </LabelRoot>
-        {
-          Array.isArray(valueProp)
-            ? valueProp.includes(value) && <DoneIcon color="primary" />
-            : value === valueProp && <DoneIcon color="primary" />
-        }
+        <LabelRoot>{label || value}</LabelRoot>
+        {Array.isArray(valueProp)
+          ? valueProp.includes(value) && <DoneIcon color="primary" />
+          : value === valueProp && <DoneIcon color="primary" />}
       </MenuItemRoot>
-    ))
-  }, [options, childrenProp, valueProp])
+    ));
+  }, [options, childrenProp, valueProp]);
 
   const optionMaps = useMemo(() => {
     const _maps = {};
