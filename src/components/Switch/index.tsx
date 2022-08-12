@@ -29,7 +29,7 @@ const CustomSwitch = styled(MuiSwitch)(({ theme, size }) => {
       margin: 1,
       transitionDuration: '300ms',
       [`&.${switchClasses.checked}`]: {
-        transform: 'translateX(14.5px)',
+        transform: 'translateX(14px)',
         color: '#fff',
         [`& + .${switchClasses.track}`]: {
           backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',

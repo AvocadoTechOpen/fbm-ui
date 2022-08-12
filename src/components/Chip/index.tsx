@@ -37,6 +37,10 @@ const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, colo
         paddingRight: 7,
         fontSize: 12,
       },
+      [`& .${chipClasses.avatar}`]: {
+        width: 18,
+        height: 18
+      },
       [`& .${chipClasses.deleteIconMedium}`]: {
         fontSize: 14,
       },
