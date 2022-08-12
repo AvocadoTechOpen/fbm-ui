@@ -1,5 +1,5 @@
 import React from 'react'
-import FormItem from '../FormItem'
+import FormItem from '../FormItem/FormItem'
 import { FormItemProps } from '../FormItem/types'
 import { InputProps } from '../Input'
 
@@ -20,9 +20,5 @@ const TextField: React.FC<TextFieldProps> = React.forwardRef((props,  ref) => (
     {...props}
   />
 ))
-
-TextField.defaultProps = {
-  fast: false,
-}
 
 export default TextField

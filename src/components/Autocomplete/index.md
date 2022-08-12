@@ -20,12 +20,12 @@ import { Layout, rules, Button,  Autocomplete, Form, FormItem, useForm, Input, T
 export default () => {
   const [value, setValue] = React.useState()
   const top100Films = [
-    { label: "The Shawshank Redemption", token: 1994,},
-    { label: "The Godfather", token: 1972 },
-    { label: "The Godfather: Part II", token: 1974 },
-    { label: "The Dark Knight", token: 2008 },
-    { label: "12 Angry Men", token: 1957 },
-    { label: "Schindler's List", token: 1993 },
+    { label: "The Shawshank Redemption", value: 1994,},
+    { label: "The Godfather", value: 1972 },
+    { label: "The Godfather: Part II", value: 1974 },
+    { label: "The Dark Knight", value: 2008 },
+    { label: "12 Angry Men", value: 1957 },
+    { label: "Schindler's List", value: 1993 },
   ];
   return (
     <Layout>
@@ -60,13 +60,13 @@ export default () => {
   const top100Films = [
   {
     label: "The Shawshank Redemption",
-    token: 1994,
+    value: 1994,
   },
-  { label: "The Godfather", token: 1972 },
-  { label: "The Godfather: Part II", token: 1974 },
-  { label: "The Dark Knight", token: 2008 },
-  { label: "12 Angry Men", token: 1957 },
-  { label: "Schindler's List", token: 1993 },
+  { label: "The Godfather", value: 1972 },
+  { label: "The Godfather: Part II", value: 1974 },
+  { label: "The Dark Knight", value: 2008 },
+  { label: "12 Angry Men", value: 1957 },
+  { label: "Schindler's List", value: 1993 },
 ];
 
   const handleChange = (e, value) => {
@@ -81,6 +81,7 @@ export default () => {
         value={value}
         options={top100Films}
         onChange={handleChange}
+        limitTags={1}
       />
       <br/><br/>
       <Autocomplete
@@ -90,6 +91,7 @@ export default () => {
         size="small"
         options={top100Films}
         onChange={handleChange}
+         limitTags={1}
       />
     </Layout>
   )
@@ -110,13 +112,13 @@ export default () => {
   const top100Films = [
   {
     label: "The Shawshank Redemption",
-    token: 1994,
+    value: 1994,
   },
-  { label: "The Godfather", token: 1972 },
-  { label: "The Godfather: Part II", token: 1974 },
-  { label: "The Dark Knight", token: 2008 },
-  { label: "12 Angry Men", token: 1957 },
-  { label: "Schindler's List", token: 1993 },
+  { label: "The Godfather", value: 1972 },
+  { label: "The Godfather: Part II", value: 1974 },
+  { label: "The Dark Knight", value: 2008 },
+  { label: "12 Angry Men", value: 1957 },
+  { label: "Schindler's List", value: 1993 },
 ];
 
   const handleChange = (e, value) => {
@@ -152,13 +154,13 @@ export default () => {
   const top100Films = [
   {
     label: "The Shawshank Redemption",
-    token: 1994,
+    value: 1994,
   },
-  { label: "The Godfather", token: 1972 },
-  { label: "The Godfather: Part II", token: 1974 },
-  { label: "The Dark Knight", token: 2008 },
-  { label: "12 Angry Men", token: 1957 },
-  { label: "Schindler's List", token: 1993 },
+  { label: "The Godfather", value: 1972 },
+  { label: "The Godfather: Part II", value: 1974 },
+  { label: "The Dark Knight", value: 2008 },
+  { label: "12 Angry Men", value: 1957 },
+  { label: "Schindler's List", value: 1993 },
 ];
 
   const handleChange = (e, value) => {
@@ -188,6 +190,7 @@ export default () => {
             multiple
             placeholder="请输入"
             options={top100Films}
+            disableCloseOnSelect={true}
           />
         </FormItem>
       </Form>

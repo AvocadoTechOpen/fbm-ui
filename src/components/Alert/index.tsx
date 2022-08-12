@@ -35,6 +35,7 @@ const AlertRoot:React.FC<AlertProps> = styled(MuiAlert)(({ theme, type }: AlertR
     padding: '4px 16px',
     border: '1px solid',
     borderColor: theme.palette[type].main,
+    // @ts-ignore
     backgroundColor: theme?.custom?.bgColor[type],
   }
 })

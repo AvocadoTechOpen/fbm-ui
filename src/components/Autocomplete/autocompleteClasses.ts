@@ -51,6 +51,7 @@ export interface AutocompleteClasses {
   groupUl: string;
   optionLabel: string;
   optioncheckedIcon: string;
+  limitTag: string;
 }
 
 export type AutocompleteClassKey = keyof AutocompleteClasses;
@@ -87,6 +88,7 @@ const autocompleteClasses: AutocompleteClasses = generateUtilityClasses('MuiAuto
   'optioncheckedIcon',
   'groupLabel',
   'groupUl',
+  'limitTag',
 ]);
 
 export default autocompleteClasses;

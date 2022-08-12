@@ -143,7 +143,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     if (!focused && more > 0) {
       startAdornment = startAdornment.splice(0, limitTags);
       startAdornment.push(
-        <span className={classes.tag} key={startAdornment.length}>
+        <span className={classes.limitTag} key={startAdornment.length}>
           {getLimitTagsText(more)}
         </span>,
       );
