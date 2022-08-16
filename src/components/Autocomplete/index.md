@@ -198,3 +198,125 @@ export default () => {
   )
 }
 ```
+```tsx
+/**
+ * title: 扩展其他样式
+ */
+import * as React from "react";
+import { Layout, Autocomplete, FormItem, Input, Chip, Checkbox, Typography, Box } from "fbm-ui";
+import { ListSubheader, styled } from "@mui/material";
+
+export default () => {
+  const [value, setValue] = React.useState([]);
+  const params = [
+    {
+      department_name: "three-112121",
+      department_token: "XFrztsUtkWlpZtKFv4LgREMRXK",
+      position_list: [
+        {
+          position_name: "three-1分部职位哈哈哈哈很好顶顶顶顶的的",
+          position_token: "fNaYYNBbdwCzzWsg1m7UREMS3Y",
+          refer_position_id: 0,
+          refer_position_token: "",
+          refer_department_id: 0,
+          refer_department_name: "21312321",
+          refer_department_token: "说的VCDSV但是dsfcds",
+          is_shadow_position: 0,
+        },
+        {
+          position_name: "three-都是错的撒川师大CAD是",
+          position_token: "23e342321321vdscvdscd",
+          refer_position_id: 0,
+          refer_position_token: "",
+          refer_department_id: 0,
+          refer_department_name: "21312321",
+          refer_department_token: "说的VCDSV但是dsfcds",
+          is_shadow_position: 0,
+        },
+      ],
+    },
+    {
+      department_name: "21321312",
+      department_token: "12312321",
+      position_list: [
+        {
+          position_name: "three-12312312321321",
+          position_token: "dvsdvdfvdfvdf",
+          refer_position_id: 0,
+          refer_position_token: "",
+          refer_department_id: 0,
+          refer_department_name: "dfvfd",
+          refer_department_token: "dsvcdscds",
+          is_shadow_position: 0,
+        },
+        {
+          position_name: "csdcsdcsdcds-d",
+          position_token: "scdscsdcsdcsdc",
+          refer_position_id: 0,
+          refer_position_token: "",
+          refer_department_id: 0,
+          refer_department_name: "21312321",
+          refer_department_token: "说的VCDSV但是dsfcds",
+          is_shadow_position: 0,
+        },
+      ],
+    },
+  ];
+  const data =
+    params?.reduce(
+      (p, c) => [
+        ...p,
+        ...c.position_list.map((v) => ({
+          ...v,
+          positionName: c.department_name,
+          positionToken: c.department_token,
+          name: v.position_name,
+          token: v.position_token,
+        })),
+      ],
+      []
+    ) || [];
+
+  const handleChange = (_, value) => {
+    setValue(value);
+  };
+
+  return (
+    <Layout>
+      <FormItem label="应用步骤">
+      <Autocomplete
+        multiple
+        size="large"
+        disableCloseOnSelect
+        options={data}
+        value={value || []}
+        groupBy={(option) => `${option?.positionName}--${option?.positionToken}`}
+        renderGroup={(params) => {
+          const groupName = params.group.replace(/--\w+/, "");
+          return (
+            <li key={params.key}>
+              <ListSubheader component="div">{groupName}</ListSubheader>
+              <div>{params.children}</div>
+            </li>
+          );
+        }}
+        isOptionEqualToValue={(option, value) =>
+          option?.positionToken === value?.positionToken && option?.token === value?.token
+        }
+        getOptionLabel={(option) => option?.name}
+        getOptionDisabled={(option) => option?.hasTemplate && token !== option?.template?.token}
+        onChange={(_, e) => handleChange(_, e)}
+        renderOption={(props, option, { selected }) => (
+          <li {...props} style={{ paddingLeft: 40 }}>
+            <Box height={24} display="flex" alignItems="center">
+              <Checkbox checked={selected} color="primary" />
+              <Typography variant="body2">{option.name}</Typography>
+            </Box>
+          </li>
+        )}
+      />
+      </FormItem>
+    </Layout>
+  );
+};
+```
