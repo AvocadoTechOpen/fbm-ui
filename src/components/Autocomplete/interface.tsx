@@ -232,5 +232,5 @@ export interface AutocompleteProps<
    */
   sx?: SxProps<Theme>;
 
-  label:
+  label: string;
 }
