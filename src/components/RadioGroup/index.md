@@ -17,6 +17,7 @@ import {
   RadioGroup,
   Radio,
   Demo,
+  FormItem
 } from 'fbm-ui'
 
 export default () => {
@@ -26,10 +27,12 @@ export default () => {
   }
   return (
     <Demo>
-      <RadioGroup onChange={handleChange} row={false} value="B">
-        <Radio value={'A'} label="A" disabled/>
-        <Radio value={'B'} label="B" disabled/>
-      </RadioGroup>
+      <FormItem>
+        <RadioGroup onChange={handleChange} row={false} value="B">
+          <Radio value={'A'} label="A" disabled/>
+          <Radio value={'B'} label="B" disabled/>
+        </RadioGroup>
+      </FormItem>
     </Demo>
   )
 }

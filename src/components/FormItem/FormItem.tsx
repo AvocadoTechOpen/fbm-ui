@@ -194,7 +194,7 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
       {...FormControlProps}
     >
       <Label
-        variant={(variant as InputLabelProps['variant'])}
+        variant={variant}
         htmlFor={htmlFor}
         size={size}
         {...LabelPropsProp}

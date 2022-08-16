@@ -150,7 +150,7 @@ export const AutocompleteListbox = styled('div', {
         },
       },
       '&[aria-multiple="true"]': {
-        paddingLeft: 4
+        padding: 0,
       },
     },
   })

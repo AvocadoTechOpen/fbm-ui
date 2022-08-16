@@ -76,7 +76,17 @@ const FormItemIndex: React.FC<FormItemProps> = React.forwardRef((props, ref) => 
   }, [labelProp])
 
 
-  const { registerField, unregisterField, getFieldProps, getFieldMeta, getFieldHelpers, fast = fastProp, trigger } = (useFormikContext?.() || {})
+  const {
+    registerField,
+    unregisterField,
+    getFieldProps,
+    getFieldMeta,
+    getFieldHelpers,
+    // 是否使用shouldMemoUpdate进行优化
+    fast = fastProp,
+    // 触发验证时机
+    trigger
+  } = (useFormikContext?.() || {})
   const field = getFieldProps?.({ name })
   const meta = getFieldMeta?.(name)
   const helpers = getFieldHelpers?.(name)

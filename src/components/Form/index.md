@@ -34,7 +34,7 @@ export default () => {
     initialValues: {
       name:'',
       sex: '',
-      type: 1,
+      radios: 1964,
       keys: [],
       radio: '',
       isProgress: false,
@@ -43,15 +43,17 @@ export default () => {
     },
   })
 
-  const options = [
+  const mockOptions = [
     {
-      label: '女',
-      value: 1
+      label: 'Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb',
+      value: 1964,
     },
-    {
-      label: '男',
-      value: 2
-    }
+    { label: 'The Great Dictator', value: 1940 },
+    { label: 'The Lives of Others', value: 2006 },
+    { label: 'Grave of the Fireflies', value: 1988 },
+    { label: 'Paths of Glory', value: 1957 },
+    { label: 'Django Unchained', value: 2012 },
+    { label: 'The Shining', value: 1980 },
   ]
 
   const handleChange = (e) => {
@@ -66,21 +68,26 @@ export default () => {
     
       <Form {...form}>
         <FormItem
-          label="名称"
+          label='名称'
           required
-          size="small"
           name='name'
           max={10}
         />
-        
         <FormItem
-          label="性别"
+          label='性别'
           name='sex'
-          options={options}
+          required
+          options={mockOptions}
         />
+        <FormItem 
+          name='radios' 
+          label='Radios'
+        >
+          <RadioGroup row={false} onChange={handleChange} options={mockOptions} />
+        </FormItem>
       </Form>
       
-      <Button onClick={form.handleReset} variant="outlined" sx={{ mr:1 }}>
+      <Button onClick={form.handleReset} variant='outlined' sx={{ mr:1 }}>
           重置
       </Button>
       <Button onClick={form.handleSubmit}>
