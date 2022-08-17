@@ -28,7 +28,7 @@ const FormControlLabelRoot = styled(FormControlLabel)(({ theme }) => {
       },
     },
     [`& .${checkboxClasses.disabled}`]: {
-      color: "rgba(0,0,0,.12)",
+      color: "rgba(0,0,0,.12) !important",
     },
   };
 });

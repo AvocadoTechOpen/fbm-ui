@@ -94,7 +94,7 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
       input={<Input label={label} />}
       renderValue={(value) => {
         if (Array.isArray(value)) {
-          return value?.map((v) => <Chip sx={{ mr: '3px' }} label={optionMaps[v]} />)
+          return value?.map((v) => <Chip sx={{ mr: '3px' }} size={SelectProps.size === "small" ? 'medium' : 'large' } label={optionMaps[v]} />)
         }
         return optionMaps[value as string]
       }}
