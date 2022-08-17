@@ -4,13 +4,12 @@ import {
   OutlinedInput as MuiOutlinedInput,
   OutlinedInputProps,
   outlinedInputClasses,
-  autocompleteClasses
 } from '@mui/material'
 
 
 export { OutlinedInputProps } from '@mui/material'
 
-const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ theme, startAdornment, size }) => (
+const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ theme, startAdornment, endAdornment,  size }) => (
   {
     backgroundColor: '#FFF',
     padding: 0,
@@ -21,7 +20,7 @@ const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ 
       borderColor: 'rgba(0,0,0,0.26)',
     },
     [`& .${outlinedInputClasses.input}`]: {
-      padding: '12.5px 12px'
+      padding: '12.5px 12px',
     },
     ...(size === 'small' && {
       [`& .${outlinedInputClasses.input}`]: {
@@ -41,11 +40,18 @@ const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ 
       backgroundColor: theme.palette.action.disabledBackground
     },
     ...(startAdornment && {
-      paddingLeft: 4,
+      paddingLeft: 12,
       // [`& .${outlinedInputClasses.input}`]: {
-      //   padding: '10px 12px 11px 4px'
+      //   paddingLeft: '0',
       // },
     }),
+    ...(endAdornment && {
+      paddingRight: 12,
+      // [`& .${outlinedInputClasses.input}`]: {
+      //   paddingRight: '0',
+      // },
+    }),
+    
   }
 ))
 

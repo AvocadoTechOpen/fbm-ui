@@ -38,7 +38,7 @@ export default () => {
 
   return (
     <Layout>
-      <TextField  size="small" { ...nameFieldProps } />
+      <TextField disabled  size="small" { ...nameFieldProps } />
       <Button onClick={handleSubmit}> 提交 </Button> 
     </Layout>
   )

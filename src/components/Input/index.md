@@ -14,7 +14,8 @@ group:
  * desc: 输入框定义了两种尺寸（默认、小），高度分别为36px和48px。
  */
 import * as React from 'react';
-import {  Demo, Input, Box} from 'fbm-ui'
+import {  Demo, Input, Box, SearchIcon } from 'fbm-ui'
+import { InputAdornment } from '@mui/material'
 
 export default () => (
   <Demo grey={true}>
@@ -22,7 +23,7 @@ export default () => (
       <Input size="small" placeholder="请输入姓名"  />
     </Box>
     <Box>
-      <Input placeholder="请输入姓名"  />
+      <Input placeholder="请输入姓名"   endAdornment={'%'} />
     </Box>
   </Demo>
 )
@@ -47,15 +48,32 @@ export default () => (
  * desc: startAdornment
  */
 import * as React from 'react';
-import {  Demo, Input, Box, SearchIcon} from 'fbm-ui'
+import {  Demo, Input, Box, SearchIcon, IconButton} from 'fbm-ui'
+import InputAdornment from '@mui/material/InputAdornment';
 
 export default () => (
   <Demo>
     <Input 
-     
       startAdornment={
-        <SearchIcon color="disabled" />
+        <InputAdornment position="start">
+          <IconButton
+            aria-label="toggle password visibility"
+            edge="start"
+          >
+            <SearchIcon color="disabled" />
+          </IconButton>
+        </InputAdornment>
       }
+     endAdornment={
+        <InputAdornment position="end">
+               <IconButton
+                  aria-label="toggle password visibility"
+                  edge="end"
+                >
+                 <SearchIcon color="disabled" />
+                </IconButton>
+                </InputAdornment>
+            }
       placeholder="请输入姓名"
      />
   </Demo>

@@ -179,11 +179,13 @@ export const AutocompleteGroupUl = styled('ul', {
 export const inputRoot = {
   flexWrap: 'wrap',
   alignItems: 'start',
+  paddingLeft: 0,
+  paddingRight: '62px',
   [`& .${autocompleteClasses.input}`]: {
     width: 0,
-    minWidth: 30,
+    minWidth: '30px',
     flexGrow: 1,
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
   },
   [`& .${chipClasses.root}`]: {
     margin: '8px 0 0 4px'
@@ -222,7 +224,7 @@ export const AutocompleteEndAdornment = styled('div', {
   position: 'absolute',
   right: 0,
   // 默认input框 48
-  top: '11.5px', // Center vertically
+  top: '11.5px',
 });
 
 export const AutocompleteClearIndicator = styled(IconButton, {
