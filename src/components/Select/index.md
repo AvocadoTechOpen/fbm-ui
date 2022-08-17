@@ -40,9 +40,14 @@ export default () => {
       <FormItem label="年龄" error={!age} extra={!age ? '请选择': ''}>
         <Select value={age} options={options} onChange={handleChange}></Select>
       </FormItem>
-
       <FormItem label="年龄" size="small">
         <Select value={age}  options={options} onChange={handleChange} disabled></Select>
+      </FormItem>
+       <FormItem label="年龄" size="large">
+        <Select value={age}  options={options} onChange={handleChange} disabled></Select>
+      </FormItem>
+       <FormItem label="年龄" size="small">
+        <Select value={age}  options={options} onChange={handleChange}></Select>
       </FormItem>
     </Layout>
   );
@@ -150,6 +155,7 @@ export default () => {
   return (
     <Layout>
       <Select size="large" value={age} multiple={true} options={options} onChange={handleChange}></Select>
+      <Select size="small" value={age} multiple={true} options={options} onChange={handleChange}></Select>
     </Layout>
   );
 };
