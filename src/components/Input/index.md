@@ -23,7 +23,7 @@ export default () => (
       <Input size="small" placeholder="请输入姓名"  />
     </Box>
     <Box>
-      <Input placeholder="请输入姓名"   endAdornment={'%'} />
+      <Input placeholder="请输入姓名" />
     </Box>
   </Demo>
 )
@@ -45,35 +45,17 @@ export default () => (
 
 ```tsx
 /**
- * desc: startAdornment
+ * title: 修饰输入框
+ * desc: startAdornment and endAdornment
  */
 import * as React from 'react';
-import {  Demo, Input, Box, SearchIcon, IconButton} from 'fbm-ui'
-import InputAdornment from '@mui/material/InputAdornment';
+import {  Demo, Input, Box, SearchIcon, CloseIcon, IconButton, InputAdornment } from 'fbm-ui'
 
 export default () => (
   <Demo>
     <Input 
-      startAdornment={
-        <InputAdornment position="start">
-          <IconButton
-            aria-label="toggle password visibility"
-            edge="start"
-          >
-            <SearchIcon color="disabled" />
-          </IconButton>
-        </InputAdornment>
-      }
-     endAdornment={
-        <InputAdornment position="end">
-               <IconButton
-                  aria-label="toggle password visibility"
-                  edge="end"
-                >
-                 <SearchIcon color="disabled" />
-                </IconButton>
-                </InputAdornment>
-            }
+      startAdornment={<InputAdornment position="start">kg</InputAdornment>}
+      endAdornment={'%'}
       placeholder="请输入姓名"
      />
   </Demo>

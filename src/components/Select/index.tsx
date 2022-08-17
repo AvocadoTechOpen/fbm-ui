@@ -1,6 +1,6 @@
 
 import React, { useMemo } from 'react';
-import { Select as MuiSelect, Box, selectClasses, MenuItem, styled, SelectChangeEvent } from '@mui/material'
+import { Select as MuiSelect, Box, selectClasses, MenuItem, styled } from '@mui/material'
 import type { SelectProps as MuiSelectProps, MenuItemProps } from '@mui/material'
 
 import Input from '../Input'

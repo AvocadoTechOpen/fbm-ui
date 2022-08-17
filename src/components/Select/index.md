@@ -38,7 +38,7 @@ export default () => {
   return (
     <Layout>
       <FormItem label="年龄" error={!age} extra={!age ? '请选择': ''}>
-        <Select value={age} options={options} onChange={handleChange} />
+        <Select value={age} options={options} onChange={handleChange}></Select>
       </FormItem>
       <FormItem label="年龄" size="small">
         <Select value={age}  options={options} onChange={handleChange} disabled />

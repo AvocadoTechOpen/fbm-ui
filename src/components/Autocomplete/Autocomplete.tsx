@@ -27,7 +27,6 @@ export { createFilterOptions };
 type IProps = AutocompleteProps<any, boolean | undefined, boolean | undefined, boolean | undefined>
 
 const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
-
   const {
     ChipProps,
     clearIcon = <CloseIcon />,

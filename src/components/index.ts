@@ -126,3 +126,5 @@ export * from './CheckboxGroup'
 // export { default as TreeItem } from './TreeItem'
 
 export { default as Autocomplete } from './Autocomplete'
+
+export { default as InputAdornment } from '@mui/material/InputAdornment'
