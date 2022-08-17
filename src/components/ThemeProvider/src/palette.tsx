@@ -63,8 +63,7 @@ const palette = {
   text: {
     primary: 'rgba(0, 0, 0, 0.86)',
     secondary: 'rgba(0, 0, 0, 0.56)',
-    disabled: 'rgba(0, 0, 0, 0.26)',
-
+    disabled: 'rgba(0, 0, 0, 0.12)',
     hint: 'rgba(0, 0, 0, 0.26)',
     link: '#576B95',
   },
@@ -79,7 +78,7 @@ const palette = {
     hoverOpacity: 0.04,
     selected: 'rgba(0, 0, 0, 0.08)',
     selectedOpacity: 0.08,
-    disabled: 'rgba(0, 0, 0, 0.26)',
+    disabled: 'rgba(0, 0, 0, 0.12)',
     disabledBackground: 'rgba(0, 0, 0, 0.04)',
     disabledOpacity: 0.26,
     focus: 'rgba(0, 0, 0, 0.12)',

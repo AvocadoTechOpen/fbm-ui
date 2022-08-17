@@ -193,6 +193,7 @@ export default () => {
             disableCloseOnSelect={true}
           />
         </FormItem>
+        <Input />
       </Form>
     </Layout>
   )
@@ -304,16 +305,9 @@ export default () => {
           option?.positionToken === value?.positionToken && option?.token === value?.token
         }
         getOptionLabel={(option) => option?.name}
+        getGroupName={(option) => option?.name}
         getOptionDisabled={(option) => option?.hasTemplate && token !== option?.template?.token}
         onChange={(_, e) => handleChange(_, e)}
-        renderOption={(props, option, { selected }) => (
-          <li {...props} style={{ paddingLeft: 40 }}>
-            <Box height={24} display="flex" alignItems="center">
-              <Checkbox checked={selected} color="primary" />
-              <Typography variant="body2">{option.name}</Typography>
-            </Box>
-          </li>
-        )}
       />
       </FormItem>
     </Layout>

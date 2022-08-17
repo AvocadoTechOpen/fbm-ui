@@ -86,7 +86,8 @@ export default () => {
 
   return (
     <Layout>
-      <TextField error={dateFieldProps.error} label="2342311">
+      <TextField error={dateFieldProps.error} label="2342311"   size="small"
+          endAdornment="%">
       </TextField>
       <Button onClick={handleSubmit}> 提交 </Button> 
     </Layout>
