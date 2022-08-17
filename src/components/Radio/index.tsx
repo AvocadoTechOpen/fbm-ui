@@ -18,8 +18,11 @@ const FormControlLabelRoot = styled(FormControlLabel)(() => ({
   "& .MuiFormControlLabel-label": {
     fontSize: 14,
   },
-  [`&.${radioClasses.disabled}`]: {
-    color: "rgba(0,0,0,.12)",
+  '& .MuiRadio-root': {
+    color: 'rgba(0,0,0,.26)',
+  },
+  [`&.${radioClasses.checked}`]: {
+    color: '#4caf50',
   },
 }));
 
@@ -56,7 +59,7 @@ Radio.defaultProps = {
   size: 'medium',
   label: '',
   checkedIcon: <RadioCheckedIcon />,
-  icon: <RadioIcon sx={{ color: 'rgba(0,0,0,.26)' }}/>,
+  icon: <RadioIcon />,
 }
 
 export default Radio;
