@@ -941,6 +941,7 @@ export default function useAutocomplete(props) {
       handleClose(event, 'toggleInput');
     } else {
       handleOpen(event);
+      inputRef.current.focus();
     }
   };
 

@@ -21,7 +21,7 @@ import { Select, Layout, FormItem } from "fbm-ui";
 import { MenuItem, FormControl, InputLabel } from "@mui/material";
 
 export default () => {
-  const [age, setAge] = React.useState("");
+  const [age, setAge] = React.useState([]);
   const options = [
     { label: "等于", value: "eq" },
     { label: "不等于", value: "notEq" },
@@ -41,13 +41,13 @@ export default () => {
         <Select value={age} options={options} onChange={handleChange}></Select>
       </FormItem>
       <FormItem label="年龄" size="small">
-        <Select value={age}  options={options} onChange={handleChange} disabled></Select>
+        <Select value={age}  options={options} onChange={handleChange} disabled />
       </FormItem>
        <FormItem label="年龄" size="large">
-        <Select value={age}  options={options} onChange={handleChange} disabled></Select>
+        <Select value={age}  options={options} onChange={handleChange} disabled />
       </FormItem>
        <FormItem label="年龄" size="small">
-        <Select value={age}  options={options} onChange={handleChange}></Select>
+        <Select value={age}  options={options} onChange={handleChange} />
       </FormItem>
     </Layout>
   );

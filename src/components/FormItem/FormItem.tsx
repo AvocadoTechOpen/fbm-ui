@@ -13,9 +13,9 @@ import Select from '../Select'
 import { chineseLength } from '../../utils'
 import { FormItemProps, InputLabelProps, HelperProps } from './types'
 
-const FormItemRoot: React.FC<FormControlProps> = styled(FormControl)(() => ({
-  display: "block",
-  height: "84px",
+const FormItemRoot = styled(FormControl)(() => ({
+  display: 'block',
+  height: '84px',
 }));
 
 const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => {
@@ -27,20 +27,20 @@ const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => {
     [`&.${inputLabelClasses.disabled}`]: {
       color: 'rgba(0, 0, 0, 0.26)',
     },
-    ...(variant === "outlined" && {
+    ...(variant === 'outlined' && {
       [`&.${inputLabelClasses.shrink}`]: {
         transform: "translate(14px, -5px) scale(0.75)",
       },
     }),
-    ...(variant === "outlined" &&
-      size === "small" && {
-        top: "1px",
+    ...(variant === 'outlined' &&
+      size === 'small' && {
+        top: '1px',
         [`&.${inputLabelClasses.root}`]: {
-          fontSize: "14px",
+          fontSize: '14px',
         },
         [`&.${inputLabelClasses.shrink}`]: {
-          transform: "translate(14px, -7px) scale(0.75)",
-          fontSize: "16px !important",
+          transform: 'translate(14px, -7px) scale(0.75)',
+          fontSize: '16px !important',
         },
       }),
   };
@@ -90,7 +90,7 @@ const Helper: React.FC<HelperProps> = (props) => {
   )
 }
 
-const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
+const FormItem: React.FC<FormItemProps> = React.forwardRef<HTMLDivElement, FormItemProps>((props, ref) => {
   const {
     options,
     SelectProps,
@@ -195,10 +195,10 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef((props, ref) => {
       ref={ref}
       variant={variant}
       error={statusError}
-      {...FormControlProps}
+      {...FormControlProps as FormControlProps}
     >
       <Label
-        variant={(variant as InputLabelProps['variant'])}
+        variant={variant}
         htmlFor={htmlFor}
         size={size}
         {...LabelPropsProp}

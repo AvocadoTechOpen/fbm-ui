@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import styled from '@mui/material/styles/styled';
 
 import InfoTitle, { InfoTitleProps } from './InfoTitle';
 import InfoItem, { Row } from './InfoItem';

@@ -18,7 +18,7 @@ function areEqualValues(values, name): boolean {
   return values?.includes?.(name)
 }
 
-const FormControlLabelRoot = styled(FormControlLabel)(() => {
+const FormControlLabelRoot = styled(FormControlLabel)(({ theme }) => {
   return {
     [`& .${checkboxClasses.root}`]: {
       width: 36,

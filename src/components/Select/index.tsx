@@ -1,6 +1,6 @@
 
 import React, { useMemo } from 'react';
-import { Select as MuiSelect, Box, selectClasses, MenuItem, styled, SelectChangeEvent } from '@mui/material'
+import { Select as MuiSelect, Box, selectClasses, MenuItem, styled } from '@mui/material'
 import type { SelectProps as MuiSelectProps, MenuItemProps } from '@mui/material'
 
 import Input from '../Input'
@@ -65,13 +65,13 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
     if (childrenProp != null) return childrenProp;
     if (SelectProps.multiple) {
       return options.map(({ label, value }) => (
-        <MenuItemRoot key={`${value}${label}`} value={value} sx={{ justifyContent: "flex-start" }}>
+        <MenuItemRoot key={`${value}-${label}`} value={value} sx={{ justifyContent: "flex-start" }}>
           <Checkbox label={label} checked={Array.isArray(valueProp) && valueProp.includes(value)} />
         </MenuItemRoot>
       ));
     }
     return options.map(({ label, value }) => (
-      <MenuItemRoot key={`${value}${label}`} value={value}>
+      <MenuItemRoot key={`${value}-${label}`} value={value}>
         <LabelRoot>{label || value}</LabelRoot>
         {Array.isArray(valueProp)
           ? valueProp.includes(value) && <DoneIcon color="primary" />

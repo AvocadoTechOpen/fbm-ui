@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@mui/material/styles/styled";
 import { Chip, ChipProps, chipClasses } from "@mui/material";
-import { alpha } from "@mui/system";
 
 type SizeMap = "small" | "medium" | "large";
 

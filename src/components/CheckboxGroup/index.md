@@ -1,4 +1,6 @@
----
+<!-- 查看 src/components/Checkbox/index.md-->
+
+<!-- ---
 nav:
   title: 组件
   path: /components
@@ -23,6 +25,7 @@ export default () => {
   const handleChange = (value) => {
     setValue(value);
   };
+
   return (
     <Demo>
       <Checkbox
@@ -34,8 +37,7 @@ export default () => {
       <CheckboxGroup row={false} onChange={(value) => handleChange(value)} value={value}>
         <Checkbox value={"B"} label="B" />
         <Checkbox value={"C"} label="C" />
-        <Checkbox value={"D"} label="D" 
-        />
+        <Checkbox value={"D"} label="D" />
       </CheckboxGroup>
     </Demo>
   );
@@ -66,4 +68,4 @@ export default () => {
     </Demo>
   );
 };
-```
+``` -->

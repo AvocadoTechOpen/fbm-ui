@@ -19,6 +19,7 @@ const isEmpty = (item) => {
 
   //数组
   if (isArray(item)) {
+    if (item.length === 0) return true
     const found = item.find(element => {
       return !isEmpty(element)
     })
