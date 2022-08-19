@@ -42,26 +42,6 @@ export default () => (
 )
 ```
 
-```tsx
-/**
- * desc: startAdornment
- */
-import * as React from 'react';
-import {  Demo, Input, Box, SearchIcon} from 'fbm-ui'
-
-export default () => (
-  <Demo>
-    <Input 
-     
-      startAdornment={
-        <SearchIcon color="disabled" />
-      }
-      placeholder="请输入姓名"
-     />
-  </Demo>
-)
-```
-
 
 ```tsx
 /**

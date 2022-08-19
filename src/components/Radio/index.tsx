@@ -18,8 +18,10 @@ const FormControlLabelRoot = styled(FormControlLabel)(() => ({
   "& .MuiFormControlLabel-label": {
     fontSize: 14,
   },
-  '& .MuiRadio-root': {
+  [`& .${radioClasses.root}`]: {
     color: 'rgba(0,0,0,.26)',
+    width: 36,
+    height: 36,
   },
   [`&.${radioClasses.checked}`]: {
     color: '#4caf50',
