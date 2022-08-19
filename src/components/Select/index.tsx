@@ -18,11 +18,16 @@ export interface SelectProps extends MuiSelectProps {
   options?: OptionMap[];
 }
 
-const SelectRoot = styled(MuiSelect)(({ size }: SelectProps) => {
+const SelectRoot = styled(MuiSelect)(({ size, disabled }: SelectProps) => {
   return {
     [`& .${selectClasses.icon}`]: {
       color: 'rgba(0, 0, 0, 0.56)'
     },
+    ...(disabled && {
+      [`& .${selectClasses.icon}`]: {
+        color: 'rgba(0, 0, 0, 0.26)'
+      },
+    }),
     [`& .${selectClasses.select}`]: {
       ...(size === 'small') && {
         padding: '7px 12px 6px 12px',

@@ -23,6 +23,10 @@ const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => {
     lineHeight: 1,
     zIndex: 1,
     top: "0",
+    color: 'rgba(0, 0, 0, 0.26)',
+    [`&.${inputLabelClasses.disabled}`]: {
+      color: 'rgba(0, 0, 0, 0.26)',
+    },
     ...(variant === "outlined" && {
       [`&.${inputLabelClasses.shrink}`]: {
         transform: "translate(14px, -5px) scale(0.75)",
