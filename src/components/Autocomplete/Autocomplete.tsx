@@ -167,7 +167,6 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
   const renderGroup = renderGroupProp || defaultRenderGroup;
   const defaultRenderOption = (props2, option, { selected }) => {
     if (multiple) {
-      console.log(props2)
       return (
         <li {...props2}>
           <Checkbox checked={selected} />
