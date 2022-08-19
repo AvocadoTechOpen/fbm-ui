@@ -26,10 +26,25 @@ export default () => {
         onChange={(e) => setValue(e.target.value) } 
         value={value} 
       />
+      <TextField 
+        label="默认尺寸"
+        onChange={(e) => setValue(e.target.value) } 
+        value={value}
+        disabled 
+      />
       <br/>
       <TextField 
         label="small"
         size="small" 
+        onChange={(e) => setValue(e.target.value) } 
+        value={value}
+      />
+      <TextField 
+        label="small"
+        size="small"
+        onChange={(e) => setValue(e.target.value) } 
+        value={value}
+        disabled 
       />
     </Layout>
   )
