@@ -154,7 +154,7 @@ export default () => {
 
   return (
     <Layout>
-      <Select size="large" value={age} multiple={true} options={options} onChange={handleChange}></Select>
+
       <Select size="small" value={age} multiple={true} options={options} onChange={handleChange}></Select>
     </Layout>
   );
