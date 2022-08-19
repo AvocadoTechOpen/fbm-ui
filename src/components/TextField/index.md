@@ -6,7 +6,7 @@ group:
   title: 数据录入
 ---
 
-# TextField 带验证的输入框
+# TextField 包含label和helperText
 ## 代码演示
 
 ```tsx
@@ -29,6 +29,32 @@ export default () => {
       <br/>
       <TextField 
         label="small"
+        size="small" 
+      />
+    </Layout>
+  )
+}
+```
+
+```tsx
+/**
+ * title: Input单纯的输入框组件
+ * desc: 不需要label和helperText（提示文案报错文案）
+ */
+import * as React from 'react';
+import { Layout, Input } from 'fbm-ui'
+
+export default () => {
+  const [value, setValue] = React.useState('')
+  return (
+    <Layout>
+      <Input 
+        onChange={(e) => setValue(e.target.value) } 
+        value={value} 
+      />
+      <br/>
+      <br/>
+      <Input 
         size="small" 
       />
     </Layout>
@@ -96,7 +122,7 @@ export default () => {
 
   return (
     <Layout>
-      <TextField options={options} />
+      <TextField label="高级筛选" options={options} />
     </Layout>
   )
 }

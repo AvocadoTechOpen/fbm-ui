@@ -1,4 +1,7 @@
----
+<!-- 查看TextField组件 -->
+
+
+<!-- ---
 nav:
   title: 组件
   path: /components
@@ -45,22 +48,24 @@ export default () => (
 
 ```tsx
 /**
- * title: 修饰输入框
- * desc: startAdornment and endAdornment
+ * desc: startAdornment
  */
 import * as React from 'react';
-import {  Demo, Input, Box, SearchIcon, CloseIcon, IconButton, InputAdornment } from 'fbm-ui'
+import {  Demo, Input, Box, SearchIcon} from 'fbm-ui'
 
 export default () => (
   <Demo>
     <Input 
-      startAdornment={<InputAdornment position="start">kg</InputAdornment>}
-      endAdornment={'%'}
+     
+      startAdornment={
+        <SearchIcon color="disabled" />
+      }
       placeholder="请输入姓名"
      />
   </Demo>
 )
 ```
+
 
 ```tsx
 /**
@@ -78,4 +83,4 @@ export default () => (
 
 
 
-<API></API>
+<API></API> -->
