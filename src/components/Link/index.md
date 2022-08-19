@@ -13,8 +13,8 @@ group:
  */
 import { Link } from 'fbm-ui';
 
-const LinkDemo = () => {
-  
+const LinkDemo = () =>  { 
+  return <Link />
 }
 
 export default LinkDemo

@@ -89,9 +89,9 @@ export default () => {
         placeholder="请输入"
         value={value}
         size="small"
+        limitTags={1}
         options={top100Films}
         onChange={handleChange}
-         limitTags={1}
       />
     </Layout>
   )

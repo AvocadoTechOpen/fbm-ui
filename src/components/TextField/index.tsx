@@ -12,6 +12,7 @@ interface TextFieldProps extends FormItemProps {
   setError?: () => void;
   handleValidate?: () => void;
   isBeyond?: boolean;
+  
 }
 
 const TextField: React.FC<TextFieldProps> = React.forwardRef((props,  ref) => (

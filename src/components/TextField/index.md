@@ -12,7 +12,35 @@ group:
 ```tsx
 /**
  * title: 基本
- * desc: 基本使用
+ * desc: 两种尺寸大小，分别是高度48px（默认）和36px（small）
+ */
+import * as React from 'react';
+import { Layout, TextField,  useTextField, Button } from 'fbm-ui'
+
+export default () => {
+  const [value, setValue] = React.useState('')
+  return (
+    <Layout>
+      <TextField 
+        label="默认尺寸"
+        onChange={(e) => setValue(e.target.value) } 
+        value={value} 
+      />
+      <br/>
+      <TextField 
+        label="small"
+        size="small" 
+      />
+    </Layout>
+  )
+}
+```
+
+
+```tsx
+/**
+ * title: useTextField
+ * desc: 使用useTextField为TextField组件添加验证方法
  */
 import * as React from 'react';
 import { Layout, TextField,  useTextField, Button } from 'fbm-ui'
@@ -25,6 +53,7 @@ export default () => {
     size: 'small',
     max: 5,
     rules: [{
+      // 必填
       required: true,
     }],
     onChange: (event) => {
@@ -38,7 +67,7 @@ export default () => {
 
   return (
     <Layout>
-      <TextField disabled  size="small" { ...nameFieldProps } />
+      <TextField  size="small" { ...nameFieldProps } />
       <Button onClick={handleSubmit}> 提交 </Button> 
     </Layout>
   )
@@ -47,49 +76,27 @@ export default () => {
 
 ```tsx
 /**
- * title: 基本
+ * title: Select
  * desc: 基本使用
  */
 import * as React from 'react';
 import { Layout, TextField, rules, useTextField, Button, SearchIcon, DatePicker, Select } from 'fbm-ui'
 
 export default () => {
-  const [value, setValue] = React.useState(2)
+  const [value, setValue] = React.useState('eq')
 
-  const handleChange = (event) => {
-    setValue(event.target.value)
-  }
-
- const dateFieldProps = useTextField({
-    value,
-    rules: [rules.required()],
-    onChange: handleChange,
-  })
-
-  const handleSubmit = async () => {
-    dateFieldProps.handleValidate()
-  }
    const options = [
-    {
-      label: '全部',
-      value: '',
-    },
-    {
-      label: '20岁',
-      value: 20
-    },
-    {
-      label: '男',
-      value: 2
-    }
-  ]
+    { label: "等于", value: "eq" },
+    { label: "不等于", value: "notEq" },
+    { label: "包含", value: "contains" },
+    { label: "不包含", value: "notContains" },
+    { label: "为空", value: "isNull" },
+    { label: "不为空", value: "notNull" },
+  ];
 
   return (
     <Layout>
-      <TextField error={dateFieldProps.error} label="2342311"   size="small"
-          endAdornment="%">
-      </TextField>
-      <Button onClick={handleSubmit}> 提交 </Button> 
+      <TextField options={options} />
     </Layout>
   )
 }
@@ -283,20 +290,6 @@ export default () => (
 
 ```tsx
 /**
- * desc: disabled
- */
-import * as React from 'react';
-import {  Demo, Input, Box } from 'fbm-ui'
-
-export default () => (
-  <Demo>
-    <Input disabled placeholder="请输入姓名" />
-  </Demo>
-)
-```
-
-```tsx
-/**
  * desc: startAdornment
  */
 import * as React from 'react';
@@ -354,9 +347,6 @@ export default () => {
       return '输入不正确';
     }],
     onChange: handleChange,
-    sx: {
-      height: 'auto',
-    },
     inputProps: {
       placeholder: '内容',
     }
