@@ -24,43 +24,27 @@ import Typography from '../Typography'
 
 export { createFilterOptions };
 
-type IProps = AutocompleteProps<any, boolean | undefined, boolean | undefined, boolean | undefined>
-
+type IProps = AutocompleteProps<any, boolean, boolean, boolean>
 const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
   const {
     ChipProps,
-    clearIcon = <CloseIcon />,
+    clearIcon,
     defaultValue = props.multiple ? [] : null,
     disableClearable = false,
     disabled = false,
     label,
-    disableCloseOnSelect = props.multiple,
-    filterOptions,
-    filterSelectedOptions = false,
     forcePopupIcon = 'auto',
-    disablePortal = false,
     freeSolo = false,
     fullWidth = true,
     getLimitTagsText = (more) => `+${more}`,
     getOptionLabel = (option) => option.label ?? option,
-    isOptionEqualToValue,
     groupBy,
     id: idProp,
     inputValue: inputValueProp,
     limitTags = -1,
     ListboxComponent = 'ul',
     ListboxProps,
-    loading = false,
-    loadingText = 'Loading…',
     multiple = false,
-    noOptionsText = '暂无数据',
-    onChange,
-    onClose,
-    onInputChange,
-    onOpen,
-    open,
-    openOnFocus = true,
-    options,
     PaperComponent = Paper,
     PopperComponent = Popper,
     popupIcon = <ArrowDropDownIcon />,
@@ -69,13 +53,11 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     renderInput,
     renderOption: renderOptionProp,
     renderTags,
-    selectOnFocus = !props.freeSolo,
     size = 'large',
     value: valueProp,
-    componentsProps = {},
-    clearText = 'Clear',
-    closeText = 'Close',
-    openText = 'Open',
+    clearText,
+    closeText,
+    openText,
   } = props
 
 
@@ -103,7 +85,6 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
 
   const ownerState = {
     ...props,
-    disablePortal,
     focused,
     fullWidth,
     hasClearIcon,
@@ -216,10 +197,8 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                   {...getClearProps()}
                   aria-label={clearText}
                   title={clearText}
-                  {...componentsProps.clearIndicator}
                   className={clsx(
                     classes.clearIndicator,
-                    componentsProps.clearIndicator?.className,
                   )}
                 >
                   {clearIcon}
@@ -232,10 +211,8 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                   aria-label={popupOpen ? closeText : openText}
                   title={popupOpen ? closeText : openText}
                   ownerState={ownerState}
-                  {...componentsProps.popupIndicator}
                   className={clsx(
                     classes.popupIndicator,
-                    componentsProps.popupIndicator?.className,
                   )}
                 >
                   {popupIcon}
@@ -248,7 +225,6 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
       {popupOpen && anchorEl ? (
         <AutocompletePopper
           as={PopperComponent}
-          disablePortal={disablePortal}
           style={{
             width: anchorEl ? anchorEl.clientWidth : null,
           }}
@@ -290,4 +266,10 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
 });
 
 
+Autocomplete.defaultProps = {
+  clearIcon: <CloseIcon />,
+  clearText: 'Clear',
+  closeText: 'Close',
+  openText: '',
+}
 export default Autocomplete;

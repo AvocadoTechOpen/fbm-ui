@@ -4,13 +4,10 @@ import {
   OutlinedInput as MuiOutlinedInput,
   OutlinedInputProps,
   outlinedInputClasses,
-  inputBaseClasses
 } from '@mui/material'
 
 
 export { OutlinedInputProps } from '@mui/material'
-
-console.log(inputBaseClasses.multiline, '-------')
 
 const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ theme, startAdornment, endAdornment,  size }) => {
   return {

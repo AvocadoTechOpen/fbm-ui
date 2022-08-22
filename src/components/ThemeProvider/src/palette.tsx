@@ -65,7 +65,7 @@ const palette = {
     secondary: 'rgba(0, 0, 0, 0.56)',
     disabled: 'rgba(0, 0, 0, 0.12)',
     hint: 'rgba(0, 0, 0, 0.26)',
-    link: '#576B95',
+    link: 'rgba(87, 107, 149, 1)',
   },
   divider: '#F4F4F4',
   background: {

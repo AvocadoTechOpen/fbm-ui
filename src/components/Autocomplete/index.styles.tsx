@@ -55,11 +55,9 @@ export const AutocompletePopper = styled(Popper, {
   slot: 'Popper',
   overridesResolver: (props, styles) => {
     const { ownerState } = props;
-
     return [
       { [`& .${autocompleteClasses.option}`]: styles.option },
       styles.popper,
-      ownerState?.disablePortal && styles.popperDisablePortal,
     ];
   },
 })(({ theme }) => ({
