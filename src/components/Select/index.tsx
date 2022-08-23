@@ -30,7 +30,10 @@ const SelectRoot = styled(MuiSelect)(({ size, disabled }: SelectProps) => {
     }),
     [`& .${selectClasses.select}`]: {
       ...(size === 'small') && {
-        padding: '7px 12px 6px 12px',
+        padding: '6.5px 12px 6.5px 12px',
+      },
+      ...(size === 'large') && {
+        padding: '12.5px 12px 12.5px 12px',
       }
     },
   }
@@ -99,7 +102,11 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
       input={<Input label={label} />}
       renderValue={(value) => {
         if (Array.isArray(value)) {
-          return value?.map((v) => <Chip sx={{ mr: '3px' }} size={SelectProps.size === "small" ? 'medium' : 'large' } label={optionMaps[v]} />)
+          return (
+            <Box sx={{margin: SelectProps.size !== "small" ? '-5px 3px -5px 0px' : '-1px 3px -1px 0px'}}>
+              {value?.map((v) => <Chip sx={{ mr: '3px' }} size={SelectProps.size === "small" ? 'medium' : 'large' } label={optionMaps[v]} />)}
+            </Box>
+          )
         }
         return optionMaps[value as string]
       }}
