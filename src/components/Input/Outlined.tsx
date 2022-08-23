@@ -12,6 +12,7 @@ export { OutlinedInputProps } from '@mui/material'
 const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ theme, startAdornment, endAdornment,  size }) => {
   return {
     backgroundColor: '#fff',
+    padding: 0,
     [`.${outlinedInputClasses.notchedOutline}`]: {
       borderColor: 'rgba(0,0,0,0.08)',
     },

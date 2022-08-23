@@ -92,7 +92,8 @@ export { default as InfoList } from './InfoList';
 export { default as Upload } from './Upload'
 export * from './Upload'
 
-export { default as Tooltip } from './Tooltip';
+export * from './Tooltip';
+
 export { default as DatePicker } from './DatePicker'
 export * from './DatePicker'
 
@@ -130,3 +131,11 @@ export * from './Autocomplete'
 
 export { default as InputAdornment } from '@mui/material/InputAdornment'
 export * from '@mui/material/InputAdornment'
+
+export { default as Link } from './Link'
+export * from './Link'
+
+export { default as Tabs } from './Tabs'
+export * from './Tabs'
+export { default as Tab } from './Tab'
+export * from './Tab'

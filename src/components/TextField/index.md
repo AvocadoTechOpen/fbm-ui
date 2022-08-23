@@ -6,7 +6,7 @@ group:
   title: 数据录入
 ---
 
-# TextField 包含label和helperText
+# TextField 文本输入框
 ## 代码演示
 
 ```tsx
@@ -53,8 +53,8 @@ export default () => {
 
 ```tsx
 /**
- * title: Input单纯的输入框组件
- * desc: 不需要label和helperText（提示文案报错文案）
+ * title: 单纯的输入框组件
+ * desc: 不需要label和helperText
  */
 import * as React from 'react';
 import { Layout, Input } from 'fbm-ui'
@@ -90,6 +90,7 @@ export default () => {
   const [value, setValue] = React.useState('')
 
  const nameFieldProps = useTextField({
+    value,
     label: '姓名',
     size: 'small',
     max: 5,
@@ -117,8 +118,8 @@ export default () => {
 
 ```tsx
 /**
- * title: Select
- * desc: 基本使用
+ * title: Select 选择属性
+ * desc: 传入options则将TextField当成Select组件使用
  */
 import * as React from 'react';
 import { Layout, TextField, rules, useTextField, Button, SearchIcon, DatePicker, Select } from 'fbm-ui'

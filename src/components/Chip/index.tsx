@@ -1,36 +1,111 @@
-import React from "react";
-import styled from "@mui/material/styles/styled";
-import { Chip, ChipProps, chipClasses } from "@mui/material";
+import React from 'react';
+import styled from '@mui/material/styles/styled';
+import { SxProps, Theme } from '@mui/system';
+import { OverridableStringUnion } from '@mui/types';
+import { Chip, chipClasses, ChipClasses } from '@mui/material';
 
-type SizeMap = "small" | "medium" | "large";
+export interface ChipPropsVariantOverrides { }
 
-const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, color }) => {
+export interface ChipPropsSizeOverrides { }
+
+export interface ChipPropsColorOverrides { }
+
+interface ChipProps {
+  /**
+   * The Avatar element to display.
+   */
+  avatar?: React.ReactElement;
+  /**
+   * This prop isn't supported.
+   * Use the `component` prop if you need to change the children structure.
+   */
+  children?: null;
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes?: Partial<ChipClasses>;
+  /**
+   * If `true`, the chip will appear clickable, and will raise when pressed,
+   * even if the onClick prop is not defined.
+   * If `false`, the chip will not appear clickable, even if onClick prop is defined.
+   * This can be used, for example,
+   * along with the component prop to indicate an anchor Chip is clickable.
+   * Note: this controls the UI and does not affect the onClick event.
+   */
+  clickable?: boolean;
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   * @default 'default'
+   */
+  color?: OverridableStringUnion<
+    'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning',
+    ChipPropsColorOverrides
+  >;
+  /**
+   * Override the default delete icon element. Shown only if `onDelete` is set.
+   */
+  deleteIcon?: React.ReactElement;
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled?: boolean;
+  /**
+   * Icon element.
+   */
+  icon?: React.ReactElement;
+  /**
+   * The content of the component.
+   */
+  label?: React.ReactNode;
+  /**
+   * Callback fired when the delete icon is clicked.
+   * If set, the delete icon will be shown.
+   */
+  onDelete?: React.EventHandler<any>;
+  /**
+   * The size of the component.
+   * @default 'medium'
+   */
+  size?: 'small' | 'medium' | 'large';
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx?: SxProps<Theme>;
+  /**
+   * The variant to use.
+   * @default 'filled'
+   */
+  variant?: OverridableStringUnion<'filled' | 'outlined', ChipPropsVariantOverrides>;
+}
+
+const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, color }: { theme: Theme } & ChipProps) => {
   return {
     [`& .${chipClasses.label}`]: {
       paddingLeft: 11,
       paddingRight: 13,
       fontSize: 14,
     },
-    "&:hover": {
-      cursor: "pointer",
-      ...(variant === "outlined"
+    '&:hover': {
+      cursor: 'pointer',
+      ...(variant === 'outlined'
         ? {
-            backgroundColor: theme.palette.action.hover,
-          }
+          backgroundColor: theme.palette.action.hover,
+        }
         : {
-            backgroundColor: theme.palette[color] && theme.palette[color]?.main,
-          }),
+          backgroundColor: theme.palette[color] && theme.palette[color]?.main,
+        }),
     },
-    ...(size === "small" && {
-      height: "18px",
+    ...(size === 'small' && {
+      height: '18px',
       [`& .${chipClasses.labelSmall}`]: {
         paddingLeft: 7,
         paddingRight: 7,
         fontSize: 12,
       },
     }),
-    ...(size === "medium" && {
-      height: "24px",
+    ...(size === 'medium' && {
+      height: '24px',
       [`& .${chipClasses.labelMedium}`]: {
         paddingLeft: 7,
         paddingRight: 7,
@@ -44,8 +119,8 @@ const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, colo
         fontSize: 14,
       },
     }),
-    ...((size as SizeMap) === "large" && {
-      height: "32px",
+    ...(size === 'large' && {
+      height: '32px',
       [`& .${chipClasses.labelMedium}`]: {
         fontSize: 14,
       },
@@ -57,8 +132,8 @@ const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, colo
 });
 
 ChipRoot.defaultProps = {
-  variant: "outlined",
-  size: "medium",
+  variant: 'outlined',
+  size: 'medium',
 };
 
 export default ChipRoot;

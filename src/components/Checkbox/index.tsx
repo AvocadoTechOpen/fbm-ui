@@ -18,22 +18,20 @@ function areEqualValues(values, name): boolean {
   return values?.includes?.(name)
 }
 
-const FormControlLabelRoot = styled(FormControlLabel)(({ theme }) => {
-  return {
-    [`& .${checkboxClasses.root}`]: {
-      width: 36,
-      height: 36,
-      "&:hover": {
-        background: "rgba(76, 175, 80, .08)",
-      },
+const Checkbox = styled(MuiCheckbox)({
+  [`&.${checkboxClasses.root}`]: {
+    width: 36,
+    height: 36,
+    '&:hover': {
+      background: 'rgba(76, 175, 80, .08)',
     },
-    [`& .${checkboxClasses.disabled}`]: {
-      color: "rgba(0,0,0,.12) !important",
-    },
-  };
-});
+  },
+  [`&.${checkboxClasses.disabled}`]: {
+    color: 'rgba(0,0,0,.12)',
+  }
+})
 
-const Checkbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
+const FormControlLabelAndCheckbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
   const {
     label,
     value,
@@ -67,22 +65,22 @@ const Checkbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
   }
 
   return (
-    <FormControlLabelRoot
+    <FormControlLabel
       name={name}
       value={value}
       onChange={onChange}
       label={label}
       checked={checked}
       disabled={disabled}
-      control={<MuiCheckbox ref={ref} {...CheckboxProps} />}
+      control={<Checkbox ref={ref} {...CheckboxProps} />}
       {...FormControlLabelProps}
       {...otherProps}
     />
   )
 })
 
-Checkbox.defaultProps = {
+FormControlLabelAndCheckbox.defaultProps = {
   label: '',
 }
 
-export default Checkbox;
+export default FormControlLabelAndCheckbox;

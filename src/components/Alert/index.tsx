@@ -1,22 +1,27 @@
-import React from 'react';
-import { Alert as MuiAlert, AlertProps as MuiAlertProps, styled, AlertColor, Theme } from '@mui/material'
+import * as React from 'react';
+import { Alert as MuiAlert, AlertProps as MuiAlertProps, styled, AlertColor, Theme, alpha, alertClasses } from '@mui/material'
+
+import IconButton, { IconButtonProps } from '../IconButton';
 
 import {
   CheckIcon,
   ErrorIcon,
   WarningIcon,
-  InfoIcon
+  InfoIcon,
+  CloseIcon
 } from '../icons'
 
 type AlertType = AlertColor
 
 export interface AlertProps extends MuiAlertProps {
+  show?: boolean;
   /** Alert类型 可选 默认为info */
   type?: AlertType;
   /** Alert显示内容 */
   children?: React.ReactNode,
   /** 提示文案 */
   message?: React.ReactNode,
+  CloseButtonProps?: IconButtonProps;
 }
 
 interface IconProps {
@@ -29,14 +34,16 @@ interface AlertRootProps {
   theme: Theme
 }
 
-const AlertRoot:React.FC<AlertProps> = styled(MuiAlert)(({ theme, type }: AlertRootProps) => {
+const AlertRoot: React.FC<AlertProps> = styled(MuiAlert)(({ theme, type, show }: AlertRootProps) => {
   return {
     color: theme.palette.text.secondary,
     padding: '4px 16px',
     border: '1px solid',
     borderColor: theme.palette[type].main,
-    // @ts-ignore
-    backgroundColor: theme?.custom?.bgColor[type],
+    backgroundColor: alpha(theme.palette[type].main, 0.25),
+    [`& .${alertClasses.action}`]: {
+      padding: 0,
+    },
   }
 })
 
@@ -62,18 +69,37 @@ const Alert: React.FC<AlertProps> = ({
   children,
   message,
   icon,
-  color: componentColor,
+  onClose,
+  color: colorProp,
   ...otherProps
-}) => (
-  <AlertRoot
-    type={type}
-    color={componentColor || type}
-    icon={<Icon icon={icon} type={type} />}
-    {...otherProps}
-  >
-    {message || children}
-  </AlertRoot>
-)
+}) => {
+  const [show, setShow] = React.useState<boolean>(true)
+  const handleClose = (e) => {
+    onClose?.(e)
+    setShow(false)
+  }
+
+  if (show === false) return null;
+
+  return (
+    <AlertRoot
+      type={type}
+      show={show}
+      color={colorProp || type}
+      icon={<Icon icon={icon} type={type} />}
+      action={
+        onClose && (
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        )
+      }
+      {...otherProps}
+    >
+      {message || children}
+    </AlertRoot>
+  )
+}
 
 Alert.defaultProps = {
   type: 'info',

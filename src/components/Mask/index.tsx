@@ -9,6 +9,7 @@ export interface MaskProps extends BoxProps {
 const colors =  {
   dark: 'rgba(0, 0, 0, .56)',
   white: 'rgba(255, 255, 255, .8)',
+  none: ''
 }
 
 const MaskRoot: React.FC<MaskProps> = styled(Box)(({  color }: MaskProps) => ({

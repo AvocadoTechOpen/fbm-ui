@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { CircularProgress, Theme } from '@mui/material'
-import styled from '@mui/material/styles/styled'
+import { CircularProgress, Theme, Box, styled} from '@mui/material'
 
-import { FbmThemeOptions } from '../ThemeProvider'
-import Mask from '../Mask'
+import Mask, { MaskProps } from '../Mask'
 import Typography from '../Typography'
 
 type SizeType = 'small' | 'large'
@@ -17,6 +15,7 @@ export interface LoadingProps {
   desc?: React.ReactNode;
   /** 是否需要遮罩 */
   isMask?: boolean;
+  MaskProps?: MaskProps
 }
 
 interface MaskRootProps {
@@ -24,24 +23,14 @@ interface MaskRootProps {
   isMask?: boolean;
 }
 
-const MaskRoot: React.FC<MaskRootProps> = styled(Mask)(({ theme, isMask }: MaskRootProps) => {
-  return {
-    ...(isMask && {
-      backgroundColor: (theme as FbmThemeOptions).custom?.mask.white,
-    }),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  }
+const MaskRoot: React.FC<MaskRootProps> = styled(Mask)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
 })
 
-MaskRoot.defaultProps = {
-  isMask: true,
-}
-
-
-const LoadingTextRender: React.FC<{desc?: React.ReactNode}> = ({ desc }) => {
+const LoadingTextRender: React.FC<{ desc?: React.ReactNode }> = ({ desc }) => {
   if (!desc) return null;
   if (typeof desc === 'string') {
     return (
@@ -57,19 +46,21 @@ const LoadingTextRender: React.FC<{desc?: React.ReactNode}> = ({ desc }) => {
   return <span>{desc}</span>
 }
 
-const FbmLoading: React.FC<LoadingProps> = (props) => {
-  const { isMask, desc,  ...loadingProps } = props
+const Loading: React.FC<LoadingProps> = (props) => {
+  const { isMask, desc, MaskProps, ...loadingProps} = props
+
   return (
-    <MaskRoot isMask={isMask}>
+    <MaskRoot color={!isMask && 'none' }  {...MaskProps}>
       <CircularProgress {...loadingProps} />
       <LoadingTextRender desc={desc} />
     </MaskRoot>
   )
 }
 
-FbmLoading.defaultProps = {
+Loading.defaultProps = {
   color: 'primary',
   size: 44,
+  isMask: true,
 }
 
-export default FbmLoading
+export default Loading

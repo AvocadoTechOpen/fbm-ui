@@ -10,7 +10,7 @@ group:
 
 ```tsx
 /**
- * title: 基本
+ * title: Switch组件
  * desc: 基本使用
  */
 import * as React from 'react';

@@ -28,7 +28,7 @@ export type AutocompleteRenderGetTagProps = ({ index }: { index: number }) => {
   className: string;
   disabled: boolean;
   'data-tag-index': number;
-  tabIndex: -1;
+  tabIndex: number;
   onDelete: (event: any) => void;
 };
 
@@ -58,7 +58,7 @@ export interface AutocompleteRenderInputParams {
   inputProps: ReturnType<ReturnType<typeof useAutocomplete>['getInputProps']>;
 }
 
-export interface AutocompletePropsSizeOverrides {}
+export interface AutocompletePropsSizeOverrides { }
 
 export interface AutocompleteProps<
   T,
@@ -66,8 +66,8 @@ export interface AutocompleteProps<
   DisableClearable extends boolean | undefined,
   FreeSolo extends boolean | undefined,
   ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
-> extends UseAutocompleteProps<T, Multiple, DisableClearable, FreeSolo>,
-    StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'> {
+  > extends UseAutocompleteProps<T, Multiple, DisableClearable, FreeSolo>,
+  StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'> {
   /**
    * Props applied to the [`Chip`](/api/chip/) element.
    */
@@ -95,13 +95,6 @@ export interface AutocompleteProps<
    * @default 'Close'
    */
   closeText?: string;
-  /**
-   * The props used for each slot inside.
-   * @default {}
-   */
-  componentsProps?: {
-    clearIndicator?: Partial<IconButtonProps>;
-  };
   /**
    * If `true`, the component is disabled.
    * @default false
@@ -221,7 +214,7 @@ export interface AutocompleteProps<
    * @param {function} getTagProps A tag props getter.
    * @returns {ReactNode}
    */
-  renderTags?: (value: T[], getTagProps: AutocompleteRenderGetTagProps) => React.ReactNode;
+  renderTags?: (value: T[], getTagProps: AutocompleteRenderGetTagProps, ownerState: AutocompleteOwnerState<T, Multiple, DisableClearable, FreeSolo, ChipComponent>,) => React.ReactNode;
   /**
    * The size of the component.
    * @default 'medium'
@@ -233,4 +226,10 @@ export interface AutocompleteProps<
   sx?: SxProps<Theme>;
 
   label: string;
+    /**
+   * If `true`, the component becomes readonly. It is also supported for multiple tags where the tag cannot be deleted.
+   * @default false
+   */
+     readOnly?: boolean;
 }
+

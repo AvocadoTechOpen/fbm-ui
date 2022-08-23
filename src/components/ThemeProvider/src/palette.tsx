@@ -38,7 +38,7 @@ const palette = {
   },
   info: {
     light: '#96b0f8',
-    main: '#7c9df7',
+    main: '#3DA0F5',
     dark: '#566dac',
     contrastText: '#fff',
   },
@@ -63,9 +63,9 @@ const palette = {
   text: {
     primary: 'rgba(0, 0, 0, 0.86)',
     secondary: 'rgba(0, 0, 0, 0.56)',
-    disabled: 'rgba(0, 0, 0, 0.12)',
+    disabled: 'rgba(0, 0, 0, 0.24)',
     hint: 'rgba(0, 0, 0, 0.26)',
-    link: '#576B95',
+    link: 'rgba(87, 107, 149, 1)',
   },
   divider: '#F4F4F4',
   background: {
@@ -78,7 +78,7 @@ const palette = {
     hoverOpacity: 0.04,
     selected: 'rgba(0, 0, 0, 0.08)',
     selectedOpacity: 0.08,
-    disabled: 'rgba(0, 0, 0, 0.12)',
+    disabled: 'rgba(0, 0, 0, 0.24)',
     disabledBackground: 'rgba(0, 0, 0, 0.04)',
     disabledOpacity: 0.26,
     focus: 'rgba(0, 0, 0, 0.12)',

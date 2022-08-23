@@ -141,4 +141,44 @@ export default () => (
 )
 ```
 
+
+```tsx
+/**
+ * title: ButtonGroup
+ * desc: 组合式按钮
+ */
+import * as React from 'react';
+import {  Layout, Button, Box , ButtonGroup, ArrowDropDownIcon } from 'fbm-ui'
+
+export default () => (
+  <Layout>
+      <ButtonGroup  variant="contained" >
+        <Button>按钮组</Button> 
+        <Button size="small">
+          <ArrowDropDownIcon />
+        </Button>
+      </ButtonGroup>
+  </Layout>
+)
+```
+```tsx
+/**
+ * title: disabled
+ * desc: 组合式按钮
+ */
+import * as React from 'react';
+import {  Layout, Button, Box , ButtonGroup, ArrowDropDownIcon } from 'fbm-ui'
+
+export default () => (
+  <Layout>
+      <ButtonGroup disabled variant="contained">
+        <Button>按钮组</Button> 
+        <Button size="small">
+          <ArrowDropDownIcon />
+        </Button>
+      </ButtonGroup>
+  </Layout>
+)
+```
+
 <API></API>
