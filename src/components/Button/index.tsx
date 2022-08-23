@@ -16,8 +16,6 @@ export interface ButtonProps extends MuiButtonProps {
   icon?: MuiButtonProps['startIcon']
 }
 
-console.log(buttonClasses)
-
 const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
   return {
     minWidth: 'auto',

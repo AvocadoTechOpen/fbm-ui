@@ -1,1 +1,3 @@
-export { Tooltip, TooltipProps } from '@mui/material';
+import { Tooltip } from "@mui/material";
+
+export default Tooltip;
