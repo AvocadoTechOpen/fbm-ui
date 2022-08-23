@@ -125,7 +125,6 @@ export default {
   MuiCheckbox: {
     styleOverrides: {
       root: {
-        color: 'rgba(0, 0, 0, 0.26)',
         padding: 12,
         '&:hover': {
           backgroundColor: 'rgba(255, 255, 255, 0)',

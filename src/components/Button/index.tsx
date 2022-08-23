@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button as MuiButton , ButtonProps as MuiButtonProps } from '@mui/material'
+import { Button as MuiButton, ButtonProps as MuiButtonProps, buttonClasses } from '@mui/material'
 import styled from '@mui/material/styles/styled'
 import { alpha } from '@mui/system';
 
@@ -16,10 +16,7 @@ export interface ButtonProps extends MuiButtonProps {
   icon?: MuiButtonProps['startIcon']
 }
 
-const loadingProps = {
-  isMask: false,
-  size: 16,
-}
+console.log(buttonClasses)
 
 const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
   return {
@@ -31,17 +28,17 @@ const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
       boxShadow: 'none',
       ...(variant === 'text' &&
         color !== 'inherit' && {
-          backgroundColor: alpha(
-            theme.palette[color].main,
-            theme.palette.action.hoverOpacity,
-          ),
+        backgroundColor: alpha(
+          theme.palette[color].main,
+          theme.palette.action.hoverOpacity,
+        ),
       }),
       ...(variant === 'contained' &&
         color !== 'inherit' && {
-          backgroundColor: alpha(
-            theme.palette[color].main,
-            0.8
-          ),
+        backgroundColor: alpha(
+          theme.palette[color].main,
+          0.8
+        ),
       }),
     },
     ...(size === 'small' && {
@@ -55,7 +52,7 @@ const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
         borderColor: 'rgba(0,0,0,.04)',
       },
     }),
-   
+
     ...(variant === 'text' &&
       color !== 'inherit' && {
       color: theme.palette[color].main,
@@ -72,6 +69,9 @@ const ButtonRoot = styled(MuiButton)(({ color, theme, variant, size }) => {
         padding: '8px 24px',
       }),
     }),
+    [`&.${buttonClasses.disabled}`]: {
+      border: '1px solid rgba(0,0,0,.04)'
+    }
   }
 })
 
@@ -82,7 +82,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   }
   buttonProps['startIcon'] = buttonProps.startIcon || icon
 
-  const LoadingRender: React.FC<any> = () => loading ? <Loading {...loadingProps} /> : null
+  const LoadingRender = () => loading ? <Loading  isMask={false} size={16} /> : null
 
   return (
     <ButtonRoot {...buttonProps}>

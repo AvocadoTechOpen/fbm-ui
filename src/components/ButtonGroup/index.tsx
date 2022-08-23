@@ -12,7 +12,8 @@ const FbmButtonGroupRoot = styled(ButtonGroup)(({ variant, orientation, theme })
         ...(variant === 'contained' &&
           orientation === 'horizontal' && {
           [`&.${buttonGroupClasses.disabled}`]: {
-            borderRight: `1px solid ${theme.palette.action.disabledBackground}`,
+            borderColor: theme.palette.action.disabledBackground,
+            borderRight: 'none',
           },
         }),
       }

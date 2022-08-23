@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 import { Link as MuiLink, LinkProps as MuiLinkProps, styled, Theme } from '@mui/material'
 
 export interface LinkProps extends MuiLinkProps {
@@ -21,7 +21,6 @@ const Link: React.FC<LinkProps> = React.forwardRef(({
   children: childrenProp,
   ...LinkProps
 }, ref) => {
-  
   const [href, setHref] = React.useState('')
 
   React.useEffect(() => {

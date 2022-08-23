@@ -3,9 +3,9 @@ nav:
   title: 组件
   path: /components
 group:
-  title: 布局
+  title: 通用
 ---
-# Link 通用
+# Link 链接
 ## 代码演示
 
 ```tsx
