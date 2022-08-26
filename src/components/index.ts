@@ -137,5 +137,15 @@ export * from './Link'
 
 export { default as Tabs } from './Tabs'
 export * from './Tabs'
+
 export { default as Tab } from './Tab'
 export * from './Tab'
+
+export { default as Divider } from './Divider'
+export * from './Divider'
+
+export { default as Paper } from './Paper'
+export * from './Paper'
+
+export { default as MenuList } from './MenuList'
+export { default as MenuItem } from './MenuItem'

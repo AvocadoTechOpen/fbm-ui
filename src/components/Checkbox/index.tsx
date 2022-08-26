@@ -31,6 +31,7 @@ const Checkbox = styled(MuiCheckbox)({
   }
 })
 
+
 const FormControlLabelAndCheckbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
   const {
     label,
@@ -82,5 +83,7 @@ const FormControlLabelAndCheckbox: React.FC<CheckboxProps> = React.forwardRef((p
 FormControlLabelAndCheckbox.defaultProps = {
   label: '',
 }
+
+export { Checkbox }
 
 export default FormControlLabelAndCheckbox;

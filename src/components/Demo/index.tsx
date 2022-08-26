@@ -4,12 +4,14 @@ import styled from '@mui/material/styles/styled'
 
 import ThemeProvider from '../ThemeProvider'
 import Box from '../Box'
+import Paper from '../Paper'
 
 export interface DemoProps {
   white?: boolean;
   grey?: boolean;
   bgColor?: string;
   theme?: Theme;
+  elevation?: number;
 }
 
 const Root: React.FC<DemoProps> = styled(Box)(({ theme, grey, white, bgColor}: DemoProps) => {
@@ -31,23 +33,29 @@ const Demo: React.FC<DemoProps> = ({
   children,
   white,
   grey,
-  bgColor
+  bgColor,
+  elevation,
+  ...otherProps
 }) => {
   return (
     <ThemeProvider>
-      <Root
-        grey={grey}
-        white={white}
-        bgColor={bgColor}
-      >
-        {children}
-      </Root>
+      <Paper elevation={elevation}>
+        <Root
+          grey={grey}
+          white={white}
+          bgColor={bgColor}
+          {...otherProps}
+        >
+          {children}
+        </Root>
+      </Paper>
     </ThemeProvider>
   )
 }
 
 Demo.defaultProps = {
   grey: true,
+  elevation: 0
 }
 
 export default Demo

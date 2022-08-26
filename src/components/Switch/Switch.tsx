@@ -179,8 +179,8 @@ const SwitchTrack = styled('span', {
     duration: theme.transitions.duration.shortest,
   }),
   backgroundColor: theme.vars
-    ? theme.vars.palette.common.onBackground
-    : `${theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white}`,
+    ? theme.vars.palette.common?.onBackground
+    : `${theme.palette.mode === 'light' ? theme.palette.common?.black : theme.palette.common?.white}`,
   opacity: theme.vars
     ? theme.vars.opacity.switchTrack
     : `${theme.palette.mode === 'light' ? 0.38 : 0.3}`,
