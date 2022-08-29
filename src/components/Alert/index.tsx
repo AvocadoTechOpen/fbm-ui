@@ -34,7 +34,7 @@ interface AlertRootProps {
   theme: Theme
 }
 
-const AlertRoot: React.FC<AlertProps> = styled(MuiAlert)(({ theme, type, show }: AlertRootProps) => {
+const AlertRoot: React.FC<AlertProps> = styled(MuiAlert)(({ theme, type }: AlertRootProps) => {
   return {
     color: theme.palette.text.secondary,
     padding: '4px 16px',

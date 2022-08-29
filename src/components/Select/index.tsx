@@ -103,8 +103,8 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
       renderValue={(value) => {
         if (Array.isArray(value)) {
           return (
-            <Box sx={{margin: SelectProps.size !== "small" ? '-5px 3px -5px 0px' : '-1px 3px -1px 0px'}}>
-              {value?.map((v) => <Chip sx={{ mr: '3px' }} size={SelectProps.size === "small" ? 'medium' : 'large' } label={optionMaps[v]} />)}
+            <Box sx={{ margin: SelectProps.size !== "small" ? '-5px 3px -5px 0px' : '-1px 3px -1px 0px' }}>
+              {value?.map((v) => <Chip sx={{ mr: '3px' }} size={SelectProps.size === "small" ? 'medium' : 'large'} label={optionMaps[v]} />)}
             </Box>
           )
         }
