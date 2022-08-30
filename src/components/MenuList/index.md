@@ -14,12 +14,10 @@ group:
  * desc: 基本使用
  */
 import * as React from 'react';
-import { Demo, MenuItem, Paper, Box, TimeIcon, Checkbox } from 'fbm-ui'
+import {Demo, MenuItem, Paper, Box, TimeIcon, Checkbox, MenuList} from 'fbm-ui'
 
 export default function NestedList() {
   const [checked, setChecked] = React.useState(false);
-  
-
   const handleClick = () => {
     setChecked(!checked)
   };
@@ -28,15 +26,15 @@ export default function NestedList() {
     <Demo white >
       <Box sx={{ display: 'flex'}}>
         <Box>
-          <Paper sx={{ width: '270px' }} elevation={2}>
+          <MenuList sx={{ width: '270px' }} elevation={2}>
             <MenuItem text={'选项1'}/>
-          </Paper>
+          </MenuList>
         </Box>
 
         <Box>
-          <Paper sx={{ width: '270px', ml: 2 }} elevation={2}>
+          <MenuList sx={{ width: '270px', ml: 2 }} elevation={2}>
             <MenuItem text={'选项1'} secondaryText={'复文本'}/>
-          </Paper>
+          </MenuList>
         </Box>
 
         <Box>
@@ -48,23 +46,23 @@ export default function NestedList() {
 
       <Box sx={{ display: 'flex', mt: 2}}>
         <Box>
-          <Paper sx={{ width: '270px' }} elevation={2}>
+          <MenuList sx={{ width: '270px' }} elevation={2}>
             <MenuItem
               disabled
               checkbox={<Checkbox checked  />}
               text={'选项1'}
             />
-          </Paper>
+          </MenuList>
         </Box>
 
         <Box>
-          <Paper sx={{ width: '270px', ml: 2 }} elevation={2}>
+          <MenuList sx={{ width: '270px', ml: 2 }} elevation={2}>
             <MenuItem
               onClick={handleClick}
               checkbox={<Checkbox checked={checked} />}
               text={'选项1'}
             />
-          </Paper>
+          </MenuList>
         </Box>
         
       </Box> 
@@ -92,34 +90,28 @@ export default function NestedList() {
 
   return (
     <Demo white sx={{ display: 'flex' }} >
-      <Box>
-        <Paper sx={{ width: '270px' }} elevation={2}>
-          <MenuList>
+      <Box >
+          <MenuList sx={{ width: '270px' }}>
             <MenuItem disabled text={'选项1'}/>
             <MenuItem text={'禁用'} />
             <MenuItem text={'选项3'}/>
           </MenuList>
-        </Paper>
       </Box>
 
-      <Box>
-        <Paper sx={{ width: '270px', ml: 2 }} elevation={2}>
-          <MenuList>
+      <Box  sx={{ ml: 3}}>
+           <MenuList sx={{ width: '280px' }}>
             <MenuItem disabled text={'选项1'} secondaryText={'复文本'}/>
             <MenuItem text={'禁用'} secondaryText={'复文本'} />
             <MenuItem text={'选项3'} secondaryText={'复文本'}/>
           </MenuList>
-        </Paper>
        </Box>
 
-        <Box>
-        <Paper sx={{ width: '270px', ml: 2 }} elevation={2}>
-          <MenuList>
+        <Box  sx={{ ml: 3}}>
+          <MenuList sx={{ width: '270px' }}>
             <MenuItem disabled startIcon={<TimeIcon />} text={'选项1'} secondaryText={'复文本'}/>
             <MenuItem startIcon={<TimeIcon />} text={'禁用'} secondaryText={'复文本'} />
             <MenuItem startIcon={<TimeIcon />} text={'选项1'} secondaryText={'复文本'}/>
           </MenuList>
-        </Paper>
        </Box>
     </Demo>
   );
@@ -133,7 +125,7 @@ export default function NestedList() {
  * desc: 基本使用
  */
 import * as React from 'react';
-import { Demo, MenuItem, Paper, MenuList } from 'fbm-ui'
+import { Demo, MenuItem, Paper, MenuList, Box } from 'fbm-ui'
 
 export default function NestedList() {
   const [open, setOpen] = React.useState(true);
@@ -143,34 +135,30 @@ export default function NestedList() {
   };
 
     const subMenuList2 = (
-     <Paper sx={{ width: '150px' }} elevation={2}>
-      <MenuList>
+      <MenuList sx={{ width: '300px' }}>
         <MenuItem 
           text={'选项1'}
           secondaryText={'复文本'}
         />
         <MenuItem text={'选项2'} secondaryText={'复文本'} subMenuList={subMenuList} />
         <MenuItem text={'选项3'} secondaryText={'复文本'} />
-      </MenuList>
-    </Paper>
+    </MenuList>
   )
 
 
   const subMenuList = (
-     <Paper sx={{ width: '150px' }} elevation={2}>
-      <MenuList>
+      <MenuList sx={{ width: '300px' }}>
         <MenuItem 
           text={'选项1'}
         />
         <MenuItem text={'选项2'} subMenuList={subMenuList2} />
         <MenuItem text={'选项3'} />
       </MenuList>
-    </Paper>
   )
 
   return (
     <Demo white>
-      <Paper sx={{ width: '150px' }} elevation={2}>
+      <Box sx={{ width: '300px' }}>
         <MenuList>
           <MenuItem 
             text={'选项1'}
@@ -179,7 +167,7 @@ export default function NestedList() {
           <MenuItem text={'选项2'} />
           <MenuItem text={'选项3'} />
         </MenuList>
-      </Paper>
+      </Box>
     </Demo>
   );
 }

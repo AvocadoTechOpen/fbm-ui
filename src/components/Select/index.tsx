@@ -1,12 +1,13 @@
 
 import React, { useMemo } from 'react';
-import { Select as MuiSelect, Box, selectClasses, MenuItem, styled } from '@mui/material'
+import { Select as MuiSelect, Box, selectClasses, styled} from '@mui/material'
 import type { SelectProps as MuiSelectProps, MenuItemProps } from '@mui/material'
 
 import Input from '../Input'
-import { ArrowDropDownIcon, DoneIcon } from '../icons'
+import { ArrowDropDownIcon } from '../icons'
 import Chip from '../Chip'
 import Checkbox from '../Checkbox';
+import MenuItem from '../MenuItem'
 
 type OptionMap = {
   label: string;
@@ -39,17 +40,6 @@ const SelectRoot = styled(MuiSelect)(({ size, disabled }: SelectProps) => {
   }
 })
 
-const MenuItemRoot = styled(MenuItem)({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  '&.Mui-selected': {
-    background: '#fff',
-    '&:hover': {
-      background: 'rgba(0,0,0,.04)',
-    },
-  },
-})
 
 const LabelRoot = styled(Box)({
   flex: 1,
@@ -67,20 +57,9 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
   const children = useMemo(() => {
     if (childrenProp != null) return childrenProp;
     if (SelectProps.multiple) {
-      return options.map(({ label, value }) => (
-        <MenuItemRoot key={`${value}-${label}`} value={value} sx={{ justifyContent: "flex-start" }}>
-          <Checkbox label={label} checked={Array.isArray(valueProp) && valueProp.includes(value)} />
-        </MenuItemRoot>
-      ));
+      return options.map(({ label, value }) => <MenuItem text={label} key={`${value}-${label}`} value={value} />);
     }
-    return options.map(({ label, value }) => (
-      <MenuItemRoot key={`${value}-${label}`} value={value}>
-        <LabelRoot>{label || value}</LabelRoot>
-        {Array.isArray(valueProp)
-          ? valueProp.includes(value) && <DoneIcon color="primary" />
-          : value === valueProp && <DoneIcon color="primary" />}
-      </MenuItemRoot>
-    ));
+    return options.map(({ label, value }) => <MenuItem key={`${value}-${label}`} value={value} text={label} />);
   }, [options, childrenProp, valueProp]);
 
   const optionMaps = useMemo(() => {
@@ -103,8 +82,8 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
       renderValue={(value) => {
         if (Array.isArray(value)) {
           return (
-            <Box sx={{margin: SelectProps.size !== "small" ? '-5px 3px -5px 0px' : '-1px 3px -1px 0px'}}>
-              {value?.map((v) => <Chip sx={{ mr: '3px' }} size={SelectProps.size === "small" ? 'medium' : 'large' } label={optionMaps[v]} />)}
+            <Box sx={{ margin: SelectProps.size !== "small" ? '-5px 3px -5px 0px' : '-1px 3px -1px 0px' }}>
+              {value?.map((v) => <Chip sx={{ mr: '3px' }} size={SelectProps.size === "small" ? 'medium' : 'large'} label={optionMaps[v]} />)}
             </Box>
           )
         }

@@ -14,7 +14,8 @@ import {
   PopperProps,
   Box,
   checkboxClasses,
-  formControlLabelClasses
+  formControlLabelClasses,
+  listItemButtonClasses
 } from '@mui/material'
 
 import { cloneElement, isValidElement } from '../../utils/reactNode'
@@ -34,6 +35,7 @@ export interface MenuItemProps {
   subMenuList?: React.ReactNode;
   PopperProps?: PopperProps;
   checkbox?: React.ReactNode;
+  value: any;
 }
 
 type OwnerState = {
@@ -100,10 +102,10 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
     PopperProps,
     onMouseMove,
     onMouseLeave,
+    children: childrenProp,
     checkbox,
     ...moreProps
   } = props
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
 
@@ -122,6 +124,18 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
     subMenuList,
     checkbox,
   };
+
+  let children = childrenProp
+  if (children == null) {
+    children = (
+      <MenuItemText
+        primary={text}
+        secondary={secondaryText}
+      />
+    )
+  }
+
+  console.log(moreProps, '----------')
 
   return (
     <ListItem
@@ -148,10 +162,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
             })}
           </MenuItemStartIcon>
         )}
-        <MenuItemText
-          primary={text}
-          secondary={secondaryText}
-        />
+        {children}
         {subMenuList != null && (
           <ArrowDropRightIcon />
         )}
