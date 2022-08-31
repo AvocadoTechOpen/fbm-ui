@@ -156,3 +156,6 @@ export * from './CircularProgress';
 
 export { default as LinearProgress } from './LinearProgress';
 export * from './LinearProgress';
+
+export  { default as Grid } from './Grid'
+export * from './Grid';
