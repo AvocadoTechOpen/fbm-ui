@@ -20,7 +20,7 @@ import { Avatar, Demo} from 'fbm-ui'
 const imgurl = 'https://joeschmoe.io/api/v1/random'
 export default () =>(
   <Demo white>
-    <Avatar sx={{ml: 3 }} showNewTip  src={imgurl} />
+    <Avatar showNewTip  src={imgurl} />
   </Demo>
 )
 ```

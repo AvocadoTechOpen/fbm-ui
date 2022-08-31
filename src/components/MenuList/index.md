@@ -16,10 +16,10 @@ group:
 import * as React from 'react';
 import {Demo, MenuItem, Paper, Box, TimeIcon, Checkbox, MenuList, MenuItemText } from 'fbm-ui'
 
-console.log(MenuItemText)
 
 export default function NestedList() {
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(true);
+  const [selected, setSelected] = React.useState(true);
   const handleClick = () => {
     setChecked(!checked)
   };
@@ -37,12 +37,6 @@ export default function NestedList() {
           <MenuList sx={{ width: '270px', ml: 2 }} elevation={2}>
             <MenuItem text={'选项1'} secondaryText={'复文本'}/>
           </MenuList>
-        </Box>
-
-        <Box>
-          <Paper sx={{ width: '270px', ml: 2 }} elevation={2}>
-            <MenuItem text={'选项1'} secondaryText={'复文本'}/>
-          </Paper>
         </Box>
       </Box> 
 
@@ -62,11 +56,32 @@ export default function NestedList() {
             <MenuItem
               onClick={handleClick}
               checkbox={<Checkbox checked={checked} />}
-              text={'选项1'}
+              text={'多选'}
             />
           </MenuList>
         </Box>
         
+      </Box> 
+      <Box sx={{ display: 'flex', mt: 2}}>
+        <Box>
+            <MenuList sx={{ width: '270px',  }} elevation={2}>
+              <MenuItem
+                onClick={() => setSelected(!selected)}
+                selected={selected}
+                text={'单选'}
+              />
+            </MenuList>
+          </Box>
+
+          <Box>
+            <MenuList sx={{ width: '270px', ml: 2 }} elevation={2}>
+              <MenuItem
+                disabled
+                selected={selected}
+                text={'单选'}
+              />
+            </MenuList>
+          </Box>
       </Box> 
     </Demo>
   );

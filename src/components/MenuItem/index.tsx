@@ -4,6 +4,7 @@ import {
   ListItem,
   ListItemProps,
   ListItemButton,
+  listItemButtonClasses,
   ListItemButtonProps,
   ListItemText,
   ListItemTextProps,
@@ -15,11 +16,10 @@ import {
   Box,
   checkboxClasses,
   formControlLabelClasses,
-  listItemButtonClasses
 } from '@mui/material'
 
 import { cloneElement, isValidElement } from '../../utils/reactNode'
-import { ArrowDropRightIcon } from '../icons'
+import { ArrowDropRightIcon, DoneIcon } from '../icons'
 
 export interface MenuItemProps {
   ListItemProps?: ListItemProps,
@@ -36,6 +36,9 @@ export interface MenuItemProps {
   PopperProps?: PopperProps;
   checkbox?: React.ReactNode;
   value: any;
+  onMouseMove?: ListItemProps['onMouseMove'];
+  onMouseLeave?: ListItemProps['onMouseLeave'];
+  selected?: boolean;
 }
 
 type OwnerState = {
@@ -45,12 +48,17 @@ type OwnerState = {
 
 type MenuItemButtonProps = ListItemButtonProps & { ownerState: OwnerState };
 
+console.log(listItemButtonClasses.selected)
 const MenuItemButton: React.FC<MenuItemButtonProps> = styled(ListItemButton)(({ ownerState }: MenuItemButtonProps) => ({
   paddingTop: 0,
   paddingBottom: 0,
   ...(ownerState.subMenuList && {
     paddingRight: 0,
   }),
+ 
+  [`&.${listItemButtonClasses.selected}`]: {
+    backgroundColor: 'transparent',
+  },
 }))
 
 export const MenuItemText: React.FC<ListItemTextProps> = styled(ListItemText)(({ secondary }) => ({
@@ -104,6 +112,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
     onMouseLeave,
     children: childrenProp,
     checkbox,
+    selected,
     ...moreProps
   } = props
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -146,6 +155,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
         disabled={disabled}
         dense={false}
         ownerState={ownerState}
+        selected={selected}
         {...moreProps}
       >
         {startIcon && (
@@ -157,6 +167,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
           <MenuItemStartIcon ownerState={ownerState}>
             {cloneElement(checkbox, {
               disabled,
+              selected,
             })}
           </MenuItemStartIcon>
         )}
@@ -164,6 +175,9 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
         {subMenuList != null && (
           <ArrowDropRightIcon />
         )}
+        {(checkbox == null && selected === true) && 
+          <DoneIcon color="primary" />
+        }
       </MenuItemButton>
       {subMenuList && (
         <Popper open={open} anchorEl={anchorEl} placement='right-start' {...PopperProps}>

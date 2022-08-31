@@ -1,12 +1,11 @@
 
 import React, { useMemo } from 'react';
-import { Select as MuiSelect, Box, selectClasses, styled} from '@mui/material'
+import { Select as MuiSelect, Box, selectClasses, styled } from '@mui/material'
 import type { SelectProps as MuiSelectProps, MenuItemProps } from '@mui/material'
 
 import Input from '../Input'
 import { ArrowDropDownIcon } from '../icons'
 import Chip from '../Chip'
-import Checkbox from '../Checkbox';
 import MenuItem from '../MenuItem'
 
 type OptionMap = {
@@ -56,9 +55,6 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
 
   const children = useMemo(() => {
     if (childrenProp != null) return childrenProp;
-    if (SelectProps.multiple) {
-      return options.map(({ label, value }) => <MenuItem text={label} key={`${value}-${label}`} value={value} />);
-    }
     return options.map(({ label, value }) => <MenuItem key={`${value}-${label}`} value={value} text={label} />);
   }, [options, childrenProp, valueProp]);
 

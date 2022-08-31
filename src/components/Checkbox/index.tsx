@@ -18,17 +18,22 @@ function areEqualValues(values, name): boolean {
   return values?.includes?.(name)
 }
 
-const Checkbox = styled(MuiCheckbox)({
-  [`&.${checkboxClasses.root}`]: {
-    width: 36,
-    height: 36,
-    '&:hover': {
-      background: 'rgba(76, 175, 80, .08)',
+const Checkbox = styled(MuiCheckbox)(({ checked }) => {
+  return {
+    [`&.${checkboxClasses.root}`]: {
+      width: 36,
+      height: 36,
+      '&:hover': {
+        background: 'rgba(76, 175, 80, .08)',
+      },
     },
-  },
-  [`&.${checkboxClasses.disabled}`]: {
-    color: 'rgba(0,0,0,.12)',
-  }
+    [`&.${checkboxClasses.disabled}`]: {
+      color: 'rgba(0,0,0,.12)',
+      ...(checked && {
+        color: 'rgba(0,0,0,.26)',
+      })
+    }
+  }  
 })
 
 
