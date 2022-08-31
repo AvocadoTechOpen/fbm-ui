@@ -53,7 +53,7 @@ const MenuItemButton: React.FC<MenuItemButtonProps> = styled(ListItemButton)(({ 
   }),
 }))
 
-const MenuItemText: React.FC<ListItemTextProps> = styled(ListItemText)(({ secondary }) => ({
+export const MenuItemText: React.FC<ListItemTextProps> = styled(ListItemText)(({ secondary }) => ({
   marginTop: 7,
   marginBottom: 7,
   [`& .${listItemTextClasses.primary}`]: {
@@ -134,8 +134,6 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
       />
     )
   }
-
-  console.log(moreProps, '----------')
 
   return (
     <ListItem

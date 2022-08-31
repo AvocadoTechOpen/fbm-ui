@@ -14,7 +14,9 @@ group:
  * desc: 基本使用
  */
 import * as React from 'react';
-import {Demo, MenuItem, Paper, Box, TimeIcon, Checkbox, MenuList} from 'fbm-ui'
+import {Demo, MenuItem, Paper, Box, TimeIcon, Checkbox, MenuList, MenuItemText } from 'fbm-ui'
+
+console.log(MenuItemText)
 
 export default function NestedList() {
   const [checked, setChecked] = React.useState(false);
@@ -65,6 +67,34 @@ export default function NestedList() {
           </MenuList>
         </Box>
         
+      </Box> 
+    </Demo>
+  );
+}
+
+```
+```tsx
+/**
+ * title: 副标题
+ * desc: 基本使用
+ */
+import * as React from 'react';
+import {Demo, MenuItem, Paper, Box, TimeIcon, Checkbox, MenuList, MenuItemText } from 'fbm-ui'
+
+export default function NestedList() {
+  const [checked, setChecked] = React.useState(false);
+  const handleClick = () => {
+    setChecked(!checked)
+  };
+
+  return (
+    <Demo white >
+      <Box sx={{ display: 'flex'}}>
+        <MenuList sx={{ width: '270px', ml: 2 }} elevation={2}>
+            <MenuItem
+              secondaryText={'选项1'}
+            />
+          </MenuList>
       </Box> 
     </Demo>
   );
