@@ -269,7 +269,7 @@ export default () => {
 
 ```tsx
 /**
- * title: 不可点击
+ * title: 是否可点击
  */
 import * as React from 'react';
 import { Demo, Chip } from 'fbm-ui'
@@ -277,10 +277,9 @@ import { Demo, Chip } from 'fbm-ui'
 export default () => {
   return (
     <Demo>
-       <Chip 
-          label="不可点击"
-          clickable={false}
-        />
+      <Chip label="默认不可点击" />
+      <Chip label="clickable 可点击" clickable />
+      <Chip label="onClick 可点击" onClick={() => console.log('click')} />
     </Demo>
   )
 }

@@ -77,16 +77,18 @@ interface ChipProps {
    * @default 'filled'
    */
   variant?: OverridableStringUnion<'filled' | 'outlined', ChipPropsVariantOverrides>;
+
+  onClick?: () => void;
 }
 
-const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, color, clickable }: { theme: Theme } & ChipProps) => {
+const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, color, clickable, onClick }: { theme: Theme } & ChipProps) => {
   return {
     [`& .${chipClasses.label}`]: {
       paddingLeft: 11,
       paddingRight: 13,
       fontSize: 14,
     },
-    ...(clickable && {
+    ...((clickable || onClick) && {
       '&:hover': {
         cursor: 'pointer',
         ...(variant === 'outlined'
