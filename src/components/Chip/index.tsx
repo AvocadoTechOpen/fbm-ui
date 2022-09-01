@@ -86,16 +86,18 @@ const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, colo
       paddingRight: 13,
       fontSize: 14,
     },
-    '&:hover': {
-      cursor: 'pointer',
-      ...(variant === 'outlined'
-        ? {
-          backgroundColor: theme.palette.action.hover,
-        }
-        : {
-          backgroundColor: theme.palette[color] && theme.palette[color]?.main,
-        }),
-    },
+    ...(clickable && {
+      '&:hover': {
+        cursor: 'pointer',
+        ...(variant === 'outlined'
+          ? {
+            backgroundColor: theme.palette.action.hover,
+          }
+          : {
+            backgroundColor: theme.palette[color] && theme.palette[color]?.main,
+          }),
+      },
+    }),
     ...(size === 'small' && {
       height: '18px',
       [`& .${chipClasses.labelSmall}`]: {
@@ -128,18 +130,13 @@ const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, colo
         fontSize: 18,
       },
     }),
-    ...(!clickable && {
-      '&:hover': {
-        cursor: 'unset',
-        backgroundColor: 'unset',
-      }
-    }),
   };
 });
 
 ChipRoot.defaultProps = {
   variant: 'outlined',
   size: 'medium',
+  clickable: false,
 };
 
 export default ChipRoot;
