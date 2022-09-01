@@ -266,4 +266,24 @@ export default () => {
 }
 ```
 
+
+```tsx
+/**
+ * title: 不可点击
+ */
+import * as React from 'react';
+import { Demo, Chip } from 'fbm-ui'
+
+export default () => {
+  return (
+    <Demo>
+       <Chip 
+          label="不可点击"
+          clickable={false}
+        />
+    </Demo>
+  )
+}
+```
+
 <API></API>
