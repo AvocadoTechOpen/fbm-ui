@@ -79,7 +79,7 @@ interface ChipProps {
   variant?: OverridableStringUnion<'filled' | 'outlined', ChipPropsVariantOverrides>;
 }
 
-const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, color }: { theme: Theme } & ChipProps) => {
+const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, color, clickable }: { theme: Theme } & ChipProps) => {
   return {
     [`& .${chipClasses.label}`]: {
       paddingLeft: 11,
@@ -127,6 +127,12 @@ const ChipRoot: React.FC<ChipProps> = styled(Chip)(({ size, theme, variant, colo
       [`& .${chipClasses.deleteIcon}`]: {
         fontSize: 18,
       },
+    }),
+    ...(!clickable && {
+      '&:hover': {
+        cursor: 'unset',
+        backgroundColor: 'unset',
+      }
     }),
   };
 });
