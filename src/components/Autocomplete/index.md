@@ -287,7 +287,6 @@ export default () => {
       <FormItem label="应用步骤">
       <Autocomplete
         multiple
-        open
         size="large"
         disableCloseOnSelect
         options={data}
