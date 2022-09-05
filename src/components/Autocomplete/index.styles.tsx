@@ -71,6 +71,7 @@ export const AutocompletePaper = styled(Paper, {
 })(({ theme }) => ({
   ...theme.typography.body1,
   overflow: 'auto',
+  padding: '4px 0',
 }));
 
 export const AutocompleteLoading = styled('div', {
@@ -99,7 +100,6 @@ export const AutocompleteListbox = styled('div', {
   return ({
     listStyle: 'none',
     margin: 0,
-    padding: '8px 0',
     maxHeight: '40vh',
     overflow: 'auto',
     [`& .${autocompleteClasses.option}`]: {

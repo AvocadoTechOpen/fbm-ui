@@ -217,22 +217,18 @@ export default () => {
         {
           position_name: "three-1分部职位哈哈哈哈很好顶顶顶顶的的",
           position_token: "fNaYYNBbdwCzzWsg1m7UREMS3Y",
-          refer_position_id: 0,
-          refer_position_token: "",
-          refer_department_id: 0,
-          refer_department_name: "21312321",
-          refer_department_token: "说的VCDSV但是dsfcds",
-          is_shadow_position: 0,
         },
         {
           position_name: "three-都是错的撒川师大CAD是",
           position_token: "23e342321321vdscvdscd",
-          refer_position_id: 0,
-          refer_position_token: "",
-          refer_department_id: 0,
-          refer_department_name: "21312321",
-          refer_department_token: "说的VCDSV但是dsfcds",
-          is_shadow_position: 0,
+        },
+        {
+          position_name: "three-1分部职位哈哈哈哈很好顶",
+          position_token: "fNaYYNBbdwCzzWsg1m7UREMS",
+        },
+        {
+          position_name: "three-都是错的撒川师大",
+          position_token: "23e342321321vdscv",
         },
       ],
     },
@@ -243,22 +239,26 @@ export default () => {
         {
           position_name: "three-12312312321321",
           position_token: "dvsdvdfvdfvdf",
-          refer_position_id: 0,
-          refer_position_token: "",
-          refer_department_id: 0,
-          refer_department_name: "dfvfd",
-          refer_department_token: "dsvcdscds",
-          is_shadow_position: 0,
         },
         {
           position_name: "csdcsdcsdcds-d",
           position_token: "scdscsdcsdcsdc",
-          refer_position_id: 0,
-          refer_position_token: "",
-          refer_department_id: 0,
-          refer_department_name: "21312321",
-          refer_department_token: "说的VCDSV但是dsfcds",
-          is_shadow_position: 0,
+        },
+        {
+          position_name: "three-12312312321",
+          position_token: "dvsdfvdfvdf",
+        },
+        {
+          position_name: "csdcsdcds-d",
+          position_token: "scdscscsdc",
+        },
+        {
+          position_name: "three-12312321321",
+          position_token: "dvsdfvdfvdf",
+        },
+        {
+          position_name: "csddcsdcds-dsd",
+          position_token: "scdsdcsdcsdc",
         },
       ],
     },
@@ -287,6 +287,7 @@ export default () => {
       <FormItem label="应用步骤">
       <Autocomplete
         multiple
+        open
         size="large"
         disableCloseOnSelect
         options={data}
