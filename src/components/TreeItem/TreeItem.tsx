@@ -1,10 +1,8 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import { elementTypeAcceptingRef } from '@mui/utils';
 import Collapse from '@mui/material/Collapse';
 import { alpha, styled, useThemeProps } from '@mui/material/styles';
-import { ownerDocument, useForkRef, unsupportedProp } from '@mui/material/utils';
+import { ownerDocument, useForkRef,  } from '@mui/material/utils';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import TreeViewContext from '../TreeView/TreeViewContext';
 import { DescendantProvider, useDescendant } from '../TreeView/descendants';
@@ -286,7 +284,6 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
       id={id}
       tabIndex={-1}
       {...other}
-      ownerState={ownerState}
       onFocus={handleFocus}
     >
       <StyledTreeItemContent

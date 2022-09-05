@@ -1,4 +1,5 @@
-import { Divider as MuiDivider } from '@mui/material'
+import { Divider, DividerProps as MuiDividerProps } from '@mui/material'
 
-export { DividerProps } from '@mui/material'
-export default MuiDivider
+export interface DividerProps extends MuiDividerProps{}
+
+export default Divider

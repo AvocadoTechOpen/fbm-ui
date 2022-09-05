@@ -13,6 +13,7 @@ type OptionMap = {
   value: MenuItemProps['value'],
 }
 
+type SizeMap = 'small' | 'medium' | 'large'
 export interface SelectProps extends MuiSelectProps {
   name?: string;
   options?: OptionMap[];
@@ -29,20 +30,16 @@ const SelectRoot = styled(MuiSelect)(({ size, disabled }: SelectProps) => {
       },
     }),
     [`& .${selectClasses.select}`]: {
-      ...(size === 'small') && {
+      ...(size === 'small' && {
         padding: '6.5px 12px 6.5px 12px',
-      },
-      ...(size === 'large') && {
+      }),
+      ...((size as SizeMap) === 'large' && {
         padding: '12.5px 12px 12.5px 12px',
-      }
+      })
     },
   }
 })
 
-
-const LabelRoot = styled(Box)({
-  flex: 1,
-})
 
 const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
   const {
@@ -50,12 +47,15 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
     value: valueProp,
     children: childrenProp,
     options,
+    multiple,
+    MenuProps,
     ...SelectProps
   } = props
 
+
   const children = useMemo(() => {
     if (childrenProp != null) return childrenProp;
-    return options.map(({ label, value }) => <MenuItem key={`${value}-${label}`} value={value} text={label} />);
+    return options.map(({ label, value }) => <MenuItem key={`${value}-${label}`} multiple={multiple} value={value} text={label} />);
   }, [options, childrenProp, valueProp]);
 
   const optionMaps = useMemo(() => {
@@ -65,7 +65,6 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
       const { value, label } = options[i]
       _maps[value as string] = label
     }
-
     return _maps
   }, [options])
 
@@ -75,6 +74,15 @@ const Select: React.FC<SelectProps> = React.forwardRef((props, ref) => {
       ref={ref}
       value={valueProp}
       input={<Input label={label} />}
+      multiple={multiple}
+      MenuProps={{
+        PaperProps: {
+          sx: {
+            padding: 0,
+          }
+        },
+        ...MenuProps,
+      }}
       renderValue={(value) => {
         if (Array.isArray(value)) {
           return (

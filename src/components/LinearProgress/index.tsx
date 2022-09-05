@@ -1,5 +1,5 @@
-import { LinearProgress, LinearProgressProps } from '@mui/material'
+import { LinearProgress, LinearProgressProps as MuiLinearProgressProps } from '@mui/material'
 
-export { LinearProgressProps }
+export type LinearProgressProps = MuiLinearProgressProps;
 
 export default LinearProgress

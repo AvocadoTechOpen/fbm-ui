@@ -1,5 +1,5 @@
-import { CircularProgress, CircularProgressProps } from '@mui/material'
+import { CircularProgress, CircularProgressProps as MuiCircularProgressProps} from '@mui/material'
 
-export { CircularProgressProps }
+export interface CircularProgressProps extends MuiCircularProgressProps{}
 
 export default CircularProgress

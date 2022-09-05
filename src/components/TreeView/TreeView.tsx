@@ -57,6 +57,7 @@ const defaultDefaultSelected = [];
 
 const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
   const props = useThemeProps({ props: inProps, name: 'MuiTreeView' });
+  
   const {
     children,
     className,
@@ -430,7 +431,7 @@ const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
   const currentRangeSelection = React.useRef([]);
 
   const handleRangeArrowSelect = (event, nodes) => {
-    let base = selected.slice();
+    let base = selected.slice() as any;
     const { start, next, current } = nodes;
 
     if (!next || !current) {
@@ -464,7 +465,7 @@ const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
   };
 
   const handleRangeSelect = (event, nodes) => {
-    let base = selected.slice();
+    let base = selected.slice() as any;
     const { start, end } = nodes;
     // If last selection was a range selection ignore nodes that were selected.
     if (lastSelectionWasRange.current) {
@@ -659,7 +660,6 @@ const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
   
     let flag = false;
     const key = event.key;
-    console.log(`handleKeyDown`, key)
     // If the tree is empty there will be no focused node
     if (event.altKey || event.currentTarget !== event.target || !focusedNodeId) {
       return;

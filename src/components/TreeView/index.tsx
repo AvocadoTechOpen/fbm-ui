@@ -56,7 +56,6 @@ const Tree: React.FC<TreeViewProps> = React.forwardRef((props, ref) => {
   )
 })
 
-
 Tree.defaultProps = {
   defaultCollapseIcon: <ArrowDropDownIcon />,
   defaultExpandIcon: <ArrowDropRightIcon />

@@ -20,6 +20,8 @@ import {
 
 import { cloneElement, isValidElement } from '../../utils/reactNode'
 import { ArrowDropRightIcon, DoneIcon } from '../icons'
+import MenuListContext from '../MenuList/MenuListContext'
+import Checkbox from '../Checkbox'
 
 export interface MenuItemProps {
   ListItemProps?: ListItemProps,
@@ -35,10 +37,12 @@ export interface MenuItemProps {
   subMenuList?: React.ReactNode;
   PopperProps?: PopperProps;
   checkbox?: React.ReactNode;
-  value: any;
+  value?: any;
   onMouseMove?: ListItemProps['onMouseMove'];
   onMouseLeave?: ListItemProps['onMouseLeave'];
   selected?: boolean;
+  /** 是否可多选 */
+  multiple?: boolean;
 }
 
 type OwnerState = {
@@ -48,7 +52,6 @@ type OwnerState = {
 
 type MenuItemButtonProps = ListItemButtonProps & { ownerState: OwnerState };
 
-console.log(listItemButtonClasses.selected)
 const MenuItemButton: React.FC<MenuItemButtonProps> = styled(ListItemButton)(({ ownerState }: MenuItemButtonProps) => ({
   paddingTop: 0,
   paddingBottom: 0,
@@ -111,10 +114,20 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
     onMouseMove,
     onMouseLeave,
     children: childrenProp,
-    checkbox,
+    checkbox: checkboxProp,
     selected,
+    multiple: multipleProp,
     ...moreProps
   } = props
+
+  const menuListContext = React.useContext(MenuListContext);
+  const multiple = !!(multipleProp || menuListContext?.multiple)
+
+  let checkbox = childrenProp
+  if (multiple && checkbox === undefined) {
+    checkbox = <Checkbox />
+  }
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
 
@@ -167,7 +180,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
           <MenuItemStartIcon ownerState={ownerState}>
             {cloneElement(checkbox, {
               disabled,
-              selected,
+              checked: selected,
             })}
           </MenuItemStartIcon>
         )}
@@ -175,7 +188,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
         {subMenuList != null && (
           <ArrowDropRightIcon />
         )}
-        {(checkbox == null && selected === true) && 
+        {(multiple === false && selected === true) && 
           <DoneIcon color="primary" />
         }
       </MenuItemButton>

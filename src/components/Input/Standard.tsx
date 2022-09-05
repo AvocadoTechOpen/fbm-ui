@@ -6,7 +6,7 @@ import {
   inputClasses,
 } from '@mui/material'
 
-export { InputProps as StandardInputProps } from '@mui/material'
+export type StandardInputProps =  InputProps
 
 const StandardInput: React.FC<InputProps> = styled(Input)(({ theme, color }) => {
   return {
@@ -22,8 +22,6 @@ const StandardInput: React.FC<InputProps> = styled(Input)(({ theme, color }) => 
     },
   }
 })
-
-
 
 export default StandardInput
 

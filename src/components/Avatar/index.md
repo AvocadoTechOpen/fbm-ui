@@ -26,6 +26,23 @@ export default () =>(
 ```
 
 ```tsx
+/**
+ * title: 默认头像
+ * desc: 基本使用
+ */
+import * as React from 'react';
+import { Avatar, Demo } from 'fbm-ui'
+
+export default () =>(
+  <Demo white>
+    <Avatar />
+  </Demo>
+)
+```
+
+
+
+```tsx
 
 /**
  * title: 字母头像

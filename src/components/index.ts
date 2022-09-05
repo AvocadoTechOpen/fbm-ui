@@ -117,7 +117,6 @@ export * from './Radio'
 export { default as ImageCrop } from './ImageCrop'
 export * from './ImageCrop'
 
-
 export { default as Checkbox } from './Checkbox'
 export * from './Checkbox'
 
@@ -159,3 +158,6 @@ export * from './LinearProgress';
 
 export  { default as Grid } from './Grid'
 export * from './Grid';
+
+export  { default as TreeView } from './TreeView'
+export * from './TreeView';

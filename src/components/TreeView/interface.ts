@@ -12,6 +12,7 @@ export interface TreeViewPropsBase {
   data?: any[];
   getNodeLabel?: (data: DataNode) => React.ReactNode;
   getNodeId?: (data: DataNode) => string;
+  className?: string;
   /**
    * The content of the component.
    */
@@ -80,6 +81,12 @@ export interface TreeViewPropsBase {
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
   sx?: SxProps<Theme>;
+
+  onBlur?: React.FocusEventHandler<HTMLUListElement>
+
+  onFocus?:  React.FocusEventHandler<HTMLUListElement>
+
+  onKeyDown?: React.KeyboardEventHandler<HTMLUListElement> 
 }
 
 export interface MultiSelectTreeViewProps extends TreeViewPropsBase {

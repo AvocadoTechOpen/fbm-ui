@@ -2,12 +2,11 @@ import React from 'react'
 import styled from '@mui/material/styles/styled'
 import {
   OutlinedInput as MuiOutlinedInput,
-  OutlinedInputProps,
+  OutlinedInputProps as MuiOutlinedInputProps,
   outlinedInputClasses,
 } from '@mui/material'
 
-
-export { OutlinedInputProps } from '@mui/material'
+export type OutlinedInputProps = MuiOutlinedInputProps;
 
 const OutlinedInput: React.FC<OutlinedInputProps> = styled(MuiOutlinedInput)(({ theme, startAdornment, endAdornment,  size }) => {
   return {

@@ -27,6 +27,7 @@ const Checkbox = styled(MuiCheckbox)(({ checked }) => {
         background: 'rgba(76, 175, 80, .08)',
       },
     },
+    color: 'rgba(0,0,0,.26)',
     [`&.${checkboxClasses.disabled}`]: {
       color: 'rgba(0,0,0,.12)',
       ...(checked && {

@@ -1,6 +1,6 @@
-import { Tab as MuiTab, styled, TabProps, tabClasses } from '@mui/material'
-export { TabProps } from '@mui/material'
+import { Tab as MuiTab, TabProps as MuiTabProps, tabClasses, styled} from '@mui/material'
 
+export type TabProps = MuiTabProps
 
 const Tab: React.FC<TabProps> = styled(MuiTab)(({ theme }) => ({
   [`&.${tabClasses.root}`]: {

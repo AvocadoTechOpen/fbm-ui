@@ -1,5 +1,5 @@
-import { Grid, GridProps } from "@mui/material"
+import { Grid, GridProps as MuiGridProps } from "@mui/material"
 
-export { GridProps }
+export type GridProps = MuiGridProps
 
 export default Grid;

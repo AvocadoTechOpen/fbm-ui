@@ -43,11 +43,10 @@ const TreeItemContent = React.forwardRef(function TreeItemContent(props, ref) {
   };
 
   const handleClick = (event) => {
-    console.log(event)
-    // handleSelection(event);
-    // if (onClick) {
-    //   onClick(event);
-    // }
+    handleSelection(event);
+    if (onClick) {
+      onClick(event);
+    }
   };
 
   return (
