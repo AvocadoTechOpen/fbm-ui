@@ -100,6 +100,7 @@ export const AutocompleteListbox = styled('div', {
   return ({
     listStyle: 'none',
     margin: 0,
+    padding: 0,
     maxHeight: '40vh',
     overflow: 'auto',
     [`& .${autocompleteClasses.option}`]: {
