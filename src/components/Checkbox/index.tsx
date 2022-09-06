@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControlLabel, styled, FormControlLabelProps as MuiFormControlLabelProps, Checkbox as MuiCheckbox, CheckboxProps as MuiCheckboxProps, createChainedFunction, checkboxClasses } from '@mui/material';
+import { FormControlLabel as MuiFormControlLabel, formControlLabelClasses, styled, FormControlLabelProps as MuiFormControlLabelProps, Checkbox as MuiCheckbox, CheckboxProps as MuiCheckboxProps, createChainedFunction, checkboxClasses } from '@mui/material';
 import useCheckboxGroup from '../CheckboxGroup/useCheckboxGroup'
 
 export interface CheckboxProps {
@@ -28,6 +28,12 @@ const Checkbox = styled(MuiCheckbox)({
   },
   [`&.${checkboxClasses.disabled}`]: {
     color: 'rgba(0,0,0,.12)',
+  }
+})
+
+const FormControlLabel = styled(MuiFormControlLabel)({
+  [`.${formControlLabelClasses.label}`]: {
+    fontSize: 14,
   }
 })
 
