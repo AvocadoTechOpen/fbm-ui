@@ -50,6 +50,7 @@ const FbmUploadList: React.FC<UploadListProps> = props => {
       {(items || []).map((item) => {
         const itemProps = {
           name: item.name,
+          size: item.size,
           percent: item.percent,
           status: item.status,
           nameRender: () => nameRender(item),

@@ -60,6 +60,7 @@ export default () =>{
   const props = {
     type: 'drop',
     name: 'file',
+    multiple: false,
     action: '/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
