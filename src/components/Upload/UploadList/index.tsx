@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, styled, Theme } from '@mui/material';
 
-import { UploadListProps, UploadFile, UploadListPlace } from '../types'
+import { UploadListProps, UploadListPlace } from '../types'
 import ListItem from './ListItem'
 
 

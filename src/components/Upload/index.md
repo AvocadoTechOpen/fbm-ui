@@ -8,55 +8,14 @@ group:
 # Upload 上传组件
 ## 代码演示
 
-
 ```tsx
 /**
- * title: 基本
- * desc: 基本使用
+ * title: Dnd 类型
  */
 import * as React from 'react';
-        
-import { Demo, Upload, Button, DocumentUploadIcon} from 'fbm-ui'
+import { Demo, Upload, Box } from 'fbm-ui'
 
-export default () =>{
-  const [age, setAge] = React.useState(20)
-
-  const props = {
-    name: 'file',
-    maxCount: 1,
-    uploadListPlace: 'top',
-    action: '/v2/5cc8019d300000980a055e76',
-    headers: {
-      authorization: 'authorization-text',
-    },
-    onChange: (info) => {
-      console.log(info)
-    },
-    UploadListProps:{
-      nameRender: () => 'asd',
-    }
-  };
-  return (
-    <Demo>
-      <Upload  {...props}>
-        上传
-      </Upload>
-    </Demo>
-  )
-}
-```
-
-```tsx
-/**
- * title: 拖拽上传
- * desc: 基本使用
- */
-import * as React from 'react';
-import { Demo, Upload, Button, Box, DocumentUploadIcon} from 'fbm-ui'
-
-export default () =>{
-  const [age, setAge] = React.useState(20)
-
+export default () => {
   const props = {
     type: 'drop',
     name: 'file',
@@ -78,18 +37,17 @@ export default () =>{
 
 ```tsx
 /**
- * title: 不显示uploadList
- * desc: 基本使用
+ * title: Cube 类型
  */
 import * as React from 'react';
-import { Demo, Upload, Button, DocumentUploadIcon} from 'fbm-ui'
+import { Demo, Upload } from 'fbm-ui'
+import { Stack } from '@mui/material';
 
-export default () =>{
-  const [age, setAge] = React.useState(20)
-
+export default () => {
   const props = {
-    type: 'drop',
+    type: 'cube',
     name: 'file',
+    multiple: false,
     action: '/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
@@ -98,43 +56,14 @@ export default () =>{
   };
   return (
     <Demo white>
-      <Upload  {...props} />
+      <Stack maxWidth={380} direction="row" spacing={1}>
+        <Upload {...props} />
+        <Upload {...props} width={257} />
+      </Stack>
     </Demo>
   )
 }
 ```
 
-
-```tsx
-/**
- * title: 自定义进度条信息
- * desc: itemRender
- */
-import * as React from 'react';
-        
-import { Demo, Upload, Button, DocumentUploadIcon} from 'fbm-ui'
-
-export default () =>{
-  const [age, setAge] = React.useState(20)
-
-  const props = {
-    name: 'file',
-    action: '/v2/5cc8019d300000980a055e76',
-    headers: {
-      authorization: 'authorization-text',
-    },
-    itemRender: ({ status }) => {
-      return <div> { status } </div>
-    }
-  };
-  return (
-    <Demo>
-      <Upload  {...props}>
-        上传
-      </Upload>
-    </Demo>
-  )
-}
-```
 <API></API>
 

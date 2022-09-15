@@ -7,6 +7,7 @@ import { file2Obj, getFileItem, updateFileList, removeFileItem } from './utils'
 import { useMergedState } from '../../hooks'
 import UploadChildrenButton from './UploadChildren/Button'
 import UploadChildrenDragger from './UploadChildren/Dragger'
+import UploadChildrenCube from './UploadChildren/Cube'
 
 const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`;
 
@@ -267,6 +268,12 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       >
         {childrenProp}
       </UploadChildrenDragger>
+    )
+  } else if (type === 'cube') {
+    children = (
+      <UploadChildrenCube {...restProps}>
+        {childrenProp}
+      </UploadChildrenCube>
     )
   } else if (type === 'button') {
     children = (
