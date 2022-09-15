@@ -40,6 +40,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   });
 
   const [dragState, setDragState] = React.useState<string>('drop');
+  const [uploadedFile, setUploadedFile] = React.useState<UploadFile>();
 
   const upload = React.useRef<any>();
 
@@ -104,6 +105,9 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     if (event) {
       changeInfo.event = event;
     }
+
+    console.log('changeInfo:', changeInfo)
+    setUploadedFile(file);
 
     onChange?.(changeInfo);
   };
@@ -271,7 +275,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     )
   } else if (type === 'cube') {
     children = (
-      <UploadChildrenCube {...restProps}>
+      <UploadChildrenCube {...restProps} file={uploadedFile} onRemove={handleRemove}>
         {childrenProp}
       </UploadChildrenCube>
     )
