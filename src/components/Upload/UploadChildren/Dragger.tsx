@@ -24,7 +24,8 @@ interface DraggerProps {
 const Dragger: React.FC<DraggerProps> = (props) => {
   return (
     <DraggerBox {...props}>
-      <Stack spacing={0.5}>
+      <Stack spacing={0.5} alignItems="center">
+        <Typography variant="caption" color="secondary">TODO: cloud_upload icon</Typography>
         <Typography fontWeight={500}>将文件拖到此处以上传</Typography>
         <Stack direction="row" spacing={0.5} justifyContent="center">
           <Typography variant="caption" color="secondary">

@@ -52,7 +52,7 @@ export default () =>{
  * desc: 基本使用
  */
 import * as React from 'react';
-import { Demo, Upload, Button, DocumentUploadIcon} from 'fbm-ui'
+import { Demo, Upload, Button, Box, DocumentUploadIcon} from 'fbm-ui'
 
 export default () =>{
   const [age, setAge] = React.useState(20)
@@ -68,7 +68,9 @@ export default () =>{
   };
   return (
     <Demo white>
-      <Upload  {...props} />
+      <Box maxWidth={380}>
+        <Upload  {...props} />
+      </Box>
     </Demo>
   )
 }

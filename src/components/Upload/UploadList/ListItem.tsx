@@ -1,5 +1,12 @@
 import React from 'react'
-import { styled, LinearProgress, Box, Tooltip, Theme } from '@mui/material'
+import {
+  styled,
+  LinearProgress,
+  Box,
+  Tooltip,
+  Theme,
+  LinearProgressProps,
+} from '@mui/material'
 import filesize from 'filesize'
 
 import { RefreshIcon, DeleteIcon, CloseIcon } from '../../icons'
@@ -123,12 +130,22 @@ const ListItem: React.FC<ListItemProps> = ({
   }
 
   return (
-    <FlexCenterBox sx={{ mt: '5px', height: 56 }}>
+    <FlexCenterBox
+      sx={[
+        { mt: '5px', px: 2, height: 56 },
+        status === 'done' && {
+          '&:hover': {
+            backgroundColor: 'rgba(0,0,0,0.04)',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          },
+        },
+      ]}
+    >
       <FileIcon
         sx={{
           mr: 1,
           position: 'relative',
-          // top: '3px',
         }}
       />
       <FlexFill>
@@ -138,7 +155,7 @@ const ListItem: React.FC<ListItemProps> = ({
             <Progress
               variant="determinate"
               value={progress}
-              color={progressColors[status]}
+              color={progressColors[status] as LinearProgressProps['color']}
             />
           </FlexCenterBox>
         )}
