@@ -282,6 +282,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
         status={dragState}
         file={uploadedFile}
         onRemove={handleRemove}
+        multiple={multiple}
         {...restProps}
       >
         {childrenProp}

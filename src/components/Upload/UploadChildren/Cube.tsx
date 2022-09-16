@@ -20,6 +20,7 @@ const ImgWrapper = styled(Box)(({ width, height }: IProps) => ({
   position: 'relative',
   width: width ?? 120,
   height: height ?? 120,
+  border: '1px solid transparent',
   borderRadius: '4px',
   '&:hover .fbm-cube-hidden': {
     display: 'flex',

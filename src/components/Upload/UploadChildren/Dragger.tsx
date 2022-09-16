@@ -21,6 +21,7 @@ const ImgWrapper = styled(Box)(({ width, height }: DraggerProps) => ({
   position: 'relative',
   width: width ?? 380,
   height: height ?? 146,
+  border: '1px solid transparent',
   borderRadius: '4px',
   overflow: 'hidden',
   '& .fbm-drop-mask': {
@@ -55,13 +56,14 @@ const ImgWrapper = styled(Box)(({ width, height }: DraggerProps) => ({
 interface DraggerProps {
   status?: string
   file?: UploadFile
-  onRemove?: (file: UploadFile) => void
+  multiple?: boolean
   width?: number
   height?: number
+  onRemove?: (file: UploadFile) => void
 }
 
 const Dragger: React.FC<DraggerProps> = (props) => {
-  const { status, file, onRemove, ...restProps } = props
+  const { status, file, onRemove, multiple, ...restProps } = props
   const imgUrl = file?.response?.url
 
   function handleRemove(e) {
@@ -69,7 +71,7 @@ const Dragger: React.FC<DraggerProps> = (props) => {
     onRemove?.(file!)
   }
 
-  if (imgUrl) {
+  if (imgUrl && !multiple) {
     return (
       <ImgWrapper {...restProps}>
         <img
