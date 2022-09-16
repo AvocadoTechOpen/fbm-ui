@@ -61,12 +61,11 @@ interface IProps {
 }
 
 const Cube: React.FC<IProps> = (props) => {
-  console.log('props:', props)
   const { file, onRemove, ...restProps } = props
   const imgUrl = file?.response?.url
 
   function handleRemove(e) {
-    e.stopPropagation();
+    e.stopPropagation()
     onRemove?.(file!)
   }
 
@@ -77,12 +76,9 @@ const Cube: React.FC<IProps> = (props) => {
           src={imgUrl}
           width="100%"
           height="100%"
-          style={{ borderRadius: '4px' }}
+          style={{ borderRadius: '4px', objectFit: 'cover' }}
         />
-        <DeleteBtn
-          className="fbm-cube-hidden"
-          onClick={handleRemove}
-        >
+        <DeleteBtn className="fbm-cube-hidden" onClick={handleRemove}>
           <CancelIcon sx={{ width: 20, height: 20 }} />
         </DeleteBtn>
         <EditBtn className="fbm-cube-hidden">更换图片</EditBtn>

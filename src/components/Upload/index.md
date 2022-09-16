@@ -10,7 +10,7 @@ group:
 
 ```tsx
 /**
- * title: Dnd 类型
+ * title: Dnd 类型 - 单个文件
  */
 import * as React from 'react';
 import { Demo, Upload, Box } from 'fbm-ui'
@@ -20,6 +20,34 @@ export default () => {
     type: 'drop',
     name: 'file',
     multiple: false,
+    showUploadList: false,
+    action: '/v2/5cc8019d300000980a055e76',
+    headers: {
+      authorization: 'authorization-text',
+    },
+  };
+  return (
+    <Demo white>
+      <Box maxWidth={380}>
+        <Upload  {...props} />
+      </Box>
+    </Demo>
+  )
+}
+```
+
+```tsx
+/**
+ * title: Dnd 类型 - 多个文件
+ */
+import * as React from 'react';
+import { Demo, Upload, Box } from 'fbm-ui'
+
+export default () => {
+  const props = {
+    type: 'drop',
+    name: 'file',
+    multiple: true,
     action: '/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
@@ -48,11 +76,11 @@ export default () => {
     type: 'cube',
     name: 'file',
     multiple: false,
+    showUploadList: false,
     action: '/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
     },
-    showUploadList: false,
   };
   return (
     <Demo white>
