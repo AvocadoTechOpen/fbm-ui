@@ -494,7 +494,7 @@ const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
     }
 
     if (onNodeSelect) {
-      onNodeSelect(event, newSelected);
+      onNodeSelect(event, newSelected, getChildrenIds(value));
     }
 
     setSelectedState(newSelected);

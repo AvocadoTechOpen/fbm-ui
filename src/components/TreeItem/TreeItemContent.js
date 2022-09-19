@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import useTreeItem from './useTreeItem';
 import Checkbox from '../Checkbox'
+import { DoneIcon } from '../icons'
 
 /**
  * @ignore - internal component.
@@ -43,6 +44,7 @@ const TreeItemContent = React.forwardRef(function TreeItemContent(props, ref) {
   };
 
   const handleClick = (event) => {
+    handleExpansion(event);
     handleSelection(event);
     if (onClick) {
       onClick(event);
@@ -73,10 +75,12 @@ const TreeItemContent = React.forwardRef(function TreeItemContent(props, ref) {
         {
           multiSelect ? (
             <Checkbox label={label} checked={selected} onChange={handleSelection} />
-          ) :  label
+          ) : label
         }
       </div>
-
+      {(multiSelect === false && selected === true) &&
+        <DoneIcon color="primary" />
+      }
     </div>
   );
 });

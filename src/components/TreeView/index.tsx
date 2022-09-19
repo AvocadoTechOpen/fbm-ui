@@ -10,8 +10,8 @@ import { TreeViewProps } from './interface'
 const Tree: React.FC<TreeViewProps> = React.forwardRef((props, ref) => {
   const {
     data,
-    getNodeLabel,
-    getNodeId,
+    getNodeLabel = (node) => node.label,
+    getNodeId = (node) => node.id,
     ...TreeViewProps
   } = props
 
@@ -22,10 +22,10 @@ const Tree: React.FC<TreeViewProps> = React.forwardRef((props, ref) => {
       const { children, label, id } = nodeData
 
       // 获取nodeLable 
-      const _label = getNodeLabel?.(nodeData) || label;
+      const _label = getNodeLabel?.(nodeData);
 
       // 获取nodeId
-      const _nodeId = getNodeId?.(nodeData) || id
+      const _nodeId = getNodeId?.(nodeData)
 
       return (
         <TreeItem

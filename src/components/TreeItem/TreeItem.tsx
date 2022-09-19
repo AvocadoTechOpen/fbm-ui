@@ -72,28 +72,28 @@ const StyledTreeItemContent = styled(TreeItemContent, {
     opacity: theme.palette.action.disabledOpacity,
     backgroundColor: 'transparent',
   },
-  [`&.${treeItemClasses.focused}`]: {
-    backgroundColor: theme.palette.action.focus,
-  },
-  [`&.${treeItemClasses.selected}`]: {
-    backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-    '&:hover': {
-      backgroundColor: alpha(
-        theme.palette.primary.main,
-        theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity,
-      ),
-      // Reset on touch devices, it doesn't add specificity
-      '@media (hover: none)': {
-        backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-      },
-    },
-    [`&.${treeItemClasses.focused}`]: {
-      backgroundColor: alpha(
-        theme.palette.primary.main,
-        theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity,
-      ),
-    },
-  },
+  // [`&.${treeItemClasses.focused}`]: {
+  //   backgroundColor: theme.palette.action.focus,
+  // },
+  // [`&.${treeItemClasses.selected}`]: {
+  //   backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+  //   '&:hover': {
+  //     backgroundColor: alpha(
+  //       theme.palette.primary.main,
+  //       theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity,
+  //     ),
+  //     // Reset on touch devices, it doesn't add specificity
+  //     '@media (hover: none)': {
+  //       backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+  //     },
+  //   },
+  //   [`&.${treeItemClasses.focused}`]: {
+  //     backgroundColor: alpha(
+  //       theme.palette.primary.main,
+  //       theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity,
+  //     ),
+  //   },
+  // },
   [`& .${treeItemClasses.iconContainer}`]: {
     marginRight: 4,
     width: 15,
