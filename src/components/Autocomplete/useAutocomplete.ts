@@ -76,7 +76,7 @@ export default function useAutocomplete(props) {
     componentName = 'useAutocomplete',
     defaultValue = props.multiple ? [] : null,
     disableClearable = false,
-    disableCloseOnSelect = false,
+    disableCloseOnSelect = props.multiple,
     disabled: disabledProp,
     disabledItemsFocusable = false,
     disableListWrap = false,

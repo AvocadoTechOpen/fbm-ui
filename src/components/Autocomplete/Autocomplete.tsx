@@ -16,11 +16,10 @@ import {
 } from './index.styles'
 import useAutocomplete from './useAutocomplete'
 
-
 import Chip from '../Chip'
 import { ArrowDropDownIcon, CloseIcon, DoneIcon } from '../icons'
 import { AutocompleteProps } from './interface'
-import Typography from '../Typography'
+import MenuItem from '../MenuItem'
 
 export { createFilterOptions };
 
@@ -147,22 +146,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
 
   const renderGroup = renderGroupProp || defaultRenderGroup;
   const defaultRenderOption = (props2, option, { selected }) => {
-    if (multiple) {
-      return (
-        <li {...props2}>
-          <Checkbox checked={selected} />
-          <Typography className={classes.optionLabel}>
-            {getOptionLabel(option)}
-          </Typography>
-        </li>
-      )
-    }
-    return (
-      <li {...props2}>
-        <Typography className={classes.optionLabel}>{getOptionLabel(option)}</Typography>
-        {selected && <DoneIcon className={classes.optioncheckedIcon} />}
-      </li>
-    )
+    return <MenuItem {...props2} multiple={multiple} selected={selected} text={getOptionLabel(option)} />
   };
   const renderOption = renderOptionProp || defaultRenderOption;
 
