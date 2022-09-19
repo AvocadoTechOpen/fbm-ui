@@ -11,7 +11,7 @@ type BeforeUploadValueType = void | boolean | string | Blob | File;
 
 export type UploadFileStatus = 'error' | 'success' | 'done' | 'uploading' | 'removed';
 export type Action = string | ((file: RcFile) => string | PromiseLike<string>);
-export type UploadType = 'button' | 'drop' | 'custom'
+export type UploadType = 'button' | 'drop' | 'cube' | 'custom'
 
 export interface HttpRequestHeader {
   [key: string]: string;

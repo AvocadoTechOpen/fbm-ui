@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, styled, Theme } from '@mui/material';
 
-import { UploadListProps, UploadFile, UploadListPlace } from '../types'
+import { UploadListProps, UploadListPlace } from '../types'
 import ListItem from './ListItem'
 
 
@@ -50,6 +50,7 @@ const FbmUploadList: React.FC<UploadListProps> = props => {
       {(items || []).map((item) => {
         const itemProps = {
           name: item.name,
+          size: item.size,
           percent: item.percent,
           status: item.status,
           nameRender: () => nameRender(item),

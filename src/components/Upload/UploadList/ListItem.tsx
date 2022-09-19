@@ -1,30 +1,42 @@
 import React from 'react'
-import { styled, LinearProgress, Box, Tooltip, Theme } from '@mui/material'
+import {
+  styled,
+  LinearProgress,
+  Box,
+  Tooltip,
+  Theme,
+  LinearProgressProps,
+} from '@mui/material'
+import filesize from 'filesize'
 
-import { RefreshIcon, CancelIcon, DeleteIcon } from '../../icons'
+import { RefreshIcon, DeleteIcon, CloseIcon } from '../../icons'
 import Typography from '../../Typography'
 import { FileIcons, getFileFormat } from '../utils'
-import {
-  UploadFile,
-} from '../types';
+import { UploadFile } from '../types'
+
+function formatInfo(size: number, percent: number) {
+  return `${filesize(size * (percent / 100))} / ${filesize(size)}`
+}
 
 interface ListItemProps {
   /** 文件名称 */
-  name?: UploadFile['name'];
+  name?: UploadFile['name']
+  /** 文件大小 */
+  size: UploadFile['size']
   /** 上传进度 */
-  percent: UploadFile['percent'];
+  percent: UploadFile['percent']
   /** 文件上传状态 */
-  status: UploadFile['status'];
+  status: UploadFile['status']
   /** 取消上传 */
-  onClose: (file?: UploadFile) => void;
+  onClose: (file?: UploadFile) => void
   /** 重新上传 */
-  onRefresh: (file?: UploadFile) => void;
-  nameRender: (file?: UploadFile) => React.ReactNode;
+  onRefresh: (file?: UploadFile) => void
+  nameRender: (file?: UploadFile) => React.ReactNode
 }
 
 const FlexCenterBox = styled(Box)({
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
 })
 
 const FlexFill = styled(Box)({
@@ -34,13 +46,12 @@ const FlexFill = styled(Box)({
 const ActionIconBox = styled('span')({
   cursor: 'pointer',
   position: 'relative',
-  top: 5,
   marginLeft: 8,
 })
 
 const FileName = styled(Typography)({
-  color: 'rgba(0, 0, 0, 0.87)',
-  fontSize: '0.875rem',
+  color: 'rgba(0, 0, 0, 0.86)',
+  fontSize: '14px',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
@@ -54,13 +65,14 @@ const Progress = styled(LinearProgress)({
 })
 
 interface ActionIconSpanProps {
-  status?: ListItemProps['status'];
-  theme?: Theme;
-
+  status?: ListItemProps['status']
+  theme?: Theme
 }
-const ActionIconSpan: React.FC<ActionIconSpanProps> = styled('span')(({ theme, status }: ActionIconSpanProps) => ({
-  color: theme.palette.secondary.main
-}))
+const ActionIconSpan: React.FC<ActionIconSpanProps> = styled('span')(
+  ({ theme, status }: ActionIconSpanProps) => ({
+    color: theme.palette.secondary.main,
+  })
+)
 
 const HelperText = styled(Typography)({
   fontSize: '0.75rem',
@@ -70,12 +82,13 @@ const HelperText = styled(Typography)({
 const progressColors = {
   uploading: 'primary',
   error: 'error',
-  done: 'primary'
+  done: 'primary',
 }
 
 const ListItem: React.FC<ListItemProps> = ({
   // 文件名称
   name,
+  size,
   // 上传进度
   percent: percentProp,
   // 上传状态
@@ -84,9 +97,9 @@ const ListItem: React.FC<ListItemProps> = ({
   onRefresh,
   nameRender,
 }) => {
-
   const fileFormat: string = getFileFormat(name)
-  const FileIcon: React.FC<any> = FileIcons[fileFormat] || FileIcons['undefined']
+  const FileIcon: React.FC<any> =
+    FileIcons[fileFormat] || FileIcons['undefined']
 
   const progress = status === 'error' ? 100 : percentProp
 
@@ -94,7 +107,7 @@ const ListItem: React.FC<ListItemProps> = ({
     uploading: (
       <Tooltip title={'取消上传'} placement="top">
         <ActionIconSpan status={status}>
-          <CancelIcon onClick={() => onClose()} />
+          <CloseIcon onClick={() => onClose()} />
         </ActionIconSpan>
       </Tooltip>
     ),
@@ -113,29 +126,50 @@ const ListItem: React.FC<ListItemProps> = ({
           <DeleteIcon onClick={() => onClose()} />
         </ActionIconSpan>
       </Tooltip>
-    )
+    ),
   }
 
   return (
-    <FlexCenterBox sx={{ mt: '5px' }}>
-      <FileIcon sx={{
-        mr: 1,
-        position: 'relative',
-        top: '3px',
-      }} />
+    <FlexCenterBox
+      sx={[
+        { mt: '5px', px: 2, height: 56 },
+        status === 'done' && {
+          '&:hover': {
+            backgroundColor: 'rgba(0,0,0,0.04)',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          },
+        },
+      ]}
+    >
+      <FileIcon
+        sx={{
+          mr: 1,
+          position: 'relative',
+        }}
+      />
       <FlexFill>
         <FileName>{nameRender()}</FileName>
-        <FlexCenterBox sx={{ flex: 1, position: 'relative' }}>
-          <Progress
-            variant='determinate'
-            value={progress}
-            color={progressColors[status]}
-          />
-        </FlexCenterBox>
+        {status === 'uploading' && (
+          <FlexCenterBox sx={{ flex: 1, position: 'relative' }}>
+            <Progress
+              variant="determinate"
+              value={progress}
+              color={progressColors[status] as LinearProgressProps['color']}
+            />
+          </FlexCenterBox>
+        )}
+        {status === 'error' ? (
+          <Typography variant="caption" color="error">
+            上传失败
+          </Typography>
+        ) : (
+          <Typography variant="caption" color="secondary">
+            {formatInfo(size, percentProp)}
+          </Typography>
+        )}
       </FlexFill>
-      <ActionIconBox>
-        {StatusIcons[status] || null}
-      </ActionIconBox>
+      <ActionIconBox>{StatusIcons[status] || null}</ActionIconBox>
     </FlexCenterBox>
   )
 }
