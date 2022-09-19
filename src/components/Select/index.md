@@ -33,6 +33,7 @@ export default () => {
 
   const handleChange = (e) => {
     setAge(e.target.value);
+    console.log(e)
   };
 
   return (
@@ -41,13 +42,13 @@ export default () => {
         <Select value={age} options={options} onChange={handleChange}></Select>
       </FormItem>
       <FormItem label="年龄" size="small">
-        <Select value={age}  options={options} onChange={handleChange} disabled />
+        <Select value={age}  options={options} onChange={handleChange}  />
       </FormItem>
        <FormItem label="年龄" size="large">
         <Select value={age}  options={options} onChange={handleChange} disabled />
       </FormItem>
        <FormItem label="年龄" size="small">
-        <Select value={age}  options={options} onChange={handleChange} />
+        <Select value={age}  options={options} onChange={handleChange} disabled/>
       </FormItem>
     </Layout>
   );

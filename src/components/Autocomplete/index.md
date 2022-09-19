@@ -190,7 +190,6 @@ export default () => {
             multiple
             placeholder="请输入"
             options={top100Films}
-            disableCloseOnSelect={true}
           />
         </FormItem>
         <Input />
@@ -288,7 +287,6 @@ export default () => {
       <Autocomplete
         multiple
         size="large"
-        disableCloseOnSelect
         options={data}
         value={value || []}
         groupBy={(option) => `${option?.positionName}--${option?.positionToken}`}

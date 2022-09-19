@@ -1,6 +1,14 @@
 import React from 'react';
 import { RadioCheckedIcon, RadioIcon } from '../icons'
-import { Radio as MuiRadio, RadioProps as MuiRadioProps, FormControlLabel, FormControlLabelProps, styled, radioClasses } from '@mui/material';
+import {
+  Radio as MuiRadio,
+  RadioProps as MuiRadioProps,
+  FormControlLabel,
+  FormControlLabelProps,
+  styled,
+  radioClasses,
+  formControlLabelClasses
+} from '@mui/material';
 
 export interface RadioProps {
   ref?: MuiRadioProps['ref'];
@@ -15,20 +23,26 @@ export interface RadioProps {
 }
 
 const FormControlLabelRoot = styled(FormControlLabel)(() => ({
-  "& .MuiFormControlLabel-label": {
+  [`& .${formControlLabelClasses.label}`]: {
     fontSize: 14,
-  },
-  [`& .${radioClasses.root}`]: {
-    color: 'rgba(0,0,0,.26)',
-    width: 36,
-    height: 36,
-  },
-  [`&.${radioClasses.checked}`]: {
-    color: '#4caf50',
   },
 }));
 
-const Radio: React.FC<RadioProps> = React.forwardRef(({
+const Radio = styled(MuiRadio)(() => {
+  return {
+    color: 'rgba(0,0,0,.26)',
+    width: 36,
+    height: 36,
+    [`&.${radioClasses.disabled}`]: {
+      color: 'rgba(0,0,0, .12)',
+      [`&.${radioClasses.checked}`]:{
+        color: 'rgba(0,0,0, .24)',
+      }
+    }
+  }
+})
+
+const FormControlLabelAndRadio: React.FC<RadioProps> = React.forwardRef(({
   size,
   value,
   label,
@@ -38,17 +52,18 @@ const Radio: React.FC<RadioProps> = React.forwardRef(({
   icon,
   checkedIcon,
 }, ref) => {
+ 
   return (
     <FormControlLabelRoot
       value={value}
       label={label}
       disabled={disabled}
       control={
-        <MuiRadio
+        <Radio
           checkedIcon={checkedIcon}
           icon={icon}
-          ref={ref} 
-          size={size} 
+          ref={ref}
+          size={size}
           {...RadioProps}
         />
       }
@@ -57,11 +72,11 @@ const Radio: React.FC<RadioProps> = React.forwardRef(({
   )
 })
 
-Radio.defaultProps = {
+FormControlLabelAndRadio.defaultProps = {
   size: 'medium',
   label: '',
   checkedIcon: <RadioCheckedIcon />,
   icon: <RadioIcon />,
 }
 
-export default Radio;
+export default FormControlLabelAndRadio;

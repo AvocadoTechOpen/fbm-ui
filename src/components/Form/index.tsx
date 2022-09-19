@@ -1,8 +1,10 @@
 import React from 'react';
 import { FormikProvider, Form as FormikForm} from 'formik';
-import { FormProps } from './useForm';
+import { FormProps as FbmFormProps } from './useForm';
 
-export { default as useForm, FormProps} from './useForm'
+export { default as useForm } from './useForm'
+
+export type FormProps<T> = FbmFormProps<T>;
 
 const Form: React.FC<FormProps<any>> = ({ children, ...formik }) => {
   return (

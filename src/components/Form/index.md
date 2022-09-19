@@ -81,7 +81,7 @@ export default () => {
         />
         <FormItem 
           name='radios' 
-          label='Radios'
+          sx={{ height: 'auto'}}
         >
           <RadioGroup row={false} onChange={handleChange} options={mockOptions} />
         </FormItem>

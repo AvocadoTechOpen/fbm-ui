@@ -5,7 +5,7 @@ nav:
 group:
   title: 反馈
 ---
-# Message 全局提示
+# Toast 轻提示
 ## 代码演示
 
 ```tsx

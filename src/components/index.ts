@@ -117,15 +117,11 @@ export * from './Radio'
 export { default as ImageCrop } from './ImageCrop'
 export * from './ImageCrop'
 
-
 export { default as Checkbox } from './Checkbox'
 export * from './Checkbox'
 
 export { default as CheckboxGroup } from './CheckboxGroup'
 export * from './CheckboxGroup'
-
-// export { default as TreeView } from './TreeView'
-// export { default as TreeItem } from './TreeItem'
 
 export { default as Autocomplete } from './Autocomplete'
 export * from './Autocomplete'
@@ -138,5 +134,30 @@ export * from './Link'
 
 export { default as Tabs } from './Tabs'
 export * from './Tabs'
+
 export { default as Tab } from './Tab'
 export * from './Tab'
+
+export { default as Divider } from './Divider'
+export * from './Divider'
+
+export { default as Paper } from './Paper'
+export * from './Paper'
+
+export { default as MenuList } from './MenuList'
+export * from './MenuList'
+
+export { default as MenuItem } from './MenuItem'
+export * from './MenuItem'
+
+export { default as CircularProgress } from './CircularProgress';
+export * from './CircularProgress';
+
+export { default as LinearProgress } from './LinearProgress';
+export * from './LinearProgress';
+
+export  { default as Grid } from './Grid'
+export * from './Grid';
+
+export  { default as TreeView } from './TreeView'
+export * from './TreeView';
