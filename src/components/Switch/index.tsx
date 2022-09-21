@@ -10,7 +10,8 @@ import {
 } from '@mui/material'
 
 export interface SwitchProps extends MuiSwitchProps {
-  label?: FormControlLabelProps['label'];
+  label?: FormControlLabelProps["label"];
+  labelPlacement?: FormControlLabelProps['labelPlacement'];
 }
 
 const CustomSwitch = styled(MuiSwitch)(({ theme, size }) => {
@@ -85,18 +86,20 @@ const ControlLabel = styled(FormControlLabel)({
 })
 
 const Switch: React.FC<SwitchProps> = React.forwardRef((props, ref) => {
-  const { children, label, sx, ...SwitchProps } = props
+  const { children, label, sx, labelPlacement,  ...SwitchProps } = props
   return (
     <ControlLabel
       sx={sx}
       control={<CustomSwitch {...SwitchProps} />}
       label={label}
+      labelPlacement={labelPlacement}
     />
-  )
+  );
 })
 
 Switch.defaultProps = {
-  size: 'medium',
-}
+  size: "medium",
+  labelPlacement: 'end',
+};
 
 export default Switch
