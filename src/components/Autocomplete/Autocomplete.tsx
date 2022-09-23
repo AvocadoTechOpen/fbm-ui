@@ -152,10 +152,18 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
 
   const renderListOption = (option, index) => {
     const optionProps = getOptionProps({ option, index });
-    return renderOption({ ...optionProps, className: classes.option }, option, {
-      selected: optionProps['aria-selected'],
-      inputValue,
-    });
+    return renderOption(
+      {
+        ...optionProps,
+        className: classes.option,
+        key: (option?.value || optionProps?.key),
+      },
+      option,
+      {
+        selected: optionProps["aria-selected"],
+        inputValue,
+      }
+    );
   };
 
   return (
