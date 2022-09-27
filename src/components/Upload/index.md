@@ -41,9 +41,12 @@ export default () => {
  * title: Dnd 类型 - 多个文件
  */
 import * as React from 'react';
-import { Demo, Upload, Box } from 'fbm-ui'
+import { Demo, Upload, Box,  } from 'fbm-ui'
 
 export default () => {
+  const beforeUpload = (file, fileList) => {
+    return false
+  }
   const props = {
     type: 'drop',
     name: 'file',
@@ -52,11 +55,14 @@ export default () => {
     headers: {
       authorization: 'authorization-text',
     },
+    // beforeUpload,
   };
+  const ref = React.useRef(null);
+
   return (
     <Demo white>
       <Box maxWidth={380}>
-        <Upload  {...props} />
+        <Upload  {...props}  ref={ref} />
       </Box>
     </Demo>
   )
