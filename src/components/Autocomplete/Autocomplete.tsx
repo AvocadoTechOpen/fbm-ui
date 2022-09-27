@@ -57,6 +57,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     clearText,
     closeText,
     openText,
+    placeholderIsValue = false,
   } = props
 
 
@@ -92,7 +93,6 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     popupOpen,
     size,
   };
-
   const classes = useUtilityClasses(ownerState);
 
   let startAdornment;
@@ -152,10 +152,18 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
 
   const renderListOption = (option, index) => {
     const optionProps = getOptionProps({ option, index });
-    return renderOption({ ...optionProps, className: classes.option }, option, {
-      selected: optionProps['aria-selected'],
-      inputValue,
-    });
+    return renderOption(
+      {
+        ...optionProps,
+        className: classes.option,
+        key: (option?.value || optionProps?.key),
+      },
+      option,
+      {
+        selected: optionProps["aria-selected"],
+        inputValue,
+      }
+    );
   };
 
   return (
@@ -172,6 +180,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         inputProps: {
           className: classes.input,
           ...getInputProps(),
+          ...(placeholderIsValue && { sx: { '&::placeholder': { opacity: 1 } } }),
         },
         ...((hasClearIcon || hasPopupIcon) && {
           endAdornment: (

@@ -126,6 +126,7 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef<HTMLDivElement, FormI
     readOnly,
     size,
     type,
+    placeholderIsValue = false,
     ...FormControlProps
   } = props
 
@@ -202,6 +203,7 @@ const FormItem: React.FC<FormItemProps> = React.forwardRef<HTMLDivElement, FormI
         htmlFor={htmlFor}
         size={size}
         {...LabelPropsProp}
+        {...(placeholderIsValue && {shrink: true})}
       >
         {label}
       </Label>

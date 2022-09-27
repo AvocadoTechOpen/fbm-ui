@@ -31,24 +31,28 @@ export default () =>{
         label={'大尺寸'}
         checked={checked}
         onChange={handleChange}
+        labelPlacement="start"
       />
       <br />
       <Switch 
         sx={{ mb: 1 }}
         label={'小尺寸'}
         size={'small'}
+        labelPlacement="end"
       />
       <br />
       <Switch 
         sx={{ mb: 2 }}
         label={'禁用'}
         disabled
+        labelPlacement="bottom"
       />
       <br />
       <Switch 
       label={'禁用'}
       disabled
       checked={true}
+      labelPlacement="top"
       />
     </Demo>
   )
