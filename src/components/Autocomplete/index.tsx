@@ -1,14 +1,22 @@
-import React from 'react';
+import React from 'react'
 import AutocompleteCore from './Autocomplete'
 import { useThemeProps } from '@mui/material'
 import Input from '../Input'
 
 const Autocomplete = (inProps) => {
-  const props = useThemeProps({ props: inProps, name: 'MuiAutocomplete' });
-  
+  const props = useThemeProps({ props: inProps, name: 'MuiAutocomplete' })
+
   return (
     <AutocompleteCore
-      renderInput={(props) => <Input {...props} />}
+      renderInput={(props) => (
+        <Input
+          {...props}
+          {...(inProps.placeholderIsValue && {
+            label: inProps.label,
+            notched: true,
+          })}
+        />
+      )}
       {...props}
     />
   )

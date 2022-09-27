@@ -312,3 +312,48 @@ export default () => {
   );
 };
 ```
+
+```tsx
+/**
+ * title: 使用 placeholderIsValue 将 placeholder 当做一个值来显示
+ */
+import * as React from 'react';
+import { Layout,  Button, Autocomplete, Form, FormItem, useForm, Input } from 'fbm-ui'
+
+export default () => {
+  const top100Films = [
+  {
+    label: "The Shawshank Redemption",
+    value: 1994,
+  },
+  { label: "The Godfather", value: 1972 },
+  { label: "The Godfather: Part II", value: 1974 },
+  { label: "The Dark Knight", value: 2008 },
+  { label: "12 Angry Men", value: 1957 },
+  { label: "Schindler's List", value: 1993 },
+];
+
+  const formProps = useForm({
+    initialValues: {
+      keys: []
+    },
+     onSubmit: (values) => {
+    },
+  })
+
+  return (
+    <Layout>
+      <Form {...formProps}> 
+        <FormItem name="keys" label="多选" placeholderIsValue>
+          <Autocomplete
+            multiple
+            placeholder={formProps.values.keys.length === 0 ? '全部' : ''}
+            placeholderIsValue
+            options={top100Films}
+          />
+        </FormItem>
+      </Form>
+    </Layout>
+  )
+}
+```
