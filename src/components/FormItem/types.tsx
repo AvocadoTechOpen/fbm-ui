@@ -61,6 +61,7 @@ interface FormItemBaseProps {
   shouldMemoUpdate?: ((prev: FormItemProps, next: FormItemProps) => boolean)
   /** 用于性能优化 */
   fast?: boolean;
+  placeholderIsValue?: boolean;
 }
 
 export type FormItemProps = FormItemBaseProps & InputProps

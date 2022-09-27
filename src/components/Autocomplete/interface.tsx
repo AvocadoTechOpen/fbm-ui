@@ -226,10 +226,15 @@ export interface AutocompleteProps<
   sx?: SxProps<Theme>;
 
   label: string;
-    /**
+  /**
    * If `true`, the component becomes readonly. It is also supported for multiple tags where the tag cannot be deleted.
    * @default false
    */
-     readOnly?: boolean;
+  readOnly?: boolean;
+  /**
+   * 当未选择任何值时，把 placeholder 当做一个值来显示。
+   * @default false
+   */
+  placeholderIsValue?: boolean;
 }
 
