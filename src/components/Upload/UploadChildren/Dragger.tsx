@@ -4,6 +4,7 @@ import styled from '@mui/material/styles/styled'
 import Typography from '../../Typography'
 import { UploadFile } from '../types'
 import { DeleteIcon, EditIcon } from '../../icons'
+import { CloudUploadIcon } from 'fbm-icons'
 
 const DraggerBox = styled(Box)(({ width, height }: DraggerProps) => ({
   display: 'flex',
@@ -95,7 +96,7 @@ const Dragger: React.FC<DraggerProps> = (props) => {
     <DraggerBox {...restProps}>
       <Stack spacing={0.5} alignItems="center">
         <Typography variant="caption" color="secondary">
-          TODO: cloud_upload icon
+          <CloudUploadIcon />
         </Typography>
         <Typography fontWeight={500}>将文件拖到此处以上传</Typography>
         <Stack direction="row" spacing={0.5} justifyContent="center">

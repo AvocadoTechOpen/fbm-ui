@@ -21,7 +21,7 @@ export default () => {
     name: 'file',
     multiple: false,
     showUploadList: false,
-    action: '/v2/5cc8019d300000980a055e76',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
     },
@@ -48,7 +48,7 @@ export default () => {
     type: 'drop',
     name: 'file',
     multiple: true,
-    action: '/v2/5cc8019d300000980a055e76',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
     },
@@ -77,7 +77,7 @@ export default () => {
     name: 'file',
     multiple: false,
     showUploadList: false,
-    action: '/v2/5cc8019d300000980a055e76',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
     },
