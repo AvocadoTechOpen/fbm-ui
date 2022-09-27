@@ -97,7 +97,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     } else if (maxCount) {
       cloneList = cloneList.slice(0, maxCount)
     }
-
+    cloneList = cloneList?.filter((t) => t.status);
     setMergedFileList(cloneList)
 
     const changeInfo: UploadChangeParam<UploadFile> = {
