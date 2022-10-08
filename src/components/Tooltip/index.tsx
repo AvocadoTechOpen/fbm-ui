@@ -1,4 +1,4 @@
-import { Tooltip, TooltipProps } from "@mui/material";
+import { Tooltip, TooltipProps as MuiTooltipProps } from "@mui/material"
 
-export { TooltipProps }
+export type TooltipProps = MuiTooltipProps;
 export default Tooltip;
