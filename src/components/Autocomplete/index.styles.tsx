@@ -81,7 +81,7 @@ export const AutocompleteLoading = styled('div', {
   overridesResolver: (props, styles) => styles.loading,
 })(({ theme }) => ({
   color: theme.palette.text.secondary,
-  padding: '14px 16px',
+  padding: '10px',
 }));
 
 export const AutocompleteNoOptions = styled('div', {
@@ -90,7 +90,7 @@ export const AutocompleteNoOptions = styled('div', {
   overridesResolver: (props, styles) => styles.noOptions,
 })(({ theme }) => ({
   color: theme.palette.text.secondary,
-  padding: '14px 16px',
+  padding: '10px',
 }));
 
 export const AutocompleteListbox = styled('div', {

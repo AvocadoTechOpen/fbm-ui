@@ -1,12 +1,12 @@
 import React from 'react'
-import { Box, Stack } from '@mui/material'
+import { Box, Stack, Theme } from '@mui/material'
 import styled from '@mui/material/styles/styled'
 import Typography from '../../Typography'
 import { UploadFile } from '../types'
 import { DeleteIcon, EditIcon } from '../../icons'
 import { CloudUploadIcon } from 'fbm-icons'
 
-const DraggerBox = styled(Box)(({ width, height }: DraggerProps) => ({
+const DraggerBox = styled(Box)(({ width, height, theme }: DraggerProps & { theme: Theme} ) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -16,6 +16,9 @@ const DraggerBox = styled(Box)(({ width, height }: DraggerProps) => ({
   border: '1px dashed rgba(0,0,0,0.08)',
   borderRadius: '4px',
   cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover
+  }
 }))
 
 const ImgWrapper = styled(Box)(({ width, height }: DraggerProps) => ({

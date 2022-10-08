@@ -13,6 +13,7 @@ import {
   AutocompleteEndAdornment,
   AutocompleteClearIndicator,
   AutocompletePopupIndicator,
+  AutocompleteNoOptions,
 } from './index.styles'
 import useAutocomplete from './useAutocomplete'
 
@@ -48,6 +49,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     PopperComponent = Popper,
     popupIcon = <ArrowDropDownIcon />,
     readOnly = false,
+    loading = false,
     renderGroup: renderGroupProp,
     renderInput,
     renderOption: renderOptionProp,
@@ -58,6 +60,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     closeText,
     openText,
     placeholderIsValue = false,
+    noOptionsText= '暂无选项'
   } = props
 
 
@@ -230,6 +233,19 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
             as={PaperComponent}
             className={clsx(classes.paper)}
           >
+             {groupedOptions.length === 0 && !freeSolo && !loading ? (
+              <AutocompleteNoOptions
+                className={classes.noOptions}
+                role="presentation"
+                onMouseDown={(event) => {
+                  // Prevent input blur when interacting with the "no options" content
+                  event.preventDefault();
+                }}
+              >
+                {noOptionsText}
+              </AutocompleteNoOptions>
+            ) : null}
+
             {groupedOptions?.length > 0 ? (
               <AutocompleteListbox
                 as={ListboxComponent}
