@@ -4,15 +4,14 @@ import {
   LinearProgress,
   Box,
   Tooltip,
-  Theme,
   LinearProgressProps,
 } from '@mui/material'
 import filesize from 'filesize'
-
 import { RefreshIcon, DeleteIcon, CloseIcon } from '../../icons'
 import Typography from '../../Typography'
 import { FileIcons, getFileFormat } from '../utils'
 import { UploadFile } from '../types'
+import IconButton from '../../IconButton'
 
 function formatInfo(size: number, percent: number) {
   return `${filesize(size * (percent / 100))} / ${filesize(size)}`
@@ -31,6 +30,8 @@ interface ListItemProps {
   onClose: (file?: UploadFile) => void
   /** 重新上传 */
   onRefresh: (file?: UploadFile) => void
+  /** 预览文件 */
+  onViweFile: (file?: UploadFile) => void
   nameRender: (file?: UploadFile) => React.ReactNode
 }
 
@@ -64,16 +65,6 @@ const Progress = styled(LinearProgress)({
   borderRadius: 4,
 })
 
-interface ActionIconSpanProps {
-  status?: ListItemProps['status']
-  theme?: Theme
-}
-const ActionIconSpan: React.FC<ActionIconSpanProps> = styled('span')(
-  ({ theme, status }: ActionIconSpanProps) => ({
-    color: theme.palette.secondary.main,
-  })
-)
-
 const HelperText = styled(Typography)({
   fontSize: '0.75rem',
   lineHeight: '22px',
@@ -95,6 +86,7 @@ const ListItem: React.FC<ListItemProps> = ({
   status,
   onClose,
   onRefresh,
+  onViweFile,
   nameRender,
 }) => {
   const fileFormat: string = getFileFormat(name)
@@ -106,25 +98,24 @@ const ListItem: React.FC<ListItemProps> = ({
   const StatusIcons = {
     uploading: (
       <Tooltip title={'取消上传'} placement="top">
-        <ActionIconSpan status={status}>
+        <IconButton >
           <CloseIcon onClick={() => onClose()} />
-        </ActionIconSpan>
+        </IconButton>
       </Tooltip>
     ),
 
     error: (
       <Tooltip title={'重新上传'} placement="top">
-        <ActionIconSpan status={status}>
+        <IconButton >
           <RefreshIcon onClick={() => onRefresh()} />
-        </ActionIconSpan>
+        </IconButton>
       </Tooltip>
     ),
-
     done: (
       <Tooltip title={'删除文件'} placement="top">
-        <ActionIconSpan status={status}>
+        <IconButton>
           <DeleteIcon onClick={() => onClose()} />
-        </ActionIconSpan>
+        </IconButton>
       </Tooltip>
     ),
   }
@@ -132,7 +123,11 @@ const ListItem: React.FC<ListItemProps> = ({
   return (
     <FlexCenterBox
       sx={[
-        { mt: '5px', px: 2, height: 56 },
+        {
+          mt: '5px',
+          px: 2,
+          height: 56,
+        },
         status === 'done' && {
           '&:hover': {
             backgroundColor: 'rgba(0,0,0,0.04)',
@@ -142,33 +137,35 @@ const ListItem: React.FC<ListItemProps> = ({
         },
       ]}
     >
-      <FileIcon
-        sx={{
-          mr: 1,
-          position: 'relative',
-        }}
-      />
-      <FlexFill>
-        <FileName>{nameRender()}</FileName>
-        {status === 'uploading' && (
-          <FlexCenterBox sx={{ flex: 1, position: 'relative' }}>
-            <Progress
-              variant="determinate"
-              value={progress}
-              color={progressColors[status] as LinearProgressProps['color']}
-            />
-          </FlexCenterBox>
-        )}
-        {status === 'error' ? (
-          <Typography variant="caption" color="error">
-            上传失败
-          </Typography>
-        ) : (
-          <Typography variant="caption" color="secondary">
-            {formatInfo(size, percentProp)}
-          </Typography>
-        )}
-      </FlexFill>
+      <FlexCenterBox onClick={() => onViweFile()} sx={{ flex: 1 }}>
+        <FileIcon
+          sx={{
+            mr: 1,
+            position: 'relative',
+          }}
+        />
+        <FlexFill>
+          <FileName>{nameRender()}</FileName>
+          {status === 'uploading' && (
+            <FlexCenterBox sx={{ flex: 1, position: 'relative' }}>
+              <Progress
+                variant="determinate"
+                value={progress}
+                color={progressColors[status] as LinearProgressProps['color']}
+              />
+            </FlexCenterBox>
+          )}
+          {status === 'error' ? (
+            <Typography variant="caption" color="error">
+              上传失败
+            </Typography>
+          ) : (
+            <Typography variant="caption" color="secondary">
+              {formatInfo(size, percentProp)}
+            </Typography>
+          )}
+        </FlexFill>
+      </FlexCenterBox>
       <ActionIconBox>{StatusIcons[status] || null}</ActionIconBox>
     </FlexCenterBox>
   )
