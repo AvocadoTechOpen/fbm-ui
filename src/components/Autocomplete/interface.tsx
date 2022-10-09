@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconButtonProps, InternalStandardProps as StandardProps, Theme } from '@mui/material';
+import { InternalStandardProps as StandardProps, Theme } from '@mui/material';
 import { ChipProps, ChipTypeMap } from '@mui/material/Chip';
 import { PopperProps } from '@mui/material/Popper';
 import { SxProps } from '@mui/system';
@@ -22,6 +22,24 @@ export {
   AutocompleteInputChangeReason,
   createFilterOptions,
 };
+
+export type AutocompleteOwnerState<
+  T,
+  Multiple extends boolean | undefined,
+  DisableClearable extends boolean | undefined,
+  FreeSolo extends boolean | undefined,
+  ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
+> = AutocompleteProps<T, Multiple, DisableClearable, FreeSolo, ChipComponent> & {
+  disablePortal: boolean;
+  focused: boolean;
+  fullWidth: boolean;
+  hasClearIcon: boolean;
+  hasPopupIcon: boolean;
+  inputFocused: boolean;
+  popupOpen: boolean;
+  size: OverridableStringUnion<'small' | 'medium', AutocompletePropsSizeOverrides>;
+};
+
 
 export type AutocompleteRenderGetTagProps = ({ index }: { index: number }) => {
   key: number;

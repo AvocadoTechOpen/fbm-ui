@@ -1,8 +1,15 @@
 import autocompleteClasses, { getAutocompleteUtilityClass } from './autocompleteClasses';
-import { capitalize, styled, Popper, ListSubheader, Paper, IconButton, chipClasses, inputClasses, inputBaseClasses, outlinedInputClasses, filledInputClasses } from '@mui/material'
 import {
-  unstable_composeClasses as composeClasses,
-} from '@mui/base';
+  capitalize,
+  styled,
+  Popper,
+  ListSubheader,
+  Paper,
+  IconButton,
+  chipClasses,
+  inputBaseClasses,
+} from '@mui/material'
+import { unstable_composeClasses as composeClasses, } from '@mui/base';
 
 export const useUtilityClasses = (ownerState) => {
   const {

@@ -49,6 +49,7 @@ const LabelRoot = styled(InputLabel)(({ variant, size }: InputLabelProps) => {
 const HelperTextRoot = styled(FormHelperText)({
   display: 'flex',
   alignItems: 'center',
+  marginRight: 8
 });
 
 const Label: React.FC<InputLabelProps> = (props) => {

@@ -137,7 +137,7 @@ const ListItem: React.FC<ListItemProps> = ({
         },
       ]}
     >
-      <FlexCenterBox onClick={() => onViweFile()} sx={{ flex: 1 }}>
+      <FlexCenterBox onClick={() => onViweFile()} sx={{ flex: 1,   cursor: 'pointer' }}>
         <FileIcon
           sx={{
             mr: 1,

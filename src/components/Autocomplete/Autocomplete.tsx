@@ -1,7 +1,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { createFilterOptions } from '@mui/base';
-import { Paper, Popper, Checkbox } from '@mui/material'
+import { Paper, Popper } from '@mui/material'
 import {
   inputRoot,
   AutocompleteGroupLabel,
@@ -60,7 +60,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     closeText,
     openText,
     placeholderIsValue = false,
-    noOptionsText= '暂无选项'
+    noOptionsText = '暂无选项'
   } = props
 
 
@@ -136,12 +136,13 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     <li key={params.key}>
       <AutocompleteGroupLabel
         className={classes.groupLabel}
+        // @ts-ignore
         ownerState={ownerState}
         component="div"
       >
         {params.group}
       </AutocompleteGroupLabel>
-      <AutocompleteGroupUl className={classes.groupUl} ownerState={ownerState}>
+      <AutocompleteGroupUl className={classes.groupUl}>
         {params.children}
       </AutocompleteGroupUl>
     </li>
@@ -159,6 +160,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
       {
         ...optionProps,
         className: classes.option,
+        // @ts-ignore
         key: (option?.value || optionProps?.key),
       },
       option,
@@ -180,6 +182,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         startAdornment,
         className: classes.inputRoot,
         sx: inputRoot,
+        // @ts-ignore
         inputProps: {
           className: classes.input,
           ...getInputProps(),
@@ -206,6 +209,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                   disabled={disabled}
                   aria-label={popupOpen ? closeText : openText}
                   title={popupOpen ? closeText : openText}
+                  // @ts-ignore
                   ownerState={ownerState}
                   className={clsx(
                     classes.popupIndicator,
@@ -233,7 +237,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
             as={PaperComponent}
             className={clsx(classes.paper)}
           >
-             {groupedOptions.length === 0 && !freeSolo && !loading ? (
+            {groupedOptions.length === 0 && !freeSolo && !loading ? (
               <AutocompleteNoOptions
                 className={classes.noOptions}
                 role="presentation"
@@ -247,6 +251,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
             ) : null}
 
             {groupedOptions?.length > 0 ? (
+               // @ts-ignore
               <AutocompleteListbox
                 as={ListboxComponent}
                 className={classes.listbox}

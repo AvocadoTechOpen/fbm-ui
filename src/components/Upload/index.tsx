@@ -1,5 +1,5 @@
-import Upload from './Upload';
+export { default } from './Upload';
+export * from './Upload';
 
-export { UploadProps, UploadChangeParam, RcFile, } from './types';
-
-export default Upload;
+import { UploadProps as RUploadProps } from './types'
+export type UploadProps = RUploadProps

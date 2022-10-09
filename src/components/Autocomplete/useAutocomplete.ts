@@ -721,7 +721,7 @@ export default function useAutocomplete(props) {
     if (onInputChange) {
       onInputChange(event, '', 'clear');
     }
-    handleValue(event, multiple ? [] : null, 'clear');
+    handleValue(event, multiple ? [] : null, 'clear', undefined);
   };
 
   const handleKeyDown = (other) => (event) => {
@@ -902,7 +902,7 @@ export default function useAutocomplete(props) {
 
     if (newValue === '') {
       if (!disableClearable && !multiple) {
-        handleValue(event, null, 'clear');
+        handleValue(event, null, 'clear', undefined);
       }
     } else {
       handleOpen(event);
