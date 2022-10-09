@@ -9,6 +9,7 @@ import UploadChildrenButton from './UploadChildren/Button'
 import UploadChildrenDragger from './UploadChildren/Dragger'
 import UploadChildrenCube from './UploadChildren/Cube'
 
+
 const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`
 
 const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
@@ -59,6 +60,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   }, [fileList])
 
   const mergedBeforeUpload = async (file: RcFile, fileListArgs: RcFile[]) => {
+    console.log('--------')
     const { beforeUpload } = props
     let parsedFile: File | Blob | string = file
     if (beforeUpload) {

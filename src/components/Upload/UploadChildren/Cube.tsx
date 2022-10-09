@@ -14,6 +14,9 @@ const Wrapper = styled(Box)(({ width, height }: IProps) => ({
   border: '1px dashed rgba(0,0,0,0.08)',
   borderRadius: '4px',
   cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: '#EAEAEA'
+  }
 }))
 
 const ImgWrapper = styled(Box)(({ width, height }: IProps) => ({

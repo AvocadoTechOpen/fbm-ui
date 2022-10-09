@@ -38,10 +38,12 @@ interface ListItemProps {
 const FlexCenterBox = styled(Box)({
   display: 'flex',
   alignItems: 'center',
+  minWidth: 0,
 })
 
 const FlexFill = styled(Box)({
   flex: 1,
+  minWidth:0,
 })
 
 const ActionIconBox = styled('span')({
@@ -57,6 +59,7 @@ const FileName = styled(Typography)({
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   lineHeight: '22px',
+  minWidth: 0,
 })
 
 const Progress = styled(LinearProgress)({

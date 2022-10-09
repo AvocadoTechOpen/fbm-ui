@@ -17,7 +17,7 @@ const DraggerBox = styled(Box)(({ width, height, theme }: DraggerProps & { theme
   borderRadius: '4px',
   cursor: 'pointer',
   '&:hover': {
-    backgroundColor: theme.palette.action.hover
+    backgroundColor: '#EAEAEA'
   }
 }))
 
