@@ -19,17 +19,16 @@ const UploadListRoot: React.FC<IRootProps> = styled(Box)(({ place }: IRootProps)
   })
 }))
 
-const UploadList: React.FC<UploadListProps> = props => {
-  const {
-    items,
-    onRemove,
-    onRefresh,
-    itemRender,
-    uploadListPlace,
-    nameRender: nameRenderProp,
-    ...restProps
-  } = props
-
+const UploadList: React.FC<UploadListProps> = ({
+  items,
+  iconType,
+  uploadListPlace,
+  onRemove,
+  onRefresh,
+  itemRender,
+  nameRender: nameRenderProp,
+  ...restProps
+}) => {
 
   if (!items || items?.length === 0) return null
 
@@ -47,11 +46,6 @@ const UploadList: React.FC<UploadListProps> = props => {
     return file.name
   }
 
-  // 到新窗口预览文件
-  const handleViweFile = (file) => {
-    window.open(URL.createObjectURL(file.originFileObj))
-  }
-
   return (
     <UploadListRoot
       place={uploadListPlace}
@@ -63,10 +57,11 @@ const UploadList: React.FC<UploadListProps> = props => {
           size: item.size,
           percent: item.percent,
           status: item.status,
+          iconType: iconType,
+          originFileObj: item.originFileObj,
           nameRender: () => nameRender(item),
           onClose: () => handleClose(item),
           onRefresh: () => handleRefresh(item),
-          onViweFile: () =>  handleViweFile(item)
         }
 
         let children = null

@@ -60,7 +60,6 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   }, [fileList])
 
   const mergedBeforeUpload = async (file: RcFile, fileListArgs: RcFile[]) => {
-    console.log('--------')
     const { beforeUpload } = props
     let parsedFile: File | Blob | string = file
     if (beforeUpload) {

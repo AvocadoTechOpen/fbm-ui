@@ -64,13 +64,14 @@ export interface InternalUploadFile<T = any> extends UploadFile<T> {
 }
 
 export interface UploadListProps<T = any> extends BoxProps {
+  items?: Array<UploadFile<T>>;
+  uploadListPlace?: UploadListPlace;
+  iconType?: 'image'
   onPreview?: (file: UploadFile<T>) => void;
   onRefresh?: (file: UploadFile<T>) => void;
   onRemove?: (file: UploadFile<T>) => void | boolean;
   itemRender?: UploadProps['itemRender'];
-  items?: Array<UploadFile<T>>;
-  uploadListPlace?: UploadListPlace;
-  nameRender?: (file: UploadFile<T>) => React.ReactNode
+  nameRender?: (file: UploadFile<T>) => React.ReactNode;
 }
 
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 import {
   styled,
   LinearProgress,
@@ -11,6 +11,9 @@ import { RefreshIcon, DeleteIcon, CloseIcon } from '../../icons'
 import Typography from '../../Typography'
 import { FileIcons, getFileFormat } from '../utils'
 import { UploadFile } from '../types'
+import {
+  RcFile as OriginFileObj,
+} from 'rc-upload/lib/interface';
 import IconButton from '../../IconButton'
 
 function formatInfo(size: number, percent: number) {
@@ -18,6 +21,9 @@ function formatInfo(size: number, percent: number) {
 }
 
 interface ListItemProps {
+  iconType?: 'image'
+  /** 源文件 */
+  originFileObj: OriginFileObj;
   /** 文件名称 */
   name?: UploadFile['name']
   /** 文件大小 */
@@ -30,8 +36,6 @@ interface ListItemProps {
   onClose: (file?: UploadFile) => void
   /** 重新上传 */
   onRefresh: (file?: UploadFile) => void
-  /** 预览文件 */
-  onViweFile: (file?: UploadFile) => void
   nameRender: (file?: UploadFile) => React.ReactNode
 }
 
@@ -41,9 +45,22 @@ const FlexCenterBox = styled(Box)({
   minWidth: 0,
 })
 
+const ListItemRoot = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: '5px',
+  minHeight: 56,
+  padding: '0 16px',
+  '&:hover': {
+    backgroundColor: 'rgba(0,0,0,0.04)',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+})
+
 const FlexFill = styled(Box)({
   flex: 1,
-  minWidth:0,
+  minWidth: 0,
 })
 
 const ActionIconBox = styled('span')({
@@ -68,10 +85,15 @@ const Progress = styled(LinearProgress)({
   borderRadius: 4,
 })
 
-const HelperText = styled(Typography)({
-  fontSize: '0.75rem',
-  lineHeight: '22px',
-})
+const IconImage = styled(Box)(({ src }: { src: string }) => ({
+  backgroundImage: `url(${src})`,
+  borderRadius: 4,
+  height: 56,
+  width: 56,
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  margin: '16px 8px 16px 0'
+}))
 
 const progressColors = {
   uploading: 'primary',
@@ -82,19 +104,35 @@ const progressColors = {
 const ListItem: React.FC<ListItemProps> = ({
   // 文件名称
   name,
+  originFileObj,
   size,
   // 上传进度
   percent: percentProp,
   // 上传状态
   status,
+  iconType,
   onClose,
   onRefresh,
-  onViweFile,
   nameRender,
 }) => {
-  const fileFormat: string = getFileFormat(name)
-  const FileIcon: React.FC<any> =
-    FileIcons[fileFormat] || FileIcons['undefined']
+  const blobSrc = useMemo(() => {
+    // @ts-ignore
+    if (originFileObj?.originFileObj) {
+      // @ts-ignore
+      return URL.createObjectURL(originFileObj.originFileObj)
+    }
+    return  URL.createObjectURL(originFileObj)
+  }, [])
+  const fileIcon = useMemo(() => {
+    if (iconType === 'image') {
+      return <IconImage src={blobSrc} />
+    }
+
+    const fileFormat: string = getFileFormat(name)
+    const FileIcon = FileIcons[fileFormat] || FileIcons['undefined']
+    return <FileIcon sx={{ mr: 1 }} />
+  }, [name, iconType])
+
 
   const progress = status === 'error' ? 100 : percentProp
 
@@ -123,30 +161,15 @@ const ListItem: React.FC<ListItemProps> = ({
     ),
   }
 
+
+  const handleViweFile = useCallback(() => {
+    window.open(URL.createObjectURL(originFileObj))
+  }, [])
+
   return (
-    <FlexCenterBox
-      sx={[
-        {
-          mt: '5px',
-          px: 2,
-          height: 56,
-        },
-        status === 'done' && {
-          '&:hover': {
-            backgroundColor: 'rgba(0,0,0,0.04)',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          },
-        },
-      ]}
-    >
-      <FlexCenterBox onClick={() => onViweFile()} sx={{ flex: 1,   cursor: 'pointer' }}>
-        <FileIcon
-          sx={{
-            mr: 1,
-            position: 'relative',
-          }}
-        />
+    <ListItemRoot>
+      <FlexCenterBox onClick={handleViweFile} sx={{ flex: 1, cursor: 'pointer' }}>
+        {fileIcon}
         <FlexFill>
           <FileName>{nameRender()}</FileName>
           {status === 'uploading' && (
@@ -170,7 +193,7 @@ const ListItem: React.FC<ListItemProps> = ({
         </FlexFill>
       </FlexCenterBox>
       <ActionIconBox>{StatusIcons[status] || null}</ActionIconBox>
-    </FlexCenterBox>
+    </ListItemRoot>
   )
 }
 
