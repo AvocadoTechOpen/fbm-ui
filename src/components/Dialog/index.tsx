@@ -38,6 +38,8 @@ export interface DialogProps extends HeaderProps, FooterProps {
   /** 弹框尺寸 */
   size?: SizeMap;
   BackdropProps?: BackdropProps;
+  /** 是否支持内容滚动 */
+  isContentScroll?: boolean;
 }
 
 export interface DialogContainerProps {
@@ -59,7 +61,9 @@ const DialogRoot: React.FC<MuiDialogProps> = styled(Dialog)({
 })
 
 const DialogContentRoot = styled(Box)({
-  marginBottom: '16px'
+  marginBottom: '16px',
+  paddingLeft: '24px',
+  paddingRight: '16px',
 })
 
 const defaultSizes = {
@@ -78,8 +82,6 @@ const DialogContainer: React.FC<DialogContainerProps> = styled(Box)(({
 }: DialogContainerProps) => {
   return {
     width: width || defaultSizes[(size as string)],
-    paddingLeft: '24px',
-    paddingRight: '16px',
     ...(isNullHeader && {
       paddingTop: '24px',
     }),
@@ -93,7 +95,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const { title, isShowClose, header, onClose } = props
 
   if (header === null) return null
-  
+
   if (typeof header === 'function') {
     return header(props)
   }
@@ -104,6 +106,8 @@ const Header: React.FC<HeaderProps> = (props) => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: '24px',
+    paddingRight: '16px',
     ...(!title && {
       justifyContent: 'flex-end',
     }),
@@ -133,7 +137,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   }
 
   return (
-    <HeaderRow >
+    <HeaderRow className="fbm-dialog-header">
       <Title />
       <CloseBtn />
     </HeaderRow>
@@ -156,7 +160,13 @@ const Footer: React.FC<FooterProps> = (props) => {
     )
   }
 
-  return <ConfirmFooter  {...confirmFooterProps} />
+  return <ConfirmFooter {...{
+    className: 'fbm-dialog-footer',
+    sx: {
+      paddingLeft: '24px',
+      paddingRight: '16px',
+    }
+  }} {...confirmFooterProps} />
 }
 
 const FbmDialog: React.FC<DialogProps> = React.forwardRef((inProps, ref) => {
@@ -172,6 +182,7 @@ const FbmDialog: React.FC<DialogProps> = React.forwardRef((inProps, ref) => {
     okText,
     closeText,
     isCloseButton,
+    isContentScroll,
     closeProps,
     okProps,
     onClose,
@@ -203,7 +214,7 @@ const FbmDialog: React.FC<DialogProps> = React.forwardRef((inProps, ref) => {
           isShowClose={isShowClose}
           onClose={onClose}
         />
-        <DialogContentRoot>
+        <DialogContentRoot sx={isContentScroll && { maxHeight: 'calc(100vh - 150px)', overflow: 'auto' }} className="fbm-dialog-content">
           {children}
         </DialogContentRoot>
         <Footer

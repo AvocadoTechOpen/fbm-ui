@@ -62,6 +62,7 @@ export default () =>{
         title="你好鳄梨"
         isCloseButton={false}
         size={size}
+        isContentScroll
         onClose={() => setOpen(false)}
         onOk={handleOk}
         okProps={{
