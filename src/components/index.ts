@@ -163,3 +163,12 @@ export  { default as TreeView } from './TreeView'
 export * from './TreeView';
 
 export { default as TreeSelect } from './TreeSelect'
+
+export { default as Pagination } from './Pagination'
+export * from './Pagination';
+
+export { default as TablePagination } from './TablePagination'
+export * from './TablePagination';
+
+// export  { default as TreeView } from './TreeView'
+// export * from './TreeView';

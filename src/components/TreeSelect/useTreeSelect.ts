@@ -39,7 +39,10 @@ const useTreeSelect = (props) => {
   const dataMap = React.useMemo(() => {
     const _dataMap = {}
 
-    
+    if (Array.isArray(data) && data.length > 0) {
+      
+    }
+
     return _dataMap
   }, [data])
 
