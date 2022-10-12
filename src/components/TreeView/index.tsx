@@ -1,63 +1,66 @@
-import React, { useCallback, useImperativeHandle } from 'react'
-import { isArray, isEmpty } from '../../utils'
-import { ArrowDropDownIcon, ArrowDropRightIcon } from '../icons'
+export { default } from './TreeView'
 
-import TreeView from './TreeView'
-import TreeItem from '../TreeItem'
-import { TreeViewProps } from './interface'
+// import React, { useCallback, useImperativeHandle } from 'react'
+// import { isArray, isEmpty } from '../../utils'
+// import { ArrowDropDownIcon, ArrowDropRightIcon } from '../icons'
 
-// TODO
-const Tree: React.FC<TreeViewProps> = React.forwardRef((props, ref) => {
-  const {
-    data,
-    getNodeLabel = (node) => node.label,
-    getNodeId = (node) => node.id,
-    ...TreeViewProps
-  } = props
+// import TreeView from './TreeView'
+// import TreeItem from '../TreeItem'
+// import { TreeViewProps } from './interface'
 
-  const renderTreeItems = useCallback((data) => {
-    if (isEmpty(data)) return null
+// // TODO
+// const Tree: React.FC<TreeViewProps> = React.forwardRef((props, ref) => {
+//   const {
+//     data,
+//     children: childrenProp,
+//     getNodeLabel = (node) => node.label,
+//     getNodeId = (node) => node.id,
+//     ...TreeViewProps
+//   } = props
 
-    return data.map(nodeData => {
-      const { children, label, id } = nodeData
+//   const renderTreeItems = useCallback((data) => {
+//     if (isEmpty(data)) return null
 
-      // 获取nodeLable 
-      const _label = getNodeLabel?.(nodeData);
+//     return data.map(nodeData => {
+//       const { children, label, id } = nodeData
 
-      // 获取nodeId
-      const _nodeId = getNodeId?.(nodeData)
+//       // 获取nodeLable 
+//       const _label = getNodeLabel?.(nodeData);
 
-      return (
-        <TreeItem
-          key={_nodeId}
-          nodeId={_nodeId}
-          label={_label}
-        >
-          {renderTreeItems(children)}
-        </TreeItem>
-      )
-    })
-  }, [data])
+//       // 获取nodeId
+//       const _nodeId = getNodeId?.(nodeData)
+
+//       return (
+//         <TreeItem
+//           key={_nodeId}
+//           nodeId={_nodeId}
+//           label={_label}
+//         >
+//           {renderTreeItems(children)}
+//         </TreeItem>
+//       )
+//     })
+//   }, [data, getNodeLabel, getNodeId])
 
 
-  useImperativeHandle(ref, () => {
-    return {
-      // 获取选中的节点数据
-      getSelected: () => { }
-    }
-  })
+//   useImperativeHandle(ref, () => {
+//     return {
+//       // 获取选中的节点数据
+//       getSelected: () => { }
+//     }
+//   })
 
-  return (
-    <TreeView
-      {...TreeViewProps}
-    >
-      {renderTreeItems(data)}
-    </TreeView>
-  )
-})
+//   return (
+//     <TreeView
+//       {...TreeViewProps}
+//     >
+//       {childrenProp ?? renderTreeItems(data)}
+//     </TreeView>
+//   )
+// })
 
-Tree.defaultProps = {
-  defaultCollapseIcon: <ArrowDropDownIcon />,
-  defaultExpandIcon: <ArrowDropRightIcon />
-}
-export default Tree;
+// Tree.defaultProps = {
+//   defaultCollapseIcon: <ArrowDropDownIcon />,
+//   defaultExpandIcon: <ArrowDropRightIcon />
+// }
+// export default Tree;

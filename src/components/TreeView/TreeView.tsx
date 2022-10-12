@@ -8,11 +8,14 @@ import {
   ownerDocument,
   unstable_useId as useId,
 } from '@mui/material/utils';
+
 import TreeViewContext from './TreeViewContext';
 import { DescendantProvider } from './descendants';
 import { getTreeViewUtilityClass } from './treeViewClasses';
-
+import TreeItem from '../TreeItem'
 import { TreeViewProps } from './interface'
+import { isEmpty } from '../../utils';
+import { ArrowDropDownIcon, ArrowDropRightIcon } from '../icons'
 
 const useUtilityClasses = (ownerState) => {
   const { classes } = ownerState;
@@ -55,10 +58,11 @@ function noopSelection() {
 const defaultDefaultExpanded = [];
 const defaultDefaultSelected = [];
 
-const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
+const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
   const props = useThemeProps({ props: inProps, name: 'MuiTreeView' });
-  
+
   const {
+    data,
     children,
     className,
     defaultCollapseIcon,
@@ -79,8 +83,12 @@ const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
     onNodeSelect,
     onNodeToggle,
     selected: selectedProp,
+    getNodeLabel = (node) => node.label,
+    getNodeId = (node) => node.id,
+    getNodeChildren = (node) => node.children,
     ...other
   } = props;
+
 
   const theme = useTheme();
   const isRtl = theme.direction === 'rtl';
@@ -487,7 +495,7 @@ const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
 
   const handleMultipleSelect = (event, value) => {
     let newSelected;
-    if (selected.indexOf(value) !== -1) {
+    if (selected.indexOf(value) !== -1 && Array.isArray(selected)) {
       newSelected = selected.filter((id) => id !== value);
     } else {
       newSelected = [value].concat(selected);
@@ -657,7 +665,7 @@ const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
   };
 
   const handleKeyDown = (event) => {
-  
+
     let flag = false;
     const key = event.key;
     // If the tree is empty there will be no focused node
@@ -794,6 +802,29 @@ const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
     ? nodeMap.current[focusedNodeId].idAttribute
     : null;
 
+
+
+  const renderTreeItems = React.useCallback((data) => {
+    if (isEmpty(data)) return null
+
+    return data.map(nodeData => {
+      const label = getNodeLabel?.(nodeData);
+      const nodeId = getNodeId?.(nodeData)
+      const children = getNodeChildren?.(nodeData)
+
+      return (
+        <TreeItem
+          key={nodeId}
+          nodeId={nodeId}
+          label={label}
+        >
+          {renderTreeItems(children)}
+        </TreeItem>
+      )
+    })
+  }, [data, getNodeLabel, getNodeId])
+
+
   return (
     <TreeViewContext.Provider
       value={{
@@ -831,11 +862,16 @@ const TreeView:React.FC<TreeViewProps> = React.forwardRef((inProps, ref) =>  {
           ownerState={ownerState}
           {...other}
         >
-          {children}
+          {children ?? renderTreeItems(data)}
         </TreeViewRoot>
       </DescendantProvider>
     </TreeViewContext.Provider>
   );
 });
 
+
+TreeView.defaultProps = {
+  defaultCollapseIcon: <ArrowDropDownIcon />,
+  defaultExpandIcon: <ArrowDropRightIcon />
+}
 export default TreeView;

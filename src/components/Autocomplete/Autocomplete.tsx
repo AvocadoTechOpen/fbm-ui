@@ -18,7 +18,7 @@ import {
 import useAutocomplete from './useAutocomplete'
 
 import Chip from '../Chip'
-import { ArrowDropDownIcon, CloseIcon, DoneIcon } from '../icons'
+import { ArrowDropDownIcon, CloseIcon } from '../icons'
 import { AutocompleteProps } from './interface'
 import MenuItem from '../MenuItem'
 
@@ -62,7 +62,6 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     placeholderIsValue = false,
     noOptionsText = '暂无选项'
   } = props
-
 
   const {
     getInputProps,
