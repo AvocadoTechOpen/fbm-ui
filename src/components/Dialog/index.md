@@ -68,7 +68,7 @@ export default () =>{
           color: 'error'
         }}
       >
-        <Typography>
+        <Typography sx={{ height: 1000 }}>
           依托“AI+视频”面试，助力企业打造独有AI岗位
           模型，精准筛选候选人，提高批量人才质量，从  而提高企业价值。
         </Typography >
