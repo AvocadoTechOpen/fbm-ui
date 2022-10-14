@@ -4,7 +4,7 @@ import useCheckboxGroup from '../CheckboxGroup/useCheckboxGroup'
 
 export interface CheckboxProps {
   ref?: MuiCheckboxProps['ref'];
-  label?: string | number | React.ReactElement;
+  label?: React.ReactNode;
   value?: unknown;
   disabled?: boolean;
   name?: string;

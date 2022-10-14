@@ -19,6 +19,10 @@ export interface TreeItemClasses {
   iconContainer: string;
   /** Styles applied to the label element. */
   label: string;
+  /** Styles applied to the Extra element. */
+  extra: string;
+  /** Styles applied to the selectedIcon element. */
+  selectedIcon: string;
 }
 
 export type TreeItemClassKey = keyof TreeItemClasses;
@@ -37,6 +41,8 @@ const treeItemClasses: TreeItemClasses = generateUtilityClasses('MuiTreeItem', [
   'disabled',
   'iconContainer',
   'label',
+  'extra',
+  'selectedIcon'
 ]);
 
 export default treeItemClasses;

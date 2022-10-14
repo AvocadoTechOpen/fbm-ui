@@ -8,10 +8,11 @@ import useTreeSelect from './useTreeSelect'
 import TreeView from '../TreeView';
 import Chip from '../Chip'
 import { flattenDeep } from 'lodash'
+import type { TreeSelectProps } from './interface' 
 
 export { createFilterOptions };
 
-const TreeSelect: React.FC<any> = React.forwardRef((props, ref) => {
+const TreeSelect: React.FC<TreeSelectProps> = React.forwardRef((props, ref) => {
   const {
     data,
     multiple,

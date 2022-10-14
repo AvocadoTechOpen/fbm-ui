@@ -7,6 +7,9 @@ import { TreeItemClasses } from './treeItemClasses';
 
 export interface TreeItemProps
   extends StandardProps<React.HTMLAttributes<HTMLLIElement>, 'onFocus'> {
+  renderTreeItemContent?: TreeItemContentProps['renderTreeItemContent']
+  renderExtra?: TreeItemContentProps['renderExtra'];
+  checkable?: boolean;
   /**
    * The content of the component.
    */
@@ -73,3 +76,5 @@ export interface TreeItemProps
    */
   sx?: SxProps<Theme>;
 }
+
+

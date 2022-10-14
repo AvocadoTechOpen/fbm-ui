@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { InternalStandardProps as StandardProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
 import { TreeViewClasses } from './treeViewClasses';
+import { TreeItemProps } from '../TreeItem'
 
 export interface DataNode {
   label?: React.ReactNode;
@@ -12,6 +12,9 @@ export interface DataNode {
 
 export interface TreeViewPropsBase {
   data?: any[];
+  disabled?: boolean;
+  renderExtra: () => React.ReactNode;
+  renderTreeItemContent?: TreeItemProps['renderTreeItemContent'];
   getNodeLabel?: (data: DataNode) => React.ReactNode;
   getNodeId?: (data: DataNode) => string;
   getNodeChildren?: (data: DataNode) => DataNode[]

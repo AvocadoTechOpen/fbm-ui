@@ -64,6 +64,7 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
   const {
     data,
     children,
+    disabled,
     className,
     defaultCollapseIcon,
     defaultEndIcon,
@@ -86,8 +87,11 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
     getNodeLabel = (node) => node.label,
     getNodeId = (node) => node.id,
     getNodeChildren = (node) => node.children,
+    renderTreeItemContent,
     ...other
   } = props;
+
+  console.log(disabled, '==========')
 
 
   const theme = useTheme();
@@ -151,10 +155,17 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
 
   const isDisabled = React.useCallback((id) => {
     let node = nodeMap.current[id];
-
     // This can be called before the node has been added to the node map.
     if (!node) {
       return false;
+    }
+
+    if (disabled) {
+      return true
+    }
+
+    if (disabled) {
+      return true
     }
 
     if (node.disabled) {
@@ -169,7 +180,7 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
     }
 
     return false;
-  }, []);
+  }, [disabled]);
 
   const isFocused = (id) => focusedNodeId === id;
 
@@ -817,6 +828,8 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
           key={nodeId}
           nodeId={nodeId}
           label={label}
+          renderExtra={renderExtra}
+          renderTreeItemContent={renderTreeItemContent}
         >
           {renderTreeItems(children)}
         </TreeItem>

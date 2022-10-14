@@ -2,14 +2,14 @@ import * as React from 'react';
 import clsx from 'clsx';
 import Collapse from '@mui/material/Collapse';
 import { alpha, styled, useThemeProps } from '@mui/material/styles';
-import { ownerDocument, useForkRef,  } from '@mui/material/utils';
+import { ownerDocument, useForkRef, } from '@mui/material/utils';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import TreeViewContext from '../TreeView/TreeViewContext';
 import { DescendantProvider, useDescendant } from '../TreeView/descendants';
 import TreeItemContent from './TreeItemContent';
 import treeItemClasses, { getTreeItemUtilityClass } from './treeItemClasses';
 
-import {  TreeItemProps  } from './interface'
+import { TreeItemProps } from './interface'
 
 const useUtilityClasses = (ownerState) => {
   const { classes } = ownerState;
@@ -24,6 +24,8 @@ const useUtilityClasses = (ownerState) => {
     iconContainer: ['iconContainer'],
     label: ['label'],
     group: ['group'],
+    extra: ['extra'],
+    selectedIcon: ['selectedIcon']
   };
 
   return composeClasses(slots, getTreeItemUtilityClass, classes);
@@ -54,7 +56,7 @@ const StyledTreeItemContent = styled(TreeItemContent, {
       },
     ];
   },
-})(({ theme }) => ({
+})(({ theme, ownerState }) => ({
   padding: '0 8px',
   width: '100%',
   display: 'flex',
@@ -67,33 +69,24 @@ const StyledTreeItemContent = styled(TreeItemContent, {
     '@media (hover: none)': {
       backgroundColor: 'transparent',
     },
+
+    [`& .${treeItemClasses.selectedIcon}`]: {
+      visibility: 'hidden'
+    },
+
+    [`& .${treeItemClasses.extra}`]: {
+      visibility: 'visible'
+    },
   },
+
+  [`& .${treeItemClasses.extra}`]: {
+    visibility: 'hidden'
+  },
+  
   [`&.${treeItemClasses.disabled}`]: {
     opacity: theme.palette.action.disabledOpacity,
     backgroundColor: 'transparent',
   },
-  // [`&.${treeItemClasses.focused}`]: {
-  //   backgroundColor: theme.palette.action.focus,
-  // },
-  // [`&.${treeItemClasses.selected}`]: {
-  //   backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-  //   '&:hover': {
-  //     backgroundColor: alpha(
-  //       theme.palette.primary.main,
-  //       theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity,
-  //     ),
-  //     // Reset on touch devices, it doesn't add specificity
-  //     '@media (hover: none)': {
-  //       backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-  //     },
-  //   },
-  //   [`&.${treeItemClasses.focused}`]: {
-  //     backgroundColor: alpha(
-  //       theme.palette.primary.main,
-  //       theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity,
-  //     ),
-  //   },
-  // },
   [`& .${treeItemClasses.iconContainer}`]: {
     marginRight: 4,
     width: 15,
@@ -106,12 +99,13 @@ const StyledTreeItemContent = styled(TreeItemContent, {
   },
   [`& .${treeItemClasses.label}`]: {
     width: '100%',
-    // fixes overflow - see https://github.com/mui/material-ui/issues/27372
     minWidth: 0,
     paddingLeft: 4,
     position: 'relative',
     ...theme.typography.body1,
   },
+
+  
 }));
 
 const TreeItemGroup = styled(Collapse, {
@@ -131,6 +125,9 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
     className,
     collapseIcon,
     ContentComponent = TreeItemContent,
+    renderTreeItemContent,
+    renderExtra,
+    checkable,
     ContentProps,
     endIcon,
     expandIcon,
@@ -289,6 +286,7 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
       <StyledTreeItemContent
         as={ContentComponent}
         ref={contentRef}
+        checkable={checkable}
         classes={{
           root: classes.content,
           expanded: classes.expanded,
@@ -297,6 +295,8 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
           disabled: classes.disabled,
           iconContainer: classes.iconContainer,
           label: classes.label,
+          extra: classes.extra,
+          selectedIcon: classes.selectedIcon,
         }}
         label={label}
         nodeId={nodeId}
@@ -307,6 +307,8 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
         expansionIcon={expansionIcon}
         displayIcon={displayIcon}
         ownerState={ownerState}
+        renderTreeItemContent={renderTreeItemContent}
+        renderExtra={renderExtra}
         {...ContentProps}
       />
       {children && (
@@ -317,6 +319,7 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
             className={classes.group}
             in={expanded}
             component="ul"
+             // @ts-ignore
             role="group"
             {...TransitionProps}
           >

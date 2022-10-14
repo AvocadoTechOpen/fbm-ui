@@ -1,94 +1,10 @@
-import * as React from 'react';
-import { InternalStandardProps as StandardProps, Theme } from '@mui/material';
-import { ChipProps, ChipTypeMap } from '@mui/material/Chip';
-import { PopperProps } from '@mui/material/Popper';
-import { SxProps } from '@mui/system';
-import { OverridableStringUnion } from '@mui/types';
-import {
-  useAutocomplete,
-  AutocompleteChangeDetails,
-  AutocompleteChangeReason,
-  AutocompleteCloseReason,
-  AutocompleteInputChangeReason,
-  createFilterOptions,
-  UseAutocompleteProps,
-} from '@mui/core';
-import { AutocompleteClasses } from './autocompleteClasses';
+import type { TreeViewProps } from '../TreeView'
 
-export {
-  AutocompleteChangeDetails,
-  AutocompleteChangeReason,
-  AutocompleteCloseReason,
-  AutocompleteInputChangeReason,
-  createFilterOptions,
-};
-
-export type AutocompleteOwnerState<
-  T,
-  Multiple extends boolean | undefined,
-  DisableClearable extends boolean | undefined,
-  FreeSolo extends boolean | undefined,
-  ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
-> = AutocompleteProps<T, Multiple, DisableClearable, FreeSolo, ChipComponent> & {
-  disablePortal: boolean;
-  focused: boolean;
-  fullWidth: boolean;
-  hasClearIcon: boolean;
-  hasPopupIcon: boolean;
-  inputFocused: boolean;
-  popupOpen: boolean;
-  size: OverridableStringUnion<'small' | 'medium', AutocompletePropsSizeOverrides>;
-};
-
-
-export type AutocompleteRenderGetTagProps = ({ index }: { index: number }) => {
-  key: number;
-  className: string;
-  disabled: boolean;
-  'data-tag-index': number;
-  tabIndex: number;
-  onDelete: (event: any) => void;
-};
-
-export interface AutocompleteRenderOptionState {
-  inputValue: string;
-  selected: boolean;
-}
-
-export interface AutocompleteRenderGroupParams {
-  key: string;
-  group: string;
-  children?: React.ReactNode;
-}
-
-export interface AutocompleteRenderInputParams {
-  id: string;
-  disabled: boolean;
-  fullWidth: boolean;
-  size: 'small' | undefined;
-  InputLabelProps: ReturnType<ReturnType<typeof useAutocomplete>['getInputLabelProps']>;
-  InputProps: {
-    ref: React.Ref<any>;
-    className: string;
-    startAdornment: React.ReactNode;
-    endAdornment: React.ReactNode;
-  };
-  inputProps: ReturnType<ReturnType<typeof useAutocomplete>['getInputProps']>;
-}
-
-export interface AutocompletePropsSizeOverrides { }
-
-export interface AutocompleteProps<
-  T,
-  Multiple extends boolean | undefined,
-  DisableClearable extends boolean | undefined,
-  FreeSolo extends boolean | undefined,
-  ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
-  > extends UseAutocompleteProps<T, Multiple, DisableClearable, FreeSolo>,
-  StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'> { 
+interface TreeSelectPropsBase {
+  multiple?: boolean;
   /**
-   * Props applied to the [`Chip`](/api/chip/) element.
-   */
+  * Props applied to the [`Chip`](/api/chip/) element.
+  */
   ChipProps?: ChipProps<ChipComponent>;
   /**
    * Override or extend the styles applied to the component.
@@ -254,7 +170,6 @@ export interface AutocompleteProps<
    * @default false
    */
   placeholderIsValue?: boolean;
-
-
 }
 
+export type TreeSelectProps = TreeSelectPropsBase & TreeViewProps
