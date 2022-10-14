@@ -25,6 +25,7 @@ export interface ConfirmFooterProps {
   closeProps?: ButtonProps;
   /** 自定义Footer  */
   footer?: React.ReactNode
+  className?: string;
 }
 
 const ConfirmFooterRoot = styled(Box)({
