@@ -54,12 +54,13 @@ export interface DialogContainerProps {
 const DialogRoot: React.FC<MuiDialogProps> = styled(Dialog)({
   [`& .${dialogClasses.paper}`]: {
     maxWidth: 'none',
-    maxHeight: 'none'
   }
 })
 
 const DialogContentRoot = styled(Box)({
-  marginBottom: '16px'
+  marginBottom: '16px',
+  flex: '1 1 auto',
+  overflow: 'auto',
 })
 
 const defaultSizes = {
@@ -77,6 +78,10 @@ const DialogContainer: React.FC<DialogContainerProps> = styled(Box)(({
   isNullFooter,
 }: DialogContainerProps) => {
   return {
+    display: 'flex',
+    flexDirection: 'column',
+    maxHeight: '100%',
+    overflow: 'auto',
     width: width || defaultSizes[(size as string)],
     paddingLeft: '24px',
     paddingRight: '16px',
@@ -107,7 +112,8 @@ const Header: React.FC<HeaderProps> = (props) => {
     ...(!title && {
       justifyContent: 'flex-end',
     }),
-    height: '56px'
+    height: '56px',
+    flexShrink: 0,
   })
 
   const Title = () => {
@@ -156,7 +162,11 @@ const Footer: React.FC<FooterProps> = (props) => {
     )
   }
 
-  return <ConfirmFooter  {...confirmFooterProps} />
+  return (
+    <Box sx={{ flexShrink: 0 }}>
+      <ConfirmFooter {...confirmFooterProps} />
+    </Box>
+  );
 }
 
 const FbmDialog: React.FC<DialogProps> = React.forwardRef((inProps, ref) => {
