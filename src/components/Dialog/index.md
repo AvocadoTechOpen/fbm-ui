@@ -14,7 +14,7 @@ group:
  * desc: xs(360px默认) sm(588px) md(800px) lg(960px) xl(1280px)
  */
 import * as React from 'react';
-import { Demo, Dialog, Button, Form, Input, Typography} from 'fbm-ui'
+import { Box, Demo, Dialog, Button, Form, Input, Typography} from 'fbm-ui'
 import { useFormik } from 'formik'
 
 const defaultSizes = {
@@ -68,10 +68,12 @@ export default () =>{
           color: 'error'
         }}
       >
-        <Typography sx={{ height: 1000 }}>
+      <Box>
+        <Typography>
+          依托“AI+视频”面试，助力企业打造独有AI岗位 模型，精准筛选候选人，提高批量人才质量，从 而提高企业价值。
           依托“AI+视频”面试，助力企业打造独有AI岗位
-          模型，精准筛选候选人，提高批量人才质量，从  而提高企业价值。
         </Typography >
+      </Box>
       </Dialog>
     </Demo>
   )
@@ -245,5 +247,48 @@ export default () =>{
 }
 ```
 
+```tsx
+/**
+ * title: 自定义样式
+ * desc:FuiDialog-header 头部className;  FuiDialog-content 内容className; FuiDialog-footer 底部className;
+ */
+import * as React from 'react';
+import { Dialog, Button, Demo, Box, Typography, dialogClasses} from 'fbm-ui'
+
+export default () =>{
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <Demo>
+      <Button onClick={() => setOpen(true)}  sx={{mr:2}}> open </Button>
+
+      <Dialog 
+        title="修改密码"
+        open={open}
+        onClose={() => setOpen(false)}
+        onOk={() => setOpen(false)} 
+        sx = {{
+          [`& .${dialogClasses.header}`]: {
+            background: 'blue',
+          },
+          [`& .${dialogClasses.content}`]:{
+            background: 'red',
+          },
+          [`& .${dialogClasses.footer}`]: {
+            background: 'yellow',
+          }
+        }}
+      >
+          <Box>
+            <Typography>
+              依托“AI+视频”面试，助力企业打造独有AI岗位 模型，精准筛选候选人，提高批量人才质量，从 而提高企业价值。
+              依托“AI+视频”面试，助力企业打造独有AI岗位
+            </Typography >
+          </Box>
+      </Dialog>
+    </Demo>
+  )
+}
+```
 
 <API></API>
