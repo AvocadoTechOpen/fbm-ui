@@ -27,6 +27,7 @@ export default () => {
     { label: "12 Angry Men", value: 1957 },
     { label: "Schindler's List", value: 1993 },
   ];
+
   return (
     <Layout>
       <Autocomplete

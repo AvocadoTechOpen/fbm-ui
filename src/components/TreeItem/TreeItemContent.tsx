@@ -101,9 +101,6 @@ const TreeItemContent: React.FC<TreeItemContentProps> = React.forwardRef((props,
     multiSelect,
   }
 
-
-  console.log(renderExtra, '-------')
-
   let children = null
   if (renderTreeItemContent && typeof renderTreeItemContent === 'function') {
     children = renderTreeItemContent(treeItemContentProps)

@@ -80,13 +80,13 @@ export default () => {
 }
 ```
 
-```tsx
+<!-- ```tsx
 /**
  * title: 定制额外节点
  * desc: 为 TreeViwe 设置 renderExtra 可以自定义树节点的展示。
  */
 import * as React from 'react';
-import { Demo, TreeView, TreeItem, Box, Checkbox} from 'fbm-ui'
+import { Demo, TreeView, TreeItem, Box, Checkbox, AddIcon } from 'fbm-ui'
  const treeData = [
     {
       label: 'Node1',
@@ -120,8 +120,6 @@ export default () => {
 
   return (
       <Demo>
-
-      
         <Box sx={{ width: '500px' }}>
           <TreeView 
             data={treeData}
@@ -140,7 +138,7 @@ export default () => {
       </Demo>
     )
 }
-```
+``` -->
 
 
 

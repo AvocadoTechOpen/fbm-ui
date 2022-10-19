@@ -13,7 +13,7 @@ export interface DataNode {
 export interface TreeViewPropsBase {
   data?: any[];
   disabled?: boolean;
-  renderExtra: () => React.ReactNode;
+  renderExtra?: () => React.ReactNode;
   renderTreeItemContent?: TreeItemProps['renderTreeItemContent'];
   getNodeLabel?: (data: DataNode) => React.ReactNode;
   getNodeId?: (data: DataNode) => string;

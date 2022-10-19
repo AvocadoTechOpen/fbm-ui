@@ -1,6 +1,6 @@
 import { generateUtilityClass, generateUtilityClasses } from '@mui/core';
 
-export interface AutocompleteClasses {
+export interface TreeSelecClasses {
   /** Styles applied to the root element. */
   root: string;
   /** Styles applied to the root element if `fullWidth={true}`. */
@@ -54,14 +54,15 @@ export interface AutocompleteClasses {
   limitTag: string;
 }
 
-export type AutocompleteClassKey = keyof AutocompleteClasses;
+export type TreeSelecClassKey = keyof TreeSelecClasses;
 
-export function getAutocompleteUtilityClass(slot: string): string {
-  return generateUtilityClass('MuiAutocomplete', slot);
+export function getTreeSelectUtilityClass(slot: string): string {
+  return generateUtilityClass('FuiTreeSelectClasses', slot);
 }
 
-const autocompleteClasses: AutocompleteClasses = generateUtilityClasses('MuiAutocomplete', [
+const treeSelecClasses: TreeSelecClasses = generateUtilityClasses('FuiTreeSelectClasses', [
   'root',
+  'endAdornment',
   'fullWidth',
   'focused',
   'focusVisible',
@@ -91,4 +92,4 @@ const autocompleteClasses: AutocompleteClasses = generateUtilityClasses('MuiAuto
   'limitTag',
 ]);
 
-export default autocompleteClasses;
+export default treeSelecClasses;

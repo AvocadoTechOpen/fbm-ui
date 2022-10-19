@@ -62,6 +62,7 @@ const StyledTreeItemContent = styled(TreeItemContent, {
   display: 'flex',
   alignItems: 'center',
   cursor: 'pointer',
+  boxSizing: 'border-box',
   WebkitTapHighlightColor: 'transparent',
   '&:hover': {
     backgroundColor: theme.palette.action.hover,
@@ -82,7 +83,7 @@ const StyledTreeItemContent = styled(TreeItemContent, {
   [`& .${treeItemClasses.extra}`]: {
     visibility: 'hidden'
   },
-  
+
   [`&.${treeItemClasses.disabled}`]: {
     opacity: theme.palette.action.disabledOpacity,
     backgroundColor: 'transparent',
@@ -104,8 +105,6 @@ const StyledTreeItemContent = styled(TreeItemContent, {
     position: 'relative',
     ...theme.typography.body1,
   },
-
-  
 }));
 
 const TreeItemGroup = styled(Collapse, {
@@ -221,6 +220,7 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
         id: nodeId,
         idAttribute: id,
         index,
+        label,
         parentId,
         expandable,
         disabled: disabledProp,
@@ -230,7 +230,6 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
         unregisterNode(nodeId);
       };
     }
-
     return undefined;
   }, [registerNode, unregisterNode, parentId, index, nodeId, expandable, disabledProp, id]);
 
@@ -315,11 +314,11 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
         <DescendantProvider id={nodeId}>
           <TreeItemGroup
             as={TransitionComponent}
-            unmountOnExit
+            // unmountOnExit
             className={classes.group}
             in={expanded}
             component="ul"
-             // @ts-ignore
+            // @ts-ignore
             role="group"
             {...TransitionProps}
           >

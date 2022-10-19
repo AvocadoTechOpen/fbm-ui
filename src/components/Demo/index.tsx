@@ -17,7 +17,6 @@ export interface DemoProps {
 const Root: React.FC<DemoProps> = styled(Box)(({ theme, grey, white, bgColor}: DemoProps) => {
   return {
     padding: '24px',
-    display: 'flex',
     borderRadius: 10,
     ...(grey && {
       backgroundColor: 'rgb(245, 245, 245)'

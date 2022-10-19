@@ -10,7 +10,6 @@ export default function useTreeItem(nodeId) {
     isDisabled,
     isSelected,
     selectNode,
-    selectRange,
     toggleExpansion,
     multiSelect,
   } = React.useContext(TreeViewContext);

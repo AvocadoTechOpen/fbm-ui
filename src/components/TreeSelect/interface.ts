@@ -170,6 +170,8 @@ interface TreeSelectPropsBase {
    * @default false
    */
   placeholderIsValue?: boolean;
+  
+  getOptionLabel?: any,
 }
 
 export type TreeSelectProps = TreeSelectPropsBase & TreeViewProps
