@@ -6,13 +6,6 @@ import {
   unstable_useId as useId,
 } from '@mui/utils';
 
-function stripDiacritics(string) {
-  return typeof string.normalize !== 'undefined'
-    ? string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    : string;
-}
-
-
 
 export default function useTreeSelect(props) {
   const {
@@ -26,12 +19,9 @@ export default function useTreeSelect(props) {
     disableClearable = false,
     disableCloseOnSelect = props.multiple,
     disabled: disabledProp,
-    filterOptions = () => {},
-    filterSelectedOptions = false,
     freeSolo = false,
     id: idProp,
     inputValue: inputValueProp,
-    isOptionEqualToValue = (option, value) => option.value === value.value,
     name,
     label,
     size,
@@ -44,17 +34,12 @@ export default function useTreeSelect(props) {
     onOpen,
     open: openProp,
     openOnFocus = false,
-    options,
-    data,
     readOnly = false,
-    selectOnFocus = !props.freeSolo,
     value: valueProp,
     expanded: expandedProp
   } = props;
 
   const id = useId(idProp);
-
-
   const ignoreFocus = React.useRef(false);
   const firstFocus = React.useRef(true);
   const inputRef = React.useRef(null);
@@ -62,8 +47,6 @@ export default function useTreeSelect(props) {
   const treeRef = React.useRef(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [focusedTag, setFocusedTag] = React.useState(-1);
-  const defaultHighlighted = autoHighlight ? 0 : -1;
-  const highlightedIndexRef = React.useRef(defaultHighlighted);
 
   const [value, setValueState] = useControlled({
     controlled: valueProp,
@@ -153,48 +136,6 @@ export default function useTreeSelect(props) {
 
   const popupOpen = open && !readOnly;
 
-  const filteredOptions = popupOpen
-    ? filterOptions(
-      data?.filter((option) => {
-        if (
-          (multiple ? value : [value]).some(
-            (value2) => value2 !== null && isOptionEqualToValue(option, value2),
-          )
-        ) {
-          return false;
-        }
-        return true;
-      }),
-      // we use the empty string to manipulate `filterOptions` to not filter any options
-      // i.e. the filter predicate always returns true
-      {
-        inputValue: inputValueIsSelectedValue && inputPristine ? '' : inputValue,
-      },
-    )
-    : [];
-
-  const listboxAvailable = open && filteredOptions?.length > 0 && !readOnly;
-
-  if (process.env.NODE_ENV !== 'production') {
-    if (value !== null && !freeSolo && options?.length > 0) {
-      const missingValue = (multiple ? value : [value]).filter(
-        (value2) => !options.some((option) => isOptionEqualToValue(option, value2)),
-      );
-
-      if (missingValue.length > 0) {
-        console.warn(
-          [
-            `MUI: The value provided to ${componentName} is invalid.`,
-            `None of the options match with \`${missingValue.length > 1
-              ? JSON.stringify(missingValue)
-              : JSON.stringify(missingValue[0])
-            }\`.`,
-            'You can use the `isOptionEqualToValue` prop to customize the equality test.',
-          ].join('\n'),
-        );
-      }
-    }
-  }
 
   const handleTreeboxRef = useEventCallback((node) => {
     if (!node) {
@@ -274,6 +215,7 @@ export default function useTreeSelect(props) {
     }
   };
 
+  //===================== Input Event =====================
   const handleClear = (event) => {
     ignoreFocus.current = true;
     setInputValueState('');
@@ -305,9 +247,7 @@ export default function useTreeSelect(props) {
     firstFocus.current = true;
     ignoreFocus.current = false;
 
-    if (autoSelect && highlightedIndexRef.current !== -1 && popupOpen) {
-      selectNewValue(event, filteredOptions[highlightedIndexRef.current], 'blur');
-    } else if (autoSelect && freeSolo && inputValue !== '') {
+    if (autoSelect && freeSolo && inputValue !== '') {
       selectNewValue(event, inputValue, 'blur', 'freeSolo');
     } else if (clearOnBlur) {
       resetInputValue(event, value);
@@ -355,33 +295,28 @@ export default function useTreeSelect(props) {
     }
   };
 
-  // Prevent input blur when interacting with the combobox
-  const handleMouseDown = (event) => {
-    if (event.target.getAttribute('id') !== id) {
-      event.preventDefault();
-    }
-  };
-
-  // Focus the input when interacting with the combobox
-  const handleClick = () => {
-    inputRef.current.focus();
-
-    if (
-      selectOnFocus &&
-      firstFocus.current &&
-      inputRef.current.selectionEnd - inputRef.current.selectionStart === 0
-    ) {
-      inputRef.current.select();
-    }
-
-    firstFocus.current = false;
-  };
-
   const handleInputMouseDown = (event) => {
     if (inputValue === '' || !open) {
       handlePopupIndicator(event);
     }
   };
+
+  const handleKeyDown = (event) => { 
+    switch (event.key) {
+      case 'Backspace':
+        if (multiple && !readOnly && inputValue === '' && value.length > 0) {
+          const index = focusedTag === -1 ? value.length - 1 : focusedTag;
+          const newValue = value.slice();
+          newValue.splice(index, 1);
+          handleValue(event, newValue, 'removeOption', {
+            option: value[index],
+          });
+        }
+        break;
+      default:
+    }
+  }
+  //===================== Input Event end =====================
 
 
   //===================== tree Event =====================
@@ -412,15 +347,12 @@ export default function useTreeSelect(props) {
     const nodeData = getNode(nodeId)
     return nodeData?.parentId
   })
+  
+  let dirty = freeSolo && inputValue.length > 0;
+  dirty = dirty || (multiple ? value.length > 0 : value !== null);
 
 
   return {
-    getRootProps: (other = {}) => ({
-      'aria-owns': listboxAvailable ? `${id}-listbox` : null,
-      ...other,
-      onMouseDown: handleMouseDown,
-      onClick: handleClick,
-    }),
     getInputProps: () => ({
       id,
       name,
@@ -432,12 +364,13 @@ export default function useTreeSelect(props) {
       onFocus: handleFocus,
       onChange: handleInputChange,
       onMouseDown: handleInputMouseDown,
+      onKeyDown: handleKeyDown,
       // if open then this is handled imperativeley so don't let react override
       // only have an opinion about this when closed
       'aria-activedescendant': popupOpen ? '' : null,
       'aria-autocomplete': autoComplete ? 'both' : 'list',
-      'aria-controls': listboxAvailable ? `${id}-listbox` : undefined,
-      'aria-expanded': listboxAvailable,
+      // 'aria-controls': listboxAvailable ? `${id}-listbox` : undefined,
+      // 'aria-expanded': listboxAvailable,
       // Disable browser's suggestion that might overlap with the popup.
       // Handle autocomplete but not autofill.
       autoComplete: 'off',
@@ -481,6 +414,7 @@ export default function useTreeSelect(props) {
     id,
     inputValue,
     value,
+    dirty,
     popupOpen,
     focused: focused || focusedTag !== -1,
     anchorEl,

@@ -70,11 +70,11 @@ const StyledTreeItemContent = styled(TreeItemContent, {
     '@media (hover: none)': {
       backgroundColor: 'transparent',
     },
-
-    [`& .${treeItemClasses.selectedIcon}`]: {
-      visibility: 'hidden'
-    },
-
+    ...(ownerState.renderExtra && {
+      [`& .${treeItemClasses.selectedIcon}`]: {
+        visibility: 'hidden'
+      },
+    }),
     [`& .${treeItemClasses.extra}`]: {
       visibility: 'visible'
     },

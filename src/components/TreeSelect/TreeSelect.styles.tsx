@@ -102,7 +102,6 @@ export const TreeSelectEndAdornment = styled('div', {
   top: '11.5px',
 });
 
-
 export const TreeSelectClearIndicator = styled(IconButton, {
   name: 'MuiAutocomplete',
   slot: 'ClearIndicator',
@@ -113,7 +112,6 @@ export const TreeSelectClearIndicator = styled(IconButton, {
   color: 'rgba(0, 0, 0, 0.56)',
   visibility: 'hidden',
 });
-
 
 export const TreeSelectPopupIndicator = styled(IconButton, {
   name: 'MuiAutocomplete',
@@ -130,5 +128,3 @@ export const TreeSelectPopupIndicator = styled(IconButton, {
     transform: 'rotate(180deg)',
   }),
 }));
-
-

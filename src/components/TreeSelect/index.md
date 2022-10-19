@@ -18,9 +18,6 @@ import { TreeSelect, Checkbox, Box, Demo } from 'fbm-ui';
 
 export default () => {
   const [value, setValue] = React.useState('');
-  const [multiSelect, setMultiSelect] = React.useState(false)
-  const [disabled, setDisabled] = React.useState(false)
-
 
   const handleChange = (event, value) => {
     setValue(value)
@@ -48,28 +45,59 @@ export default () => {
   ]
   return (
     <Demo>
-      <Box sx={{mb: 2}}>
-        <Checkbox 
-          label="多选"
-          checked={multiSelect}
-          onChange={(e) =>{
-            setMultiSelect(!multiSelect)
-            setValue([])
-          }} 
-        />
-        <Checkbox 
-          label="disabled"
-          checked={disabled}
-          onChange={(e) => setDisabled(!disabled)} 
-        />
-      </Box>
 
       <TreeSelect
-        multiple={multiSelect}
+        data={data}
+        value={value}
+        onChange={handleChange}
+      />
+    </Demo>
+  );
+};
+```
+
+```tsx
+/**
+ * title: 多选
+ */
+import * as React from 'react';
+import { TreeSelect, Checkbox, Box, Demo } from 'fbm-ui';
+
+export default () => {
+  const [value, setValue] = React.useState([]);
+
+  const handleChange = (event, value) => {
+    setValue(value)
+  }
+
+  const data = [
+     {
+      label: 'Node1',
+      id: '0-0',
+      children: [
+        {
+          label: 'Child Node1',
+          id: '0-0-1',
+        },
+        {
+          label: 'Child Node2',
+          id: '0-0-2',
+        },
+      ],
+    },
+    {
+      label: 'Node2',
+      id: '0-1',
+    }
+  ]
+  return (
+    <Demo>
+
+      <TreeSelect
+        multiple={true}
         size='large'
         data={data}
         value={value}
-        disabled={disabled}
         onChange={handleChange}
       />
     </Demo>

@@ -48,7 +48,7 @@ export default () => {
   }
 
   return (
-      <Demo>
+      <Demo white >
         <Box sx={{mb: 2}}>
           <Checkbox 
             label="多选"
@@ -80,13 +80,13 @@ export default () => {
 }
 ```
 
-<!-- ```tsx
+```tsx
 /**
  * title: 定制额外节点
  * desc: 为 TreeViwe 设置 renderExtra 可以自定义树节点的展示。
  */
 import * as React from 'react';
-import { Demo, TreeView, TreeItem, Box, Checkbox, AddIcon } from 'fbm-ui'
+import { Demo, TreeView, TreeItem, Box, Checkbox, AddIcon, CloseIcon } from 'fbm-ui'
  const treeData = [
     {
       label: 'Node1',
@@ -119,101 +119,38 @@ export default () => {
   }
 
   return (
-      <Demo>
+      <Demo white>
         <Box sx={{ width: '500px' }}>
           <TreeView 
             data={treeData}
+            defaultExpanded={['0-0']}
             selected={selected}
             disabled={disabled}
             onNodeSelect={hadnleNodeSelect}
-            renderExtra={() => {
-              return (
-                <span>
-                  <AddIcon />
-                </span>
-              )
+            renderExtra={(props) => {
+              if (props.nodeId === '0-0-1') {
+                return (
+                  <span onClick={() => alert('添加')}>
+                    <AddIcon />
+                  </span>
+                )
+              }
+              if (props.nodeId === '0-0-2') {
+                return (
+                  <span onClick={() => alert('删除')}>
+                    <CloseIcon />
+                  </span>
+                )
+              }
             }}
           />
         </Box>
       </Demo>
     )
 }
-``` -->
-
-
-
-<!-- 
-```tsx
-/**
- * title: 定制节点
- * desc: 
- */
-import * as React from 'react';
-import { Demo, TreeView, TreeItem, Box, AddIcon, MinusIcon } from 'fbm-ui'
-
-export default () => {
- const [selected, setSelected ] = React.useState([])
- const treeData = [
-    {
-      label: 'Node1',
-      id: '0-0',
-      children: [
-        {
-          label: 'Child Node1',
-          id: '0-0-1',
-        },
-        {
-          label: 'Child Node2',
-          id: '0-0-2',
-        },
-      ],
-    },
-    {
-      label: 'Node2',
-      id: '0-1',
-    },
-  ];
-
-  const hadnleNodeSelect = (e, nodeIds, ...arg) => {
-    setSelected(nodeIds)
-  }
-
-
-  const renderTreeItemContent = ({ icon, nodeId, selected, expanded, handleSelection, handleExpansion }) => {
-    return (
-      <Box 
-        sx={{ 
-          color: selected ?  '#4caf50' :  'rgba(0, 0, 0, 0.86)',
-          display: 'flex', 
-          alignItems: 'center',
-          pt: 1,
-          pb: 1
-        }}
-      >
-        <span onClick={handleExpansion}>{icon}</span>
-        <span onClick={handleSelection}>{nodeId}</span>
-      </Box>
-    )
-  }
-
-  return (
-    <Demo>
-      Current: {selected.join(',')}
-      <Box sx={{ width: '500px' }}>
-        <TreeView 
-          multiSelect
-          defaultCollapseIcon={<MinusIcon /> }
-          defaultExpandIcon={ <AddIcon />}
-          selected={selected}
-          data={treeData}
-          onNodeSelect={hadnleNodeSelect}
-          renderTreeItemContent={renderTreeItemContent}
-        />
-      </Box>
-    </Demo>
-  )
-}
 ```
+
+
 
 ```tsx
 /**
@@ -272,48 +209,18 @@ const TreeData = [
   },
 ];
 
-function searchData(inputValue) {
-  const loop = (data) => {
-    const result = [];
-    data.forEach((item) => {
-      if (item.title.toLowerCase().indexOf(inputValue.toLowerCase()) > -1) {
-        result.push({ ...item });
-      } else if (item.children) {
-        const filterData = loop(item.children);
-
-        if (filterData.length) {
-          result.push({ ...item, children: filterData });
-        }
-      }
-    });
-    return result;
-  };
-
-  return loop(TreeData);
-}
-
-
 export default () => {
   const [selected, setSelected ] = React.useState([])
   const [treeData, setTreeData] = React.useState(TreeData);
   const [inputValue, setInputValue] = React.useState('');
 
-   React.useEffect(() => {
-    if (!inputValue) {
-      setTreeData(TreeData);
-    } else {
-      const result = searchData(inputValue);
-      console.log(result)
-      setTreeData(result);
-    }
-  }, [inputValue]);
-
   return (
-    <Demo>
+    <Demo white>
       <Input value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
 
       <Box sx={{ width: '500px' }}>
         <TreeView 
+          searchValue={inputValue}
           getNodeLabel={(nd) => nd.title}
           getNodeId={(nd) => nd.key}
           data={treeData}
@@ -322,4 +229,3 @@ export default () => {
     </Demo>
   )
 }
-``` -->

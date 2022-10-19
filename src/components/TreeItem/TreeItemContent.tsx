@@ -1,10 +1,10 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { Box, styled } from '@mui/material'
+import { styled, checkboxClasses } from '@mui/material'
 import useTreeItem from './useTreeItem';
 import Checkbox from '../Checkbox'
 import { DoneIcon } from '../icons'
+
 
 import { InternalStandardProps as StandardProps } from '@mui/material';
 
@@ -47,7 +47,13 @@ export interface TreeItemContentProps extends StandardProps<React.HTMLAttributes
   displayIcon?: React.ReactNode;
 }
 
-
+const TreeItemCheckbox = styled(Checkbox)({
+ [`& .${checkboxClasses.root}`]: {
+   '&:hover': {
+     background: 'transparent !important',
+   }
+  }
+})
 
 
 const TreeItemContent: React.FC<TreeItemContentProps> = React.forwardRef((props, ref) => {
@@ -110,7 +116,7 @@ const TreeItemContent: React.FC<TreeItemContentProps> = React.forwardRef((props,
         <div className={classes.iconContainer} onClick={handleExpansion}> {icon} </div>
         {
           checkable
-            ? <Checkbox label={label} checked={selected} onChange={handleSelection} />
+            ? <TreeItemCheckbox label={label} checked={selected} onChange={handleSelection} />
             : (
               <div className={classes.label} onClick={handleSelection}>
                 {label}

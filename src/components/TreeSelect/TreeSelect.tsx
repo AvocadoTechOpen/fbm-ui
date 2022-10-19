@@ -88,11 +88,12 @@ const TreeSelect: React.FC<TreeSelectProps> = React.forwardRef((props, ref) => {
     PopperComponent = Popper,
     renderTags,
     ChipProps,
+    renderInput
   } = props
 
   const {
     id,
-    value,
+    dirty,
     popupOpen,
     setAnchorEl,
     anchorEl,
@@ -106,8 +107,7 @@ const TreeSelect: React.FC<TreeSelectProps> = React.forwardRef((props, ref) => {
     getPopupIndicatorProps,
   } = useTreeSelect({ ...props })
 
-  const hasClearIcon = !disabled && !readOnly;
-  // const hasPopupIcon = (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false;
+  const hasClearIcon = dirty && !disabled && !readOnly;
 
   const ownerState = {
     ...props,
@@ -141,16 +141,16 @@ const TreeSelect: React.FC<TreeSelectProps> = React.forwardRef((props, ref) => {
     }
   }
 
-  return (
-    <React.Fragment>
-      <TreeSelectInput
-        id={id}
-        disabled={disabled}
-        size={size}
-        ref={setAnchorEl}
-        startAdornment={startAdornment}
-        endAdornment={
-          <TreeSelectEndAdornment>
+  const treeInputProps = {
+    id,
+    disabled,
+    size,
+    ref: setAnchorEl,
+    startAdornment,
+    endAdornment: (
+      <TreeSelectEndAdornment>
+        {
+          hasClearIcon && (
             <TreeSelectClearIndicator
               {...getClearProps()}
               aria-label={clearText}
@@ -161,28 +161,40 @@ const TreeSelect: React.FC<TreeSelectProps> = React.forwardRef((props, ref) => {
             >
               {clearIcon}
             </TreeSelectClearIndicator>
-            <TreeSelectPopupIndicator
-              {...getPopupIndicatorProps()}
-              disabled={disabled}
-              aria-label={popupOpen ? closeText : openText}
-              title={popupOpen ? closeText : openText}
-              // @ts-ignore
-              ownerState={ownerState}
-              className={clsx(
-                classes.popupIndicator,
-              )}
-            >
-              {popupIcon}
-            </TreeSelectPopupIndicator>
-          </TreeSelectEndAdornment>
+          )
         }
-        inputProps={{
-          className: classes.input,
-          disabled,
-          readOnly,
-          ...getInputProps(),
-        }}
-      />
+        <TreeSelectPopupIndicator
+          {...getPopupIndicatorProps()}
+          disabled={disabled}
+          aria-label={popupOpen ? closeText : openText}
+          title={popupOpen ? closeText : openText}
+          // @ts-ignore
+          ownerState={ownerState}
+          className={clsx(
+            classes.popupIndicator,
+          )}
+        >
+          {popupIcon}
+        </TreeSelectPopupIndicator>
+      </TreeSelectEndAdornment>
+    ),
+    inputProps: {
+      className: classes.input,
+      disabled,
+      readOnly,
+      ...getInputProps(),
+    }
+  }
+  let treeInput = null
+  if (renderInput && typeof renderInput === 'function') {
+    treeInput = renderInput(treeInputProps)
+  } else {
+    treeInput = <TreeSelectInput {...treeInputProps} />
+  }
+
+  return (
+    <React.Fragment>
+      {treeInput}
       {popupOpen && anchorEl ? (
         <TreeSelectPopper
           open
@@ -196,21 +208,19 @@ const TreeSelect: React.FC<TreeSelectProps> = React.forwardRef((props, ref) => {
           <TreeSelectPaper
             as={PaperComponent}
           >
-            {data && data.length > 0 ? (
-              <TreeSelectTreeBox
-                {...getTreeBoxProps()}
-              >
-                <TreeView
-                  {...getTreeProps()}
-                  data={data}
-                  disabled={disabled}
-                  multiSelect={multiple}
-                  getNodeLabel={getNodeLabel}
-                  getNodeId={getNodeId}
-                  getNodeChildren={getNodeChildren}
-                />
-              </TreeSelectTreeBox>
-            ) : null}
+            <TreeSelectTreeBox
+              {...getTreeBoxProps()}
+            >
+              <TreeView
+                {...getTreeProps()}
+                data={data}
+                disabled={disabled}
+                multiSelect={multiple}
+                getNodeLabel={getNodeLabel}
+                getNodeId={getNodeId}
+                getNodeChildren={getNodeChildren}
+              />
+            </TreeSelectTreeBox>
           </TreeSelectPaper>
         </TreeSelectPopper>
       ) : null}

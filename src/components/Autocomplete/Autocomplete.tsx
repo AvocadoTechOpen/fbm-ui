@@ -70,6 +70,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     getTagProps,
     getListboxProps,
     getOptionProps,
+    getRootProps,
     value,
     dirty,
     id,

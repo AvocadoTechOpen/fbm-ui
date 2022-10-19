@@ -112,53 +112,6 @@ export const AutocompleteListbox = styled('div', {
     maxHeight: '40vh',
     overflow: 'auto',
     [`& .${autocompleteClasses.option}`]: {
-      // minHeight: 48,
-      // display: 'flex',
-      // overflow: 'hidden',
-      // justifyContent: 'flex-start',
-      // alignItems: 'center',
-      // cursor: 'pointer',
-      // paddingTop: 6,
-      // boxSizing: 'border-box',
-      // outline: '0',
-      // WebkitTapHighlightColor: 'transparent',
-      // paddingBottom: 6,
-      // paddingLeft: 16,
-      // paddingRight: 16,
-      // [theme.breakpoints.up('sm')]: {
-      //   minHeight: 'auto',
-      // },
-      // [`&.${autocompleteClasses.focused}`]: {
-      //   backgroundColor: theme.palette.action.hover,
-      //   // Reset on touch devices, it doesn't add specificity
-      //   '@media (hover: none)': {
-      //     backgroundColor: 'transparent',
-      //   },
-      // },
-      // '&[aria-disabled="true"]': {
-      //   opacity: theme.palette.action.disabledOpacity,
-      //   pointerEvents: 'none',
-      // },
-      // [`&.${autocompleteClasses.focusVisible}`]: {
-      //   backgroundColor: theme.palette.action.focus,
-      // },
-      // [`& .${autocompleteClasses.optionLabel}`]: {
-      //   flex: 1,
-      //   wordBreak:'break-all', 
-      // },
-      // [`& .${autocompleteClasses.optioncheckedIcon}`]: {
-      //   color: theme.palette.primary.main
-      // },
-      // '&[aria-selected="true"]': {
-      //   [`&.${autocompleteClasses.focused}`]: {
-      //     '@media (hover: none)': {
-      //       backgroundColor: theme.palette.action.selected,
-      //     },
-      //   },
-      // },
-      // '&[aria-multiple="true"]': {
-      //   padding: 0,
-      // },
     },
   })
 });
