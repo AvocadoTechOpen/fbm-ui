@@ -56,6 +56,7 @@ const StyledTreeItemContent = styled(TreeItemContent, {
       },
     ];
   },
+  // @ts-ignore
 })(({ theme, ownerState }) => ({
   padding: '0 8px',
   width: '100%',
@@ -225,10 +226,6 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
         expandable,
         disabled: disabledProp,
       });
-
-      return () => {
-        unregisterNode(nodeId);
-      };
     }
     return undefined;
   }, [registerNode, unregisterNode, parentId, index, nodeId, expandable, disabledProp, id]);
@@ -305,6 +302,7 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
         icon={icon}
         expansionIcon={expansionIcon}
         displayIcon={displayIcon}
+        // @ts-ignore
         ownerState={ownerState}
         renderTreeItemContent={renderTreeItemContent}
         renderExtra={renderExtra}

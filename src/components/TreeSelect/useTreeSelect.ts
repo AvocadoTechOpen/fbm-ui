@@ -136,7 +136,6 @@ export default function useTreeSelect(props) {
 
   const popupOpen = open && !readOnly;
 
-
   const handleTreeboxRef = useEventCallback((node) => {
     if (!node) {
       return;
@@ -349,7 +348,7 @@ export default function useTreeSelect(props) {
   })
   
   let dirty = freeSolo && inputValue.length > 0;
-  dirty = dirty || (multiple ? value.length > 0 : value !== null);
+  dirty = dirty || (multiple ? value.length > 0 : !!value);
 
 
   return {
@@ -365,18 +364,10 @@ export default function useTreeSelect(props) {
       onChange: handleInputChange,
       onMouseDown: handleInputMouseDown,
       onKeyDown: handleKeyDown,
-      // if open then this is handled imperativeley so don't let react override
-      // only have an opinion about this when closed
-      'aria-activedescendant': popupOpen ? '' : null,
-      'aria-autocomplete': autoComplete ? 'both' : 'list',
-      // 'aria-controls': listboxAvailable ? `${id}-listbox` : undefined,
-      // 'aria-expanded': listboxAvailable,
-      // Disable browser's suggestion that might overlap with the popup.
-      // Handle autocomplete but not autofill.
       autoComplete: 'off',
       ref: inputRef,
       autoCapitalize: 'none',
-      spellCheck: 'false',
+      spellCheck: false,
       role: 'combobox',
     }),
     getClearProps: () => ({
@@ -409,7 +400,7 @@ export default function useTreeSelect(props) {
       ref: handleTreeRef,
       onNodeSelect: handleNodeSelect,
       onNodeToggle: handleNodeToggle,
-      searchValue: inputValueIsSelectedValue && inputPristine ? '' : inputValue,
+      searchLabel: inputValueIsSelectedValue && inputPristine ? '' : inputValue,
     }),
     id,
     inputValue,

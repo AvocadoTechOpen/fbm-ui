@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { Paper, Popper } from '@mui/material'
 import clsx from 'clsx';
-import {
-  unstable_composeClasses as composeClasses,
-} from '@mui/base';
-
+import { unstable_composeClasses as composeClasses } from '@mui/base';
 import {
   TreeSelectInput,
   TreeSelectPopper,
@@ -14,12 +11,11 @@ import {
   TreeSelectClearIndicator,
   TreeSelectPopupIndicator,
 } from './TreeSelect.styles'
-
 import useTreeSelect from './useTreeSelect'
 import { getTreeSelectUtilityClass } from './treeSelectClasses'
-
 import { TreeView, Chip } from '..'
 import { ArrowDropDownIcon, CloseIcon } from '../icons'
+import { InputProps } from '@mui/material'
 
 import type { TreeSelectProps } from './interface'
 
@@ -86,7 +82,6 @@ const TreeSelect: React.FC<TreeSelectProps> = React.forwardRef((props, ref) => {
     size,
     PaperComponent = Paper,
     PopperComponent = Popper,
-    renderTags,
     ChipProps,
     renderInput
   } = props
@@ -127,21 +122,17 @@ const TreeSelect: React.FC<TreeSelectProps> = React.forwardRef((props, ref) => {
       ...getTagProps(params),
     });
 
-    if (renderTags) {
-      startAdornment = renderTags(selectedNodesData, getCustomizedTagProps, ownerState);
-    } else {
-      startAdornment = selectedNodesData.map((nodeData, index) => (
-        <Chip
-          label={nodeData.label}
-          size={size === 'small' ? 'medium' : size}
-          {...getCustomizedTagProps({ index })}
-          {...ChipProps}
-        />
-      ))
-    }
+    startAdornment = selectedNodesData.map((nodeData, index) => (
+      <Chip
+        label={nodeData.label}
+        size={size === 'small' ? 'medium' : size}
+        {...getCustomizedTagProps({ index })}
+        {...ChipProps}
+      />
+    ))
   }
 
-  const treeInputProps = {
+  const treeInputProps: InputProps = {
     id,
     disabled,
     size,

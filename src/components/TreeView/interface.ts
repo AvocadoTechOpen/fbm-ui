@@ -18,6 +18,8 @@ export interface TreeViewPropsBase {
   getNodeLabel?: (data: DataNode) => React.ReactNode;
   getNodeId?: (data: DataNode) => string;
   getNodeChildren?: (data: DataNode) => DataNode[]
+  searchLabel?: string;
+  noOptionsText?: React.ReactNode
   className?: string;
   /**
    * The content of the component.

@@ -38,15 +38,13 @@ const TreeViewRoot = styled('ul', {
   outline: 0,
 });
 
-export const TreeViewNoNodes = styled('div', {
+export const TreeViewnoOptions = styled('div', {
   name: 'MuiTreeView',
   slot: 'NoNodes',
 })(({ theme }) => ({
   color: theme.palette.text.secondary,
   padding: '10px',
 }));
-
-
 
 function noopSelection() {
   return false;
@@ -60,8 +58,8 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
 
   const {
     data,
-    searchValue,
-    noNodesText = '暂无选项',
+    searchLabel,
+    noOptionsText = '暂无选项',
     children: childrenProp,
     disabled,
     className,
@@ -90,9 +88,6 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
     renderExtra,
     ...other
   } = props;
-
-  const theme = useTheme();
-  const isRtl = theme.direction === 'rtl';
 
   const ownerState = {
     ...props,
@@ -137,9 +132,9 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
    */
   const isExpanded = React.useCallback(
     (id) => {
-      return !!searchValue || (Array.isArray(expanded) ? expanded.indexOf(id) !== -1 : false)
+      return !!searchLabel || (Array.isArray(expanded) ? expanded.indexOf(id) !== -1 : false)
     },
-    [expanded, searchValue],
+    [expanded, searchLabel],
   );
 
   const isExpandable = React.useCallback(
@@ -384,11 +379,11 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
 
 
   const searchNodeLabel = (label, children = []) => {
-    if (!searchValue) return true
+    if (!searchLabel) return true
     
     let f = false
     if (label && typeof label === 'string') {
-      f = label.toLowerCase().includes(searchValue?.toLowerCase())
+      f = label.toLowerCase().includes(searchLabel?.toLowerCase())
     }
 
     if (f) return true
@@ -429,13 +424,13 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
         </TreeItem>
       )
     }).filter(node => node != null)
-  }, [searchValue, data, getNodeLabel, getNodeId])
+  }, [searchLabel, data, getNodeLabel, getNodeId])
 
 
   let children = childrenProp ?? renderTreeItems(data)
   if (children == null || (Array.isArray(children) && children.length === 0)) {
     children = (
-      <TreeViewNoNodes> {noNodesText} </TreeViewNoNodes>
+      <TreeViewnoOptions> {noOptionsText} </TreeViewnoOptions>
     )
   }
   
@@ -471,6 +466,7 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
           tabIndex={0}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          // @ts-ignore
           ownerState={ownerState}
           {...other}
         >

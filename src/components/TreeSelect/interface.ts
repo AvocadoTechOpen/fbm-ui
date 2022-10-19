@@ -1,15 +1,23 @@
 import type { TreeViewProps } from '../TreeView'
+import { ChipProps } from '../Chip'
+import { InputProps } from '../Input'
+import { TreeSelecClasses } from './treeSelectClasses'
+import { Theme, PopperProps } from '@mui/material'
+import { SxProps } from '@mui/system';
+import { OverridableStringUnion } from '@mui/types';
+
+type TreeSelectPropsSizeOverrides = {}
 
 interface TreeSelectPropsBase {
   multiple?: boolean;
   /**
   * Props applied to the [`Chip`](/api/chip/) element.
   */
-  ChipProps?: ChipProps<ChipComponent>;
+  ChipProps?: ChipProps;
   /**
    * Override or extend the styles applied to the component.
    */
-  classes?: Partial<AutocompleteClasses>;
+  classes?: Partial<TreeSelecClasses>;
   /**
    * The icon to display in place of the default clear icon.
    * @default <ClearIcon fontSize="small" />
@@ -57,15 +65,6 @@ interface TreeSelectPropsBase {
    * @default (more) => `+${more}`
    */
   getLimitTagsText?: (more: number) => React.ReactNode;
-  /**
-   * The component used to render the listbox.
-   * @default 'ul'
-   */
-  ListboxComponent?: React.JSXElementConstructor<React.HTMLAttributes<HTMLElement>>;
-  /**
-   * Props applied to the Listbox element.
-   */
-  ListboxProps?: ReturnType<ReturnType<typeof useAutocomplete>['getListboxProps']>;
   /**
    * If `true`, the component is in a loading state.
    * This shows the `loadingText` in place of suggestions (only if there are no suggestions to show, e.g. `options` are empty).
@@ -115,45 +114,17 @@ interface TreeSelectPropsBase {
    */
   popupIcon?: React.ReactNode;
   /**
-   * Render the group.
-   *
-   * @param {any} option The group to render.
-   * @returns {ReactNode}
-   */
-  renderGroup?: (params: AutocompleteRenderGroupParams) => React.ReactNode;
-  /**
    * Render the input.
    *
    * @param {object} params
    * @returns {ReactNode}
    */
-  renderInput: (params: AutocompleteRenderInputParams) => React.ReactNode;
-  /**
-   * Render the option, use `getOptionLabel` by default.
-   *
-   * @param {object} props The props to apply on the li element.
-   * @param {T} option The option to render.
-   * @param {object} state The state of the component.
-   * @returns {ReactNode}
-   */
-  renderOption?: (
-    props: React.HTMLAttributes<HTMLLIElement>,
-    option: T,
-    state: AutocompleteRenderOptionState,
-  ) => React.ReactNode;
-  /**
-   * Render the selected value.
-   *
-   * @param {T[]} value The `value` provided to the component.
-   * @param {function} getTagProps A tag props getter.
-   * @returns {ReactNode}
-   */
-  renderTags?: (value: T[], getTagProps: AutocompleteRenderGetTagProps, ownerState: AutocompleteOwnerState<T, Multiple, DisableClearable, FreeSolo, ChipComponent>,) => React.ReactNode;
+  renderInput: (params: InputProps) => React.ReactNode;
   /**
    * The size of the component.
    * @default 'medium'
    */
-  size?: OverridableStringUnion<'small' | 'medium', AutocompletePropsSizeOverrides>;
+  size?: OverridableStringUnion<'small' | 'medium', TreeSelectPropsSizeOverrides>;
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
@@ -170,7 +141,7 @@ interface TreeSelectPropsBase {
    * @default false
    */
   placeholderIsValue?: boolean;
-  
+
   getOptionLabel?: any,
 }
 

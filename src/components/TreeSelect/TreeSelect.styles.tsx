@@ -117,9 +117,12 @@ export const TreeSelectPopupIndicator = styled(IconButton, {
   name: 'MuiAutocomplete',
   slot: 'PopupIndicator',
   overridesResolver: ({ ownerState }, styles) => ({
+    // @ts-ignore
     ...styles.popupIndicator,
+       // @ts-ignore
     ...(ownerState.popupOpen && styles.popupIndicatorOpen),
   }),
+     // @ts-ignore
 })(({ ownerState }) => ({
   padding: 0,
   marginRight: 7,

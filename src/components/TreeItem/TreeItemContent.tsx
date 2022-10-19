@@ -139,6 +139,7 @@ const TreeItemContent: React.FC<TreeItemContentProps> = React.forwardRef((props,
 
   return (
     <div
+     // @ts-ignore
       ref={ref}
       className={clsx(className, classes.root, {
         [classes.expanded]: expanded,
