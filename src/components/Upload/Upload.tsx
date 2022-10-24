@@ -398,6 +398,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     <UploadListRoot className={classes.uploadList} ownerState={ownerState} {...UploadListProps} >
       <UploadItems
         type={type}
+        selected={selected}
         items={mergedFileList}
         onRemove={handleRemove}
         onRefresh={handleRefresh}
