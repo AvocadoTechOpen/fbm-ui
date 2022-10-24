@@ -97,7 +97,7 @@ export default () => {
   return (
     <Demo white>
       <Box maxWidth={380}>
-          <Upload  {...props}  ref={ref} > 上传</Upload>
+        <Upload  {...props}  ref={ref} > 上传</Upload>
       </Box>
     </Demo>
   )
@@ -113,22 +113,25 @@ import { Demo, Upload } from 'fbm-ui'
 import { Stack } from '@mui/material';
 
 export default () => {
+  const [uid, setUid] = React.useState([])
   const props = {
+    selected: '12321',
     type: 'cube',
     accept:'image/*',
     name: 'file',
-    multiple: false,
-    showUploadList: false,
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
     },
+    maxCount: 3,
+    onChange: ({ file }) => {
+      setUid(uid)
+    }
   };
   return (
     <Demo white>
       <Stack maxWidth={380} direction="row" spacing={1}>
         <Upload {...props} />
-        <Upload {...props} width={257} />
       </Stack>
     </Demo>
   )

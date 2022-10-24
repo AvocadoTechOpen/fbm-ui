@@ -1,16 +1,61 @@
 import React, { forwardRef } from 'react'
+import { styled, Box } from '@mui/material'
 import RcUpload, { UploadProps as RcUploadProps } from 'rc-upload'
-
-import UploadList from './UploadList/index'
-import { UploadProps, RcFile, UploadFile, UploadChangeParam } from './types'
+import { unstable_composeClasses as composeClasses } from '@mui/base';
+import UploadItems from './UploadList/index'
+import { UploadProps, RcFile, UploadFile, UploadChangeParam, UploadType, UploadListPlace } from './types'
 import { file2Obj, getFileItem, updateFileList, removeFileItem } from './utils'
 import { useMergedState } from '../../hooks'
 import UploadChildrenButton from './UploadChildren/Button'
 import UploadChildrenDragger from './UploadChildren/Dragger'
 import UploadChildrenCube from './UploadChildren/Cube'
-
+import { getUploadUtilityClass } from './uploadClasses'
 
 const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`
+
+const useUtilityClasses = (ownerState) => {
+  const { } = ownerState
+
+  const slots = {
+    root: ['root'],
+    button: ['button'],
+    drop: ['drop'],
+    cube: ['cube'],
+    uploadList: ['uploadList'],
+    uploadListItem: ['uploadListItem'],
+    uploadListItemSelected: ['uploadListItemSelected'],
+  };
+
+  return composeClasses(slots, getUploadUtilityClass, {});
+};
+
+type OwnerState = {
+  type: UploadType;
+  uploadListPlace: UploadListPlace
+}
+
+const UploadRoot = styled(Box)(({ ownerState }: { ownerState: OwnerState }) => {
+  return {
+    ...(ownerState.type === 'cube' && {
+      display: 'flex',
+    })
+  }
+})
+
+const UploadListRoot = styled(Box)(({ ownerState }: { ownerState: OwnerState }) => {
+  const { type, uploadListPlace } = ownerState
+  return {
+    ...(type === 'cube' && { display: 'flex', flex: true }),
+    ...(type !== 'cube' && {
+      ...(uploadListPlace === 'top' && {
+        marginBottom: 10,
+      }),
+      ...(uploadListPlace === 'bottom' && {
+        marginTop: 10,
+      })
+    })
+  }
+})
 
 const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   const {
@@ -26,11 +71,13 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     maxCount,
     headers,
     showUploadList,
-    uploadListPlace,
+    uploadListPlace = props.type === 'cube' ? 'before' : 'after',
     itemRender,
     onChange,
     onRemove,
     onDrop,
+    onSelect,
+    selected,
     UploadListProps,
     ...restProps
   } = props
@@ -52,11 +99,11 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   React.useMemo(() => {
     const timestamp = Date.now()
 
-    ;(fileList || []).forEach((file, index) => {
-      if (!file.uid && !Object.isFrozen(file)) {
-        file.uid = `__AUTO__${timestamp}_${index}__`
-      }
-    })
+      ; (fileList || []).forEach((file, index) => {
+        if (!file.uid && !Object.isFrozen(file)) {
+          file.uid = `__AUTO__${timestamp}_${index}__`
+        }
+      })
   }, [fileList])
 
   const mergedBeforeUpload = async (file: RcFile, fileListArgs: RcFile[]) => {
@@ -265,6 +312,10 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     uploadFiles([file])
   }
 
+  const handleSelect = () => {
+
+  }
+
   React.useImperativeHandle(ref, () => ({
     onBatchStart,
     onSuccess,
@@ -275,16 +326,17 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     uploader: upload?.current?.uploader,
   }))
 
-  let children: React.ReactNode = null
+  const classes = useUtilityClasses({});
 
+  let children: React.ReactNode = null
   if (type === 'drop') {
     children = (
       <UploadChildrenDragger
+        className={classes.drop}
         status={dragState}
         file={uploadedFile}
         onRemove={handleRemove}
         multiple={multiple}
-        {...restProps}
       >
         {childrenProp}
       </UploadChildrenDragger>
@@ -292,16 +344,18 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   } else if (type === 'cube') {
     children = (
       <UploadChildrenCube
+        className={classes.cube}
         file={uploadedFile}
         onRemove={handleRemove}
-        {...restProps}
       >
         {childrenProp}
       </UploadChildrenCube>
     )
   } else if (type === 'button') {
     children = (
-      <UploadChildrenButton {...restProps}>{childrenProp}</UploadChildrenButton>
+      <UploadChildrenButton className={classes.button}>
+        {childrenProp}
+      </UploadChildrenButton>
     )
   } else if (type === 'custom') {
     if (typeof childrenProp === 'function') {
@@ -315,7 +369,13 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     }
   }
 
-  const uploadButton = (
+  const ownerState = {
+    type,
+    uploadListPlace,
+  }
+
+  const isShowUploadButton = maxCount == null || (typeof maxCount === 'number' && mergedFileList.length < maxCount)
+  const uploadButton = isShowUploadButton && (
     <RcUpload
       ref={upload}
       name={name}
@@ -335,22 +395,35 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   )
 
   const uploadList = showUploadList ? (
-    <UploadList
-      items={mergedFileList}
-      onRemove={handleRemove}
-      onRefresh={handleRefresh}
-      itemRender={itemRender}
-      uploadListPlace={uploadListPlace}
-      {...UploadListProps}
-    />
+    <UploadListRoot className={classes.uploadList} ownerState={ownerState} {...UploadListProps} >
+      <UploadItems
+        type={type}
+        items={mergedFileList}
+        onRemove={handleRemove}
+        onRefresh={handleRefresh}
+        onSelect={onSelect}
+        itemRender={itemRender}
+        classes={{
+          root: classes.uploadListItem,
+          selected: classes.uploadListItemSelected
+        }}
+      />
+    </UploadListRoot>
   ) : null
 
   return (
-    <div onDrop={onFileDrop} onDragOver={onFileDrop} onDragLeave={onFileDrop}>
-      {uploadListPlace === 'top' && uploadList}
+    <UploadRoot
+      ownerState={ownerState}
+      onDrop={onFileDrop}
+      onDragOver={onFileDrop}
+      onDragLeave={onFileDrop}
+      className={classes.root}
+      {...restProps}
+    >
+      {(uploadListPlace === 'top' || uploadListPlace === 'before') && uploadList}
       {uploadButton}
-      {uploadListPlace === 'bottom' && uploadList}
-    </div>
+      {(uploadListPlace === 'bottom' || uploadListPlace === 'after') && uploadList}
+    </UploadRoot>
   )
 })
 Upload.defaultProps = {
@@ -360,7 +433,6 @@ Upload.defaultProps = {
   accept: '',
   type: 'button',
   showUploadList: true,
-  uploadListPlace: 'bottom',
 }
 
 export default Upload

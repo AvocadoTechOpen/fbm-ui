@@ -63,7 +63,8 @@ interface DraggerProps {
   multiple?: boolean
   width?: number
   height?: number
-  onRemove?: (file: UploadFile) => void
+  onRemove?: (file: UploadFile) => void;
+  className?: string;
 }
 
 const Dragger: React.FC<DraggerProps> = (props) => {

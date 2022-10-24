@@ -114,6 +114,7 @@ const ListItem: React.FC<ListItemProps> = ({
   onClose,
   onRefresh,
   nameRender,
+  ...restProps
 }) => {
   const blobSrc = useMemo(() => {
     // @ts-ignore
@@ -123,16 +124,15 @@ const ListItem: React.FC<ListItemProps> = ({
     }
     return  URL.createObjectURL(originFileObj)
   }, [])
+
   const fileIcon = useMemo(() => {
     if (iconType === 'image') {
       return <IconImage src={blobSrc} />
     }
-
     const fileFormat: string = getFileFormat(name)
     const FileIcon = FileIcons[fileFormat] || FileIcons['undefined']
     return <FileIcon sx={{ mr: 1 }} />
   }, [name, iconType])
-
 
   const progress = status === 'error' ? 100 : percentProp
 
@@ -160,7 +160,6 @@ const ListItem: React.FC<ListItemProps> = ({
       </Tooltip>
     ),
   }
-
 
   const handleViweFile = useCallback(() => {
     window.open(URL.createObjectURL(originFileObj))
