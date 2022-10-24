@@ -152,7 +152,6 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
     if (!node) {
       return false;
     }
-    
 
     if (disabled) {
       return true
