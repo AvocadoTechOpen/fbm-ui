@@ -42,6 +42,7 @@ export default () => {
   const [multiSelect, setMultiSelect] = React.useState(false)
   const [selected, setSelected] = React.useState([])
   const [disabled, setDisabled] = React.useState(false)
+  const [disableSelection, setDisableSelection] = React.useState(false)
 
   const hadnleNodeSelect = (e, nodeIds) => {
     setSelected(nodeIds)
@@ -60,6 +61,11 @@ export default () => {
             checked={disabled}
             onChange={(e) => setDisabled(!disabled)} 
           />
+          <Checkbox 
+            label="disableSelection"
+            checked={disableSelection}
+            onChange={(e) => setDisableSelection(!disableSelection)} 
+          />
         </Box>
 
         <Box sx={{pt:2, pb: 2}}>
@@ -72,6 +78,7 @@ export default () => {
             multiSelect={multiSelect}
             selected={selected}
             disabled={disabled}
+            disableSelection={disableSelection}
             onNodeSelect={hadnleNodeSelect}
           />
         </Box>

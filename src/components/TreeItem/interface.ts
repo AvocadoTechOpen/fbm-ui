@@ -35,6 +35,8 @@ export interface TreeItemProps
    * If `true`, the node is disabled.
    */
   disabled?: boolean;
+
+  disabledExpansion?: boolean;
   /**
    * The icon displayed next to a end node.
    */
@@ -75,6 +77,7 @@ export interface TreeItemProps
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
   sx?: SxProps<Theme>;
+  
 }
 
 

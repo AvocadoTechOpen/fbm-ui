@@ -110,7 +110,6 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
 
   const nodeMap = React.useRef({});
 
-
   const firstCharMap = React.useRef({});
 
   const [expanded, setExpandedState] = useControlled({
@@ -153,10 +152,7 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
     if (!node) {
       return false;
     }
-
-    if (disabled) {
-      return true
-    }
+    
 
     if (disabled) {
       return true
