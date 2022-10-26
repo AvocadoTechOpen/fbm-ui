@@ -162,6 +162,8 @@ export * from './Grid';
 export  { default as TreeView } from './TreeView'
 export * from './TreeView';
 
+export { default as TreeItem }  from './TreeItem'
+
 export { default as TreeSelect } from './TreeSelect'
 
 export { default as Pagination } from './Pagination'

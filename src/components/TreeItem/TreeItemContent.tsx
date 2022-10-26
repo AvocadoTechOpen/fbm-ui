@@ -9,6 +9,7 @@ import { DoneIcon } from '../icons'
 import { InternalStandardProps as StandardProps } from '@mui/material';
 
 export interface TreeItemContentProps extends StandardProps<React.HTMLAttributes<HTMLElement>> {
+  renderTreeItemLabel?: (treeItemProps: any) => React.ReactNode;
   renderTreeItemContent?: (treeItemProps: any) => React.ReactNode;
   /**
    * 额外渲染节点
@@ -39,6 +40,8 @@ export interface TreeItemContentProps extends StandardProps<React.HTMLAttributes
     extra: string;
     /** Styles applied to the selectedIcon element. */
     selectedIcon: string;
+    // 禁止选中节点
+    disableSelection?: string;
   };
   label?: React.ReactNode | string;
   nodeId: string;
@@ -48,10 +51,10 @@ export interface TreeItemContentProps extends StandardProps<React.HTMLAttributes
 }
 
 const TreeItemCheckbox = styled(Checkbox)({
- [`& .${checkboxClasses.root}`]: {
-   '&:hover': {
-     background: 'transparent !important',
-   }
+  [`& .${checkboxClasses.root}`]: {
+    '&:hover': {
+      background: 'transparent !important',
+    }
   }
 })
 
@@ -66,11 +69,12 @@ const TreeItemContent: React.FC<TreeItemContentProps> = React.forwardRef((props,
     multiSelect,
     expansionIcon,
     icon: iconProp,
-    label,
+    label: labelProp,
     nodeId,
     onClick,
     onMouseDown,
     renderTreeItemContent,
+    renderTreeItemLabel,
     ...other
   } = props;
 
@@ -78,6 +82,7 @@ const TreeItemContent: React.FC<TreeItemContentProps> = React.forwardRef((props,
     disabled,
     expanded,
     selected,
+    disableSelection,
     focused,
     handleExpansion,
     handleSelection,
@@ -111,12 +116,13 @@ const TreeItemContent: React.FC<TreeItemContentProps> = React.forwardRef((props,
   if (renderTreeItemContent && typeof renderTreeItemContent === 'function') {
     children = renderTreeItemContent(treeItemContentProps)
   } else {
+    const label = renderTreeItemLabel?.(treeItemContentProps) ?? labelProp
     children = (
       <React.Fragment>
         <div className={classes.iconContainer} onClick={handleExpansion}> {icon} </div>
         {
           checkable
-            ? <TreeItemCheckbox label={label} checked={selected} onChange={handleSelection} />
+            ? <TreeItemCheckbox sx={{ ml: '4px' }} disabled={disableSelection || disabled} label={label} checked={selected} onChange={handleSelection} />
             : (
               <div className={classes.label} onClick={handleSelection}>
                 {label}
@@ -139,13 +145,14 @@ const TreeItemContent: React.FC<TreeItemContentProps> = React.forwardRef((props,
 
   return (
     <div
-     // @ts-ignore
+      // @ts-ignore
       ref={ref}
       className={clsx(className, classes.root, {
         [classes.expanded]: expanded,
         [classes.selected]: selected,
         [classes.focused]: focused,
         [classes.disabled]: disabled,
+        [classes.disableSelection]: disableSelection,
       })}
       onMouseDown={handleMouseDown}
       {...other}

@@ -29,7 +29,6 @@ export const useUtilityClasses = (ownerState) => {
     hasPopupIcon,
     inputFocused,
     popupOpen,
-    size,
   } = ownerState;
 
   const slots = {

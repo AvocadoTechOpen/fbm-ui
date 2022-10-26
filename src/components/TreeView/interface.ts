@@ -15,6 +15,7 @@ export interface TreeViewPropsBase {
   disabled?: boolean;
   renderExtra?: () => React.ReactNode;
   renderTreeItemContent?: TreeItemProps['renderTreeItemContent'];
+  renderTreeItemLabel?: TreeItemProps['renderTreeItemLabel'];
   getNodeLabel?: (data: DataNode) => React.ReactNode;
   getNodeId?: (data: DataNode) => string;
   getNodeChildren?: (data: DataNode) => DataNode[]

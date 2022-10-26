@@ -21,6 +21,7 @@ const useUtilityClasses = (ownerState) => {
     selected: ['selected'],
     focused: ['focused'],
     disabled: ['disabled'],
+    disableSelection: ['disableSelection'],
     iconContainer: ['iconContainer'],
     label: ['label'],
     group: ['group'],
@@ -86,15 +87,21 @@ const StyledTreeItemContent = styled(TreeItemContent, {
   },
 
   [`&.${treeItemClasses.disabled}`]: {
-    opacity: theme.palette.action.disabledOpacity,
     backgroundColor: 'transparent',
+    
+  },
+  [`&.${treeItemClasses.disableSelection}`]: {
+    backgroundColor: 'transparent',
+    [`& .${treeItemClasses.label}`]: { 
+      color: 'rgba(0, 0, 0, 0.24)'
+    }
   },
   [`& .${treeItemClasses.iconContainer}`]: {
     marginRight: 4,
     width: 15,
     display: 'flex',
     flexShrink: 0,
-    justifyContent: 'center',
+    justifyContent: 'center', 
     '& svg': {
       fontSize: 18,
     },
@@ -129,6 +136,7 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
     collapseIcon,
     ContentComponent = TreeItemContent,
     renderTreeItemContent,
+    renderTreeItemLabel,
     renderExtra,
     checkable,
     ContentProps,
@@ -155,6 +163,7 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
     isDisabled,
     multiSelect,
     disabledItemsFocusable,
+    disableSelection,
     mapFirstChar,
     unMapFirstChar,
     registerNode,
@@ -196,6 +205,7 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
     focused,
     selected,
     disabled,
+    disableSelection
   };
 
   const classes = useUtilityClasses(ownerState);
@@ -296,6 +306,7 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
           label: classes.label,
           extra: classes.extra,
           selectedIcon: classes.selectedIcon,
+          disableSelection: classes.disableSelection
         }}
         label={label}
         nodeId={nodeId}
@@ -307,6 +318,7 @@ const TreeItem: React.FC<TreeItemProps> = React.forwardRef(function TreeItem(inP
         displayIcon={displayIcon}
         // @ts-ignore
         ownerState={ownerState}
+        renderTreeItemLabel={renderTreeItemLabel}
         renderTreeItemContent={renderTreeItemContent}
         renderExtra={renderExtra}
         {...ContentProps}

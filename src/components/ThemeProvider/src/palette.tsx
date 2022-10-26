@@ -79,6 +79,7 @@ const palette = {
     selected: 'rgba(0, 0, 0, 0.08)',
     selectedOpacity: 0.08,
     disabled: 'rgba(0, 0, 0, 0.24)',
+    enabled: 'rgba(0, 0, 0, 0.86)',
     disabledBackground: 'rgba(0, 0, 0, 0.04)',
     disabledOpacity: 0.26,
     focus: 'rgba(0, 0, 0, 0.12)',

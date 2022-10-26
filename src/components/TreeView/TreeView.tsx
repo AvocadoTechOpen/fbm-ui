@@ -12,7 +12,7 @@ import {
 import TreeViewContext from './TreeViewContext';
 import { DescendantProvider } from './descendants';
 import { getTreeViewUtilityClass } from './treeViewClasses';
-import TreeItem from '../TreeItem'
+import { TreeItem, Box } from '..'
 import { TreeViewProps } from './interface'
 import { isEmpty } from '../../utils';
 import { ArrowDropDownIcon, ArrowDropRightIcon } from '../icons'
@@ -44,6 +44,10 @@ export const TreeViewnoOptions = styled('div', {
 })(({ theme }) => ({
   color: theme.palette.text.secondary,
   padding: '10px',
+}));
+
+const HighlightText = styled('span')(({ theme }) => ({
+  color: theme.palette.primary.main,
 }));
 
 function noopSelection() {
@@ -375,10 +379,10 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
 
   const searchNodeLabel = (label, children = []) => {
     if (!searchLabel) return true
-    
+
     let f = false
     if (label && typeof label === 'string') {
-      f = label.toLowerCase().includes(searchLabel?.toLowerCase())
+      f = label.includes(searchLabel)
     }
 
     if (f) return true
@@ -398,7 +402,6 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
     if (isEmpty(data)) return null
 
     return data.map(nodeData => {
-
       const label = getNodeLabel?.(nodeData);
       const nodeId = getNodeId?.(nodeData)
       const children = getNodeChildren?.(nodeData)
@@ -414,6 +417,21 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
           label={label}
           renderExtra={renderExtra}
           renderTreeItemContent={renderTreeItemContent}
+          renderTreeItemLabel={() => {
+            if (searchLabel &&  typeof label === 'string' && label.includes(searchLabel)) {
+              const index = label.indexOf(searchLabel);
+              const beforeStr = label.substring(0, index);
+              const afterStr = label.slice(index + searchLabel.length);
+              return (
+                <span>
+                  {beforeStr}
+                  <HighlightText>{searchLabel}</HighlightText>
+                  {afterStr}
+                </span>
+              )
+            }
+            return label
+          }}
         >
           {renderTreeItems(children)}
         </TreeItem>
@@ -428,7 +446,7 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
       <TreeViewnoOptions> {noOptionsText} </TreeViewnoOptions>
     )
   }
-  
+
   return (
     <TreeViewContext.Provider
       value={{
@@ -443,6 +461,7 @@ const TreeView: React.FC<TreeViewProps> = React.forwardRef((inProps, ref) => {
         selectNode: disableSelection ? noopSelection : selectNode,
         multiSelect,
         disabledItemsFocusable,
+        disableSelection,
         mapFirstChar,
         unMapFirstChar,
         registerNode,

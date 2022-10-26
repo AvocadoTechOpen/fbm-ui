@@ -57,12 +57,12 @@ export default () => {
             onChange={(e) => setMultiSelect(!multiSelect)} 
           />
           <Checkbox 
-            label="disabled"
+            label="禁用所有操作"
             checked={disabled}
             onChange={(e) => setDisabled(!disabled)} 
           />
           <Checkbox 
-            label="disableSelection"
+            label="不可选, 可展开"
             checked={disableSelection}
             onChange={(e) => setDisableSelection(!disableSelection)} 
           />
@@ -227,7 +227,7 @@ export default () => {
 
       <Box sx={{ width: '500px' }}>
         <TreeView 
-          searchValue={inputValue}
+          searchLabel={inputValue}
           getNodeLabel={(nd) => nd.title}
           getNodeId={(nd) => nd.key}
           data={treeData}
