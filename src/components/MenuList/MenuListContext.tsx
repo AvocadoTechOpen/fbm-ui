@@ -6,6 +6,8 @@ import * as React from 'react';
 
 export type MenuListContextTypes = {
   multiple?: boolean;
+  value?: any;
+  onChange?:(value) => void;
 }
 
 const MenuListContext = React.createContext<MenuListContextTypes>({});

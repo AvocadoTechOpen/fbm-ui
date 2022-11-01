@@ -87,7 +87,7 @@ export default function NestedList() {
   );
 }
 
-```
+``` 
 ```tsx
 /**
  * title: 副标题
@@ -127,37 +127,27 @@ import * as React from 'react';
 import { Demo, MenuItem, Paper, MenuList, Box, TimeIcon, } from 'fbm-ui'
 
 export default function NestedList() {
-  const [open, setOpen] = React.useState(true);
+  const [value, setValue] = React.useState(2);
 
   const handleClick = () => {
     setOpen(!open);
   };
 
+  const handleChange = (newValue) => {    
+    setValue(newValue)
+  }
+
   return (
     <Demo white sx={{ display: 'flex' }} >
       <Box >
-          <MenuList sx={{ width: '270px' }}>
-            <MenuItem disabled text={'选项1'}/>
-            <MenuItem text={'禁用'} />
-            <MenuItem text={'选项3'}/>
-          </MenuList>
+      {`${value}`}
+        <MenuList  sx={{ width: '270px' }} value={value} onChange={handleChange}>
+          <MenuItem value={1} disabled text={'选项1'}/>
+          <MenuItem value={2} text={'禁用'} />
+          <MenuItem value={3} text={'选项3'}/>
+        </MenuList>
       </Box>
 
-      <Box  sx={{ ml: 3}}>
-           <MenuList sx={{ width: '280px' }}>
-            <MenuItem disabled text={'选项1'} secondaryText={'复文本'}/>
-            <MenuItem text={'禁用'} secondaryText={'复文本'} />
-            <MenuItem text={'选项3'} secondaryText={'复文本'}/>
-          </MenuList>
-       </Box>
-
-        <Box  sx={{ ml: 3}}>
-          <MenuList sx={{ width: '270px' }}>
-            <MenuItem disabled startIcon={<TimeIcon />} text={'选项1'} secondaryText={'复文本'}/>
-            <MenuItem startIcon={<TimeIcon />} text={'禁用'} secondaryText={'复文本'} />
-            <MenuItem startIcon={<TimeIcon />} text={'选项1'} secondaryText={'复文本'}/>
-          </MenuList>
-       </Box>
     </Demo>
   );
 }
@@ -218,5 +208,4 @@ export default function NestedList() {
 }
 ```
 
-
-<API></API>
+<API></API> 

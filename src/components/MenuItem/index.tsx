@@ -40,6 +40,7 @@ export interface MenuItemProps {
   value?: any;
   onMouseMove?: ListItemProps['onMouseMove'];
   onMouseLeave?: ListItemProps['onMouseLeave'];
+  onClick?: ListItemProps['onClick'];
   selected?: boolean;
   /** 是否可多选 */
   multiple?: boolean;
@@ -58,7 +59,7 @@ const MenuItemButton: React.FC<MenuItemButtonProps> = styled(ListItemButton)(({ 
   ...(ownerState.subMenuList && {
     paddingRight: 0,
   }),
- 
+
   [`&.${listItemButtonClasses.selected}`]: {
     backgroundColor: 'transparent',
   },
@@ -113,15 +114,38 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
     PopperProps,
     onMouseMove,
     onMouseLeave,
+    onClick,
     children: childrenProp,
     checkbox: checkboxProp,
-    selected,
+    selected: selectedProp,
     multiple: multipleProp,
+    value,
     ...moreProps
   } = props
 
-  const menuListContext = React.useContext(MenuListContext);
-  const multiple = !!(multipleProp || menuListContext?.multiple)
+
+  const menuListContext = React.useContext(MenuListContext) || {};
+
+  const multiple = React.useMemo(() => {
+    if (multipleProp !== undefined) return !!multipleProp
+
+    return !!menuListContext.multiple
+
+  }, [multipleProp, menuListContext.multiple])
+
+  const selected = React.useMemo(() => {
+    if (selectedProp !== undefined) return selectedProp
+
+    const cValue = menuListContext?.value
+    if (cValue !== undefined && value !== undefined) {
+      if (multiple) {
+        return cValue?.includes(value)
+      }
+      return cValue === value
+    }
+
+    return false
+  }, [selectedProp, value, menuListContext?.value])
 
   let checkbox = childrenProp
   if (multiple && checkbox === undefined) {
@@ -137,9 +161,15 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
     onMouseMove?.(e)
   }
 
-  const handeMouseLeave = (e) => {
+  const handleMouseLeave = (e) => {
     setOpen(false)
     onMouseLeave?.(e)
+  }
+
+  const handleClick = (e) => {
+    if (disabled) return;
+    onClick?.(e)
+    menuListContext?.onChange?.(value)
   }
 
   const ownerState = {
@@ -157,10 +187,11 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
     )
   }
 
+
   return (
     <ListItem
       onMouseMove={handleMouseEnter}
-      onMouseLeave={handeMouseLeave}
+      onMouseLeave={handleMouseLeave}
       disablePadding={disablePadding}
       {...ListItemProps}
     >
@@ -170,6 +201,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
         ownerState={ownerState}
         selected={selected}
         {...moreProps}
+        onClick={handleClick}
       >
         {startIcon && (
           <MenuItemStartIcon>
@@ -180,6 +212,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
           <MenuItemStartIcon ownerState={ownerState}>
             {cloneElement(checkbox, {
               disabled,
+              value,
               checked: selected,
             })}
           </MenuItemStartIcon>
@@ -188,7 +221,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
         {subMenuList != null && (
           <ArrowDropRightIcon />
         )}
-        {(multiple === false && selected === true) && 
+        {(multiple === false && selected === true) &&
           <DoneIcon color="primary" />
         }
       </MenuItemButton>
