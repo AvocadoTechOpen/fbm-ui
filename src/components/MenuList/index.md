@@ -140,7 +140,6 @@ export default function NestedList() {
   return (
     <Demo white sx={{ display: 'flex' }} >
       <Box >
-      {`${value}`}
         <MenuList  sx={{ width: '270px' }} value={value} onChange={handleChange}>
           <MenuItem value={1} disabled text={'选项1'}/>
           <MenuItem value={2} text={'禁用'} />

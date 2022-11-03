@@ -7,6 +7,10 @@ import { TreeItemClasses } from './treeItemClasses';
 
 export interface TreeItemProps
   extends StandardProps<React.HTMLAttributes<HTMLLIElement>, 'onFocus'> {
+  renderTreeItemLabel?: TreeItemContentProps['renderTreeItemLabel']
+  renderTreeItemContent?: TreeItemContentProps['renderTreeItemContent']
+  renderExtra?: TreeItemContentProps['renderExtra'];
+  checkable?: boolean;
   /**
    * The content of the component.
    */
@@ -32,6 +36,8 @@ export interface TreeItemProps
    * If `true`, the node is disabled.
    */
   disabled?: boolean;
+
+  disabledExpanded?: boolean;
   /**
    * The icon displayed next to a end node.
    */
@@ -72,4 +78,7 @@ export interface TreeItemProps
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
   sx?: SxProps<Theme>;
+
 }
+
+

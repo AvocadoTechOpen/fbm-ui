@@ -1,10 +1,10 @@
 import React from 'react';
-import { FormControlLabel as MuiFormControlLabel, formControlLabelClasses, styled, FormControlLabelProps as MuiFormControlLabelProps, Checkbox as MuiCheckbox, CheckboxProps as MuiCheckboxProps, createChainedFunction, checkboxClasses } from '@mui/material';
+import { FormControlLabel as MuiFormControlLabel,  styled, FormControlLabelProps as MuiFormControlLabelProps, Checkbox as MuiCheckbox, CheckboxProps as MuiCheckboxProps, createChainedFunction, checkboxClasses } from '@mui/material';
 import useCheckboxGroup from '../CheckboxGroup/useCheckboxGroup'
 
 export interface CheckboxProps {
   ref?: MuiCheckboxProps['ref'];
-  label?: string | number | React.ReactElement;
+  label?: React.ReactNode;
   value?: unknown;
   disabled?: boolean;
   name?: string;
@@ -36,7 +36,6 @@ const Checkbox = styled(MuiCheckbox)(({ checked }) => {
     }
   }  
 })
-
 
 const FormControlLabelAndCheckbox: React.FC<CheckboxProps> = React.forwardRef((props, ref) => {
   const {

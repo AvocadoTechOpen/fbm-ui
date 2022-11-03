@@ -10,9 +10,9 @@ export default function useTreeItem(nodeId) {
     isDisabled,
     isSelected,
     selectNode,
-    selectRange,
     toggleExpansion,
     multiSelect,
+    disableSelection,
   } = React.useContext(TreeViewContext);
 
   const expandable = isExpandable ? isExpandable(nodeId) : false;
@@ -59,6 +59,7 @@ export default function useTreeItem(nodeId) {
   return {
     disabled,
     expanded,
+    disableSelection,
     selected,
     focused,
     handleExpansion,

@@ -85,7 +85,7 @@ export interface AutocompleteProps<
   FreeSolo extends boolean | undefined,
   ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
   > extends UseAutocompleteProps<T, Multiple, DisableClearable, FreeSolo>,
-  StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'> {
+  StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'> { 
   /**
    * Props applied to the [`Chip`](/api/chip/) element.
    */
@@ -254,5 +254,7 @@ export interface AutocompleteProps<
    * @default false
    */
   placeholderIsValue?: boolean;
+
+
 }
 
