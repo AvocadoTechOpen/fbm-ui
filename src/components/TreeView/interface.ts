@@ -1,17 +1,26 @@
 import * as React from 'react';
-import { InternalStandardProps as StandardProps } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
 import { TreeViewClasses } from './treeViewClasses';
+import { TreeItemProps } from '../TreeItem'
 
 export interface DataNode {
-
+  label?: React.ReactNode;
+  id: string;
+  children: DataNode[]
 }
 
 export interface TreeViewPropsBase {
   data?: any[];
+  disabled?: boolean;
+  renderExtra?: () => React.ReactNode;
+  renderTreeItemContent?: TreeItemProps['renderTreeItemContent'];
+  renderTreeItemLabel?: TreeItemProps['renderTreeItemLabel'];
   getNodeLabel?: (data: DataNode) => React.ReactNode;
   getNodeId?: (data: DataNode) => string;
+  getNodeChildren?: (data: DataNode) => DataNode[]
+  searchLabel?: string;
+  noOptionsText?: React.ReactNode
   className?: string;
   /**
    * The content of the component.
@@ -84,9 +93,9 @@ export interface TreeViewPropsBase {
 
   onBlur?: React.FocusEventHandler<HTMLUListElement>
 
-  onFocus?:  React.FocusEventHandler<HTMLUListElement>
+  onFocus?: React.FocusEventHandler<HTMLUListElement>
 
-  onKeyDown?: React.KeyboardEventHandler<HTMLUListElement> 
+  onKeyDown?: React.KeyboardEventHandler<HTMLUListElement>
 }
 
 export interface MultiSelectTreeViewProps extends TreeViewPropsBase {
@@ -113,7 +122,7 @@ export interface MultiSelectTreeViewProps extends TreeViewPropsBase {
    * @param {string[] | string} nodeIds Ids of the selected nodes. When `multiSelect` is true
    * this is an array of strings; when false (default) a string.
    */
-  onNodeSelect?: (event: React.SyntheticEvent, nodeIds: string[]) => void;
+  onNodeSelect?: (event: React.SyntheticEvent, nodeIds: string[], childrenIds?: string[],) => void;
 }
 
 export interface SingleSelectTreeViewProps extends TreeViewPropsBase {
