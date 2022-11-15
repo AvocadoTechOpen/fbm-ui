@@ -35,9 +35,10 @@ const ActionMenuItem: React.FC<ActionMenuItemProps> = ({
   children,
   icon,
   onClick,
+  disabled = false,
 }) => {
   return (
-    <MenuItemRoot onClick={onClick}>
+    <MenuItemRoot onClick={onClick} disabled={disabled}>
       {icon && <ListItemIcon>{icon}</ListItemIcon>}
       {children}
     </MenuItemRoot>
@@ -48,7 +49,7 @@ const ActionMenu: React.FC<ActionsMenu> = (props) => {
   const { actions, ...popupProps } = props;
 
   const getMenuItems = (actions) => actions.map(actionsItem => {
-    const { text, icon, onClick, actions, } = actionsItem
+    const { text, icon, onClick, actions, disabled } = actionsItem
     if (actions && actions.length) {
       return [
         <ListSubheader key={text}>
@@ -66,7 +67,7 @@ const ActionMenu: React.FC<ActionsMenu> = (props) => {
     }
 
     return (
-      <ActionMenuItem key={text} icon={icon} onClick={handleMenuItemClick}>
+      <ActionMenuItem key={text} icon={icon} onClick={handleMenuItemClick} disabled={disabled}>
         {text}
       </ActionMenuItem>
     )
