@@ -38,6 +38,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     fullWidth = true,
     getLimitTagsText = (more) => `+${more}`,
     getOptionLabel = (option) => option.label ?? option,
+    getOptionSubLabel = (option) => option.subLabel ?? '',
     groupBy,
     id: idProp,
     inputValue: inputValueProp,
@@ -150,7 +151,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
 
   const renderGroup = renderGroupProp || defaultRenderGroup;
   const defaultRenderOption = (props2, option, { selected }) => {
-    return <MenuItem {...props2} multiple={multiple} selected={selected} text={getOptionLabel(option)} />
+    return <MenuItem {...props2} multiple={multiple} selected={selected} text={getOptionLabel(option)} secondaryText={getOptionSubLabel(option)} />
   };
   const renderOption = renderOptionProp || defaultRenderOption;
 
