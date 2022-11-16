@@ -20,6 +20,7 @@
   ],
   "scripts": {
     "start": "npm run docs",
+    "dev": "tsc -w",
     "build": "npm run clean && tsc",
     "clean": "rimraf ./lib",
     "docs": "dumi dev",
