@@ -19,7 +19,7 @@
     "material"
   ],
   "scripts": {
-    "start": "npm run docs",
+    "start": "NODE_OPTIONS='--openssl-legacy-provider' npm run docs",
     "dev": "tsc -w",
     "build": "npm run clean && tsc",
     "clean": "rimraf ./lib",

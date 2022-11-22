@@ -24,6 +24,7 @@ const FbmTable: React.FC<FbmTableProps> = ({
   nameText,
   PaginationProps,
   TableContainerProps,
+  onRowClick
 }) => (
   <Root>
     <Loading
@@ -44,6 +45,7 @@ const FbmTable: React.FC<FbmTableProps> = ({
           emptyText={emptyText}
           emptyUrl={emptyUrl}
           loading={loading}
+          onRowClick={onRowClick}
         />
       </Table>
     </TableContainer>

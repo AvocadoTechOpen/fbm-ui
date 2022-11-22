@@ -58,6 +58,8 @@ export interface FbmTbodyProps {
   emptyUrl?: string;
   /** loading */
   loading?: boolean;
+  /** 获取点击的行 */
+  onRowClick?: (row: unknown) => void;
 }
 
 export interface FbmTableLoadingProps {
