@@ -1,6 +1,6 @@
-import * as React from 'react';
-import clsx from 'clsx';
-import { createFilterOptions } from '@mui/base';
+import * as React from 'react'
+import clsx from 'clsx'
+import { createFilterOptions } from '@mui/base'
 import { Paper, Popper } from '@mui/material'
 import {
   inputRoot,
@@ -22,7 +22,7 @@ import { ArrowDropDownIcon, CloseIcon, DoneIcon } from '../icons'
 import { AutocompleteProps } from './interface'
 import MenuItem from '../MenuItem'
 
-export { createFilterOptions };
+export { createFilterOptions }
 
 type IProps = AutocompleteProps<any, boolean, boolean, boolean>
 const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
@@ -38,6 +38,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     fullWidth = true,
     getLimitTagsText = (more) => `+${more}`,
     getOptionLabel = (option) => option.label ?? option,
+    getOptionSubLabel = (option) => option.subLabel ?? '',
     groupBy,
     id: idProp,
     inputValue: inputValueProp,
@@ -60,9 +61,8 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     closeText,
     openText,
     placeholderIsValue = false,
-    noOptionsText = '暂无选项'
+    noOptionsText = '暂无选项',
   } = props
-
 
   const {
     getInputProps,
@@ -81,10 +81,11 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     setAnchorEl,
     inputValue,
     groupedOptions,
-  } = useAutocomplete({ ...props, componentName: 'Autocomplete' });
+  } = useAutocomplete({ ...props, componentName: 'Autocomplete' })
 
-  const hasClearIcon = !disableClearable && !disabled && dirty && !readOnly;
-  const hasPopupIcon = (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false;
+  const hasClearIcon = !disableClearable && !disabled && dirty && !readOnly
+  const hasPopupIcon =
+    (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false
 
   const ownerState = {
     ...props,
@@ -95,19 +96,19 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     inputFocused: focusedTag === -1,
     popupOpen,
     size,
-  };
-  const classes = useUtilityClasses(ownerState);
+  }
+  const classes = useUtilityClasses(ownerState)
 
-  let startAdornment;
+  let startAdornment
   if (multiple && value.length > 0) {
     const getCustomizedTagProps = (params) => ({
       className: classes.tag,
       disabled,
       ...getTagProps(params),
-    });
+    })
 
     if (renderTags) {
-      startAdornment = renderTags(value, getCustomizedTagProps, ownerState);
+      startAdornment = renderTags(value, getCustomizedTagProps, ownerState)
     } else {
       startAdornment = value.map((option, index) => (
         <Chip
@@ -116,19 +117,19 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
           {...getCustomizedTagProps({ index })}
           {...ChipProps}
         />
-      ));
+      ))
     }
   }
 
   if (limitTags > -1 && Array.isArray(startAdornment)) {
-    const more = startAdornment.length - limitTags;
+    const more = startAdornment.length - limitTags
     if (!focused && more > 0) {
-      startAdornment = startAdornment.splice(0, limitTags);
+      startAdornment = startAdornment.splice(0, limitTags)
       startAdornment.push(
         <span className={classes.limitTag} key={startAdornment.length}>
           {getLimitTagsText(more)}
-        </span>,
-      );
+        </span>
+      )
     }
   }
 
@@ -146,30 +147,40 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         {params.children}
       </AutocompleteGroupUl>
     </li>
-  );
+  )
 
-  const renderGroup = renderGroupProp || defaultRenderGroup;
-  const defaultRenderOption = (props2, option, { selected }) => {
-    return <MenuItem {...props2} multiple={multiple} selected={selected} text={getOptionLabel(option)} />
-  };
-  const renderOption = renderOptionProp || defaultRenderOption;
+  const renderGroup = renderGroupProp || defaultRenderGroup
+  const defaultRenderOption = (props2, option, { selected, disabled }) => {
+    return (
+      <MenuItem
+        {...props2}
+        multiple={multiple}
+        selected={selected}
+        disabled={disabled}
+        text={getOptionLabel(option)}
+        secondaryText={getOptionSubLabel(option)}
+      />
+    )
+  }
+  const renderOption = renderOptionProp || defaultRenderOption
 
   const renderListOption = (option, index) => {
-    const optionProps = getOptionProps({ option, index });
+    const optionProps = getOptionProps({ option, index })
     return renderOption(
       {
         ...optionProps,
         className: classes.option,
         // @ts-ignore
-        key: (option?.value || optionProps?.key),
+        key: option?.value || optionProps?.key,
       },
       option,
       {
-        selected: optionProps["aria-selected"],
+        selected: optionProps['aria-selected'],
+        disabled: optionProps['aria-disabled'],
         inputValue,
       }
-    );
-  };
+    )
+  }
 
   return (
     <React.Fragment>
@@ -186,7 +197,9 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         inputProps: {
           className: classes.input,
           ...getInputProps(),
-          ...(placeholderIsValue && { sx: { '&::placeholder': { opacity: 1 } } }),
+          ...(placeholderIsValue && {
+            sx: { '&::placeholder': { opacity: 1 } },
+          }),
         },
         ...((hasClearIcon || hasPopupIcon) && {
           endAdornment: (
@@ -196,9 +209,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                   {...getClearProps()}
                   aria-label={clearText}
                   title={clearText}
-                  className={clsx(
-                    classes.clearIndicator,
-                  )}
+                  className={clsx(classes.clearIndicator)}
                 >
                   {clearIcon}
                 </AutocompleteClearIndicator>
@@ -211,9 +222,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                   title={popupOpen ? closeText : openText}
                   // @ts-ignore
                   ownerState={ownerState}
-                  className={clsx(
-                    classes.popupIndicator,
-                  )}
+                  className={clsx(classes.popupIndicator)}
                 >
                   {popupIcon}
                 </AutocompletePopupIndicator>
@@ -243,7 +252,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                 role="presentation"
                 onMouseDown={(event) => {
                   // Prevent input blur when interacting with the "no options" content
-                  event.preventDefault();
+                  event.preventDefault()
                 }}
               >
                 {noOptionsText}
@@ -251,7 +260,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
             ) : null}
 
             {groupedOptions?.length > 0 ? (
-               // @ts-ignore
+              // @ts-ignore
               <AutocompleteListbox
                 as={ListboxComponent}
                 className={classes.listbox}
@@ -264,11 +273,11 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                       key: option.key,
                       group: option.group,
                       children: option.options.map((option2, index2) =>
-                        renderListOption(option2, option.index + index2),
+                        renderListOption(option2, option.index + index2)
                       ),
-                    });
+                    })
                   }
-                  return renderListOption(option, index);
+                  return renderListOption(option, index)
                 })}
               </AutocompleteListbox>
             ) : null}
@@ -276,9 +285,8 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         </AutocompletePopper>
       ) : null}
     </React.Fragment>
-  );
-});
-
+  )
+})
 
 Autocomplete.defaultProps = {
   clearIcon: <CloseIcon />,
@@ -286,4 +294,4 @@ Autocomplete.defaultProps = {
   closeText: 'Close',
   openText: '',
 }
-export default Autocomplete;
+export default Autocomplete

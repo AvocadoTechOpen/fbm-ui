@@ -122,17 +122,20 @@ const ListItem: React.FC<ListItemProps> = ({
       // @ts-ignore
       return URL.createObjectURL(originFileObj.originFileObj)
     }
-    return  URL.createObjectURL(originFileObj)
+    if (originFileObj) {
+      return  URL.createObjectURL(originFileObj)
+    }
+    return null;
   }, [])
 
   const fileIcon = useMemo(() => {
-    if (iconType === 'image') {
+    if (iconType === 'image' && blobSrc) {
       return <IconImage src={blobSrc} />
     }
     const fileFormat: string = getFileFormat(name)
     const FileIcon = FileIcons[fileFormat] || FileIcons['undefined']
     return <FileIcon sx={{ mr: 1 }} />
-  }, [name, iconType])
+  }, [name, iconType, blobSrc])
 
   const progress = status === 'error' ? 100 : percentProp
 

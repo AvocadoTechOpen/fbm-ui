@@ -38,6 +38,8 @@ const Drawer: React.FC<DrawerProps> = (props) => {
     isBackdrop,
   } = props
 
+  const isNullFooter = footer === null
+
   return (
     <DrawerRoot
       open={open}
@@ -48,7 +50,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
         ...BackdropProps,
       }}
     >
-      <Content>
+      <Content isNullFooter={isNullFooter}>
         <Header
           header={header}
           title={title}

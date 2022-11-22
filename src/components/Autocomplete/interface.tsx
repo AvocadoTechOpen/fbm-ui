@@ -254,5 +254,6 @@ export interface AutocompleteProps<
    * @default false
    */
   placeholderIsValue?: boolean;
+  getOptionSubLabel?: (option: T) => string;
 }
 

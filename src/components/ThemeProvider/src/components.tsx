@@ -157,5 +157,15 @@ export default {
         paddingBottom: 4,
       }
     }
+  },
+
+  MuiChip: {
+    styleOverrides: {
+      root: {
+        '& .MuiChip-deleteIcon': {
+          color: 'rgba(0, 0, 0, 0.56)',
+        }
+      }
+    }
   }
 }
