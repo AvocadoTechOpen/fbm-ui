@@ -254,6 +254,11 @@ export interface AutocompleteProps<
    * @default false
    */
   placeholderIsValue?: boolean;
+  // 描述
   getOptionSubLabel?: (option: T) => string;
+  // 头像
+  getOptionAvatar?: (option: T) => string;
+  // 是否显示头像
+  showAvatar?: boolean;
 }
 

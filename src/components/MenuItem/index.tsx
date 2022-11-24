@@ -22,6 +22,7 @@ import { cloneElement, isValidElement } from '../../utils/reactNode'
 import { ArrowDropRightIcon, DoneIcon } from '../icons'
 import MenuListContext from '../MenuList/MenuListContext'
 import Checkbox from '../Checkbox'
+import Avatar from '../Avatar';
 
 export interface MenuItemProps {
   ListItemProps?: ListItemProps,
@@ -31,7 +32,8 @@ export interface MenuItemProps {
   text?: React.ReactNode;
   /** 辅助文本 */
   secondaryText?: React.ReactNode;
-  /**  */
+  showAvatar?: boolean;
+  avatar?: string;
   startIcon?: React.ReactNode;
   StartListItemIconProps?: ListItemIconProps;
   subMenuList?: React.ReactNode;
@@ -108,6 +110,8 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
     disabled,
     text,
     secondaryText,
+    showAvatar = false,
+    avatar,
     startIcon,
     subMenuList,
     ListItemProps,
@@ -216,6 +220,13 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
               checked: selected,
             })}
           </MenuItemStartIcon>
+        )}
+        {showAvatar && (avatar || typeof text === 'string') && (
+          <Box sx={{ display: 'flex', p: '6px', pl: 0 }}>
+            <Avatar src={avatar}>
+              {text?.toUpperCase?.()?.slice(-1)}
+            </Avatar>
+          </Box>
         )}
         {children}
         {subMenuList != null && (

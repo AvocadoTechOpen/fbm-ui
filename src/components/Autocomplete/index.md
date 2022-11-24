@@ -81,7 +81,7 @@ export default () => {
         value={value}
         options={top100Films}
         onChange={handleChange}
-        limitTags={1}
+        showAvatar
       />
       <br/><br/>
       <Autocomplete

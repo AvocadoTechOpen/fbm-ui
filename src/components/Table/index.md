@@ -116,7 +116,10 @@ export default () => {
         columns={columns}
         batchActions={batchActions}
         PaginationProps={pagination}
-        onRowClick={(row) => Message.success(`点击了${row.name}`)}
+        onRowClick={(row, event) => {
+          Message.success(`点击了${row.name}`)
+          console.log('event:', event)
+        }}
       />
     </Layout>
   );

@@ -21,6 +21,7 @@ import Chip from '../Chip'
 import { ArrowDropDownIcon, CloseIcon, DoneIcon } from '../icons'
 import { AutocompleteProps } from './interface'
 import MenuItem from '../MenuItem'
+import Avatar from '../Avatar'
 
 export { createFilterOptions }
 
@@ -39,6 +40,8 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     getLimitTagsText = (more) => `+${more}`,
     getOptionLabel = (option) => option.label ?? option,
     getOptionSubLabel = (option) => option.subLabel ?? '',
+    getOptionAvatar = (option) => option.avatar ?? '',
+    showAvatar = false,
     groupBy,
     id: idProp,
     inputValue: inputValueProp,
@@ -113,6 +116,13 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
       startAdornment = value.map((option, index) => (
         <Chip
           label={getOptionLabel(option)}
+          avatar={
+            showAvatar ? (
+              <Avatar src={getOptionAvatar(option)} sx={{ color: 'white' }}>
+                {getOptionLabel(option)?.toUpperCase?.()?.slice(-1)}
+              </Avatar>
+            ) : null
+          }
           size={size === 'small' ? 'medium' : size}
           {...getCustomizedTagProps({ index })}
           {...ChipProps}
@@ -159,6 +169,8 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         disabled={disabled}
         text={getOptionLabel(option)}
         secondaryText={getOptionSubLabel(option)}
+        avatar={getOptionAvatar(option)}
+        showAvatar={showAvatar}
       />
     )
   }

@@ -62,7 +62,7 @@ const Tbody: React.FC<FbmTbodyProps> = ({
       <TbodyRow
         key={index}
         index={index}
-        onClick={onRowClick ? () => onRowClick(row) : undefined}
+        onClick={onRowClick ? (event) => onRowClick(row, event) : undefined}
       >
         <ColumnsRender row={row} />
       </TbodyRow>

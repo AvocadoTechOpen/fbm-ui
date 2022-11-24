@@ -59,7 +59,7 @@ export interface FbmTbodyProps {
   /** loading */
   loading?: boolean;
   /** 获取点击的行 */
-  onRowClick?: (row: unknown) => void;
+  onRowClick?: (row: unknown, event: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => void;
 }
 
 export interface FbmTableLoadingProps {
