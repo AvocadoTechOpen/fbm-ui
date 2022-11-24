@@ -164,6 +164,9 @@ export default {
       root: {
         '& .MuiChip-deleteIcon': {
           color: 'rgba(0, 0, 0, 0.56)',
+        },
+        '& .MuiChip-avatar': {
+          color: 'white',
         }
       }
     }
