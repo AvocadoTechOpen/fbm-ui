@@ -106,6 +106,7 @@ const columnCheckbox = (options?: ColumnCheckboxProps): ColumnProps => {
         <Checkbox
           checked={getChecked()}
           onChange={handleChange}
+          onClick={(event) => event.stopPropagation()}
         />
       )
     },
