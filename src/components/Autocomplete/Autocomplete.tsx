@@ -41,6 +41,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     getOptionLabel = (option) => option.label ?? option,
     getOptionSubLabel = (option) => option.subLabel ?? '',
     getOptionAvatar = (option) => option.avatar ?? '',
+    getValueToken = (value) => value ?? '',
     showAvatar = false,
     groupBy,
     id: idProp,
@@ -65,6 +66,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     openText,
     placeholderIsValue = false,
     noOptionsText = '暂无选项',
+    disabledValues = [],
   } = props
 
   const {
@@ -106,28 +108,32 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
   if (multiple && value.length > 0) {
     const getCustomizedTagProps = (params) => ({
       className: classes.tag,
-      disabled,
+      // 整体 disabled || 单个 Chip disabled
+      disabled: disabled || params.disabledChip,
       ...getTagProps(params),
     })
 
     if (renderTags) {
       startAdornment = renderTags(value, getCustomizedTagProps, ownerState)
     } else {
-      startAdornment = value.map((option, index) => (
-        <Chip
-          label={getOptionLabel(option)}
-          avatar={
-            showAvatar ? (
-              <Avatar src={getOptionAvatar(option)} sx={{ color: 'white' }}>
-                {getOptionLabel(option)?.toUpperCase?.()?.slice(-1)}
-              </Avatar>
-            ) : null
-          }
-          size={size === 'small' ? 'medium' : size}
-          {...getCustomizedTagProps({ index })}
-          {...ChipProps}
-        />
-      ))
+      startAdornment = value.map((option, index) => {
+        const disabledChip = disabledValues.includes(getValueToken(option));
+        return (
+          <Chip
+            label={getOptionLabel(option)}
+            avatar={
+              showAvatar ? (
+                <Avatar src={getOptionAvatar(option)} sx={{ color: 'white' }}>
+                  {getOptionLabel(option)?.toUpperCase?.()?.slice(-1)}
+                </Avatar>
+              ) : null
+            }
+            size={size === 'small' ? 'medium' : size}
+            {...getCustomizedTagProps({ index, disabledChip })}
+            {...ChipProps}
+          />
+        )
+      })
     }
   }
 
