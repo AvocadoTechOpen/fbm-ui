@@ -23,7 +23,8 @@ export interface ActionsProps extends ButtonProps {
   spacing?: number | string;
   /** click Params */
   data?: any;
-
+  /** 是否显示 action 控制 */
+  isHiddenFn?:(row:any)=>boolean;
 }
 
 const ActionsRoot = styled(Box)(({ spacing }: ActionsProps) => ({
@@ -47,7 +48,9 @@ const Action: React.FC<ActionsProps> = ({
   data,
 }) => {
   const actionBtns = actions.map(actionsItems => {
-    const { text, actions: subActons, buttonType = 'Button', onClick, ...buttonProps } = actionsItems
+    const { text, actions: subActons, buttonType = 'Button', onClick, isHiddenFn, ...buttonProps } = actionsItems
+    
+    if (isHiddenFn && isHiddenFn(data)) return null;
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       event?.stopPropagation?.()
