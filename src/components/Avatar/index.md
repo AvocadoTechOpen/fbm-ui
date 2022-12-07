@@ -35,7 +35,7 @@ import { Avatar, Demo } from 'fbm-ui'
 
 export default () =>(
   <Demo white>
-    <Avatar />
+    <Avatar>l</Avatar>
   </Demo>
 )
 ```

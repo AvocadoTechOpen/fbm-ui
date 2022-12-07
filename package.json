@@ -1,6 +1,6 @@
 {
   "name": "fbm-ui",
-  "version": "1.4.136",
+  "version": "1.4.137",
   "private": false,
   "description": "React components library",
   "author": "avocado",
@@ -19,7 +19,7 @@
     "material"
   ],
   "scripts": {
-    "start": "NODE_OPTIONS='--openssl-legacy-provider' npm run docs",
+    "start": "npm run docs",
     "dev": "tsc -w",
     "build": "npm run clean && tsc",
     "clean": "rimraf ./lib",

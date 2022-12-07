@@ -123,8 +123,8 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
             label={getOptionLabel(option)}
             avatar={
               showAvatar ? (
-                <Avatar src={getOptionAvatar(option)} sx={{ color: 'white' }}>
-                  {getOptionLabel(option)?.toUpperCase?.()?.slice(-1)}
+                <Avatar src={getOptionAvatar(option)}>
+                  {getOptionLabel(option)?.slice(-1)}
                 </Avatar>
               ) : null
             }

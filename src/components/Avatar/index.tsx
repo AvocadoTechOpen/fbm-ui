@@ -36,6 +36,22 @@ const SexIcons = {
   2: FemaleIIcon
 }
 
+export const RANDOM_COLOR = [
+  '#F44336',
+  '#E91E63',
+  '#9C27B0',
+  '#673AB7',
+  '#3F51B5',
+  '#1E88E5',
+  '#0288D1',
+  '#0097A7',
+  '#009688',
+  '#43A047',
+  '#E65100',
+  '#795548',
+  '#757575',
+];
+
 const BoxRoot = styled(Box)({
   display: 'inline-block',
   borderRadius: '50%',
@@ -85,10 +101,15 @@ const SexRoot = styled(Box)(({ sex }: ISexProps) => {
   }
 })
 
-const AvatarRoot: React.FC<AvatarProps> = styled(MuiAvatar)(({ size }: AvatarProps) => {
+const AvatarRoot: React.FC<AvatarProps> = styled(MuiAvatar)(({ size, children }: AvatarProps) => {
   return {
     width: defaultSizes[size] || size,
     height: defaultSizes[size] || size,
+    ...(children ? {
+      // @ts-ignore
+      backgroundColor: RANDOM_COLOR[(children?.charCodeAt(0) || 0) % RANDOM_COLOR?.length],
+      color: '#ffffff',
+    } : {}),
   }
 })
 
