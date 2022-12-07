@@ -224,7 +224,7 @@ const MenuItem: React.FC<MenuItemProps> = React.forwardRef((props, ref) => {
         {showAvatar && (avatar || typeof text === 'string') && (
           <Box sx={{ display: 'flex', p: '6px', pl: 0 }}>
             <Avatar src={avatar}>
-              {text?.toUpperCase?.()?.slice(-1)}
+              {text?.slice(-1)}
             </Avatar>
           </Box>
         )}
