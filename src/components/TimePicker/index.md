@@ -15,15 +15,31 @@ group:
  * desc: 基本使用
  */
 import * as React from 'react';
-import { Demo, TimePicker } from 'fbm-ui'
+import { Demo, TimePicker, useForm, Form, FormItem, Button } from 'fbm-ui'
 
 export default () => {
-  const [value, setValue] = React.useState('22:22')
+  const form = useForm({
+    initialValues: {
+      startTime: null,
+    },
+    onSubmit: async (values) => {
+      console.log('TimePicker form:', values);
+    }
+  })
 
-return (
-    <Demo>
-      <TimePicker value={value} disabled />
-    </Demo>
-  )
-}
+  async function handleClick() {
+    await form.submitForm();
+  }
+
+  return (
+      <Demo>
+        <Form {...form}>        
+          <FormItem name="startTime" label="开始时间" required>
+            <TimePicker />
+          </FormItem>
+          <Button onClick={handleClick}>提交</Button>
+        </Form>
+      </Demo>
+    )
+  }
 ```
