@@ -98,7 +98,6 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   // 自动填入uid
   React.useMemo(() => {
     const timestamp = Date.now()
-
       ; (fileList || []).forEach((file, index) => {
         if (!file.uid && !Object.isFrozen(file)) {
           file.uid = `__AUTO__${timestamp}_${index}__`
