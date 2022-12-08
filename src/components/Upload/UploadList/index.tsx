@@ -61,6 +61,7 @@ const UploadList: React.FC<UploadListProps> = ({
           size: item.size,
           percent: item.percent,
           status: item.status,
+          url: item.url,
           iconType: iconType,
           originFileObj: item.originFileObj,
           nameRender: () => nameRender(item),

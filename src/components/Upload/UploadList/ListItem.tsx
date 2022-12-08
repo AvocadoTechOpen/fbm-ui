@@ -110,6 +110,7 @@ const ListItem: React.FC<ListItemProps> = ({
   percent: percentProp,
   // 上传状态
   status,
+  url,
   iconType,
   onClose,
   onRefresh,
@@ -126,7 +127,7 @@ const ListItem: React.FC<ListItemProps> = ({
       return  URL.createObjectURL(originFileObj)
     }
     return null;
-  }, [])
+  }, [originFileObj])
 
   const fileIcon = useMemo(() => {
     if (iconType === 'image' && blobSrc) {
@@ -164,13 +165,17 @@ const ListItem: React.FC<ListItemProps> = ({
     ),
   }
 
-  const handleViweFile = useCallback(() => {
-    window.open(URL.createObjectURL(originFileObj))
-  }, [])
+  const handleViewFile = useCallback(() => {
+    if (blobSrc) {
+      window.open(blobSrc)
+    } else if (url) {
+      window.open(url)
+    }
+  }, [blobSrc, url])
 
   return (
     <ListItemRoot>
-      <FlexCenterBox onClick={handleViweFile} sx={{ flex: 1, cursor: 'pointer' }}>
+      <FlexCenterBox onClick={handleViewFile} sx={{ flex: 1, cursor: 'pointer' }}>
         {fileIcon}
         <FlexFill>
           <FileName>{nameRender()}</FileName>
