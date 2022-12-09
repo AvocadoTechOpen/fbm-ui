@@ -74,7 +74,7 @@ const ActionMenu: React.FC<ActionsMenu> = (props) => {
   })
 
   return (
-    <Box sx={{ minWidth: 40 }}>
+    <Box sx={{ minWidth: 40, py: 0.5 }}>
       {getMenuItems(actions)}
     </Box>
   )
