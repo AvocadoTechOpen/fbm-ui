@@ -4,11 +4,12 @@ import { DocumentUploadIcon } from '../../icons'
 
 const UploadButton: React.FC<ButtonProps> = ({
   children,
+  icon,
   ...restProps
 }) => {
   return (
     <Button
-      icon={<DocumentUploadIcon />}
+      icon={icon || <DocumentUploadIcon />}
       {...restProps}
     >
       {children}

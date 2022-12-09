@@ -1,9 +1,16 @@
 import React, { forwardRef } from 'react'
 import { styled, Box } from '@mui/material'
 import RcUpload, { UploadProps as RcUploadProps } from 'rc-upload'
-import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { unstable_composeClasses as composeClasses } from '@mui/base'
 import UploadItems from './UploadList/index'
-import { UploadProps, RcFile, UploadFile, UploadChangeParam, UploadType, UploadListPlace } from './types'
+import {
+  UploadProps,
+  RcFile,
+  UploadFile,
+  UploadChangeParam,
+  UploadType,
+  UploadListPlace,
+} from './types'
 import { file2Obj, getFileItem, updateFileList, removeFileItem } from './utils'
 import { useMergedState } from '../../hooks'
 import UploadChildrenButton from './UploadChildren/Button'
@@ -14,7 +21,7 @@ import { getUploadUtilityClass } from './uploadClasses'
 const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`
 
 const useUtilityClasses = (ownerState) => {
-  const { } = ownerState
+  const {} = ownerState
 
   const slots = {
     root: ['root'],
@@ -24,13 +31,13 @@ const useUtilityClasses = (ownerState) => {
     uploadList: ['uploadList'],
     uploadListItem: ['uploadListItem'],
     uploadListItemSelected: ['uploadListItemSelected'],
-  };
+  }
 
-  return composeClasses(slots, getUploadUtilityClass, {});
-};
+  return composeClasses(slots, getUploadUtilityClass, {})
+}
 
 type OwnerState = {
-  type: UploadType;
+  type: UploadType
   uploadListPlace: UploadListPlace
 }
 
@@ -38,24 +45,26 @@ const UploadRoot = styled(Box)(({ ownerState }: { ownerState: OwnerState }) => {
   return {
     ...(ownerState.type === 'cube' && {
       display: 'flex',
-    })
+    }),
   }
 })
 
-const UploadListRoot = styled(Box)(({ ownerState }: { ownerState: OwnerState }) => {
-  const { type, uploadListPlace } = ownerState
-  return {
-    ...(type === 'cube' && { display: 'flex', flex: true }),
-    ...(type !== 'cube' && {
-      ...(uploadListPlace === 'top' && {
-        marginBottom: 10,
+const UploadListRoot = styled(Box)(
+  ({ ownerState }: { ownerState: OwnerState }) => {
+    const { type, uploadListPlace } = ownerState
+    return {
+      ...(type === 'cube' && { display: 'flex', flex: true }),
+      ...(type !== 'cube' && {
+        ...(uploadListPlace === 'top' && {
+          marginBottom: 10,
+        }),
+        ...(uploadListPlace === 'bottom' && {
+          marginTop: 10,
+        }),
       }),
-      ...(uploadListPlace === 'bottom' && {
-        marginTop: 10,
-      })
-    })
+    }
   }
-})
+)
 
 const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   const {
@@ -79,6 +88,9 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     onSelect,
     selected,
     UploadListProps,
+    icon,
+    variant,
+    color,
     ...restProps
   } = props
 
@@ -98,11 +110,11 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   // 自动填入uid
   React.useMemo(() => {
     const timestamp = Date.now()
-      ; (fileList || []).forEach((file, index) => {
-        if (!file.uid && !Object.isFrozen(file)) {
-          file.uid = `__AUTO__${timestamp}_${index}__`
-        }
-      })
+    ;(fileList || []).forEach((file, index) => {
+      if (!file.uid && !Object.isFrozen(file)) {
+        file.uid = `__AUTO__${timestamp}_${index}__`
+      }
+    })
   }, [fileList])
 
   const mergedBeforeUpload = async (file: RcFile, fileListArgs: RcFile[]) => {
@@ -144,7 +156,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     } else if (maxCount) {
       cloneList = cloneList.slice(0, maxCount)
     }
-    cloneList = cloneList?.filter((t) => t.status);
+    cloneList = cloneList?.filter((t) => t.status)
     setMergedFileList(cloneList)
 
     const changeInfo: UploadChangeParam<UploadFile> = {
@@ -311,9 +323,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     uploadFiles([file])
   }
 
-  const handleSelect = () => {
-
-  }
+  const handleSelect = () => {}
 
   React.useImperativeHandle(ref, () => ({
     onBatchStart,
@@ -325,7 +335,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     uploader: upload?.current?.uploader,
   }))
 
-  const classes = useUtilityClasses({});
+  const classes = useUtilityClasses({})
 
   let children: React.ReactNode = null
   if (type === 'drop') {
@@ -352,7 +362,12 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     )
   } else if (type === 'button') {
     children = (
-      <UploadChildrenButton className={classes.button}>
+      <UploadChildrenButton
+        className={classes.button}
+        variant={variant}
+        color={color}
+        icon={icon}
+      >
         {childrenProp}
       </UploadChildrenButton>
     )
@@ -373,7 +388,9 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     uploadListPlace,
   }
 
-  const isShowUploadButton = maxCount == null || (typeof maxCount === 'number' && mergedFileList.length < maxCount)
+  const isShowUploadButton =
+    maxCount == null ||
+    (typeof maxCount === 'number' && mergedFileList.length < maxCount)
   const uploadButton = isShowUploadButton && (
     <RcUpload
       ref={upload}
@@ -394,7 +411,11 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   )
 
   const uploadList = showUploadList ? (
-    <UploadListRoot className={classes.uploadList} ownerState={ownerState} {...UploadListProps} >
+    <UploadListRoot
+      className={classes.uploadList}
+      ownerState={ownerState}
+      {...UploadListProps}
+    >
       <UploadItems
         type={type}
         selected={selected}
@@ -405,7 +426,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
         itemRender={itemRender}
         classes={{
           root: classes.uploadListItem,
-          selected: classes.uploadListItemSelected
+          selected: classes.uploadListItemSelected,
         }}
       />
     </UploadListRoot>
@@ -420,9 +441,11 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       className={classes.root}
       {...restProps}
     >
-      {(uploadListPlace === 'top' || uploadListPlace === 'before') && uploadList}
+      {(uploadListPlace === 'top' || uploadListPlace === 'before') &&
+        uploadList}
       {uploadButton}
-      {(uploadListPlace === 'bottom' || uploadListPlace === 'after') && uploadList}
+      {(uploadListPlace === 'bottom' || uploadListPlace === 'after') &&
+        uploadList}
     </UploadRoot>
   )
 })
