@@ -1,3 +1,4 @@
+import { ButtonProps } from '@mui/material';
 import { UploadProps as RcUploadProps } from 'rc-upload'
 import {
   RcFile as OriRcFile,
@@ -123,5 +124,8 @@ export interface UploadProps<T = any> {
   onDrop?: (event: React.DragEvent<HTMLDivElement>) => void;
   onSelect?: (file: UploadFile<T>, index, FileList: RcFile[]) => void;
   selected?: UploadFile<T> | Uid;
+  icon?: React.ReactNode;
+  variant?: ButtonProps['variant'];
+  color?: ButtonProps['color'];
 }
 
