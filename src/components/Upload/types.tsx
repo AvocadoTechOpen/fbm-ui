@@ -27,7 +27,9 @@ export interface UploadFile<T = any> {
   lastModifiedDate?: Date;
   url?: string;
   status?: UploadFileStatus;
+  status_from_outside?: UploadFileStatus;
   percent?: number;
+  percent_from_outside?: number;
   thumbUrl?: string;
   originFileObj?: RcFile;
   response?: T;
