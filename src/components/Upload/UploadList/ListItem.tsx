@@ -141,13 +141,13 @@ const ListItem: React.FC<ListItemProps> = ({
   const progress = status === 'error' ? 100 : percentProp
 
   const StatusIcons = {
-    uploading: (
-      <Tooltip title={'取消上传'} placement="top">
-        <IconButton >
-          <CloseIcon onClick={() => onClose()} />
-        </IconButton>
-      </Tooltip>
-    ),
+    // uploading: (
+    //   <Tooltip title={'取消上传'} placement="top">
+    //     <IconButton >
+    //       <CloseIcon onClick={() => onClose()} />
+    //     </IconButton>
+    //   </Tooltip>
+    // ),
 
     error: (
       <Tooltip title={'重新上传'} placement="top">
