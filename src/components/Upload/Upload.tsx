@@ -390,7 +390,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
 
   const isShowUploadButton =
     maxCount == null ||
-    (typeof maxCount === 'number' && mergedFileList.length < maxCount)
+    (typeof maxCount === 'number' && mergedFileList.length < maxCount) || !showUploadList
   const uploadButton = isShowUploadButton && (
     <RcUpload
       ref={upload}
