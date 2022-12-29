@@ -70,6 +70,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   const {
     type,
     accept,
+    capture,
     name,
     multiple,
     children: childrenProp,
@@ -396,6 +397,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       ref={upload}
       name={name}
       accept={accept}
+      capture={capture}
       action={action}
       multiple={multiple}
       headers={headers}
