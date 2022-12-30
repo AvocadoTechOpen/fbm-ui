@@ -70,6 +70,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   const {
     type,
     accept,
+    capture,
     name,
     multiple,
     children: childrenProp,
@@ -93,6 +94,8 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     color,
     ...restProps
   } = props
+
+  const captureProps = capture != null ? { capture } : {}
 
   const [mergedFileList, setMergedFileList] = useMergedState(
     defaultFileList || [],
@@ -405,6 +408,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       onSuccess={onSuccess}
       onError={onError}
       onProgress={onProgress}
+      {...captureProps}
     >
       {children}
     </RcUpload>
