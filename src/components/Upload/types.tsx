@@ -129,6 +129,6 @@ export interface UploadProps<T = any> {
   icon?: React.ReactNode;
   variant?: ButtonProps['variant'];
   color?: ButtonProps['color'];
-  capture?: string;
+  capture?: string | boolean;
 }
 
