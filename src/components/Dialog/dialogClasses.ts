@@ -1,4 +1,4 @@
-import { generateUtilityClass, generateUtilityClasses } from '@mui/base';
+import { generateUtilityClass, generateUtilityClasses } from '@mui/core';
 
 export interface DialogClasses {
   /** DialogRoot className */

@@ -1,7 +1,7 @@
 import React from 'react';
 import { zhCN } from 'date-fns/locale';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider, { LocalizationProviderProps } from '@mui/lab/LocalizationProvider'
+import { LocalizationProvider, LocalizationProviderProps } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 export interface FbmLocalizationProviderProps {
   locale?: LocalizationProviderProps['locale']

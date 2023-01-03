@@ -30,12 +30,15 @@ export default () => {
       { type: 'date' }
     ],
     onChange: handleChange,
+    InputProps: {
+      label: '日历',
+    }
   })
 
   return (
     <Demo>
     
-      <TextField size='small' label='日历' error={dateFieldProps.error}>
+      <TextField label="日历" error={dateFieldProps.error}>
         <DatePicker {...dateFieldProps.InputProps} />
       </TextField>
     </Demo>

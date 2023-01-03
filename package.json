@@ -73,6 +73,7 @@
     "@mui/core": "5.0.0-alpha.53",
     "@mui/lab": "5.0.0-alpha.53",
     "@mui/material": "5.1.1",
+    "@mui/x-date-pickers": "^5.0.12",
     "@umijs/test": "^3.5.20",
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.28.0",
