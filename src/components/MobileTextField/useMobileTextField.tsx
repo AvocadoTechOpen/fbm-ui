@@ -39,6 +39,15 @@ export default function useMobileTextField({
     onAreaChange?.(val.key);
   }, []);
 
+  const reset = useCallback(() => {
+    setMobile(defaultMobile.mobile);
+    const mobileArea = options?.find(
+      (n) => n.key === (defaultMobile?.mobileAreaCode || "CN_243")
+    );
+    setArea(mobileArea);
+    onAreaChange?.(mobileArea.key);
+  }, [defaultMobile, options]);
+
   const mobileTextFieldProps: MobileTextFieldProps = useMemo(
     () => ({
       rules,
@@ -71,5 +80,6 @@ export default function useMobileTextField({
     mobileTextFieldProps,
     mobile: mobileState,
     mobileRef,
+    reset,
   };
 }
