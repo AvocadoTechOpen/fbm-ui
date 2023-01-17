@@ -17,7 +17,8 @@ interface UseMobileTextFieldProps {
     mobile: string;
     mobileAreaCode: string;
   };
-  onAreaChange?: (val: string) => {};
+  onAreaChange?: (val: string) => void;
+  onChange?: (val: any) => void;
 }
 
 export default function useMobileTextField({
@@ -25,19 +26,28 @@ export default function useMobileTextField({
   options,
   defaultMobile = DEFAULT_MOBILE,
   onAreaChange,
+  onChange,
 }: UseMobileTextFieldProps) {
   const mobileRef = useRef<MobileTextFieldHandler>(null);
   const [mobile, setMobile] = useState("");
   const [area, setArea] = useState(null);
 
-  const handleChange = useCallback((e) => {
-    setMobile(e?.target?.value);
-  }, []);
+  const handleChange = useCallback(
+    (e) => {
+      setMobile(e?.target?.value);
+      onChange?.({ mobile: e?.target?.value, mobileAreaCode: area?.key });
+    },
+    [area?.key]
+  );
 
-  const handleAreaChange = useCallback((val) => {
-    setArea(val);
-    onAreaChange?.(val.key);
-  }, []);
+  const handleAreaChange = useCallback(
+    (val) => {
+      setArea(val);
+      onAreaChange?.(val?.key);
+      onChange?.({ mobile, mobileAreaCode: val?.key });
+    },
+    [mobile]
+  );
 
   const reset = useCallback(() => {
     setMobile(defaultMobile.mobile);
@@ -45,7 +55,7 @@ export default function useMobileTextField({
       (n) => n.key === (defaultMobile?.mobileAreaCode || "CN_243")
     );
     setArea(mobileArea);
-    onAreaChange?.(mobileArea.key);
+    onAreaChange?.(mobileArea?.key);
   }, [defaultMobile, options]);
 
   const mobileTextFieldProps: MobileTextFieldProps = useMemo(
