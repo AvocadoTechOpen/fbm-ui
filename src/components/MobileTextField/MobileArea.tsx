@@ -91,6 +91,7 @@ interface MobileAreaProps {
   options: OptionType[];
   open: boolean;
   disabled?: boolean;
+  defaultMobile?: { mobile: string; mobileAreaCode: string };
 }
 
 const filterOptions = createFilterOptions({
@@ -107,6 +108,7 @@ const MobileArea = ({
   options,
   open,
   disabled,
+  defaultMobile,
 }: MobileAreaProps) => {
   const mobileRef = useRef(null);
   const handleOpen = () => {
@@ -139,10 +141,12 @@ const MobileArea = ({
 
   useEffect(() => {
     if (!area) {
-      const mobileArea = options?.find((n) => n.key === "CN_243");
+      const mobileArea = options?.find(
+        (n) => n.key === (defaultMobile.mobileAreaCode || "CN_243")
+      );
       onChange?.(mobileArea);
     }
-  }, [options]);
+  }, [area, defaultMobile, options]);
 
   const value = useMemo(() => ({ ...(area || {}) }), [area]);
 

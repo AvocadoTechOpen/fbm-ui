@@ -23,6 +23,7 @@ export interface MobileTextFieldProps {
   sx?: BoxProps["sx"];
   disabled?: boolean;
   areaProps?: any;
+  defaultMobile?: { mobile: string; mobileAreaCode: string };
 }
 
 export interface MobileTextFieldHandler {
@@ -47,6 +48,7 @@ const MobileTextField = forwardRef<
       sx,
       disabled,
       areaProps,
+      defaultMobile,
       ...rest
     },
     ref
@@ -90,6 +92,7 @@ const MobileTextField = forwardRef<
             options={areaProps?.options || options}
             onChange={areaProps?.onAreaChange || onAreaChange}
             onOpenChange={handleOpenChange}
+            defaultMobile={defaultMobile}
           />
         ),
       },

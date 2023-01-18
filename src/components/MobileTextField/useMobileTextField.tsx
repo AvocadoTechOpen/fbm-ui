@@ -67,8 +67,9 @@ export default function useMobileTextField({
       onAreaChange: handleAreaChange,
       onChange: handleChange,
       ref: mobileRef,
+      defaultMobile,
     }),
-    [rules, options, area, mobile]
+    [rules, options, area, mobile, defaultMobile]
   );
 
   useEffect(() => {
