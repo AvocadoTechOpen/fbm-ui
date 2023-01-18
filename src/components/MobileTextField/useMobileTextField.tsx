@@ -17,7 +17,7 @@ interface UseMobileTextFieldProps {
     mobile: string;
     mobileAreaCode: string;
   };
-  onAreaChange?: (val: string) => void;
+  onAreaChange?: (val: any) => void;
   onChange?: (val: any) => void;
 }
 
