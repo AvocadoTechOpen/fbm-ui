@@ -189,7 +189,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         ...optionProps,
         className: classes.option,
         // @ts-ignore
-        key: option?.value || optionProps?.key,
+        key: option?.value || option?.token || optionProps?.key,
       },
       option,
       {
