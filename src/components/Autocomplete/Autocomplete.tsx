@@ -200,6 +200,12 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     );
   };
 
+  const [isPopOpen, setIsPopOpen] = React.useState(false);
+  React.useEffect(() => {
+    if (popupOpen) setIsPopOpen(true);
+    else setTimeout(() => setIsPopOpen(false), 200);
+  }, [popupOpen]);
+
   return (
     <React.Fragment>
       {renderInput({
@@ -235,6 +241,16 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
               {hasPopupIcon ? (
                 <AutocompletePopupIndicator
                   {...getPopupIndicatorProps()}
+                  // 覆盖 getPopupIndicatorProps 中的 onClick 是为了解决
+                  // 点击此按钮同时触发 getInputProps 中的 onBlur 导致无法关闭的问题
+                  onClick={(e) => {
+                    if (isPopOpen) {
+                      setIsPopOpen(false);
+                    } else {
+                      const { onClick } = getPopupIndicatorProps();
+                      onClick(e);
+                    }
+                  }}
                   disabled={disabled}
                   aria-label={popupOpen ? closeText : openText}
                   title={popupOpen ? closeText : openText}
