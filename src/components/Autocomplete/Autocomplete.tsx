@@ -1,7 +1,7 @@
-import * as React from 'react'
-import clsx from 'clsx'
-import { createFilterOptions } from '@mui/base'
-import { Paper, Popper } from '@mui/material'
+import * as React from "react";
+import clsx from "clsx";
+import { createFilterOptions } from "@mui/base";
+import { Paper, Popper } from "@mui/material";
 import {
   inputRoot,
   AutocompleteGroupLabel,
@@ -14,18 +14,18 @@ import {
   AutocompleteClearIndicator,
   AutocompletePopupIndicator,
   AutocompleteNoOptions,
-} from './index.styles'
-import useAutocomplete from './useAutocomplete'
+} from "./index.styles";
+import useAutocomplete from "./useAutocomplete";
 
-import Chip from '../Chip'
-import { ArrowDropDownIcon, CloseIcon, DoneIcon } from '../icons'
-import { AutocompleteProps } from './interface'
-import MenuItem from '../MenuItem'
-import Avatar from '../Avatar'
+import Chip from "../Chip";
+import { ArrowDropDownIcon, CloseIcon, DoneIcon } from "../icons";
+import { AutocompleteProps } from "./interface";
+import MenuItem from "../MenuItem";
+import Avatar from "../Avatar";
 
-export { createFilterOptions }
+export { createFilterOptions };
 
-type IProps = AutocompleteProps<any, boolean, boolean, boolean>
+type IProps = AutocompleteProps<any, boolean, boolean, boolean>;
 const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
   const {
     ChipProps,
@@ -34,20 +34,20 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     disableClearable = false,
     disabled = false,
     label,
-    forcePopupIcon = 'auto',
+    forcePopupIcon = "auto",
     freeSolo = false,
     fullWidth = true,
     getLimitTagsText = (more) => `+${more}`,
     getOptionLabel = (option) => option.label ?? option,
-    getOptionSubLabel = (option) => option.subLabel ?? '',
-    getOptionAvatar = (option) => option.avatar ?? '',
-    getValueToken = (value) => value ?? '',
+    getOptionSubLabel = (option) => option.subLabel ?? "",
+    getOptionAvatar = (option) => option.avatar ?? "",
+    getValueToken = (value) => value ?? "",
     showAvatar = false,
     groupBy,
     id: idProp,
     inputValue: inputValueProp,
     limitTags = -1,
-    ListboxComponent = 'ul',
+    ListboxComponent = "ul",
     ListboxProps,
     multiple = false,
     PaperComponent = Paper,
@@ -59,15 +59,15 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     renderInput,
     renderOption: renderOptionProp,
     renderTags,
-    size = 'large',
+    size = "large",
     value: valueProp,
     clearText,
     closeText,
     openText,
     placeholderIsValue = false,
-    noOptionsText = '暂无选项',
+    noOptionsText = "暂无选项",
     disabledValues = [],
-  } = props
+  } = props;
 
   const {
     getInputProps,
@@ -86,11 +86,11 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     setAnchorEl,
     inputValue,
     groupedOptions,
-  } = useAutocomplete({ ...props, componentName: 'Autocomplete' })
+  } = useAutocomplete({ ...props, componentName: "Autocomplete" });
 
-  const hasClearIcon = !disableClearable && !disabled && dirty && !readOnly
+  const hasClearIcon = !disableClearable && !disabled && dirty && !readOnly;
   const hasPopupIcon =
-    (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false
+    (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false;
 
   const ownerState = {
     ...props,
@@ -101,20 +101,20 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
     inputFocused: focusedTag === -1,
     popupOpen,
     size,
-  }
-  const classes = useUtilityClasses(ownerState)
+  };
+  const classes = useUtilityClasses(ownerState);
 
-  let startAdornment
+  let startAdornment;
   if (multiple && value.length > 0) {
     const getCustomizedTagProps = (params) => ({
       className: classes.tag,
       // 整体 disabled || 单个 Chip disabled
       disabled: disabled || params.disabledChip,
       ...getTagProps(params),
-    })
+    });
 
     if (renderTags) {
-      startAdornment = renderTags(value, getCustomizedTagProps, ownerState)
+      startAdornment = renderTags(value, getCustomizedTagProps, ownerState);
     } else {
       startAdornment = value.map((option, index) => {
         const disabledChip = disabledValues.includes(getValueToken(option));
@@ -128,24 +128,24 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                 </Avatar>
               ) : null
             }
-            size={size === 'small' ? 'medium' : size}
+            size={size === "small" ? "medium" : size}
             {...getCustomizedTagProps({ index, disabledChip })}
             {...ChipProps}
           />
-        )
-      })
+        );
+      });
     }
   }
 
   if (limitTags > -1 && Array.isArray(startAdornment)) {
-    const more = startAdornment.length - limitTags
+    const more = startAdornment.length - limitTags;
     if (!focused && more > 0) {
-      startAdornment = startAdornment.splice(0, limitTags)
+      startAdornment = startAdornment.splice(0, limitTags);
       startAdornment.push(
         <span className={classes.limitTag} key={startAdornment.length}>
           {getLimitTagsText(more)}
         </span>
-      )
+      );
     }
   }
 
@@ -163,9 +163,9 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         {params.children}
       </AutocompleteGroupUl>
     </li>
-  )
+  );
 
-  const renderGroup = renderGroupProp || defaultRenderGroup
+  const renderGroup = renderGroupProp || defaultRenderGroup;
   const defaultRenderOption = (props2, option, { selected, disabled }) => {
     return (
       <MenuItem
@@ -178,27 +178,33 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         avatar={getOptionAvatar(option)}
         showAvatar={showAvatar}
       />
-    )
-  }
-  const renderOption = renderOptionProp || defaultRenderOption
+    );
+  };
+  const renderOption = renderOptionProp || defaultRenderOption;
 
   const renderListOption = (option, index) => {
-    const optionProps = getOptionProps({ option, index })
+    const optionProps = getOptionProps({ option, index });
     return renderOption(
       {
         ...optionProps,
         className: classes.option,
         // @ts-ignore
-        key: option?.value || optionProps?.key,
+        key: option?.value || option?.token || optionProps?.key,
       },
       option,
       {
-        selected: optionProps['aria-selected'],
-        disabled: optionProps['aria-disabled'],
+        selected: optionProps["aria-selected"],
+        disabled: optionProps["aria-disabled"],
         inputValue,
       }
-    )
-  }
+    );
+  };
+
+  const [isPopOpen, setIsPopOpen] = React.useState(false);
+  React.useEffect(() => {
+    if (popupOpen) setIsPopOpen(true);
+    else setTimeout(() => setIsPopOpen(false), 200);
+  }, [popupOpen]);
 
   return (
     <React.Fragment>
@@ -206,7 +212,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         id,
         disabled,
         label,
-        size: size === 'small' ? 'small' : undefined,
+        size: size === "small" ? "small" : undefined,
         ref: setAnchorEl,
         startAdornment,
         className: classes.inputRoot,
@@ -216,7 +222,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
           className: classes.input,
           ...getInputProps(),
           ...(placeholderIsValue && {
-            sx: { '&::placeholder': { opacity: 1 } },
+            sx: { "&::placeholder": { opacity: 1 } },
           }),
         },
         ...((hasClearIcon || hasPopupIcon) && {
@@ -235,6 +241,16 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
               {hasPopupIcon ? (
                 <AutocompletePopupIndicator
                   {...getPopupIndicatorProps()}
+                  // 覆盖 getPopupIndicatorProps 中的 onClick 是为了解决
+                  // 点击此按钮同时触发 getInputProps 中的 onBlur 导致无法关闭的问题
+                  onClick={(e) => {
+                    if (isPopOpen) {
+                      setIsPopOpen(false);
+                    } else {
+                      const { onClick } = getPopupIndicatorProps();
+                      onClick(e);
+                    }
+                  }}
                   disabled={disabled}
                   aria-label={popupOpen ? closeText : openText}
                   title={popupOpen ? closeText : openText}
@@ -270,7 +286,7 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                 role="presentation"
                 onMouseDown={(event) => {
                   // Prevent input blur when interacting with the "no options" content
-                  event.preventDefault()
+                  event.preventDefault();
                 }}
               >
                 {noOptionsText}
@@ -293,9 +309,9 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
                       children: option.options.map((option2, index2) =>
                         renderListOption(option2, option.index + index2)
                       ),
-                    })
+                    });
                   }
-                  return renderListOption(option, index)
+                  return renderListOption(option, index);
                 })}
               </AutocompleteListbox>
             ) : null}
@@ -303,13 +319,13 @@ const Autocomplete: React.FC<IProps> = React.forwardRef((props, ref) => {
         </AutocompletePopper>
       ) : null}
     </React.Fragment>
-  )
-})
+  );
+});
 
 Autocomplete.defaultProps = {
   clearIcon: <CloseIcon />,
-  clearText: 'Clear',
-  closeText: 'Close',
-  openText: '',
-}
-export default Autocomplete
+  clearText: "Clear",
+  closeText: "Close",
+  openText: "",
+};
+export default Autocomplete;
