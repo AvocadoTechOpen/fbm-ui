@@ -395,7 +395,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     maxCount == null ||
     (typeof maxCount === "number" && mergedFileList.length < maxCount) ||
     !showUploadList;
-  const uploadButton = isShowUploadButton && (
+  const uploadButton = (
     <RcUpload
       ref={upload}
       name={name}
@@ -409,6 +409,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       onSuccess={onSuccess}
       onError={onError}
       onProgress={onProgress}
+      style={isShowUploadButton ? {} : { display: "none" }}
       {...captureProps}
     >
       {children}
