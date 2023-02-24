@@ -55,6 +55,7 @@ const FbmPagination: React.FC<FbmPaginationProps> = ({
         count={count}
         page={pageNum}
         onChange={handleChange}
+        siblingCount={otherProps.siblingCount || 5}
         {...otherProps}
       />
     </Root>
