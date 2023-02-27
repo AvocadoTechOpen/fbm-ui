@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect } from 'react';
 import { Pagination, PaginationProps, Box } from '@mui/material';
 import styled from '@mui/material/styles/styled'
+import GoToPage from '../../GoToPage';
 
 export interface FbmPaginationProps extends PaginationProps {
   total: number;
@@ -49,14 +50,22 @@ const FbmPagination: React.FC<FbmPaginationProps> = ({
     }
   }
 
+  const handleChangeGoToPage = (page) => {
+    handleChange(null, page);
+  }
+
   return (
     <Root data-testid='pagination-root'>
       <Pagination
         count={count}
         page={pageNum}
         onChange={handleChange}
+        siblingCount={otherProps.siblingCount || 5}
         {...otherProps}
       />
+      <Box sx={{ position: 'absolute', right: 0, px: 3 }}>
+        <GoToPage key={pageNum} total={count} onChange={handleChangeGoToPage} />
+      </Box>
     </Root>
   )
 }

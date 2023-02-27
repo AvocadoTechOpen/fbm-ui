@@ -1,8 +1,8 @@
-import React, { forwardRef } from 'react'
-import { styled, Box } from '@mui/material'
-import RcUpload, { UploadProps as RcUploadProps } from 'rc-upload'
-import { unstable_composeClasses as composeClasses } from '@mui/base'
-import UploadItems from './UploadList/index'
+import React, { forwardRef } from "react";
+import { styled, Box } from "@mui/material";
+import RcUpload, { UploadProps as RcUploadProps } from "rc-upload";
+import { unstable_composeClasses as composeClasses } from "@mui/base";
+import UploadItems from "./UploadList/index";
 import {
   UploadProps,
   RcFile,
@@ -10,61 +10,61 @@ import {
   UploadChangeParam,
   UploadType,
   UploadListPlace,
-} from './types'
-import { file2Obj, getFileItem, updateFileList, removeFileItem } from './utils'
-import { useMergedState } from '../../hooks'
-import UploadChildrenButton from './UploadChildren/Button'
-import UploadChildrenDragger from './UploadChildren/Dragger'
-import UploadChildrenCube from './UploadChildren/Cube'
-import { getUploadUtilityClass } from './uploadClasses'
+} from "./types";
+import { file2Obj, getFileItem, updateFileList, removeFileItem } from "./utils";
+import { useMergedState } from "../../hooks";
+import UploadChildrenButton from "./UploadChildren/Button";
+import UploadChildrenDragger from "./UploadChildren/Dragger";
+import UploadChildrenCube from "./UploadChildren/Cube";
+import { getUploadUtilityClass } from "./uploadClasses";
 
-const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`
+const LIST_IGNORE = `__LIST_IGNORE_${Date.now()}__`;
 
 const useUtilityClasses = (ownerState) => {
-  const {} = ownerState
+  const {} = ownerState;
 
   const slots = {
-    root: ['root'],
-    button: ['button'],
-    drop: ['drop'],
-    cube: ['cube'],
-    uploadList: ['uploadList'],
-    uploadListItem: ['uploadListItem'],
-    uploadListItemSelected: ['uploadListItemSelected'],
-  }
+    root: ["root"],
+    button: ["button"],
+    drop: ["drop"],
+    cube: ["cube"],
+    uploadList: ["uploadList"],
+    uploadListItem: ["uploadListItem"],
+    uploadListItemSelected: ["uploadListItemSelected"],
+  };
 
-  return composeClasses(slots, getUploadUtilityClass, {})
-}
+  return composeClasses(slots, getUploadUtilityClass, {});
+};
 
 type OwnerState = {
-  type: UploadType
-  uploadListPlace: UploadListPlace
-}
+  type: UploadType;
+  uploadListPlace: UploadListPlace;
+};
 
 const UploadRoot = styled(Box)(({ ownerState }: { ownerState: OwnerState }) => {
   return {
-    ...(ownerState.type === 'cube' && {
-      display: 'flex',
+    ...(ownerState.type === "cube" && {
+      display: "flex",
     }),
-  }
-})
+  };
+});
 
 const UploadListRoot = styled(Box)(
   ({ ownerState }: { ownerState: OwnerState }) => {
-    const { type, uploadListPlace } = ownerState
+    const { type, uploadListPlace } = ownerState;
     return {
-      ...(type === 'cube' && { display: 'flex', flex: true }),
-      ...(type !== 'cube' && {
-        ...(uploadListPlace === 'top' && {
+      ...(type === "cube" && { display: "flex", flex: true }),
+      ...(type !== "cube" && {
+        ...(uploadListPlace === "top" && {
           marginBottom: 10,
         }),
-        ...(uploadListPlace === 'bottom' && {
+        ...(uploadListPlace === "bottom" && {
           marginTop: 10,
         }),
       }),
-    }
+    };
   }
-)
+);
 
 const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
   const {
@@ -81,7 +81,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     maxCount,
     headers,
     showUploadList,
-    uploadListPlace = props.type === 'cube' ? 'before' : 'after',
+    uploadListPlace = props.type === "cube" ? "before" : "after",
     itemRender,
     onChange,
     onRemove,
@@ -93,9 +93,9 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     variant,
     color,
     ...restProps
-  } = props
+  } = props;
 
-  const captureProps = capture != null ? { capture } : {}
+  const captureProps = capture != null ? { capture } : {};
 
   const [mergedFileList, setMergedFileList] = useMergedState(
     defaultFileList || [],
@@ -103,129 +103,129 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       value: fileList,
       postState: (list) => list ?? [],
     }
-  )
+  );
 
-  const [dragState, setDragState] = React.useState<string>('drop')
-  const [uploadedFile, setUploadedFile] = React.useState<UploadFile>()
+  const [dragState, setDragState] = React.useState<string>("drop");
+  const [uploadedFile, setUploadedFile] = React.useState<UploadFile>();
 
-  const upload = React.useRef<any>()
+  const upload = React.useRef<any>();
 
   // 自动填入uid
   React.useMemo(() => {
-    const timestamp = Date.now()
-    ;(fileList || []).forEach((file, index) => {
+    const timestamp = Date.now();
+    (fileList || []).forEach((file, index) => {
       if (!file.uid && !Object.isFrozen(file)) {
-        file.uid = `__AUTO__${timestamp}_${index}__`
+        file.uid = `__AUTO__${timestamp}_${index}__`;
       }
-    })
-  }, [fileList])
+    });
+  }, [fileList]);
 
   const mergedBeforeUpload = async (file: RcFile, fileListArgs: RcFile[]) => {
-    const { beforeUpload } = props
-    let parsedFile: File | Blob | string = file
+    const { beforeUpload } = props;
+    let parsedFile: File | Blob | string = file;
     if (beforeUpload) {
-      const result = await beforeUpload(file, fileListArgs)
+      const result = await beforeUpload(file, fileListArgs);
 
       if (result === false) {
-        return false
+        return false;
       }
 
-      delete (file as any)[LIST_IGNORE]
+      delete (file as any)[LIST_IGNORE];
       if ((result as any) === LIST_IGNORE) {
         Object.defineProperty(file, LIST_IGNORE, {
           value: true,
           configurable: true,
-        })
-        return false
+        });
+        return false;
       }
 
-      if (typeof result === 'object' && result) {
-        parsedFile = result as File
+      if (typeof result === "object" && result) {
+        parsedFile = result as File;
       }
     }
 
-    return parsedFile as RcFile
-  }
+    return parsedFile as RcFile;
+  };
 
   const onInternalChange = (
     file: UploadFile,
     changedFileList: UploadFile[],
     event?: { percent: number }
   ) => {
-    let cloneList = [...changedFileList]
+    let cloneList = [...changedFileList];
 
     if (maxCount === 1) {
-      cloneList = cloneList.slice(-1)
+      cloneList = cloneList.slice(-1);
     } else if (maxCount) {
-      cloneList = cloneList.slice(0, maxCount)
+      cloneList = cloneList.slice(0, maxCount);
     }
-    cloneList = cloneList?.filter((t) => t.status)
-    setMergedFileList(cloneList)
+    cloneList = cloneList?.filter((t) => t.status);
+    setMergedFileList(cloneList);
 
     const changeInfo: UploadChangeParam<UploadFile> = {
       file: file as UploadFile,
       fileList: cloneList,
-    }
+    };
 
     if (event) {
-      changeInfo.event = event
+      changeInfo.event = event;
     }
 
-    setUploadedFile(file)
+    setUploadedFile(file);
 
-    onChange?.(changeInfo)
-  }
+    onChange?.(changeInfo);
+  };
 
-  const onBatchStart: RcUploadProps['onBatchStart'] = (batchFileInfoList) => {
+  const onBatchStart: RcUploadProps["onBatchStart"] = (batchFileInfoList) => {
     const filteredFileInfoList = batchFileInfoList.filter(
       (info) => !(info.file as any)[LIST_IGNORE]
-    )
+    );
     if (!filteredFileInfoList.length) {
-      return
+      return;
     }
 
     const objectFileList = filteredFileInfoList.map((info) =>
       file2Obj(info.file as RcFile)
-    )
-    let newFileList = [...mergedFileList]
+    );
+    let newFileList = [...mergedFileList];
     objectFileList.forEach((fileObj) => {
-      newFileList = updateFileList(fileObj, newFileList)
-    })
+      newFileList = updateFileList(fileObj, newFileList);
+    });
 
     objectFileList.forEach((fileObj, index) => {
-      let triggerFileObj: UploadFile = fileObj
+      let triggerFileObj: UploadFile = fileObj;
 
       if (!filteredFileInfoList[index].parsedFile) {
-        const { originFileObj } = fileObj
-        let clone
+        const { originFileObj } = fileObj;
+        let clone;
 
         try {
           clone = (new File([originFileObj], originFileObj.name, {
             type: originFileObj.type,
-          }) as any) as UploadFile
+          }) as any) as UploadFile;
         } catch (e) {
           clone = (new Blob([originFileObj], {
             type: originFileObj.type,
-          }) as any) as UploadFile
-          clone.name = originFileObj.name
-          clone.lastModifiedDate = new Date()
-          clone.lastModified = new Date().getTime()
+          }) as any) as UploadFile;
+          clone.name = originFileObj.name;
+          clone.lastModifiedDate = new Date();
+          clone.lastModified = new Date().getTime();
         }
 
-        clone.uid = fileObj.uid
-        triggerFileObj = clone
+        clone.uid = fileObj.uid;
+        triggerFileObj = clone;
       } else {
-        fileObj.status = 'uploading'
+        fileObj.status = "uploading";
       }
 
-      onInternalChange(triggerFileObj, newFileList)
-    })
-  }
+      onInternalChange(triggerFileObj, newFileList);
+    });
+  };
 
   const onSuccess = (response: any, file: RcFile, xhr: any) => {
     try {
-      if (typeof response === 'string') {
-        response = JSON.parse(response)
+      if (typeof response === "string") {
+        response = JSON.parse(response);
       }
     } catch (e) {
       /* do nothing */
@@ -233,100 +233,100 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
 
     // removed
     if (!getFileItem(file, mergedFileList)) {
-      return
+      return;
     }
 
-    const targetItem = file2Obj(file)
-    targetItem.status = 'done'
-    targetItem.percent = 100
-    targetItem.response = response
-    targetItem.xhr = xhr
+    const targetItem = file2Obj(file);
+    targetItem.status = "done";
+    targetItem.percent = 100;
+    targetItem.response = response;
+    targetItem.xhr = xhr;
 
-    const nextFileList = updateFileList(targetItem, mergedFileList)
+    const nextFileList = updateFileList(targetItem, mergedFileList);
 
-    onInternalChange(targetItem, nextFileList)
-  }
+    onInternalChange(targetItem, nextFileList);
+  };
 
   const onError = (error: Error, response: any, file: RcFile) => {
     // removed
     if (!getFileItem(file, mergedFileList)) {
-      return
+      return;
     }
 
-    const targetItem = file2Obj(file)
-    targetItem.error = error
-    targetItem.response = response
-    targetItem.status = 'error'
+    const targetItem = file2Obj(file);
+    targetItem.error = error;
+    targetItem.response = response;
+    targetItem.status = "error";
 
-    const nextFileList = updateFileList(targetItem, mergedFileList)
+    const nextFileList = updateFileList(targetItem, mergedFileList);
 
-    onInternalChange(targetItem, nextFileList)
-  }
+    onInternalChange(targetItem, nextFileList);
+  };
 
   const onFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    setDragState(e.type)
+    setDragState(e.type);
 
-    if (e.type === 'drop') {
-      onDrop?.(e)
+    if (e.type === "drop") {
+      onDrop?.(e);
     }
-  }
+  };
 
   const onProgress = (e: { percent: number }, file: RcFile) => {
     // removed
     if (!getFileItem(file, mergedFileList)) {
-      return
+      return;
     }
 
-    const targetItem = file2Obj(file)
-    targetItem.status = 'uploading'
-    targetItem.percent = e.percent
+    const targetItem = file2Obj(file);
+    targetItem.status = "uploading";
+    targetItem.percent = e.percent;
 
-    const nextFileList = updateFileList(targetItem, mergedFileList)
+    const nextFileList = updateFileList(targetItem, mergedFileList);
 
-    onInternalChange(targetItem, nextFileList, e)
-  }
+    onInternalChange(targetItem, nextFileList, e);
+  };
 
   const handleRemove = (file: UploadFile) => {
-    let currentFile: UploadFile
+    let currentFile: UploadFile;
     Promise.resolve(
-      typeof onRemove === 'function' ? onRemove(file) : onRemove
+      typeof onRemove === "function" ? onRemove(file) : onRemove
     ).then((ret) => {
       // Prevent removing file
       if (ret === false) {
-        return
+        return;
       }
 
-      const removedFileList = removeFileItem(file, mergedFileList)
+      const removedFileList = removeFileItem(file, mergedFileList);
 
       if (removedFileList) {
-        currentFile = { ...file, status: 'removed' }
+        currentFile = { ...file, status: "removed" };
         mergedFileList?.forEach((item) => {
-          const matchKey = currentFile.uid !== undefined ? 'uid' : 'name'
+          const matchKey = currentFile.uid !== undefined ? "uid" : "name";
           if (
             item[matchKey] === currentFile[matchKey] &&
             !Object.isFrozen(item)
           ) {
-            item.status = 'removed'
+            item.status = "removed";
           }
-        })
-        upload.current?.abort(currentFile)
+        });
+        upload.current?.abort(currentFile);
 
-        onInternalChange(currentFile, removedFileList)
-        setUploadedFile(undefined) // TODO: 加上它之后是否有副作用
+        onInternalChange(currentFile, removedFileList);
+        setUploadedFile(undefined); // TODO: 加上它之后是否有副作用
       }
-    })
-  }
+    });
+  };
 
   const handleRefresh = (file: UploadFile) => {
-    const uploadFiles = upload?.current?.uploader?.uploadFiles
-    if (!uploadFiles || typeof uploadFiles !== 'function') {
-      return console.warn('uploadFiles方法不存在')
+    const uploadFiles = upload?.current?.uploader?.uploadFiles;
+    if (!uploadFiles || typeof uploadFiles !== "function") {
+      return console.warn("uploadFiles方法不存在");
     }
 
-    uploadFiles([file])
-  }
+    uploadFiles([file]);
+  };
 
-  const handleSelect = () => {}
+  const handleSelect = () => {};
 
   React.useImperativeHandle(ref, () => ({
     onBatchStart,
@@ -336,12 +336,12 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
     fileList: mergedFileList,
     upload: upload.current,
     uploader: upload?.current?.uploader,
-  }))
+  }));
 
-  const classes = useUtilityClasses({})
+  const classes = useUtilityClasses({});
 
-  let children: React.ReactNode = null
-  if (type === 'drop') {
+  let children: React.ReactNode = null;
+  if (type === "drop") {
     children = (
       <UploadChildrenDragger
         className={classes.drop}
@@ -352,8 +352,8 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       >
         {childrenProp}
       </UploadChildrenDragger>
-    )
-  } else if (type === 'cube') {
+    );
+  } else if (type === "cube") {
     children = (
       <UploadChildrenCube
         className={classes.cube}
@@ -362,8 +362,8 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       >
         {childrenProp}
       </UploadChildrenCube>
-    )
-  } else if (type === 'button') {
+    );
+  } else if (type === "button") {
     children = (
       <UploadChildrenButton
         className={classes.button}
@@ -373,28 +373,29 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       >
         {childrenProp}
       </UploadChildrenButton>
-    )
-  } else if (type === 'custom') {
-    if (typeof childrenProp === 'function') {
+    );
+  } else if (type === "custom") {
+    if (typeof childrenProp === "function") {
       children = childrenProp(mergedFileList, {
         handleRemove,
         handleRefresh,
         dragState,
-      })
+      });
     } else {
-      children = childrenProp
+      children = childrenProp;
     }
   }
 
   const ownerState = {
     type,
     uploadListPlace,
-  }
+  };
 
   const isShowUploadButton =
     maxCount == null ||
-    (typeof maxCount === 'number' && mergedFileList.length < maxCount) || !showUploadList
-  const uploadButton = isShowUploadButton && (
+    (typeof maxCount === "number" && mergedFileList.length < maxCount) ||
+    !showUploadList;
+  const uploadButton = (
     <RcUpload
       ref={upload}
       name={name}
@@ -408,11 +409,12 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       onSuccess={onSuccess}
       onError={onError}
       onProgress={onProgress}
+      style={isShowUploadButton ? {} : { display: "none" }}
       {...captureProps}
     >
       {children}
     </RcUpload>
-  )
+  );
 
   const uploadList = showUploadList ? (
     <UploadListRoot
@@ -434,7 +436,7 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
         }}
       />
     </UploadListRoot>
-  ) : null
+  ) : null;
 
   return (
     <UploadRoot
@@ -445,21 +447,21 @@ const Upload: React.FC<UploadProps> = forwardRef((props, ref) => {
       className={classes.root}
       {...restProps}
     >
-      {(uploadListPlace === 'top' || uploadListPlace === 'before') &&
+      {(uploadListPlace === "top" || uploadListPlace === "before") &&
         uploadList}
       {uploadButton}
-      {(uploadListPlace === 'bottom' || uploadListPlace === 'after') &&
+      {(uploadListPlace === "bottom" || uploadListPlace === "after") &&
         uploadList}
     </UploadRoot>
-  )
-})
+  );
+});
 Upload.defaultProps = {
   multiple: false,
-  action: '',
+  action: "",
   data: {},
-  accept: '',
-  type: 'button',
+  accept: "",
+  type: "button",
   showUploadList: true,
-}
+};
 
-export default Upload
+export default Upload;

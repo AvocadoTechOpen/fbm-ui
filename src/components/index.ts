@@ -164,3 +164,6 @@ export * from "./MobileTextField";
 
 // export  { default as TreeView } from './TreeView'
 // export * from './TreeView';
+
+export { default as GoToPage } from "./GoToPage";
+export * from "./GoToPage";

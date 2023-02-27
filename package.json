@@ -1,6 +1,6 @@
 {
   "name": "fbm-ui",
-  "version": "1.4.153",
+  "version": "1.4.157",
   "private": false,
   "description": "React components library",
   "author": "avocado",
@@ -82,6 +82,7 @@
     "fbm-image-crop": "^0.0.3",
     "filesize": "^9.0.11",
     "formik": "2.2.9",
+    "lodash-es": "^4.17.21",
     "material-ui-popup-state": "^2.0.0",
     "moment": "2.29.1",
     "npm": "^8.11.0",
