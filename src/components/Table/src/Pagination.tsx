@@ -64,7 +64,7 @@ const FbmPagination: React.FC<FbmPaginationProps> = ({
         {...otherProps}
       />
       <Box sx={{ position: 'absolute', right: 0, px: 3 }}>
-        <GoToPage total={count} onChange={handleChangeGoToPage} />
+        <GoToPage key={pageNum} total={count} onChange={handleChangeGoToPage} />
       </Box>
     </Root>
   )
