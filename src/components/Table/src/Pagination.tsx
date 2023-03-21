@@ -57,6 +57,7 @@ const FbmPagination: React.FC<FbmPaginationProps> = ({
   return (
     <Root data-testid='pagination-root'>
       <Pagination
+        color="primary"
         count={count}
         page={pageNum}
         onChange={handleChange}
