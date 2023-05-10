@@ -138,18 +138,6 @@ export default {
     }
   },
 
-  MuiPaginationItem: {
-    styleOverrides: {
-      root: {
-        color: 'rgba(0, 0, 0, 0.86)',
-        '&.Mui-selected': {
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          color: palette.primary.main,
-        }
-      },
-    }
-  },
-
   MuiList: {
     styleOverrides: {
       root: {
